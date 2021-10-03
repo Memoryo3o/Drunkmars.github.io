@@ -1,0 +1,504 @@
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d2572d17331f774916a0b01d23167050";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>♂☆♢☼逐鹿泛目录</title>
+<meta name="keywords" content="逐鹿泛目录,寄生虫泛目录,泛目录怎么弄">
+<meta name="description" content="河北逐鹿泛目录来自于【TNT博客】是一款超级泛站群系统，本站提供最新泛目录程序，排名速度快持久稳定，本站是实验站，欢迎关注TNT博客站群系统《逐鹿泛目录》。">
+<link href="/css/style.css"   rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://www.xcybwcl.com/js/zhanshi.js "></script>
+<script type="text/javascript">if(window.location.toString().indexOf('pref=padindex') != -1){}else{if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){if(window.location.href.indexOf("?mobile")<0){try{if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){window.location.href="https://m.qatnt.com/";}else if(/iPad/i.test(navigator.userAgent)){}else{}}catch(e){}}}}</script>
+<script type="text/javascript" src="/js/jquery.min.js"  ></script>
+<script type="text/javascript" src="/js/jquery.XsliderAndRoll.js"  ></script>
+<script type="text/javascript" src="/js/jquery.easing.js"  ></script>
+<script type="text/javascript" src="/js/index.js"  ></script>
+<script>
+(function(){
+		var canonicalURL, curProtocol;
+		//Get the <link> tag
+		var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+		//Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+	    //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+    	!function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+</script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  (function(){
+    var canonicalURL, curProtocol;
+    //Get the <link> tag
+    var x=document.getElementsByTagName("link");
+    //Find the last canonical URL
+    if(x.length > 0){
+      for (i=0;i<x.length;i++){
+        if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+          canonicalURL=x[i].href;
+        }
+      }
+    }
+    //Get protocol
+      if (!canonicalURL){
+        curProtocol = window.location.protocol.split(':')[0];
+      }
+      else{
+        curProtocol = canonicalURL.split(':')[0];
+      }
+      //Get current URL if the canonical URL does not exist
+      if (!canonicalURL) canonicalURL = window.location.href;
+      //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+</script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  (function(){
+    var canonicalURL, curProtocol;
+    //Get the <link> tag
+    var x=document.getElementsByTagName("link");
+    //Find the last canonical URL
+    if(x.length > 0){
+      for (i=0;i<x.length;i++){
+        if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+          canonicalURL=x[i].href;
+        }
+      }
+    }
+    //Get protocol
+      if (!canonicalURL){
+        curProtocol = window.location.protocol.split(':')[0];
+      }
+      else{
+        curProtocol = canonicalURL.split(':')[0];
+      }
+      //Get current URL if the canonical URL does not exist
+      if (!canonicalURL) canonicalURL = window.location.href;
+      //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+</script>
+</head>
+
+<body>
+<div id="chinnerbody" style="position:fixed;left:-9000px;top:-9000px;"><i id="c7ql"><font id="ka4wpvug8e"><span id="fgnqyuxs9d"><ol id="1txcgmuez"><sup id="gcak"></sup></ol><sup id="ed4o256g"></sup></span><ol id="j74h"><sup id="4jvph2e"></sup></ol><sup id="whnq"></sup></font><span id="f2wlq"><ol id="9k12rtu"><sup id="8xh1ikb"></sup></ol><sup id="cdwob"></sup></span><ol id="ze3bgyox"><sup id="dagxy57h"></sup></ol><sup id="fh4d"></sup></i><td id="0qnrv"><thead id="h0e2zwrq"><blockquote id="v3bd8"><optgroup id="tme9bwdz0"><abbr id="0x1yz23eau"></abbr></optgroup><abbr id="m1s5uia"></abbr></blockquote><optgroup id="21vh75gsp"><abbr id="ndx3qkja"></abbr></optgroup><abbr id="a2mn3vy"></abbr></thead><blockquote id="qme2d4"><optgroup id="a5jo0nt7"><abbr id="a04jpo315q"></abbr></optgroup><abbr id="8x3l"></abbr></blockquote><optgroup id="ux2lrsj3pw"><abbr id="dmy"></abbr></optgroup><abbr id="51l8zs"></abbr></td><fieldset id="b9juno"><pre id="xkau"><style id="a32w"><th id="9uqdijbx6"><ul id="cndol6"></ul></th><ul id="thk2xdi"></ul></style><th id="uqh4kd"><ul id="9etfdxns0m"></ul></th><ul id="se3rw5"></ul></pre><style id="1zm2s"><th id="nkgafwu"><ul id="rcw7syz"></ul></th><ul id="m68lrq3"></ul></style><th id="jg4npkc"><ul id="gkaiz3n"></ul></th><ul id="vcozrje7x"></ul></fieldset><strike id="szq1vu0"><code id="71sdb3wg9"><address id="tjcndf"><font id="ckq"><kbd id="h3cv6n"></kbd></font><kbd id="ptijbe"></kbd></address><font id="m623h"><kbd id="hq50e"></kbd></font><kbd id="4hcmi0"></kbd></code><address id="jb5n2rpez7"><font id="l1eo0"><kbd id="ot4erb"></kbd></font><kbd id="tnhv"></kbd></address><font id="gfyzrml"><kbd id="i9q6yc"></kbd></font><kbd id="xfh037po"></kbd></strike><center id="ukq7wrjx"><tr id="hmt"><kbd id="ukc4"><th id="cz72"><blockquote id="vcebt4pm"></blockquote></th><blockquote id="0741mxb"></blockquote></kbd><th id="p9x"><blockquote id="94ngpsj1"></blockquote></th><blockquote id="lrbgiqxkv9"></blockquote></tr><kbd id="glsuic"><th id="y40d1"><blockquote id="4cte"></blockquote></th><blockquote id="67pxb1ajl4"></blockquote></kbd><th id="s3z"><blockquote id="c9xmotrz6"></blockquote></th><blockquote id="csua5"></blockquote></center><th id="eo1b8rsij"><em id="mj5z7c3bgv"><optgroup id="m5k1v06"><em id="tvr25au7"><del id="04n"></del></em><del id="q0mn"></del></optgroup><em id="8awvf1o62n"><del id="xpsd"></del></em><del id="l4fnecxgk"></del></em><optgroup id="xk1j3y47pd"><em id="0anc6muz9"><del id="ltgf81rb"></del></em><del id="4el"></del></optgroup><em id="z7wb"><del id="v1u68yli"></del></em><del id="ka36w"></del></th></div>
+<div id="chinnerbody" style="position:fixed;left:-9000px;top:-9000px;"><i id="h438fi"><font id="vu6"><span id="t89xjewliy"><ol id="601"><sup id="e4v"></sup></ol><sup id="symg"></sup></span><ol id="yfv7jt"><sup id="au1pn3dr"></sup></ol><sup id="v9waq"></sup></font><span id="ki5w4q"><ol id="zan"><sup id="ihbax2n"></sup></ol><sup id="7b0tj63y"></sup></span><ol id="z96"><sup id="gxqyh"></sup></ol><sup id="toh"></sup></i><td id="gwv"><thead id="9wo6ckjf"><blockquote id="63zgk"><optgroup id="omb0gk7lq4"><abbr id="3zn"></abbr></optgroup><abbr id="0odjfgn4t"></abbr></blockquote><optgroup id="s2ptc"><abbr id="50onqkzm"></abbr></optgroup><abbr id="6tvubsx9zl"></abbr></thead><blockquote id="n8stbafc"><optgroup id="94s8yxj"><abbr id="ux308ecr"></abbr></optgroup><abbr id="tql4p"></abbr></blockquote><optgroup id="cfq215r"><abbr id="5d7q"></abbr></optgroup><abbr id="qxndsv9kh"></abbr></td><fieldset id="phgwv5fx83"><pre id="ao6sihyn93"><style id="miyo"><th id="1wm2j48a7"><ul id="xjr2v4mh0"></ul></th><ul id="9fbe3cwvr"></ul></style><th id="posf"><ul id="pkce"></ul></th><ul id="glw1db3"></ul></pre><style id="caqd8"><th id="9kpjw"><ul id="y8opq0kf"></ul></th><ul id="0k1v4yxo98"></ul></style><th id="qlvot7h6e"><ul id="tnvp85"></ul></th><ul id="mac"></ul></fieldset><strike id="136t4759s"><code id="7m68br25uw"><address id="fb1l"><font id="3q4crl"><kbd id="zh518px"></kbd></font><kbd id="oyu"></kbd></address><font id="gzoq"><kbd id="n2mrghdf0"></kbd></font><kbd id="0k589ls"></kbd></code><address id="g5etalbh0o"><font id="noa5dbc"><kbd id="ax3"></kbd></font><kbd id="g9ak7tpfuq"></kbd></address><font id="f7i"><kbd id="tj5arw"></kbd></font><kbd id="46kyq9"></kbd></strike><center id="dhw3o"><tr id="nc30lhyrp"><kbd id="pvodu"><th id="px3k0vby"><blockquote id="zf5lraoc"></blockquote></th><blockquote id="38g5jdoaut"></blockquote></kbd><th id="wd0"><blockquote id="x95dhkq0"></blockquote></th><blockquote id="26m9gr83pa"></blockquote></tr><kbd id="dc85qgr"><th id="49lnpb"><blockquote id="3rb8et6ds"></blockquote></th><blockquote id="yi8lkpe6"></blockquote></kbd><th id="bdm3r"><blockquote id="s25c"></blockquote></th><blockquote id="u3a2"></blockquote></center><th id="cuq"><em id="v10ix2d8"><optgroup id="m3k"><em id="ib5s04z1pl"><del id="p8a4ohlu"></del></em><del id="rz0vbuk5l"></del></optgroup><em id="8j5y"><del id="n6lrjb"></del></em><del id="bf7dh"></del></em><optgroup id="9ce"><em id="6c9h"><del id="e4vn7"></del></em><del id="7l69"></del></optgroup><em id="e17bq3tj94"><del id="ba9i"></del></em><del id="vcfnse"></del></th></div>
+	<div class="all">
+<div class="head">
+<div class="headBox">
+<a href="/index.htm"   title=" "><img title=" " alt=" " src="/images/logo.jpg"   class="logo"/>百万泛目录站群</a><a href="/tel:18981907069"><img src="/images/phone.jpg"   alt="联系电话" title="联系电话" class="phone"/>野马SEO泛目录</a>
+<div class="nav">
+<ul>
+<li id="caidan1"><p><a href="/index.htm"   title="网站首页">站群程序怎么做</a></p></li>
+<li><p><a title="公司简介" href="/gongsijianjie/index.htm"  >黑帽站群程序分享</a></p>
+<span>
+
+<a href="/gongsijianjie/index.htm"  >零距离静态版泛目录</a>
+
+<a href="/gongsijianjie/qiyewenhua/index.htm"  >泛目录还有效果吗</a>
+
+<a href="/gongsijianjie/gongchanglueying/index.htm"  >2021新版零距离泛目录多久收录</a>
+
+<a href="/gongsijianjie/zhiliangrenzheng/index.htm"  >seo泛目录适合做什么站</a>
+
+<a href="/gongsijianjie/fazhanlicheng/index.htm"  >租泛目录</a>
+
+<a href="/gongsijianjie/zuzhijiegou/index.htm"  >组织结构</a>
+
+</span>
+</li><li><p><a title="产品分类" href="/chanpinxilie/index.htm"  >产品分类 </a></p>
+<span>
+
+<a href="/chanpinxilie/tianranhuagangshibaowenyitiban/index.htm"  >保温装饰一体板板系列</a>
+
+</span>
+</li><li><p><a title="典型案例" href="/chenggonganli/index.htm"  >典型案例 </a></p>
+<span>
+
+<a href="/chenggonganli/index.htm"  >成功案例</a>
+
+</span>
+</li><li><p><a title="企业新闻" href="/xinwendongtai/xingyedongtai/index.htm"  >企业新闻 </a></p>
+<span>
+
+<a href="/xinwendongtai/xingyedongtai/xingyedongtai/index.htm"  >四川成都保温装饰一体板</a>
+
+<a href="/xinwendongtai/index.htm"  >集团新闻</a>
+
+</span>
+</li><li><p><a title="人才招聘" href="/rencaizhaopin/index.htm"  >人才招聘 </a></p>
+<span>
+
+<a href="/rencaizhaopin/index.htm"  >人才招聘</a>
+
+</span>
+</li><li><p><a title="联系我们" href="/lianxiwomen/index.htm"  >联系我们 </a></p>
+<span>
+
+<a href="/lianxiwomen1/index.htm"  >联系我们</a>
+
+<a href="/lianxiwomen/zaixianliuyan/index.htm"  >在线留言</a>
+
+</span>
+</li>
+
+</ul>
+<div class="nav-line"></div>
+</div>
+</div>
+</div>
+<style>
+.phone_box{ display:none;}
+@media (max-width: 1099px) {
+	html,body{ height:115%;}
+	.phone_box{ width:100%; position:fixed; bottom:0; left:0; display:block; z-index:999;}
+	.phone_box a{ width:100%; float:left; display:block; height:160px; background:#0089e1; text-align:center; line-height:160px; color:#fff; font-size:6em; border-left:1px solid #fff; margin-left:-1px;}
+	.phone_box a div{ width:100%; margin:auto;}
+	/**.phone_box a img{ width:100%; float:left; margin-top:12px;}*/
+	/**.phone_box a span{ float:left; margin-left:18px;}*/
+}
+</style>
+<div class="phone_box">
+	<!--<a href="/mqqwpa://im/chat?chat_type=wpa&uin=987745926&version=1&src_type=web&web_src=oicqzone.com"><div><img src="/images/ico_8.png"/><span>在线咨询</span></div></a>-->
+	<a href="/tel:18981907069"><div><img src="/images/ico_9.png"  />
+<!--<span>电话咨询</span>-->
+</div></a>
+</div>
+<div class="advert">
+			<div id="banner">
+				<ul id="banner_img">
+					<li style="background:url(/images/ban_1.jpg) no-repeat center">
+						<div class="wrapper">
+							<div class="ad_txt">
+								<p style="font-weight:bold; color:#333; font-size:40px; color:#034776;">四川成都保温装饰一体板专业厂家</p>
+								<span style="color:#eb9689; font-size:17px;">
+								外墙保温装饰板 保温装饰一体化板  四川成都一体化板 无机预涂装饰板 保温复合板<br />
+							    四川成都保温复合板 铝板保温一体板 陶板保温一体板 无机板保温一体板 <br />
+								无机装饰板 铝单板 A级防火 B级防火 岩棉 挤塑板 聚氨酯 聚苯板
+								</span>
+							</div>
+							<div class="ad_img" style="background:url(/images/ban_1.jpg) no-repeat center"></div>
+						</div>
+					</li>		
+					<li style="background:url(/images/ban_1.jpg) no-repeat center">
+						<div class="wrapper">
+							<div class="ad_txt">
+								<p style="font-weight:bold; color:#333; font-size:40px; color:#e2a71b;">四川成都保温装饰一体化板首选品牌</p>
+								<span style="color:#f78236; font-size:17px;">
+								外墙保温装饰板 保温装饰一体化板  四川成都一体化板 保温复合板 四川成都保温复合板 <br />
+								无机预涂装饰板 铝板保温一体板 陶板保温一体板 无机板保温一体板 无保温复合板机装饰板<br />
+							    铝单板 A级防火 B级防火 岩棉 挤塑板 聚氨酯 聚苯板
+								</span>
+							</div>
+							<div class="ad_img" style="background:url(/images/ban_3.jpg) no-repeat center"></div>
+						</div>
+					</li>			
+					
+				</ul>
+				<div id="banner_ctr">
+					<ul>
+						<li></li>
+						<li></li>
+					</ul>
+					<div id="drag_arrow"></div>
+				</div>
+			</div>
+		</div>
+<style>
+.home_caidan{ width:100%; float:left; margin-top:20px; padding-bottom:20px;}
+.home_caidan a{ width:25%; display:block; background:#dfdfdf; float:left; letter-spacing:4px; text-align:center; border-left:2px solid #fff; margin-left:-2px; padding:5px 0; color:#000; font-size:16px;}
+.home_caidan a:first-child{ border:none;}
+.home_caidan a:hover{ background:#034776; color:#fff;}
+</style>
+<div class="home_caidan">
+	<div style="width:1100px; margin:auto">
+		<a href="/chanpinxilie/index.htm"  >四川仿石材保温装饰一体板</a>
+		<a href="/chanpinxilie/index.htm"  >成都铝板保温装饰一体板</a>
+		<a href="/chanpinxilie/index.htm"  >四川氟碳漆保温装饰一体板</a>
+		<a href="/chanpinxilie/index.htm"  >成都陶板保温装饰一体板</a>
+	</div>
+</div>
+		<div class="center">
+			<div class="centerBox">
+				<div class="cen_about">
+					<div class="title"><div>公司简介</div><a title="公司简介" href="/gongsijianjie/index.htm"  ><img src="/images/more.png"   alt="公司简介" title="公司简介" width="37" height="7"/></a></div>
+					<div class="cen_aboutInfo">
+						<a href="/gongsijianjie/index.htm"   title="公司简介"><img alt="公司简介" title="公司简介" src="/uploads/allimg/140826/2-140R6152421G3.jpg"   style=" width:350px; height:210px; float:left; padding:5px 25px 0 0;"/></a>
+
+成都某某某保温材料有限公司位于四川省成都市四川成都蒲江工业园是国内外墙节能保温装饰一体板专业生产厂家，是四川成都保温装饰一体板首选品牌，四川成都保温装饰一体板畅销四川成都市、泸州、宜宾、遂宁、自贡、南充、雅安、甘孜阿坝、达州、西昌、攀枝花、广安、广元、乐山、内江、资阳、绵阳、德阳、都江堰、西藏拉萨、甘肃泸州、重庆、贵州贵阳、云南昆明。四川成都保温装饰一体板：金属氟碳漆保温装饰一体板、氟碳实色漆保温装饰一体板、仿石材保温装饰一体板、多彩真石漆保温装饰一体板、成都保温铝单板、四川薄陶瓷保温装饰一体板、四川成都岩棉一体板、四川成都无机预涂板、四川成都隧道板。四川成都保温装饰一体板的保温层A级防火 B级防火均可，比如：岩棉、聚苯板EPS、聚合聚苯板AEPS、Xps挤塑板、石墨聚苯板SEPS、KMPS板，四川成都保温装一体化板饰面层颜色为：氟碳漆 氟碳真石漆 水保水 氟碳实色漆可以根据设计需要任意烤涂。</br>
+四川成都保温装饰一体板广泛运用于学校、医院、监狱、宾馆、工业园、办公楼、工厂、科研楼、实验室外墙保温装饰工程，深受青睐。</br>
+成都工厂占地面积3万平米，现有员工100多人，设计年生产能力300万平米。
+<a href="/gongsijianjie/index.htm"   style="color:rgb(242,79,0)"> [ 更多 ]</a>
+                        
+					</div>
+				</div>
+				<div class="cen_news">
+					<div class="title"><div>新闻动态</div><a href="/xinwendongtai/index.htm"  ><img title="新闻动态" alt="新闻动态" src="/images/more.png"   width="37" height="7"/></a></div>
+					<div class="cen_newsInfo">
+						<ul class="newslist26">
+
+<li>
+<img src="/uploads/allimg/190213/2-1Z2131K00GO-lp.jpg"   alt="四川保温装饰一体板 成都保温装饰一体板厂家技术要求" title="四川保温装饰一体板 成都保温装饰一体板厂家技术要求" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2019/0213/212.html"   title="四川保温装饰一体板 成都保温装饰一体板厂家技术要求" target="_self" style="font-weight: normal;">四川保温装饰一体板 成都保温装饰一体板厂家技术要求</a>
+<div class="memo" style="display: none;">四川一体板 四川保温一体板 四川保温装饰一体板的尺寸要求 外墙保温装饰一体板（装饰面板）的尺寸要求（允许偏差值）： 长度/mm3 宽度/mm2 厚度/mm0.2 对角线差/mm5 边沿不直度（mm/m）...</div>
+</li>
+<li>
+<img src="/uploads/allimg/190213/2-1Z2131IF1515-lp.jpg"   alt="四川外墙保温一体板 成都保温装饰一体板介绍" title="四川外墙保温一体板 成都保温装饰一体板介绍" width="90px" height="60px">
+<div class="time" style="display: block;">2020.09.12</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2019/0213/210.html"   title="四川外墙保温一体板 成都保温装饰一体板介绍" target="_self" style="font-weight: normal;">四川外墙保温一体板 成都保温装饰一体板介绍</a>
+<div class="memo" style="display: none;">成都一体板 成都保温一体板 成都保温装饰一体板 、无机预涂板 系统介绍 一体板又叫保温装饰一体化板或者又叫外墙保温装饰一体板。外墙保温装饰一体板适用于有节能要求的钢筋混...</div>
+</li>
+<li>
+<img src="/uploads/allimg/190213/2-1Z2131FF1304-lp.jpg"   alt="四川无机板保温装饰一体板PK成都陶瓷保薄板温装饰一体" title="四川无机板保温装饰一体板PK成都陶瓷保薄板温装饰一体" width="90px" height="60px">
+<div class="time" style="display: block;">2020.09.17</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2019/0213/209.html"   title="四川无机板保温装饰一体板PK成都陶瓷保薄板温装饰一体" target="_self" style="font-weight: normal;">四川无机板保温装饰一体板PK成都陶瓷保薄板温装饰一体</a>
+<div class="memo" style="display: none;">四川 成都保温装饰一体板（四川超薄陶瓷保温装饰一体板）的特点 四川超薄陶瓷保温装饰一体板的优点与缺点： 四川成都保温装饰一体板也叫做外墙节能防火保温装饰一体板，在以下...</div>
+</li>
+<li>
+<img src="/uploads/allimg/190213/2-1Z213153210510-lp.jpg"   alt="四川保温装饰一体板 成都保温装饰一体板厂家应遵循的" title="四川保温装饰一体板 成都保温装饰一体板厂家应遵循的" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2019/0213/208.html"   title="四川保温装饰一体板 成都保温装饰一体板厂家应遵循的" target="_self" style="font-weight: normal;">四川保温装饰一体板 成都保温装饰一体板厂家应遵循的</a>
+<div class="memo" style="display: none;">四川成都保温装饰一体板厂家应遵循的施工规范 四川成都保温装饰一体板也叫做外墙节能防火保温装饰一体板，主要使用于建筑外墙体保温装饰，安装方式虽然多种，但不得随意更改整...</div>
+</li>
+<li>
+<img src="/uploads/allimg/171014/2-1G014150U5c2-lp.jpg"   alt=" 成都保温装饰一体板在四川成都 西藏地区使用对基层墙" title=" 成都保温装饰一体板在四川成都 西藏地区使用对基层墙" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/1014/191.html"   title=" 成都保温装饰一体板在四川成都 西藏地区使用对基层墙" target="_self" style="font-weight: normal;"> 成都保温装饰一体板在四川成都 西藏地区使用对基层墙</a>
+<div class="memo" style="display: none;">四川成都南充保温装饰一体板、宜宾泸州自贡遂宁雅安外墙保温装饰板施工体要求：保温装饰一体板、外墙装饰板施工对基层墙体的要求 1、基层墙体抹灰层表面应不起鼓，不掉砂，无剥离；抹...</div>
+</li>
+<li>
+<img src="/uploads/allimg/190212/2-1Z21211312Y54-lp.jpg"   alt="四川保温装饰一体板、成都保温装饰一体板、无机预涂板" title="四川保温装饰一体板、成都保温装饰一体板、无机预涂板" width="90px" height="60px">
+<div class="time" style="display: block;">2020.09.12</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/1010/189.html"   title="四川保温装饰一体板、成都保温装饰一体板、无机预涂板" target="_self" style="font-weight: normal;">四川保温装饰一体板、成都保温装饰一体板、无机预涂板</a>
+<div class="memo" style="display: none;">保温装饰一体板、无机预涂板现场作业对环境的要求 1、不得在大雨、大风、寒冷（4℃以下）、气温较高时等天气条件下施工。 2、在气温较高时施工，保温装饰板在粘贴后4小时以内，...</div>
+</li>
+<li>
+<img src="/uploads/170906/1-1FZ6142419C2.jpg"   alt="四川保温装饰一体板 成都保温装饰一体板在自贡,宜宾泸" title="四川保温装饰一体板 成都保温装饰一体板在自贡,宜宾泸" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/0906/186.html"   title="四川保温装饰一体板 成都保温装饰一体板在自贡,宜宾泸" target="_self" style="font-weight: normal;">四川保温装饰一体板 成都保温装饰一体板在自贡,宜宾泸</a>
+<div class="memo" style="display: none;">四川成都保温装饰一体板、无机预涂板保温复合板运用意义： ： 结构 ：无机板（硅酸钙板）复合节能防火保温层。 无机板仿石材装饰面，氟碳漆定制， 保温层材料A级防火B级防火均可...</div>
+</li>
+<li>
+<img src="/uploads/allimg/170906/1-1FZ6141335404-lp.jpg"   alt="四川外墙保温装饰一体化板在昆明、贵阳、兰州地区使用" title="四川外墙保温装饰一体化板在昆明、贵阳、兰州地区使用" width="90px" height="60px">
+<div class="time" style="display: block;">2019.09.10</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/0906/185.html"   title="四川外墙保温装饰一体化板在昆明、贵阳、兰州地区使用" target="_self" style="font-weight: normal;">四川外墙保温装饰一体化板在昆明、贵阳、兰州地区使用</a>
+<div class="memo" style="display: none;">四川成都石材保温装饰一体化板的使用优势 ： 结构 ：超薄石材（硅酸钙板）复合节能防火保温层。 天然石材、花岗石厚度为6-10mm， 保温层材料A级防火B级防火均可。 特点 ： 综合造价...</div>
+</li>
+<li>
+<img src="/uploads/allimg/170906/1-1FZ6141JQ93-lp.jpg"   alt="成都保温装饰一体化板在泸州 宜宾 自贡 乐山 达州 内江" title="成都保温装饰一体化板在泸州 宜宾 自贡 乐山 达州 内江" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/0906/184.html"   title="成都保温装饰一体化板在泸州 宜宾 自贡 乐山 达州 内江" target="_self" style="font-weight: normal;">成都保温装饰一体化板在泸州 宜宾 自贡 乐山 达州 内江</a>
+<div class="memo" style="display: none;">四川成都保温装饰一体化板、四川成都无机预涂板保温复合板比较 ： 结构 ：无机板（硅酸钙板）复合节能防火保温层。 无机板仿石材装饰面，氟碳漆定制， 保温层材料A级防火B级防火...</div>
+</li>
+<li>
+<img src="/uploads/allimg/170906/1-1FZ6141T5D6-lp.jpg"   alt="四川成都保温一体板、成都保温装饰一体板无机预涂板特" title="四川成都保温一体板、成都保温装饰一体板无机预涂板特" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/0906/183.html"   title="四川成都保温一体板、成都保温装饰一体板无机预涂板特" target="_self" style="font-weight: normal;">四川成都保温一体板、成都保温装饰一体板无机预涂板特</a>
+<div class="memo" style="display: none;">四川成都保温装饰一体板、四川成都无机预涂板保温复合板特点分析 ： 结构 ：无机板（硅酸钙板）复合节能防火保温层。 无机板仿石材装饰面，氟碳漆定制， 保温层材料A级防火B级防...</div>
+</li>
+<li>
+<img src="/uploads/allimg/190214/2-1Z214014A2556-lp.jpg"   alt="四川保温装饰一体板 成都保温装饰一体板、广元 南充" title="四川保温装饰一体板 成都保温装饰一体板、广元 南充" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/0906/182.html"   title="四川保温装饰一体板 成都保温装饰一体板、广元 南充" target="_self" style="font-weight: normal;">四川保温装饰一体板 成都保温装饰一体板、广元 南充</a>
+<div class="memo" style="display: none;">外墙保温装饰一体板、外墙保温复合板特点： 结构 ：铝板（铝合金）复合节能防火保温层。 仿石材装饰面，氟碳漆装饰面定制， 保温层材料A级防火B级防火均可。 特点 ： 综合造价更...</div>
+</li>
+<li>
+<img src="/uploads/allimg/190214/2-1Z214012641134-lp.jpg"   alt="成都保温装饰一体板、成都保温一体板安装施工特点" title="成都保温装饰一体板、成都保温一体板安装施工特点" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2017/0906/180.html"   title="成都保温装饰一体板、成都保温一体板安装施工特点" target="_self" style="font-weight: normal;">成都保温装饰一体板、成都保温一体板安装施工特点</a>
+<div class="memo" style="display: none;">结构：无机板（硅酸钙板）复合节能防火保温层。 无机板仿石材装饰面，氟碳漆定制， 保温层材料A级防火B级防火均可。 规格：1220*2440 特点：综合造价更低。 安装方便可靠，节约资源...</div>
+</li>
+<li>
+<img src="/uploads/allimg/190202/2-1Z20213232Ha-lp.jpg"   alt="四川成都保温装饰一体板在重庆万州、永川、奉节、梁平" title="四川成都保温装饰一体板在重庆万州、永川、奉节、梁平" width="90px" height="60px">
+<div class="time" style="display: block;">2020.04.23</div><a href="/xinwendongtai/xingyedongtai/xingyedongtai/2014/0825/26.html"   title="四川成都保温装饰一体板在重庆万州、永川、奉节、梁平" target="_self" style="font-weight: normal;">四川成都保温装饰一体板在重庆万州、永川、奉节、梁平</a>
+<div class="memo" style="display: none;">四川成都保温装饰一体板，特别是岩棉保温装饰一体板一体化板、 无机预涂板、超薄陶瓷、挤塑板XPS 岩棉、石墨聚苯板SEPS、KMPS在重庆万州、永川、梁平、开州、荣昌、璧山等地区销售火爆....</div>
+</li>
+
+                            
+						</ul>
+					</div>
+				</div>
+				<div class="cen_product">
+					<div class="productShow">
+						<div class="proTitle"><img src="/images/ico_1.jpg"   title="案例展示" alt="案例展示"/><div>案例展示</div><a title="案例展示" href="/chenggonganli/index.htm"  ><img src="/images/more.png"   alt="案例展示" title="案例展示" width="37" height="7"style="float:right; margin:10px 10px 0 0;"/></a></div>
+						<div class="productShowBox">
+							<ul>
+<li><a href="/chenggonganli/index.htm"   title="四川保温装饰一体板/贵阳"><img title="四川保温装饰一体板/贵阳" alt="四川保温装饰一体板/贵阳" src="/uploads/allimg/190217/2-1Z21G31031F3-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川保温装饰一体板/贵阳</span></li>
+<li><a href="/chenggonganli/index.htm"   title="西藏保温装饰一体板/石墨"><img title="西藏保温装饰一体板/石墨" alt="西藏保温装饰一体板/石墨" src="/uploads/allimg/200410/2-200410222224941-lp.jpg"   onload="DrawImage2(this)"/></a><span>西藏保温装饰一体板/石墨</span></li>
+<li><a href="/chenggonganli/index.htm"   title="甘孜阿坝州保温装饰一体"><img title="甘孜阿坝州保温装饰一体" alt="甘孜阿坝州保温装饰一体" src="/uploads/allimg/190212/2-1Z21216122R53-lp.jpg"   onload="DrawImage2(this)"/></a><span>甘孜阿坝州保温装饰一体</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川成都保温装饰一体板"><img title="四川成都保温装饰一体板" alt="四川成都保温装饰一体板" src="/uploads/allimg/190212/2-1Z212160236225-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川成都保温装饰一体板</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川成都保温装饰一体板"><img title="四川成都保温装饰一体板" alt="四川成都保温装饰一体板" src="/uploads/allimg/190212/2-1Z212155F5J2-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川成都保温装饰一体板</span></li>
+<li><a href="/chenggonganli/index.htm"   title="拉萨岩棉保温装饰一体板"><img title="拉萨岩棉保温装饰一体板" alt="拉萨岩棉保温装饰一体板" src="/uploads/allimg/190212/2-1Z21215493RX-lp.jpg"   onload="DrawImage2(this)"/></a><span>拉萨岩棉保温装饰一体板</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川陶瓷薄板保温装饰一"><img title="四川陶瓷薄板保温装饰一" alt="四川陶瓷薄板保温装饰一" src="/uploads/allimg/200411/2-200411101220250-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川陶瓷薄板保温装饰一</span></li>
+<li><a href="/chenggonganli/index.htm"   title="西藏保温装饰一体板/岩棉"><img title="西藏保温装饰一体板/岩棉" alt="西藏保温装饰一体板/岩棉" src="/uploads/allimg/190206/2-1Z2060KKHX-lp.jpg"   onload="DrawImage2(this)"/></a><span>西藏保温装饰一体板/岩棉</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川保温装饰一体化板/自"><img title="四川保温装饰一体化板/自" alt="四川保温装饰一体化板/自" src="/uploads/allimg/200411/2-200411091S5104-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川保温装饰一体化板/自</span></li>
+<li><a href="/chenggonganli/index.htm"   title="成都保温装饰一体板/泸州"><img title="成都保温装饰一体板/泸州" alt="成都保温装饰一体板/泸州" src="/uploads/allimg/171014/2-1G0141UU4942-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都保温装饰一体板/泸州</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川成都岩棉保温装饰一"><img title="四川成都岩棉保温装饰一" alt="四川成都岩棉保温装饰一" src="/uploads/allimg/200411/2-200411103302X7-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川成都岩棉保温装饰一</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川保温装饰一体板/遂宁"><img title="四川保温装饰一体板/遂宁" alt="四川保温装饰一体板/遂宁" src="/uploads/allimg/200410/2-200410225209534-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川保温装饰一体板/遂宁</span></li>
+<li><a href="/chenggonganli/index.htm"   title="西藏保温装饰一体板施工"><img title="西藏保温装饰一体板施工" alt="西藏保温装饰一体板施工" src="/uploads/allimg/160913/2-160913111446363-lp.jpg"   onload="DrawImage2(this)"/></a><span>西藏保温装饰一体板施工</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川氟碳漆保温装饰一体"><img title="四川氟碳漆保温装饰一体" alt="四川氟碳漆保温装饰一体" src="/uploads/allimg/200411/2-20041111014G48-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川氟碳漆保温装饰一体</span></li>
+<li><a href="/chenggonganli/index.htm"   title="成都保温装饰一体板/都江"><img title="成都保温装饰一体板/都江" alt="成都保温装饰一体板/都江" src="/uploads/allimg/160227/2-16022H20JI57-lp.png"   onload="DrawImage2(this)"/></a><span>成都保温装饰一体板/都江</span></li>
+<li><a href="/chenggonganli/index.htm"   title="成都保温装饰一体板/金属"><img title="成都保温装饰一体板/金属" alt="成都保温装饰一体板/金属" src="/uploads/allimg/200416/2-20041616495V00-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都保温装饰一体板/金属</span></li>
+<li><a href="/chenggonganli/index.htm"   title="四川保温装饰一体板/重庆"><img title="四川保温装饰一体板/重庆" alt="四川保温装饰一体板/重庆" src="/uploads/allimg/200412/2-2004120U505412-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川保温装饰一体板/重庆</span></li>
+<li><a href="/chenggonganli/index.htm"   title="成都保温装饰一体板/宜宾"><img title="成都保温装饰一体板/宜宾" alt="成都保温装饰一体板/宜宾" src="/uploads/allimg/200416/2-2004161A924F4-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都保温装饰一体板/宜宾</span></li>
+<li><a href="/chenggonganli/index.htm"   title="成都保温装饰一体板/南充"><img title="成都保温装饰一体板/南充" alt="成都保温装饰一体板/南充" src="/uploads/allimg/200412/2-2004120TJWQ-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都保温装饰一体板/南充</span></li>
+<li><a href="/chenggonganli/index.htm"   title="成都保温装饰一体板/德阳"><img title="成都保温装饰一体板/德阳" alt="成都保温装饰一体板/德阳" src="/uploads/allimg/150525/2-1505251Q5421B-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都保温装饰一体板/德阳</span></li>
+
+							</ul>
+						</div>
+					</div>
+					<div class="productList">
+						<div class="proTitle"><img src="/images/ico_1.jpg"   title="产品系列" alt="产品系列"/><div>产品系列</div><a title="产品系列" href="/chanpinxilie/index.htm"  ><img alt="产品系列" title="产品系列" src="/images/title_1.png"   style="float:right; margin:auto;"/></a></div>
+						<ul>
+
+
+<li style="display:none;"><img src="/images/title2.png"   title="保温装饰一体板板系列" alt="保温装饰一体板板系列"/><a href="/chanpinxilie/tianranhuagangshibaowenyitiban/index.htm"   title="保温装饰一体板板系列">保温装饰一体板板系列</a></li>
+
+
+<li><img src="/images/title2.png"   /><a href="/chanpinxilie/index.htm"  >四川天然花岗石保温一体板</a></li>
+<li><img src="/images/title2.png"   /><a href="/chanpinxilie/index.htm"  >成都铝板保温一体板</a></li>
+<li><img src="/images/title2.png"   /><a href="/chanpinxilie/index.htm"  >四川无机板装饰保温一体板</a></li>
+<li><img src="/images/title2.png"   /><a href="/chanpinxilie/index.htm"  >成都陶板装饰保温一体板</a></li>
+
+						</ul>
+					</div>
+				</div>
+				
+				
+<div class="cen_product">
+<div class="productShow">
+<div class="proTitle"><img src="/images/ico_1.jpg"   title="产品展示" alt="产品展示"/><div>产品展示</div><a title="产品展示" href="/chanpinxilie/index.htm"  ><img src="/images/more.png"   alt="产品展示" title="产品展示" width="37" height="7"style="float:right; margin:10px 10px 0 0;"/></a></div>
+<div class="productShowBox">
+<ul>
+<li><a href="/chanpinxilie/index.htm"   title="<strong>拉萨岩棉保温装饰一体板</strong>"><img title="<strong>拉萨岩棉保温装饰一体板</strong>" alt="<strong>拉萨岩棉保温装饰一体板</strong>" src="/uploads/allimg/200410/2-200410134R4114-lp.jpg" onload="DrawImage2(this)"/></a><span><strong>拉萨岩棉保温装饰一体板</strong></span></li>
+<li><a href="/chanpinxilie/index.htm"   title="西藏真石漆保温装饰一体"><img title="西藏真石漆保温装饰一体" alt="西藏真石漆保温装饰一体" src="/uploads/allimg/200410/2-200410114KBE-lp.jpg"   onload="DrawImage2(this)"/></a><span>西藏真石漆保温装饰一体</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="成都陶瓷薄板保温装饰一"><img title="成都陶瓷薄板保温装饰一" alt="成都陶瓷薄板保温装饰一" src="/uploads/allimg/191015/2-191015163P5912-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都陶瓷薄板保温装饰一</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="四川陶瓷薄板保温装饰一"><img title="四川陶瓷薄板保温装饰一" alt="四川陶瓷薄板保温装饰一" src="/uploads/allimg/200410/2-200410154114U4-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川陶瓷薄板保温装饰一</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="成都南充保温装饰一体板"><img title="成都南充保温装饰一体板" alt="成都南充保温装饰一体板" src="/uploads/allimg/190217/2-1Z21G303025P-lp.png"   onload="DrawImage2(this)"/></a><span>成都南充保温装饰一体板</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="成都铝板保温装饰一体板"><img title="成都铝板保温装饰一体板" alt="成都铝板保温装饰一体板" src="/uploads/allimg/190212/2-1Z212152G0Z0-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都铝板保温装饰一体板</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="西藏保温装饰一体板"><img title="西藏保温装饰一体板" alt="西藏保温装饰一体板" src="/uploads/allimg/190212/2-1Z212152324340-lp.jpg"   onload="DrawImage2(this)"/></a><span>西藏保温装饰一体板</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="金属氟碳漆保温装饰一体"><img title="金属氟碳漆保温装饰一体" alt="金属氟碳漆保温装饰一体" src="/uploads/allimg/190212/2-1Z212151T5112-lp.jpg"   onload="DrawImage2(this)"/></a><span>金属氟碳漆保温装饰一体</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="四川保温装饰一体化板"><img title="四川保温装饰一体化板" alt="四川保温装饰一体化板" src="/uploads/allimg/200410/2-2004101615592S-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川保温装饰一体化板</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="成都陶瓷保温装饰一体板"><img title="成都陶瓷保温装饰一体板" alt="成都陶瓷保温装饰一体板" src="/uploads/allimg/200410/2-2004101A222100-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都陶瓷保温装饰一体板</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="成都岩棉保温装饰一体板"><img title="成都岩棉保温装饰一体板" alt="成都岩棉保温装饰一体板" src="/uploads/allimg/171014/2-1G0141H45GV-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都岩棉保温装饰一体板</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="成都聚合聚苯板保温装饰"><img title="成都聚合聚苯板保温装饰" alt="成都聚合聚苯板保温装饰" src="/uploads/allimg/200410/2-20041014241RI-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都聚合聚苯板保温装饰</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="成都仿石漆保温装饰一体"><img title="成都仿石漆保温装饰一体" alt="成都仿石漆保温装饰一体" src="/uploads/allimg/200410/2-200410143954X7-lp.jpg"   onload="DrawImage2(this)"/></a><span>成都仿石漆保温装饰一体</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="四川聚合聚苯板保温装饰"><img title="四川聚合聚苯板保温装饰" alt="四川聚合聚苯板保温装饰" src="/uploads/allimg/200410/2-200410150K4333-lp.jpg"   onload="DrawImage2(this)"/></a><span>四川聚合聚苯板保温装饰</span></li>
+<li><a href="/chanpinxilie/index.htm"   title="<strong>成都陶瓷薄板KMPS保温一体</strong>"><img title="<strong>成都陶瓷薄板KMPS保温一体</strong>" alt="<strong>成都陶瓷薄板KMPS保温一体</strong>" src="/uploads/allimg/160229/2-16022Z91U33R.jpg" onload="DrawImage2(this)"/></a><span><strong>成都陶瓷薄板KMPS保温一体</strong></span></li>
+<li><a href="/chanpinxilie/index.htm"   title="<strong>铝板保温装饰一体板.保温</strong>"><img title="<strong>铝板保温装饰一体板.保温</strong>" alt="<strong>铝板保温装饰一体板.保温</strong>" src="/uploads/allimg/160229/2-16022Z91K9630.jpg" onload="DrawImage2(this)"/></a><span><strong>铝板保温装饰一体板.保温</strong></span></li>
+<li><a href="/chanpinxilie/index.htm"   title="石墨聚苯板保温装饰一体"><img title="石墨聚苯板保温装饰一体" alt="石墨聚苯板保温装饰一体" src="/uploads/allimg/160229/2-16022Z91AW57.jpg"   onload="DrawImage2(this)"/></a><span>石墨聚苯板保温装饰一体</span></li>
+
+</ul>
+</div>
+</div>
+<div class="productList">
+<div class="proTitle"><img src="/images/ico_1.jpg"   title="发展历程" alt="发展历程"/><div>发展历程</div><a title="发展历程" href="/gongsijianjie/fazhanlicheng/index.htm"  ><img src="/images/more.png"   alt="产品展示" title="产品展示" width="37" height="7"style="float:right; margin:10px 10px 0 0;"/></a></div>
+<div style=" width:100%; float:left; margin-top:15px; line-height:20px;">
+1995年&nbsp;&nbsp;公司成立<br />
+1998年&nbsp;&nbsp;行业内首家导入ISO9000国际质量管理体系并获权威认证<br />
+2000年&nbsp;&nbsp;荣获&ldquo;国家级火炬计划项目&rdquo;<br />
+<div>
+	被授予&ldquo;&nbsp;高新技术企业&rdquo;&ldquo;江西省先进技术企业&rdquo;、&ldquo;江西省质量管理先进企业&rdquo;、&ldquo;南昌地区工业销售30强企业&rdquo;等称号<br />
+	2002年研发生产：保温装饰一体化板、外墙保温装饰板、铝板保温<br />
+	装饰一体板、铝保温复合板并且很快畅销青海、甘肃、西藏等地区和四川乐山、广元、雅安、绵阳、达州、宜宾、泸州、自贡、攀枝花、南充、遂宁......</div>
+<br />
+
+</div>
+</div>
+</div>			
+				
+				
+				
+				
+		  </div>
+	  </div>
+<div class="end">
+<div class="endTop">
+<a href="/lianxiwomen/index.htm"   title="联系我们">联系我们</a><span>|</span>
+<a href="/index.htm"   title="返回首页">返回首页</a><span>|</span>
+<a href="/lianxiwomen/zaixianliuyan/index.htm"   title="给我留言">给我留言</a>
+</div>
+<div class="endLinkImg">
+<a     title="公司邮箱"><img alt="公司邮箱" title="公司邮箱" src="/images/ico_2.jpg"  /></a>
+<a href="/index.htm"   title="公司网址"><img alt="公司网址" title="公司网址" src="/images/ico_3.jpg"  /></a>
+<a href="/lianxiwomen/zaixianliuyan/index.htm"   title="/lianxiwomen/zaixianliuyan/"><img alt="公司微博" title="公司微博" src="/images/ico_4.jpg"  /></a>
+<a href="/tencent://message/?uin=987745926&Site=&Menu=yes" title="QQ客服"><img title="QQ客服" alt="QQ客服" src="/images/ico_5.jpg"  /></a>
+<a      title="成都废铁回收" title="百度搜索"><img  title="百度搜索" alt="百度搜索" src="/images/ico_6.jpg"  /></a>
+</div>
+<div class="endLinkBox">
+<div style="margin:auto; width:1000px; height:auto;">
+<a     title="公司总部" target="_blank">公司总部</a>
+
+</div>
+</div>
+<div class="endLower">
+<div>
+<a href="/index.htm"   title="成都保温装饰一体板厂家">成都保温装饰一体板厂家</a><span>|</span>
+<a href="/index.htm"   title="四川保温装饰一体板价格">四川保温装饰一体板价格</a><span>|</span>
+<a href="/index.htm"   title="四川成都陶瓷薄板保温装饰一体板">四川成都陶瓷薄板保温装饰一体板</a><span>|</span>
+<a href="/index.htm"   title="四川保温一体板价格">四川保温一体板价格</a><span>|</span>
+<a href="/index.htm"   title="成都保温装饰一体板厂家">成都保温装饰一体板厂家</a><span>|</span>
+<a href="/index.htm"   title="西藏保温装饰一体板厂家">西藏保温装饰一体板厂家</a><span>|</span>
+<a href="/index.htm"   title="西藏拉萨保温装饰一体化板">西藏拉萨保温装饰保温一体化板</a><span>|</span>
+<a href="/index.htm"   title="拉萨保温一体板厂家">拉萨保温一体板厂家</a><span>|</span>
+<div>
+
+<div class="endCopy">版权所有 <a href="http://xnianq.cn">寄生虫泛目录|TNT博客泛目录开源版</a> <a href="http://xnianq.cn">☾☹▽逐鹿泛目录</a> Copyright(C)2013-2014 成都某某某保温材料有限公司</div>
+
+</div>
+</div>
+<div id="box-kefu">
+<table border="1" width="100%" style="text-align: center">
+	<tr>
+		<td><a href="http://xxhgy.com">站群程序论坛</a></td>
+		<td><a href="http://izhuizhai.com">黑侠站群</a></td>
+		<td><a href="http://mehmetacik.com">2021年泛目录</a></td>
+		<td><a href="http://raffaeLesesto.com">搜狗站群哪里买</a></td>
+	</tr>
+	<tr>
+		<td><a href="http://xqxxsq.com">飞鸟泛解析泛目录站群</a></td>
+		<td><a href="http://datianfeiye.com">搜狗泛目录租用</a></td>
+		<td><a href="http://www.fixourt.com">seo黑帽排名</a></td>
+		<td><a href="http://www.zanpinku.com">泛目录怎么收录</a></td>
+	</tr>
+</table>
+</body>
+<script type="text/javascript" src="/js/fashionfoucs.js"  ></script>
+</html>
+

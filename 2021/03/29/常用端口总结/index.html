@@ -1,0 +1,2797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Drunkmars">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Drunkmars">
+    
+        <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="这里会介绍n种渗透过程中会用到的端口，对每种端口可能利用的漏洞进行了详细的分析。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用端口总结">
+<meta property="og:url" content="http://example.com/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Drunkmars">
+<meta property="og:description" content="这里会介绍n种渗透过程中会用到的端口，对每种端口可能利用的漏洞进行了详细的分析。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-21T15:41:43.934Z">
+<meta property="article:author" content="Drunkmars">
+<meta property="article:tag" content="web渗透">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>常用端口总结 · Drunkmars&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Drunkmars's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Drunkmars&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">常用端口总结</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                常用端口总结
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">5.1k</span>阅读时长: <span class="post-count reading-time">19 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/03/29</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>这里会介绍n种渗透过程中会用到的端口，对每种端口可能利用的漏洞进行了详细的分析。</p>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>服务</th>
+<th>入侵方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21</td>
+<td>ftp/tftp/vsftpd文件传输协议</td>
+<td>爆破/嗅探/溢出/后门</td>
+</tr>
+<tr>
+<td>22</td>
+<td>ssh远程连接</td>
+<td>爆破/openssh漏洞</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Telnet远程连接</td>
+<td>爆破/嗅探/弱口令</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP邮件服务</td>
+<td>邮件伪造</td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS域名解析系统</td>
+<td>域传送/劫持/缓存投毒/欺骗</td>
+</tr>
+<tr>
+<td>67/68</td>
+<td>dhcp服务</td>
+<td>劫持/欺骗</td>
+</tr>
+<tr>
+<td>110</td>
+<td>pop3</td>
+<td>爆破/嗅探</td>
+</tr>
+<tr>
+<td>139</td>
+<td>Samba服务</td>
+<td>爆破/未授权访问/远程命令执行</td>
+</tr>
+<tr>
+<td>143</td>
+<td>Imap协议</td>
+<td>爆破</td>
+</tr>
+<tr>
+<td>161</td>
+<td>SNMP协议</td>
+<td>爆破/搜集目标内网信息</td>
+</tr>
+<tr>
+<td>389</td>
+<td>Ldap目录访问协议</td>
+<td>注入/未授权访问/弱口令</td>
+</tr>
+<tr>
+<td>445</td>
+<td>smb</td>
+<td>ms17-010/端口溢出</td>
+</tr>
+<tr>
+<td>512/513/514</td>
+<td>Linux Rexec服务</td>
+<td>爆破/Rlogin登陆</td>
+</tr>
+<tr>
+<td>873</td>
+<td>Rsync服务</td>
+<td>文件上传/未授权访问</td>
+</tr>
+<tr>
+<td>1080</td>
+<td>socket</td>
+<td>爆破</td>
+</tr>
+<tr>
+<td>1352</td>
+<td>Lotus domino邮件服务</td>
+<td>爆破/信息泄漏</td>
+</tr>
+<tr>
+<td>1433</td>
+<td>mssql</td>
+<td>爆破/注入/SA弱口令</td>
+</tr>
+<tr>
+<td>1521</td>
+<td>oracle</td>
+<td>爆破/注入/TNS爆破/反弹shell</td>
+</tr>
+<tr>
+<td>2049</td>
+<td>Nfs服务</td>
+<td>配置不当</td>
+</tr>
+<tr>
+<td>2181</td>
+<td>zookeeper服务</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>2375</td>
+<td>docker remote api</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>mysql</td>
+<td>爆破/注入</td>
+</tr>
+<tr>
+<td>3389</td>
+<td>Rdp远程桌面链接</td>
+<td>爆破/shift后门</td>
+</tr>
+<tr>
+<td>4848</td>
+<td>GlassFish控制台</td>
+<td>爆破/认证绕过</td>
+</tr>
+<tr>
+<td>5000</td>
+<td>sybase/DB2数据库</td>
+<td>爆破/注入/提权</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>postgresql</td>
+<td>爆破/注入/缓冲区溢出</td>
+</tr>
+<tr>
+<td>5632</td>
+<td>pcanywhere服务</td>
+<td>抓密码/代码执行</td>
+</tr>
+<tr>
+<td>5900</td>
+<td>vnc</td>
+<td>爆破/认证绕过</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>Redis数据库</td>
+<td>未授权访问/爆破</td>
+</tr>
+<tr>
+<td>7001/7002</td>
+<td>weblogic</td>
+<td>java反序列化/控制台弱口令</td>
+</tr>
+<tr>
+<td>80/443</td>
+<td>http/https</td>
+<td>web应用漏洞/心脏滴血</td>
+</tr>
+<tr>
+<td>8069</td>
+<td>zabbix服务</td>
+<td>远程命令执行/注入</td>
+</tr>
+<tr>
+<td>8161</td>
+<td>activemq</td>
+<td>弱口令/写文件</td>
+</tr>
+<tr>
+<td>8080/8089</td>
+<td>Jboss/Tomcat/Resin</td>
+<td>爆破/PUT文件上传/反序列化</td>
+</tr>
+<tr>
+<td>8083/8086</td>
+<td>influxDB</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>9000</td>
+<td>fastcgi</td>
+<td>远程命令执行</td>
+</tr>
+<tr>
+<td>9090</td>
+<td>Websphere控制台</td>
+<td>爆破/java反序列化/弱口令</td>
+</tr>
+<tr>
+<td>9200/9300</td>
+<td>elasticsearch</td>
+<td>远程代码执行</td>
+</tr>
+<tr>
+<td>11211</td>
+<td>memcached</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>27017/27018</td>
+<td>mongodb</td>
+<td>未授权访问/爆破</td>
+</tr>
+</tbody></table>
+<h2 id="21端口渗透剖析"><a href="#21端口渗透剖析" class="headerlink" title="21端口渗透剖析"></a>21端口渗透剖析</h2><p>FTP通常用作对远程服务器进行管理，典型应用就是对web系统进行管理。一旦FTP密码泄露就直接威胁web系统安全，甚至黑客通过提权可以直接控制服务器。这里剖析渗透FTP服务器的几种方法。</p>
+<p>（1）基础爆破：ftp爆破工具很多，例如Bruter,hydra以及msf中的ftp爆破模块。</p>
+<p>（2） ftp匿名访问：用户名：anonymous 密码：为空或者任意邮箱</p>
+<p>（3）后门vsftpd ：version<br>2到2.3.4存在后门漏洞，攻击者可以通过该漏洞获取root权限。(<a target="_blank" rel="noopener" href="https://www.freebuf.com/column/143480.html">https://www.freebuf.com/column/143480.html</a>)</p>
+<p>（4）嗅探：ftp使用明文传输技术（但是嗅探给予局域网并需要欺骗或监听网关）,使用Cain进行渗透。</p>
+<p>（5）ftp远程代码溢出。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42214273/article/details/82892282">https://blog.csdn.net/weixin_42214273/article/details/82892282</a>)</p>
+<p>（6）ftp跳转攻击。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/mgxcool/article/details/48249473">https://blog.csdn.net/mgxcool/article/details/48249473</a>)</p>
+<h2 id="22端口渗透剖析"><a href="#22端口渗透剖析" class="headerlink" title="22端口渗透剖析"></a>22端口渗透剖析</h2><p>SSH 是协议，通常使用 OpenSSH 软件实现协议应用。SSH 为 Secure Shell 的缩写，由IETF 的网络工作小组（Network Working Group）所制定；SSH为建立在应用层和传输层基础上的安全协议。SSH是目前较可靠，专为远程登录会话和其它网络服务提供安全性的协议。利用 SSH协议可以有效防止远程管理过程中的信息泄露问题。</p>
+<p>（1）弱口令，可使用工具hydra，msf中的ssh爆破模块。</p>
+<p>（2）防火墙SSH后门。(<a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/69093.html">https://www.secpulse.com/archives/69093.html</a>)</p>
+<p>（3）28退格 OpenSSL</p>
+<p>（4）openssh 用户枚举<br>CVE-2018-15473。(<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/157607">https://www.anquanke.com/post/id/157607</a>)</p>
+<h2 id="23端口渗透剖析"><a href="#23端口渗透剖析" class="headerlink" title="23端口渗透剖析"></a>23端口渗透剖析</h2><p>telnet是一种旧的远程管理方式，使用telnet工具登录系统过程中，网络上传输的用户和密码都是以明文方式传送的，黑客可使用嗅探技术截获到此类密码。</p>
+<p>（1）暴力破解技术是常用的技术，使用hydra,或者msf中telnet模块对其进行破解。</p>
+<p>（2）在linux系统中一般采用SSH进行远程访问，传输的敏感数据都是经过加密的。而对于windows下的telnet来说是脆弱的，因为默认没有经过任何加密就在网络中进行传输。使用cain等嗅探工具可轻松截获远程登录密码。</p>
+<h2 id="25-465端口渗透剖析"><a href="#25-465端口渗透剖析" class="headerlink" title="25/465端口渗透剖析"></a>25/465端口渗透剖析</h2><p>smtp：邮件协议，在linux中默认开启这个服务，可以向对方发送钓鱼邮件</p>
+<p>默认端口：25（smtp）、465（smtps）</p>
+<p>（1）爆破：弱口令</p>
+<p>（2）未授权访问</p>
+<h2 id="53端口渗透剖析"><a href="#53端口渗透剖析" class="headerlink" title="53端口渗透剖析"></a>53端口渗透剖析</h2><p>53端口是DNS域名服务器的通信端口，通常用于域名解析。也是网络中非常关键的服务器之一。这类服务器容易受到攻击。对于此端口的渗透，一般有三种方式。</p>
+<p>（1）使用DNS远程溢出漏洞直接对其主机进行溢出攻击，成功后可直接获得系统权限。(<a target="_blank" rel="noopener" href="https://www.seebug.org/vuldb/ssvid-96718">https://www.seebug.org/vuldb/ssvid-96718</a>)</p>
+<p>（2）使用DNS欺骗攻击，可对DNS域名服务器进行欺骗，如果黑客再配合网页木马进行挂马攻击，无疑是一种杀伤力很强的攻击，黑客可不费吹灰之力就控制内网的大部分主机。这也是内网渗透惯用的技法之一。</p>
+<p>（3）拒绝服务攻击，利用拒绝服务攻击可快速的导致目标服务器运行缓慢，甚至网络瘫痪。如果使用拒绝服务攻击其DNS服务器。将导致用该服务器进行域名解析的用户无法正常上网。(<a target="_blank" rel="noopener" href="http://www.edu.cn/xxh/fei/zxz/201503/t20150305_1235269.shtml">http://www.edu.cn/xxh/fei/zxz/201503/t20150305_1235269.shtml</a>)</p>
+<p>（4）DNS劫持。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32447301/article/details/77542474">https://blog.csdn.net/qq_32447301/article/details/77542474</a>)</p>
+<h2 id="80端口渗透剖析"><a href="#80端口渗透剖析" class="headerlink" title="80端口渗透剖析"></a>80端口渗透剖析</h2><p>80端口通常提供web服务。目前黑客对80端口的攻击典型是采用SQL注入的攻击方法，脚本渗透技术也是一项综合性极高的web渗透技术，同时脚本渗透技术对80端口也构成严重的威胁。</p>
+<p>（1）对于windows2000的IIS5.0版本，黑客使用远程溢出直接对远程主机进行溢出攻击，成功后直接获得系统权限。</p>
+<p>（2）对于windows2000中IIS5.0版本，黑客也尝试利用‘Microsoft<br>IISCGI’文件名错误解码漏洞攻击。使用X-SCAN可直接探测到IIS漏洞。</p>
+<p>（3）IIS写权限漏洞是由于IIS配置不当造成的安全问题，攻击者可向存在此类漏洞的服务器上传恶意代码，比如上传脚本木马扩大控制权限。</p>
+<p>（4）普通的http封包是没有经过加密就在网络中传输的，这样就可通过嗅探类工具截取到敏感的数据。如使用Cain工具完成此类渗透。</p>
+<p>（5）80端口的攻击，更多的是采用脚本渗透技术，利用web应用程序的漏洞进行渗透是目前很流行的攻击方式。</p>
+<p>（6）对于渗透只开放80端口的服务器来说，难度很大。利用端口复用工具可解决此类技术难题。</p>
+<p>（7）CC攻击效果不及DDOS效果明显，但是对于攻击一些小型web站点还是比较有用的。CC攻击可使目标站点运行缓慢，页面无法打开，有时还会爆出web程序的绝对路径。</p>
+<h2 id="135端口渗透剖析"><a href="#135端口渗透剖析" class="headerlink" title="135端口渗透剖析"></a>135端口渗透剖析</h2><p>135端口主要用于使用RPC协议并提供DCOM服务，通过RPC可以保证在一台计算机上运行的程序可以顺利地执行远程计算机上的代码；使用DCOM可以通过网络直接进行通信，能够跨包括HTTP协议在内的多种网络传输。同时这个端口也爆出过不少漏洞，最严重的就是缓冲区溢出漏洞，曾经疯狂一时的‘冲击波’病毒就是利用这个漏洞进行传播的。对于135端口的渗透，黑客的渗透方法为:</p>
+<p>（1）查找存在RPC溢出的主机，进行远程溢出攻击，直接获得系统权限。如用‘DSScan’扫描存在此漏洞的主机。对存在漏洞的主机可使用‘ms05011.exe’进行溢出，溢出成功后获得系统权限。(<a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/68b3340c79563c1ec5da710a.html">https://wenku.baidu.com/view/68b3340c79563c1ec5da710a.html</a>)</p>
+<p>（2）扫描存在弱口令的135主机，利用RPC远程过程调用开启telnet服务并登录telnet执行系统命令。系统弱口令的扫描一般使用hydra。对于telnet服务的开启可使用工具kali链接。(<a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/c8b96ae2700abb68a982fbdf.html">https://wenku.baidu.com/view/c8b96ae2700abb68a982fbdf.html</a>)</p>
+<h2 id="139-445端口渗透剖析"><a href="#139-445端口渗透剖析" class="headerlink" title="139/445端口渗透剖析"></a>139/445端口渗透剖析</h2><p>139端口是为‘NetBIOS SessionService’提供的，主要用于提供windows文件和打印机共享以及UNIX中的Samba服务。445端口也用于提供windows文件和打印机共享，在内网环境中使用的很广泛。这两个端口同样属于重点攻击对象，139/445端口曾出现过许多严重级别的漏洞。下面剖析渗透此类端口的基本思路。</p>
+<p>（1）对于开放139/445端口的主机，一般尝试利用溢出漏洞对远程主机进行溢出攻击，成功后直接获得系统权限。利用msf的ms-017永恒之蓝。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41880069/article/details/82908131">https://blog.csdn.net/qq_41880069/article/details/82908131</a>)</p>
+<p>（2）对于攻击只开放445端口的主机，黑客一般使用工具‘MS06040’或‘MS08067’.可使用专用的445端口扫描器进行扫描。NS08067溢出工具对windows2003系统的溢出十分有效，工具基本使用参数在cmd下会有提示。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/god_7z1/article/details/6773652">https://blog.csdn.net/god_7z1/article/details/6773652</a>)</p>
+<p>（3）对于开放139/445端口的主机，黑客一般使用IPC$进行渗透。在没有使用特点的账户和密码进行空连接时，权限是最小的。获得系统特定账户和密码成为提升权限的关键了，比如获得administrator账户的口令。(<a target="_blank" rel="noopener" href="https://blog.warhut.cn/dmbj/145.html">https://blog.warhut.cn/dmbj/145.html</a>)</p>
+<p>（4）对于开放139/445端口的主机，可利用共享获取敏感信息，这也是内网渗透中收集信息的基本途径。</p>
+<h2 id="1433端口渗透剖析"><a href="#1433端口渗透剖析" class="headerlink" title="1433端口渗透剖析"></a>1433端口渗透剖析</h2><p>1433是SQLServer默认的端口，SQL Server服务使用两个端口：tcp-1433、UDP-1434.其中1433用于供SQLServer对外提供服务，1434用于向请求者返回SQLServer使用了哪些TCP/IP端口。1433端口通常遭到黑客的攻击，而且攻击的方式层出不穷。最严重的莫过于远程溢出漏洞了，如由于SQL注射攻击的兴起，各类数据库时刻面临着安全威胁。利用SQL注射技术对数据库进行渗透是目前比较流行的攻击方式，此类技术属于脚本渗透技术。</p>
+<p>（1）对于开放1433端口的SQL Server2000的数据库服务器，黑客尝试使用远程溢出漏洞对主机进行溢出测试，成功后直接获得系统权限。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/gxj022/article/details/4593015">https://blog.csdn.net/gxj022/article/details/4593015</a>)</p>
+<p>（2）暴力破解技术是一项经典的技术。一般破解的对象都是SA用户。通过字典破解的方式很快破解出SA的密码。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/kali_linux/article/details/50499576">https://blog.csdn.net/kali_linux/article/details/50499576</a>)</p>
+<p>（3）嗅探技术同样能嗅探到SQL Server的登录密码。</p>
+<p>（4）由于脚本程序编写的不严密，例如，程序员对参数过滤不严等，这都会造成严重的注射漏洞。通过SQL注射可间接性的对数据库服务器进行渗透，通过调用一些存储过程执行系统命令。可以使用SQL综合利用工具完成。</p>
+<h2 id="1521端口渗透剖析"><a href="#1521端口渗透剖析" class="headerlink" title="1521端口渗透剖析"></a>1521端口渗透剖析</h2><p>1521是大型数据库Oracle的默认监听端口，估计新手还对此端口比较陌生，平时大家接触的比较多的是Access，MSSQL以及MYSQL这三种数据库。一般大型站点才会部署这种比较昂贵的数据库系统。对于渗透这种比较复杂的数据库系统，黑客的思路如下：</p>
+<p>（1）Oracle拥有非常多的默认用户名和密码，为了获得数据库系统的访问权限，破解数据库系统用户以及密码是黑客必须攻破的一道安全防线。</p>
+<p>（2）SQL注射同样对Oracle十分有效，通过注射可获得数据库的敏感信息，包括管理员密码等。</p>
+<p>（3）在注入点直接创建java，执行系统命令。</p>
+<p>（4）(<a target="_blank" rel="noopener" href="https://www.leiphone.com/news/201711/JjzXFp46zEPMvJod.html">https://www.leiphone.com/news/201711/JjzXFp46zEPMvJod.html</a>)</p>
+<h2 id="2049端口渗透剖析"><a href="#2049端口渗透剖析" class="headerlink" title="2049端口渗透剖析"></a>2049端口渗透剖析</h2><p>NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系统中的一种，它允许网络中的计算机之间通过TCP/IP网络共享资源。在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，就像访问本地文件一样。如今NFS具备了防止被利用导出文件夹的功能，但遗留系统中的NFS服务配置不当，则仍可能遭到恶意攻击者的利用。</p>
+<p>未授权访问。(<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/159468.html">https://www.freebuf.com/articles/network/159468.html</a>)</p>
+<h2 id="3306端口渗透剖析"><a href="#3306端口渗透剖析" class="headerlink" title="3306端口渗透剖析"></a>3306端口渗透剖析</h2><p>3306是MYSQL数据库默认的监听端口，通常部署在中型web系统中。在国内LAMP的配置是非常流行的，对于php+mysql构架的攻击也是属于比较热门的话题。mysql数据库允许用户使用自定义函数功能，这使得黑客可编写恶意的自定义函数对服务器进行渗透，最后取得服务器最高权限。对于3306端口的渗透，黑客的方法如下:</p>
+<p>（1）由于管理者安全意识淡薄，通常管理密码设置过于简单，甚至为空口令。使用破解软件很容易破解此类密码，利用破解的密码登录远程mysql数据库，上传构造的恶意UDF自定义函数代码进行注册，通过调用注册的恶意函数执行系统命令。或者向web目录导出恶意的脚本程序，以控制整个web系统。</p>
+<p>（2）功能强大的‘cain’同样支持对3306端口的嗅探，同时嗅探也是渗透思路的一种。</p>
+<p>（3）SQL注入同样对mysql数据库威胁巨大，不仅可以获取数据库的敏感信息，还可使用load_file()函数读取系统的敏感配置文件或者从web数据库链接文件中获得root口令等，导出恶意代码到指定路径等。</p>
+<h2 id="3389端口渗透剖析"><a href="#3389端口渗透剖析" class="headerlink" title="3389端口渗透剖析"></a>3389端口渗透剖析</h2><p>3389是windows远程桌面服务默认监听的端口，管理员通过远程桌面对服务器进行维护，这给管理工作带来的极大的方便。通常此端口也是黑客们较为感兴趣的端口之一，利用它可对远程服务器进行控制，而且不需要另外安装额外的软件，实现方法比较简单。当然这也是系统合法的服务，通常是不会被杀毒软件所查杀的。使用‘输入法漏洞’进行渗透。</p>
+<p>（1）对于windows2000的旧系统版本，使用‘输入法漏洞’进行渗透。</p>
+<p>（2）cain是一款超级的渗透工具，同样支持对3389端口的嗅探。</p>
+<p>（3）Shift粘滞键后门：5次shift后门</p>
+<p>（4）社会工程学通常是最可怕的攻击技术，如果管理者的一切习惯和规律被黑客摸透的话，那么他管理的网络系统会因为他的弱点被渗透。</p>
+<p>（5）爆破3389端口，使用hydra爆破工具。</p>
+<p>（6）ms12_020死亡蓝屏攻击。(<a target="_blank" rel="noopener" href="https://www.cnblogs.com/R-Hacker/p/9178066.html">https://www.cnblogs.com/R-Hacker/p/9178066.html</a>)</p>
+<p>（7）(<a target="_blank" rel="noopener" href="https://www.cnblogs.com/backlion/p/9429738.html">https://www.cnblogs.com/backlion/p/9429738.html</a>)</p>
+<h2 id="4899端口渗透剖析"><a href="#4899端口渗透剖析" class="headerlink" title="4899端口渗透剖析"></a>4899端口渗透剖析</h2><p>4899端口是remoteadministrator远程控制软件默认监听的端口，也就是平时常说的radmini影子。radmini目前支持TCP/IP协议，应用十分广泛，在很多服务器上都会看到该款软件的影子。对于此软件的渗透，思路如下：</p>
+<p>（1）radmini同样存在不少弱口令的主机，通过专用扫描器可探测到此类存在漏洞的主机。</p>
+<p>（2）radmini远控的连接密码和端口都是写入到注册表系统中的，通过使用webshell注册表读取功能可读取radmini在注册表的各项键值内容，从而破解加密的密码散列。</p>
+<h2 id="5432端口渗透剖析"><a href="#5432端口渗透剖析" class="headerlink" title="5432端口渗透剖析"></a>5432端口渗透剖析</h2><p>PostgreSQL是一种特性非常齐全的自由软件的对象–关系型数据库管理系统，可以说是目前世界上最先进，功能最强大的自由数据库管理系统。包括kali系统中msf也使用这个数据库；浅谈postgresql数据库攻击技术，大部分关于它的攻击依旧是sql注入，所以注入才是数据库不变的话题。</p>
+<p>（1）爆破：弱口令：postgres postgres</p>
+<p>（2）缓冲区溢出：CVE-2014-2669。(<a target="_blank" rel="noopener" href="http://drops.xmd5.com/static/drops/tips-6449.html">http://drops.xmd5.com/static/drops/tips-6449.html</a>)</p>
+<p>（3）远程代码执行：CVE-2018-1058。(<a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/69153.html">https://www.secpulse.com/archives/69153.html</a>)</p>
+<h2 id="5631端口渗透剖析"><a href="#5631端口渗透剖析" class="headerlink" title="5631端口渗透剖析"></a>5631端口渗透剖析</h2><p>5631端口是著名远程控制软件pcanywhere的默认监听端口，同时也是世界领先的远程控制软件。利用此软件，用户可以有效管理计算机并快速解决技术支持问题。由于软件的设计缺陷，使得黑客可随意下载保存连接密码的*.cif文件，通过专用破解软件进行破解。这些操作都必须在拥有一定权限下才可完成，至少通过脚本渗透获得一个webshell。通常这些操作在黑客界被称为pcanywhere提权技术。</p>
+<p>PcAnyWhere提权。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/Fly_hps/article/details/80377199">https://blog.csdn.net/Fly_hps/article/details/80377199</a>)</p>
+<h2 id="5900端口渗透剖析"><a href="#5900端口渗透剖析" class="headerlink" title="5900端口渗透剖析"></a>5900端口渗透剖析</h2><p>5900端口是优秀远程控制软件VNC的默认监听端口，此软件由著名的AT&amp;T的欧洲研究实验室开发的。VNC是在基于unix和linux操作系统的免费的开放源码软件，远程控制能力强大，高效实用，其性能可以和windows和MAC中的任何一款控制软件媲美。对于该端口的渗透，思路如下：</p>
+<p>（1）VNC软件存在密码验证绕过漏洞，此高危漏洞可以使得恶意攻击者不需要密码就可以登录到一个远程系统。</p>
+<p>（2）cain同样支持对VNC的嗅探，同时支持端口修改。</p>
+<p>（3）VNC的配置信息同样被写入注册表系统中，其中包括连接的密码和端口。利用webshell的注册表读取功能进行读取加密算法，然后破解。</p>
+<p>（4）VNC拒绝服务攻击（CVE-2015-5239）。(<a target="_blank" rel="noopener" href="http://blogs.360.cn/post/vnc%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9Ecve-2015-5239%E5%88%86%E6%9E%90.html">http://blogs.360.cn/post/vnc%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9Ecve-2015-5239%E5%88%86%E6%9E%90.html</a>)</p>
+<p>（5）VNC权限提升（CVE-2013-6886）。</p>
+<h2 id="6379端口渗透剖析"><a href="#6379端口渗透剖析" class="headerlink" title="6379端口渗透剖析"></a>6379端口渗透剖析</h2><p>Redis是一个开源的使用c语言写的，支持网络、可基于内存亦可持久化的日志型、key-value数据库。关于这个数据库这两年还是很火的，暴露出来的问题也很多，特别是未授权访问。</p>
+<p>（1）爆破：弱口令</p>
+<p>（2）未授权访问+配合ssh key提权。(<a target="_blank" rel="noopener" href="http://www.alloyteam.com/2017/07/12910/">http://www.alloyteam.com/2017/07/12910/</a>)</p>
+<h2 id="7001-7002端口渗透剖析"><a href="#7001-7002端口渗透剖析" class="headerlink" title="7001/7002端口渗透剖析"></a>7001/7002端口渗透剖析</h2><p>7001/7002通常是weblogic中间件端口</p>
+<p>（1）弱口令、爆破，弱密码一般为weblogic/Oracle@123 or weblogic</p>
+<p>（2）管理后台部署 war 后门</p>
+<p>（3）SSRF</p>
+<p>（4）反序列化漏洞</p>
+<p>（5）weblogic_uac：</p>
+<p>(<a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/tree/master/weblogic/ssrf">https://github.com/vulhub/vulhub/tree/master/weblogic/ssrf</a>)</p>
+<p>(<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-224954.htm">https://bbs.pediy.com/thread-224954.htm</a>)</p>
+<p>(<a target="_blank" rel="noopener" href="https://fuping.site/2017/06/05/Weblogic-Vulnerability-Verification/">https://fuping.site/2017/06/05/Weblogic-Vulnerability-Verification/</a>)</p>
+<p>(<a target="_blank" rel="noopener" href="https://blog.gdssecurity.com/labs/2015/3/30/weblogic-ssrf-and-xss-cve-2014-4241-cve-2014-4210-cve-2014-4.html">https://blog.gdssecurity.com/labs/2015/3/30/weblogic-ssrf-and-xss-cve-2014-4241-cve-2014-4210-cve-2014-4.html</a>)</p>
+<h2 id="8080端口渗透剖析"><a href="#8080端口渗透剖析" class="headerlink" title="8080端口渗透剖析"></a>8080端口渗透剖析</h2><p>8080端口通常是apache_Tomcat服务器默认监听端口，apache是世界使用排名第一的web服务器。国内很多大型系统都是使用apache服务器，对于这种大型服务器的渗透，主要有以下方法：</p>
+<p>（1）Tomcat远程代码执行漏洞(<a target="_blank" rel="noopener" href="https://www.freebuf.com/column/159200.html">https://www.freebuf.com/column/159200.html</a>)</p>
+<p>（2）Tomcat任意文件上传。</p>
+<p>（3）Tomcat远程代码执行&amp;信息泄露。(<a target="_blank" rel="noopener" href="https://paper.seebug.org/399/">https://paper.seebug.org/399/</a>)</p>
+<p>（4）Jboss远程代码执行。(<a target="_blank" rel="noopener" href="http://mobile.www.cnblogs.com/Safe3/archive/2010/01/08/1642371.html">http://mobile.www.cnblogs.com/Safe3/archive/2010/01/08/1642371.html</a>)</p>
+<p>（5）Jboss反序列化漏洞。(<a target="_blank" rel="noopener" href="https://www.zybuluo.com/websec007/note/838374">https://www.zybuluo.com/websec007/note/838374</a>)</p>
+<p>（6）Jboss漏洞利用。(<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011215939/article/details/79141624">https://blog.csdn.net/u011215939/article/details/79141624</a>)</p>
+<h2 id="27017端口渗透剖析"><a href="#27017端口渗透剖析" class="headerlink" title="27017端口渗透剖析"></a>27017端口渗透剖析</h2><p>MongoDB，NoSQL数据库；攻击方法与其他数据库类似</p>
+<p>（1）爆破：弱口令</p>
+<p>（2）未授权访问；(<a target="_blank" rel="noopener" href="http://www.cnblogs.com/LittleHann/p/6252421.html">http://www.cnblogs.com/LittleHann/p/6252421.html</a>)</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://example.com">Drunkmars</a>
+            <p>原文链接：<a href="http://example.com/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">http://example.com/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/</a>
+            <p>发表日期：<a href="http://example.com/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">March 29th 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://example.com/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">May 21st 2021, 11:41:43 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/" title="IPC命令&计划任务上线">
+                    <div class="nextTitle">IPC命令&计划任务上线</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/" title="mysql离线解析密码">
+                    <div class="prevTitle">mysql离线解析密码</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:drunkmars@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Drunkmars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://twitter.com/Drunkmars404" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#21%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">21端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">22端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">23端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25-465%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">25&#x2F;465端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#53%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">53端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#80%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">6.</span> <span class="toc-text">80端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#135%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">7.</span> <span class="toc-text">135端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#139-445%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">8.</span> <span class="toc-text">139&#x2F;445端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1433%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">9.</span> <span class="toc-text">1433端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1521%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">10.</span> <span class="toc-text">1521端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2049%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">11.</span> <span class="toc-text">2049端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3306%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">12.</span> <span class="toc-text">3306端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3389%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">13.</span> <span class="toc-text">3389端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4899%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">14.</span> <span class="toc-text">4899端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5432%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">15.</span> <span class="toc-text">5432端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5631%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">16.</span> <span class="toc-text">5631端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5900%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">17.</span> <span class="toc-text">5900端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6379%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">18.</span> <span class="toc-text">6379端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7001-7002%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">19.</span> <span class="toc-text">7001&#x2F;7002端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8080%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">20.</span> <span class="toc-text">8080端口渗透剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#27017%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E5%89%96%E6%9E%90"><span class="toc-number">21.</span> <span class="toc-text">27017端口渗透剖析</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 75
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2088 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span>
+            <a class="archive-post-title" href="/2088/08/08/readme/">README</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/nullptr/">NULL、0、nullptr 区别分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span>
+            <a class="archive-post-title" href="/2021/07/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5/">线程同步与线程互斥</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/win32/">win32</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span>
+            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2021/06/11/certutil%E6%8E%A2%E7%A9%B6/">certutil探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span>
+            <a class="archive-post-title" href="/2021/06/10/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%80%BB%E7%BB%93/">横向移动总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/09</span>
+            <a class="archive-post-title" href="/2021/06/09/mimikatz/">从mimikatz抓取密码学习攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span>
+            <a class="archive-post-title" href="/2021/06/03/C++/">C++</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/%E7%BC%96%E5%86%99exp/">如何编写属于自己的第一个exp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2021/05/28/moonsec/">vulnhub靶场实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span>
+            <a class="archive-post-title" href="/2021/05/27/5%E6%9C%88%E7%A2%8E%E7%A2%8E%E5%BF%B5/">5月碎碎念</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span>
+            <a class="archive-post-title" href="/2021/05/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%BC%B9shell%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%8Abypass/">渗透测试中弹shell的多种方式及bypass</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/CVE-2020-1472%E8%AF%A6%E8%A7%A3/">CVE-2020-1472详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2021/05/23/%E4%BB%8E%E5%A4%96%E5%9B%B4%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%8B%BF%E4%B8%8B%E5%9F%9F%E6%8E%A7/">从外围打点到内网渗透拿下域控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/2021/05/19/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%90%91%E6%97%A5%E8%91%B5%E5%A6%99%E7%94%A8/">内网渗透之向日葵妙用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/CVE-2020-0796%E5%88%86%E6%9E%90%E5%8F%8A%E5%88%A9%E7%94%A8/">CVE-2020-0796分析及利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">MS17_010检测及打法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E7%AC%AC%E4%B8%80%E6%AC%A1hvv%E6%80%BB%E7%BB%93/">第一次hvv总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/jboss%E4%B9%8BJMXInvokerServlet%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8/">jboss之JMXInvokerServlet反序列化漏洞分析利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/">内网穿透的n种姿势</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0bypass%E5%AE%89%E5%85%A8%E7%8B%97/">文件上传bypass安全狗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/cs%E5%8A%A0%E8%BD%BD%E5%AE%8F%E4%B8%8A%E7%BA%BF%E5%88%9D%E6%8E%A2/">cs加载宏上线初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/2021/04/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BDPAPI%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0/">内网渗透之DPAPI机制学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">隐藏用户的创建和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span>
+            <a class="archive-post-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">利用卷影拷贝服务提取ntds.dit</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span>
+            <a class="archive-post-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">中间人攻击之arp欺骗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">浅谈域渗透中组策略及gpp运用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span>
+            <a class="archive-post-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">thinkphp漏洞分析与总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">msf使用详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%B6%85%E8%AF%A6%E7%BB%86sqlmap%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">sql注入之超详细sqlmap使用攻略</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/">windows认证解读</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/">phpmyadmin页面getshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">kerberos协议&漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2021/04/04/Stega/">Stega</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/03</span>
+            <a class="archive-post-title" href="/2021/04/03/PE/">PE</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span>
+            <a class="archive-post-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck2/">attck3</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck3/">attck2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck4/">attck4</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck5/">attck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/tomcat/">tomcat漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span>
+            <a class="archive-post-title" href="/2021/03/31/struts2/">struts2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">IPC命令&计划任务上线</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span>
+            <a class="archive-post-title" href="/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">常用端口总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/">mysql离线解析密码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E7%BB%95%E8%BF%87CDN%E6%89%BE%E6%BA%90%E7%AB%99ip/">绕过CDN找源站ip</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E8%AE%B0%E4%B8%80%E6%AC%A1php%E3%80%81sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E4%B8%80%E9%81%93ctf%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A2%98%E5%A4%8D%E7%9B%98/">记一次php、sql注入学习后的一道ctf代码审计题复盘</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span>
+            <a class="archive-post-title" href="/2021/03/26/%E5%B0%8F%E7%99%BD%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1sql%E5%AE%9E%E6%88%98/">小白的第一次sql实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/crackme001/">crackme001</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/redis/">crackme004</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/spring/">crackme002</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/weblogic/">crackme003</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/%E7%AA%83%E5%8F%96hash/">crackme005</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span>
+            <a class="archive-post-title" href="/2021/03/21/certutil&wmic%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87/">certutil&wmic绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/php/">php漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/vps-java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">vps-java环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/Joomla/">Joomla框架搭建&远程代码执行(RCE)漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/2021/03/14/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80JCC%E6%8C%87%E4%BB%A4%E8%A1%A8/">汇编JCC指令表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D/">写在最前</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="private">
+                <span class="iconfont-archer">&#xe606;</span>
+                private
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内网渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                内网渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cve">
+                <span class="iconfont-archer">&#xe606;</span>
+                cve
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cms">
+                <span class="iconfont-archer">&#xe606;</span>
+                cms
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                web渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="kerberos">
+                <span class="iconfont-archer">&#xe606;</span>
+                kerberos
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="域渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                域渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="提权">
+                <span class="iconfont-archer">&#xe606;</span>
+                提权
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cobalt strike">
+                <span class="iconfont-archer">&#xe606;</span>
+                cobalt strike
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apt">
+                <span class="iconfont-archer">&#xe606;</span>
+                apt
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="oa">
+                <span class="iconfont-archer">&#xe606;</span>
+                oa
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="msf命令">
+                <span class="iconfont-archer">&#xe606;</span>
+                msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sql">
+                <span class="iconfont-archer">&#xe606;</span>
+                sql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="thinkphp">
+                <span class="iconfont-archer">&#xe606;</span>
+                thinkphp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows api">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows api
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bypass">
+                <span class="iconfont-archer">&#xe606;</span>
+                bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hvv">
+                <span class="iconfont-archer">&#xe606;</span>
+                hvv
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="权限维持">
+                <span class="iconfont-archer">&#xe606;</span>
+                权限维持
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Drunkmars"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

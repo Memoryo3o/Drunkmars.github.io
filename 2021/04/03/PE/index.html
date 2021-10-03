@@ -1,0 +1,3006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Drunkmars">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Drunkmars">
+    
+        <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="c语言的部分基本完成，进到pe结构的学习，按照惯例开一帖记录一些知识点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PE">
+<meta property="og:url" content="http://example.com/2021/04/03/PE/index.html">
+<meta property="og:site_name" content="Drunkmars">
+<meta property="og:description" content="c语言的部分基本完成，进到pe结构的学习，按照惯例开一帖记录一些知识点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/PE/76620b9c89d468bec962e077af427750.png">
+<meta property="og:image" content="http://example.com/images/PE/90526be38960e779fd22db1219e1a5f2.png">
+<meta property="og:image" content="http://example.com/images/PE/e3808d63a80f85e1f3c3d7b15e417a6b.png">
+<meta property="og:image" content="http://example.com/images/PE/dd2a3784d3c7f8717fb1aaecdc20d727.png">
+<meta property="og:image" content="http://example.com/images/PE/468facd3d27a03385942367e5682766f.png">
+<meta property="og:image" content="http://example.com/images/PE/b58495839ef27a1238507297ad19e094.png">
+<meta property="og:image" content="http://example.com/images/PE/d400f79d39ddbe6a6f7a1552bb4c0b08.png">
+<meta property="og:image" content="http://example.com/images/PE/d7ef8d562a152062ecc7acba4315ad4e.png">
+<meta property="og:image" content="http://example.com/images/PE/9025d9b3e7c7f9520daba62541fd944e.png">
+<meta property="og:image" content="http://example.com/images/PE/b826d372081952fbbe1df688e3adcbe7.png">
+<meta property="og:image" content="http://example.com/images/PE/cdf33b630fda77e04da5792d4ba4e998.png">
+<meta property="og:image" content="http://example.com/images/PE/b928594ca534e174090267f7fc3a00f7.png">
+<meta property="og:image" content="http://example.com/images/PE/1dd62ac76c83c8636bf9a6606ccc346d.png">
+<meta property="og:image" content="http://example.com/images/PE/643cfa43eb834c6a81f6eb164c7d2d61.png">
+<meta property="og:image" content="http://example.com/images/PE/7dea0f964f03c9d42523c601acf26615.png">
+<meta property="og:image" content="http://example.com/images/PE/552d42c67e34f776e483237b33c7e353.png">
+<meta property="og:image" content="http://example.com/images/PE/e626a070fafde86f0614fb8002f8de4c.png">
+<meta property="og:image" content="http://example.com/images/PE/b54e5125a3ed2b2c62947e4c1ab66af1.png">
+<meta property="og:image" content="http://example.com/images/PE/2b19472858935207c98b1567d67ce4ce.png">
+<meta property="og:image" content="http://example.com/images/PE/07d11c4cf52464970d31f6d72e001f42.png">
+<meta property="og:image" content="http://example.com/images/PE/d623ccfb1f8470f7d8302fb0e30c1afa.png">
+<meta property="og:image" content="http://example.com/images/PE/5aa11fcbe7e62bfeda6560a9c312b2dc.png">
+<meta property="og:image" content="http://example.com/images/PE/ce5f1fedc08fff457dad76af33e8183b.png">
+<meta property="og:image" content="http://example.com/images/PE/e5099e6c63bba4d1955c007bd6d4c0a1.png">
+<meta property="og:image" content="http://example.com/images/PE/10e384bf13e35c47a9ce6764dd24dd30.png">
+<meta property="og:image" content="http://example.com/images/PE/5ef4f609b1e0c53c7bc9ad3a0e1b90cd.png">
+<meta property="og:image" content="http://example.com/images/PE/060359170544757ab7a1262e6c657a09.png">
+<meta property="og:image" content="http://example.com/images/PE/301c4217ba3c51a77f96e59f6ace0dc5.png">
+<meta property="og:image" content="http://example.com/images/PE/3262735e9590ae18fd8f38e55c09caa7.png">
+<meta property="og:image" content="http://example.com/images/PE/0efdaa69fdc96b033eaadbffe343e152.png">
+<meta property="og:image" content="http://example.com/images/PE/39fdac9da6183600e6c9a62d4e8667ed.png">
+<meta property="og:image" content="http://example.com/images/PE/ab04759f57ba025603c8fc2c42822610.png">
+<meta property="og:image" content="http://example.com/images/PE/6a3957109a8ccd5e8bc5be3a63842a86.png">
+<meta property="og:image" content="http://example.com/images/PE/62e43004a010e6abcb76551f472bc391.png">
+<meta property="og:image" content="http://example.com/images/PE/f2f6b702e413e7eb91320732d8cbfed8.png">
+<meta property="og:image" content="http://example.com/images/PE/ffa34626495b53a5094198beedae6f59.png">
+<meta property="og:image" content="http://example.com/images/PE/b315bea6273bf4e206d896258166d35a.png">
+<meta property="og:image" content="http://example.com/images/PE/5027efe4dec069a2b8010f8210c5f8ea.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603232712797.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603233129847.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603233324239.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603232914999.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603232934305.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603233434723.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603233520833.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603233747633.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603233825200.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603234004956.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603234028616.png">
+<meta property="og:image" content="http://example.com/images/PE/e2220b56f37a4ad96d569d609f644dd3.png">
+<meta property="og:image" content="http://example.com/images/PE/e09ea83f093166cf1c81020335593269.png">
+<meta property="og:image" content="http://example.com/images/PE/31893a727168785c133b8f52dcb248c6.png">
+<meta property="og:image" content="http://example.com/images/PE/e96cf15caa1578f09e3d2e7b9576ba9f.png">
+<meta property="og:image" content="http://example.com/images/PE/df1acefe7b7665a0bef353ce6022f46f.png">
+<meta property="og:image" content="http://example.com/images/PE/fb7973cb87c79be2e724fac47a3cd950.png">
+<meta property="og:image" content="http://example.com/images/PE/ca9e72906f715fbfe1058de99bf346b1.png">
+<meta property="og:image" content="http://example.com/images/PE/8589943a31cb1add90b2fe561769b22d.png">
+<meta property="og:image" content="http://example.com/images/PE/7b7d6e4b2938eeab2bd26356b95d7475.png">
+<meta property="og:image" content="http://example.com/images/PE/f2b41568deba1eb74c9ff5a6f4d7a4fa.png">
+<meta property="og:image" content="http://example.com/images/PE/8c743a2db1842120389501a29133daf0.png">
+<meta property="og:image" content="http://example.com/images/PE/6188d5cf595cb98f0035174eb0326e7d.png">
+<meta property="og:image" content="http://example.com/images/PE/0eff2788c663eb3f44a571c348c6303f.png">
+<meta property="og:image" content="http://example.com/images/PE/7704afd5f1edb3e80f0b967de56fd728.png">
+<meta property="og:image" content="http://example.com/images/PE/85fd81e8338bbed39f07ef5f2e49bcac.png">
+<meta property="og:image" content="http://example.com/images/PE/d191e36698c928019aed24cd97411613.png">
+<meta property="og:image" content="http://example.com/images/PE/39ebdb00a86515d19ce37e51c9efc4a9.png">
+<meta property="og:image" content="http://example.com/images/PE/bf1def674ac6a71df3475bd4f6aab2aa.png">
+<meta property="og:image" content="http://example.com/images/PE/1efa216855a3d2c91785457f6c2e70e5.png">
+<meta property="og:image" content="http://example.com/images/PE/be2d4b90ddc90dafe7c9c1087932a345.png">
+<meta property="og:image" content="http://example.com/images/PE/8fef917242e16c259a27f3d4d326e0d2.png">
+<meta property="og:image" content="http://example.com/images/PE/7a4a70e572c6fe70f9c07be38b551774.png">
+<meta property="og:image" content="http://example.com/images/PE/9dca5b5de0541cfeb4f8bdebe68510b7.png">
+<meta property="og:image" content="http://example.com/images/PE/518fe9e5008a9d07ffc79f8fe46eec18.png">
+<meta property="og:image" content="http://example.com/images/PE/502054c0734e90afe4515cc16d0c132c.png">
+<meta property="og:image" content="http://example.com/images/PE/b474d9343ebaee1b358c42f351c95948.png">
+<meta property="og:image" content="http://example.com/images/PE/d47c8b56f0d027c72ad47cd1b48d37eb.png">
+<meta property="og:image" content="http://example.com/images/PE/888113fa01233ab3a92cc61e80632d6d.png">
+<meta property="og:image" content="http://example.com/images/PE/d0c5b0affebb1a720d51be5041240e2e.png">
+<meta property="og:image" content="http://example.com/images/PE/42da71691cd411c70db24824540bf6d6.png">
+<meta property="og:image" content="http://example.com/images/PE/a7bd4fdd044f4bd664c7a9c243df1399.png">
+<meta property="og:image" content="http://example.com/images/PE/69e5c4bee0ea7fd67d06678826ccc2ef.png">
+<meta property="og:image" content="http://example.com/images/PE/b3ce192d1640546754c5a2abf2b0e904.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603153037335.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603153233911.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603153402317.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603154147994.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603154156784.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603154326755.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603154337676.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603154409185.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210603154459737.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210531160209856.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210531160316079.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210531162321161.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210531162529777.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210531163613777.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210601114348673.png">
+<meta property="og:image" content="http://example.com/images/PE/image-20210601115147473.png">
+<meta property="article:published_time" content="2021-04-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-05T11:53:25.236Z">
+<meta property="article:author" content="Drunkmars">
+<meta property="article:tag" content="二进制">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/PE/76620b9c89d468bec962e077af427750.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>PE · Drunkmars&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Drunkmars's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Drunkmars&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">PE</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                PE
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">5.6k</span>阅读时长: <span class="post-count reading-time">22 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/04/03</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>c语言的部分基本完成，进到pe结构的学习，按照惯例开一帖记录一些知识点。</p>
+<span id="more"></span>
+
+<h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><h2 id="算术移位指令"><a href="#算术移位指令" class="headerlink" title="算术移位指令"></a>算术移位指令</h2><p>SAL：算术左移</p>
+<p>SAR：算数右移</p>
+<p><img src="/images/PE/76620b9c89d468bec962e077af427750.png"></p>
+<h2 id="逻辑移位指令"><a href="#逻辑移位指令" class="headerlink" title="逻辑移位指令"></a>逻辑移位指令</h2><p>SHL：逻辑左移</p>
+<p>SHR：逻辑右移</p>
+<p><img src="/images/PE/90526be38960e779fd22db1219e1a5f2.png"></p>
+<h2 id="循环移位指令"><a href="#循环移位指令" class="headerlink" title="循环移位指令"></a>循环移位指令</h2><p>ROL：循环左移</p>
+<p>ROR：循环右移</p>
+<p><img src="/images/PE/e3808d63a80f85e1f3c3d7b15e417a6b.png"></p>
+<h2 id="带进位的循环移位指令"><a href="#带进位的循环移位指令" class="headerlink" title="带进位的循环移位指令"></a>带进位的循环移位指令</h2><p>RCL：带进位循环左移</p>
+<p>RCR：带进位循环右移</p>
+<p><img src="/images/PE/dd2a3784d3c7f8717fb1aaecdc20d727.png"></p>
+<h1 id="位移运算"><a href="#位移运算" class="headerlink" title="位移运算"></a>位移运算</h1><p>1、与运算 &amp;</p>
+<p>2、或运算 |</p>
+<p>3、非运算 ~</p>
+<p>4、异或运算 ^</p>
+<p>5、移位运算 &lt;&lt; &gt;&gt;</p>
+<p>有符号数、无符号数往左位移 反汇编为shl</p>
+<p><img src="/images/PE/468facd3d27a03385942367e5682766f.png"></p>
+<p>有符号数、无符号数往右位移 反汇编为shr</p>
+<p><img src="/images/PE/b58495839ef27a1238507297ad19e094.png"></p>
+<h1 id="内存分配，文件读写"><a href="#内存分配，文件读写" class="headerlink" title="内存分配，文件读写"></a>内存分配，文件读写</h1><p>宏定义说明</p>
+<p>一、无参数的宏定义的一般形式为：# define 标识符 字符序列</p>
+<p>如:# define TRUE 1</p>
+<p> define PI 3.1415926</p>
+<p>注意事项：</p>
+<p>1、只作字符序列的替换工作，不作任何语法的检查</p>
+<p>2、如果宏定义不当，错误要到预处理之后的编译阶段才能发现</p>
+<p>二、带参数宏定义：#define 标识符(参数表)字符序列</p>
+<p> define MAX(A，B) ((A) &gt; (B)?(A):(B))</p>
+<p>代码 x＝ MAX( p， q)将被替换成 y＝((p) &gt;(q)?(p):(q))</p>
+<p>注意：</p>
+<p>1、宏名标识符与左圆括号之间不允许有空白符，应紧接在一起</p>
+<p>2、宏与函数的区别：函数分配额外的堆栈空间，而宏只是替换</p>
+<p>3、为了避免出错，宏定义中给形参加上括号</p>
+<p>4、末尾不需要分号</p>
+<h1 id="函数汇总"><a href="#函数汇总" class="headerlink" title="函数汇总"></a>函数汇总</h1><h2 id="malloc"><a href="#malloc" class="headerlink" title="malloc()"></a>malloc()</h2><p>返回一个指针 ，指向已分配大小的内存。如果请求失败，则返回 NULL</p>
+<p>需要在头文件声明#include &lt;string.h&gt; #include &lt;stdlib.h&gt;</p>
+<p>1、使用sizeof(类型)*n 来定义申请内存的大小</p>
+<p>2、malloc返回类型为void*类型 需要强制转换</p>
+<p>3、无论申请的内存有多小 一定要判断是否申请成功</p>
+<p>4、申请完空间后要记得初始化</p>
+<p>5、使用完一定要是否申请的空间</p>
+<p>6、将指针的值设置为NULL</p>
+<h2 id="memset"><a href="#memset" class="headerlink" title="memset()"></a>memset()</h2><p>memset(void *str, int c, size_t n) 复制字符 c（一个无符号字符）到参数<br>str 所指向的字符串的前 n 个字符。</p>
+<p><img src="/images/PE/d400f79d39ddbe6a6f7a1552bb4c0b08.png"></p>
+<h2 id="memcpy"><a href="#memcpy" class="headerlink" title="memcpy()"></a>memcpy()</h2><p>void *memcpy(void *str1, const void *str2, size_t n) 从存储区 str2<br>复制 n 个字节到存储区 str1</p>
+<p>参数</p>
+<ul>
+<li><p>  str1 – 指向用于存储复制内容的目标数组，类型强制转换为 void* 指针。</p>
+</li>
+<li><p>  str2 – 指向要复制的数据源，类型强制转换为 void* 指针。</p>
+</li>
+<li><p>  n – 要被复制的字节数。</p>
+</li>
+</ul>
+<p><strong>返回值</strong></p>
+<p>该函数返回一个指向目标存储区 str1 的指针</p>
+<h2 id="fopen"><a href="#fopen" class="headerlink" title="fopen()"></a>fopen()</h2><p>打开文件</p>
+<p>FILE *fopen(char *filename, char *mode);</p>
+<p>filename为文件名（包括文件路径），mode为打开方式，它们都是字符串</p>
+<h2 id="fseek"><a href="#fseek" class="headerlink" title="fseek()"></a>fseek()</h2><p>移动文件流的读写位置</p>
+<p>int fseek(FILE * stream, long offset, int whence)</p>
+<p>1、参数stream 为已打开的文件指针<br>2、参数offset 为根据参数whence 来移动读写位置的位移数。参数 whence<br>为下列其中一种:<br>SEEK_SET 从距文件开头offset 位移量为新的读写位置. SEEK_CUR 以目前的读写位置往后增加offset 个位移量.<br>SEEK_END 将读写位置指向文件尾后再增加offset 个位移量. 当whence 值为SEEK_CUR 或<br>SEEK_END 时, 参数offset 允许负值的出现</p>
+<p>下列是较特别的使用方式：  </p>
+<ol>
+<li>欲将读写位置移动到文件开头时:fseek(FILE *stream, 0, SEEK_SET);  </li>
+<li>欲将读写位置移动到文件尾时:fseek(FILE *stream, 0, 0SEEK_END);  </li>
+</ol>
+<p>返回值：当调用成功时则返回0, 若有错误则返回-1, errno 会存放错误代码  </p>
+<p>附加说明：fseek()不像lseek()会返回读写位置,<br>因此必须使用ftell()来取得目前读写的位置</p>
+<h2 id="ftell"><a href="#ftell" class="headerlink" title="ftell()"></a>ftell()</h2><p>获取文件读写指针的当前位置</p>
+<p>long ftell(FILE * stream);</p>
+<p>成功则返回当前的读写位置，失败返回 -1。  </p>
+<p>对于二进制文件，则返回从文件开头到结尾的字节数。  </p>
+<p>对于文本文件，返回的数值可能没有实际意义，但仍然可以用来保存当前的读写位置，供<br>fseek() 函数使用</p>
+<h2 id="fclose"><a href="#fclose" class="headerlink" title="fclose()"></a>fclose()</h2><p>关闭一个流</p>
+<p>int fclose( FILE *fp );</p>
+<p>如果流成功关闭，fclose 返回 0，否则返回-1。（如果流为NULL，而且程序可以继续执行，fclose设定error number给EINVAL，并返回-1。）</p>
+<h2 id="fread"><a href="#fread" class="headerlink" title="fread()"></a>fread()</h2><p>size_t n = fread(void *ptr, size_t size, size_t nmemb, FILE *stream)</p>
+<ul>
+<li><p>  ptr – 这是指向带有最小尺寸 size*nmemb 字节的内存块的指针。</p>
+</li>
+<li><p>  size – 这是要读取的每个元素的大小，以字节为单位。</p>
+</li>
+<li><p>  nmemb – 这是元素的个数，每个元素的大小为 size 字节。</p>
+</li>
+<li><p>  stream – 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输入流。</p>
+</li>
+</ul>
+<p>成功读取的元素总数会以 size_t 对象返回，size_t 对象是一个整型数据类型。如果总数与 nmemb 参数不同，则可能发生了一个错误或者到达了文件末尾。</p>
+<h2 id="ftell-1"><a href="#ftell-1" class="headerlink" title="ftell()"></a>ftell()</h2><p>long int ftell(FILE *stream)</p>
+<ul>
+<li>  stream – 这是指向 FILE 对象的指针，该 FILE 对象标识了流。</li>
+</ul>
+<p>该函数返回位置标识符的当前值。如果发生错误，则返回 -1L，全局变量 errno 被设置为一个正值。</p>
+<h2 id="LRSTR"><a href="#LRSTR" class="headerlink" title="LRSTR"></a>LRSTR</h2><p>在visual c++程序中经常在WinMain函数的参数表中见到”LPSTR”,其相当于char*</p>
+<p>Windows有两种字符集：ANSI和Unicode。char这种类型是C语言标准的类型，它由几个字符组成，通常要看编译器，一般情况下是一个字节。Windows为了消除各种编译器之间的差别，重新定义了一些数据类型，其中就包括LPSTR。</p>
+<p>LPSTR即为以零结尾的字符串指针，相当于char*</p>
+<h2 id="LPVOID"><a href="#LPVOID" class="headerlink" title="LPVOID"></a>LPVOID</h2><p>LPVOID是一个没有类型的指针，也就是说你可以将任意类型的指针赋值给LPVOID类型的变量（一般作为参数传递），然后在使用的时候再转换回来。可以将其理解为long型的指针，指向void型</p>
+<p>打开文件读入内存</p>
+<p><img src="/images/PE/d7ef8d562a152062ecc7acba4315ad4e.png"></p>
+<h1 id="PE分节"><a href="#PE分节" class="headerlink" title="PE分节"></a>PE分节</h1><p>1、节省硬盘空间（由编译器决定）</p>
+<p>2、一个应用程序多开</p>
+<p><img src="/images/PE/9025d9b3e7c7f9520daba62541fd944e.png"></p>
+<h1 id="word头"><a href="#word头" class="headerlink" title="word头"></a>word头</h1><p><img src="/images/PE/b826d372081952fbbe1df688e3adcbe7.png"></p>
+<p><img src="/images/PE/cdf33b630fda77e04da5792d4ba4e998.png"></p>
+<p>0x00 WORD e_magic为doc头 0x3c DWORD</p>
+<p>e_lfanew为doc尾，且0x3c所存的数字即为标准pe头的地址</p>
+<p>0x3c中所存的数字并不固定，从0x3c开始到pe头地址中间的值为垃圾数据</p>
+<p><img src="/images/PE/b928594ca534e174090267f7fc3a00f7.png"></p>
+<p><img src="/images/PE/1dd62ac76c83c8636bf9a6606ccc346d.png"></p>
+<h1 id="标准PE头"><a href="#标准PE头" class="headerlink" title="标准PE头"></a>标准PE头</h1><p><img src="/images/PE/643cfa43eb834c6a81f6eb164c7d2d61.png"></p>
+<p><img src="/images/PE/7dea0f964f03c9d42523c601acf26615.png"></p>
+<p>这里需要注意的是DOS头指向地址并不是直接指向了标准pe头，而是有4个字节作为pe标识，4个字节结束后才为pe头的开始</p>
+<p><img src="/images/PE/552d42c67e34f776e483237b33c7e353.png"></p>
+<p><img src="/images/PE/e626a070fafde86f0614fb8002f8de4c.png"></p>
+<h1 id="可选PE头"><a href="#可选PE头" class="headerlink" title="可选PE头"></a>可选PE头</h1><p><img src="/images/PE/b54e5125a3ed2b2c62947e4c1ab66af1.png"></p>
+<p><img src="/images/PE/2b19472858935207c98b1567d67ce4ce.png"></p>
+<p><img src="/images/PE/07d11c4cf52464970d31f6d72e001f42.png"></p>
+<p><img src="/images/PE/d623ccfb1f8470f7d8302fb0e30c1afa.png"></p>
+<p>ImageBase决定文件的起始位置，加ImageBase一是为了空出内存保护指针，二是为了让模块对齐</p>
+<p>OEP（AddressOfEntryPoint）即函数入口可能会存在代码区的任何一个位置，不一定在代码区的开始</p>
+<p><img src="/images/PE/5aa11fcbe7e62bfeda6560a9c312b2dc.png"></p>
+<p>如图，OEP为1588，内存基址为400000，所以函数入口为401588</p>
+<p><img src="/images/PE/ce5f1fedc08fff457dad76af33e8183b.png"></p>
+<p>拖入od</p>
+<p><img src="/images/PE/e5099e6c63bba4d1955c007bd6d4c0a1.png"></p>
+<p>这里我把OEP改成1050，基址改为500000，对应的入口应该为501050</p>
+<p><img src="/images/PE/10e384bf13e35c47a9ce6764dd24dd30.png"></p>
+<p>拖入od验证一下</p>
+<p><img src="/images/PE/5ef4f609b1e0c53c7bc9ad3a0e1b90cd.png"></p>
+<p>SizeOfHeaders为所有头+节表按照文件对齐后的大小，即DOS+垃圾数据+PE标记+标准PE+可选PE+节表</p>
+<p>这里的大小必须为1000的整数倍，例如我这里所有头+节表加起来的大小为1800，那么SizeOfHeaders就为2000</p>
+<p><img src="/images/PE/060359170544757ab7a1262e6c657a09.png"></p>
+<p>打印pe文件</p>
+<p><img src="/images/PE/301c4217ba3c51a77f96e59f6ace0dc5.png"></p>
+<p><img src="/images/PE/3262735e9590ae18fd8f38e55c09caa7.png"></p>
+<h1 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">fuction</span>&#123;</span>  </span><br><span class="line"><span class="keyword">char</span> x;  </span><br><span class="line"><span class="keyword">int</span> y;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>1、联合体的成员是共享内存空间的</p>
+<p>2、联合体的内存空间大小是联合体成员中对内存空间大小要求最大的空间大小</p>
+<p>3、联合体最多只有一个成员有效</p>
+<p><img src="/images/PE/0efdaa69fdc96b033eaadbffe343e152.png"></p>
+<p>此处的fuction为一种类型，即联合体类型</p>
+<p><img src="/images/PE/39fdac9da6183600e6c9a62d4e8667ed.png"></p>
+<p>此处的fuction为一种变量</p>
+<h1 id="节表"><a href="#节表" class="headerlink" title="节表"></a>节表</h1><p><img src="/images/PE/ab04759f57ba025603c8fc2c42822610.png"></p>
+<p><img src="/images/PE/6a3957109a8ccd5e8bc5be3a63842a86.png"></p>
+<p><img src="/images/PE/62e43004a010e6abcb76551f472bc391.png"></p>
+<p><img src="/images/PE/f2f6b702e413e7eb91320732d8cbfed8.png"></p>
+<h1 id="RVA和FOA"><a href="#RVA和FOA" class="headerlink" title="RVA和FOA"></a>RVA和FOA</h1><p>VA: 全名virtualAddress 虚拟地址，就是内存中虚拟地址，例如 0x00401000</p>
+<p>RVA: RVA就是相对虚拟偏移，就是偏移地址，例如<br>0x1000，虚拟地址0x00401000的RVA就是0x1000，RVA = 虚拟地址-ImageBase</p>
+<p>FOA: 文件偏移，就是文件中所在的地址</p>
+<p>内存转文件偏移总结:</p>
+<p>1.计算RVA 公式: x - ImageBase == RVA</p>
+<p>2.计算差值偏移 RVA - 节.VirtualAddress == 差值偏移</p>
+<p>3.计算FOA 差值偏移 + 节.PointerToRawData == FOA</p>
+<h1 id="代码空白区添加代码（手动）"><a href="#代码空白区添加代码（手动）" class="headerlink" title="代码空白区添加代码（手动）"></a>代码空白区添加代码（手动）</h1><p><code>MessageBox</code>指的是显示一个模态对话框，其中包含一个系统图标、一组按钮和一个简短的特定于应用程序消息，如状态或错误的信息。消息框中返回一个整数值，该值指示用户单击了哪个按钮。</p>
+<p>看一下<code>MessageBox</code>的反汇编，这里有一个提栈的操作，对应的硬编码为<code>6A 00</code></p>
+<p><img src="/images/PE/ffa34626495b53a5094198beedae6f59.png"></p>
+<p>再看一下调用函数的地方</p>
+<p><code>call</code>对应的硬编码为<code>E8</code>，<code>jmp</code>对应的硬编码为<code>E9</code></p>
+<p><img src="/images/PE/b315bea6273bf4e206d896258166d35a.png"></p>
+<p><img src="/images/PE/5027efe4dec069a2b8010f8210c5f8ea.png"></p>
+<p>以<code>call</code>举例</p>
+<p><code>E8 82 FF FF FF </code>这里的<code>82 FF FF FF</code>并不是直接要跳转的地址，而是用 <code>要跳转的地址 - （E8地址 + 5）</code></p>
+<p>即<code> 0040100F - 0040108C（00401088 + 5 = 0040108C）= FFFF FF82</code>，从右往左压栈即 <code>82 FF FF FF</code></p>
+<p><code>同理</code></p>
+<p><code>E9 0C 00 00 00</code></p>
+<p><code>00401020 - 00401014（0040100F + 5 = 00401014） = C </code>，从右往左压栈即<code> 0C 00 00 00</code></p>
+<p>往代码区加入数据需要注意的地方是<code>SizeOfRawData - VirtualSize</code>的值一定要大于所写入的数据字节</p>
+<p>例如这里<code>VirtualSize</code>的值为<code>440A2</code>，<code>SizeOfRawData</code>的值为<code>45000</code>，可存入数据的大小为<code>F5E</code></p>
+<p><img src="/images/PE/image-20210603232712797.png" alt="image-20210603232712797"></p>
+<p><code>PointerToRawData</code>为<code>1000</code>，<code>SizeOfRawData</code>为<code>45000</code>，所以第一个节结束的地方为<code>45000 + 1000 = 46000</code>，第一个节数据结束的地方为<code>450A2</code></p>
+<p><img src="/images/PE/image-20210603233129847.png" alt="image-20210603233129847"></p>
+<p>这里看一下<code>ImageBase</code>的值为<code>00400000</code>，所以可以得出减数为<code>400000 + 450BD = 4450BD</code></p>
+<p><img src="/images/PE/image-20210603233324239.png" alt="image-20210603233324239"></p>
+<p>断一下<code>MessageBoxA</code>所在的位置，可以看到<code>MessageBoxA</code>的值为<code>77D5058A</code></p>
+<p><img src="/images/PE/image-20210603232914999.png" alt="image-20210603232914999"></p>
+<p><img src="/images/PE/image-20210603232934305.png" alt="image-20210603232934305"></p>
+<p>算出硬编码填入 即<code>E8 CD B4 90 77</code></p>
+<p><img src="/images/PE/image-20210603233434723.png" alt="image-20210603233434723"></p>
+<p>找到原<code>OEP</code>为<code>000441EC</code>加上<code>ImageBase</code>，即<code>400000 + 441EC = 4441EC</code></p>
+<p><img src="/images/PE/image-20210603233520833.png" alt="image-20210603233520833"></p>
+<p>即<code>E9 2A F1 FF FF</code></p>
+<p><img src="/images/PE/image-20210603233747633.png" alt="image-20210603233747633"></p>
+<p>完整如下(<code>6A</code>为硬编码的<code>push</code>，压栈为数据进入做准备)</p>
+<p><img src="/images/PE/image-20210603233825200.png" alt="image-20210603233825200"></p>
+<p>修改<code>OEP</code>地址到<code>messagebox</code>的地址<code>B0 50 04 00</code>，<code>OEP</code>的位置在pe标识 + 20字节（标准pe头大小） + 16字节</p>
+<p><img src="/images/PE/image-20210603234004956.png" alt="image-20210603234004956"></p>
+<p>成功弹框</p>
+<p><img src="/images/PE/image-20210603234028616.png" alt="image-20210603234028616"></p>
+<h1 id="添加节"><a href="#添加节" class="headerlink" title="添加节"></a>添加节</h1><p>查看基本信息</p>
+<p>sectionofhanders为8</p>
+<p><img src="/images/PE/e2220b56f37a4ad96d569d609f644dd3.png"></p>
+<p>添加节将sectionofheaders改为9</p>
+<p><img src="/images/PE/e09ea83f093166cf1c81020335593269.png"></p>
+<p>查看内存对齐跟文件对齐</p>
+<p>文件对齐为200，内存对齐为1000</p>
+<p><img src="/images/PE/31893a727168785c133b8f52dcb248c6.png"></p>
+<p>找到最后一个节所在的位置，复制第一个节的节表到最后一个节表后面方便修改数据</p>
+<p><img src="/images/PE/e96cf15caa1578f09e3d2e7b9576ba9f.png"></p>
+<p>内存：D000+1000=E000</p>
+<p>文件：3C00+E00=4A00</p>
+<p><img src="/images/PE/df1acefe7b7665a0bef353ce6022f46f.png"></p>
+<p>添加大小为1000的节表，保存即可</p>
+<p><img src="/images/PE/fb7973cb87c79be2e724fac47a3cd950.png"></p>
+<p>打印目录信息</p>
+<p><img src="/images/PE/ca9e72906f715fbfe1058de99bf346b1.png"></p>
+<h1 id="静态链接库"><a href="#静态链接库" class="headerlink" title="静态链接库"></a>静态链接库</h1><p>生成.lib和.h文件</p>
+<p>cpp:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Plus</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x+y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x-y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Mul</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x*y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Div</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x/y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>.h:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Plus</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Mul</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Div</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/PE/8589943a31cb1add90b2fe561769b22d.png"></p>
+<p>复制到新项目里面</p>
+<p><img src="/images/PE/7b7d6e4b2938eeab2bd26356b95d7475.png"></p>
+<p><strong>方法一</strong></p>
+<p>声明文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;test.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;static Lib.lib&quot;</span>)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/PE/f2b41568deba1eb74c9ff5a6f4d7a4fa.png"></p>
+<p><strong>方法二</strong></p>
+<p><img src="/images/PE/8c743a2db1842120389501a29133daf0.png"></p>
+<p><strong>静态链接库的缺点：</strong></p>
+<p>会把二进制代码直接编译进exe，不会生成模块，导致逆向的时候分不清是自己写的还是导入的静态链接库</p>
+<p>使用静态链接生成的可执行文件体积较大，造成浪费</p>
+<p>我们常用的printf、memcpy、strcpy等就来自这种静态库</p>
+<h1 id="动态链接库"><a href="#动态链接库" class="headerlink" title="动态链接库"></a>动态链接库</h1><p>说明：</p>
+<p>1、extern 表示这是个全局函数，可以供各个其他的函数调用；</p>
+<p>2、”C” 按照C语言的方式进行编译、链接；</p>
+<p>3、__declspec(dllexport)告诉编译器此函数为导出函数。</p>
+<p>cpp:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __stdcall <span class="title">Plus</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x+y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> __stdcall <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x-y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> __stdcall <span class="title">Mul</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x*y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> __stdcall <span class="title">Div</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x/y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>.h:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> _declspec(dllexport) <span class="function">__stdcall <span class="keyword">int</span> <span class="title">Plus</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> _declspec(dllexport) <span class="function">__stdcall <span class="keyword">int</span> <span class="title">Sub</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> _declspec(dllexport) <span class="function">__stdcall <span class="keyword">int</span> <span class="title">Mul</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> _declspec(dllexport) <span class="function">__stdcall <span class="keyword">int</span> <span class="title">Div</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+<p>编译后复制出.dll和.lib</p>
+<p><img src="/images/PE/6188d5cf595cb98f0035174eb0326e7d.png"></p>
+<p>把.lib和.dll放入目录下</p>
+<p><img src="/images/PE/0eff2788c663eb3f44a571c348c6303f.png"></p>
+<h2 id="隐式调用"><a href="#隐式调用" class="headerlink" title="隐式调用"></a>隐式调用</h2><p>头文件加入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib,<span class="meta-string">&quot;dynamic.dll&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllimport) <span class="function"><span class="keyword">int</span> <span class="title">Plus</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllimport) <span class="function"><span class="keyword">int</span> <span class="title">Sub</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllimport) <span class="function"><span class="keyword">int</span> <span class="title">Mul</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllimport) <span class="function"><span class="keyword">int</span> <span class="title">Div</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>编译发现报错</p>
+<p><img src="/images/PE/7704afd5f1edb3e80f0b967de56fd728.png"></p>
+<p>MSDN查看报错原因是链接不到</p>
+<p><img src="/images/PE/85fd81e8338bbed39f07ef5f2e49bcac.png"></p>
+<p>添加lib后可运行</p>
+<p><img src="/images/PE/d191e36698c928019aed24cd97411613.png"></p>
+<p>代码如下</p>
+<p><img src="/images/PE/39ebdb00a86515d19ce37e51c9efc4a9.png"></p>
+<p>拖入od看下区别，动态链接库有dll模块，而静态链接库没有</p>
+<p><img src="/images/PE/bf1def674ac6a71df3475bd4f6aab2aa.png"></p>
+<p>看一手反汇编发现这里调用的一个函数</p>
+<p><img src="/images/PE/1efa216855a3d2c91785457f6c2e70e5.png"></p>
+<p>F10步入</p>
+<p><img src="/images/PE/be2d4b90ddc90dafe7c9c1087932a345.png"></p>
+<p>跟进了一下，发现动态链接库是一个单独的模块，而静态链接库是编译进代码的</p>
+<p><img src="/images/PE/8fef917242e16c259a27f3d4d326e0d2.png"></p>
+<h2 id="显式链接"><a href="#显式链接" class="headerlink" title="显式链接"></a>显式链接</h2><p>（1）定义函数指针</p>
+<p><img src="/images/PE/7a4a70e572c6fe70f9c07be38b551774.png"></p>
+<p>（2）声明指针变量</p>
+<p><img src="/images/PE/9dca5b5de0541cfeb4f8bdebe68510b7.png"></p>
+<p>（3）动态加载DLL到内存中</p>
+<p><img src="/images/PE/518fe9e5008a9d07ffc79f8fe46eec18.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">特别说明：</span><br><span class="line"></span><br><span class="line">Handle 是代表系统的内核对象，如文件句柄，线程句柄，进程句柄。</span><br><span class="line"></span><br><span class="line">HMODULE 是代表应用程序载入的模块</span><br><span class="line"></span><br><span class="line">HINSTANCE 在win32下与HMODULE是相同的东西 Win16 遗留</span><br><span class="line"></span><br><span class="line">HWND 是窗口句柄</span><br><span class="line"></span><br><span class="line">其实就是一个无符号整型,Windows之所以这样设计有2个目的：</span><br><span class="line"></span><br><span class="line">1、可读性更好</span><br><span class="line"></span><br><span class="line">2、避免在无意中进行运算</span><br></pre></td></tr></table></figure>
+
+
+<p>（4）获取函数地址</p>
+<p><img src="/images/PE/502054c0734e90afe4515cc16d0c132c.png"></p>
+<p>这个地方因为之前生成的.dll文件、函数指针使用的是_cdcall，即c语言默认内平栈，如果在dll里使用的是_stdcall，则应该写成如下形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">myPlus = (lpPlus)GetProcAddress(hModule, &quot;_Plus@8&quot;);</span><br><span class="line"></span><br><span class="line">mySub = (lpSub)GetProcAddress(hModule, &quot;_Sub@8&quot;);</span><br><span class="line"></span><br><span class="line">myMul = (lpMul)GetProcAddress(hModule, &quot;_Mul@8&quot;);</span><br><span class="line"></span><br><span class="line">myDiv = (lpDiv)GetProcAddress(hModule, &quot;_Div@8&quot;);</span><br></pre></td></tr></table></figure>
+<p>注：需要加上&lt;Windows.h&gt;&lt;/Windows.h&gt;头文件</p>
+<p><img src="/images/PE/b474d9343ebaee1b358c42f351c95948.png"></p>
+<h2 id="隐藏函数"><a href="#隐藏函数" class="headerlink" title="隐藏函数"></a>隐藏函数</h2><p>建立一个动态链接库，生成.h和.cpp</p>
+<p>.h:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Plus</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sub</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Mul</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Div</span> <span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>.cpp:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Plus</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x+y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x-y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Mul</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x*y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Div</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x/y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>生成一个.def文件</p>
+<p><img src="/images/PE/d47c8b56f0d027c72ad47cd1b48d37eb.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.def</span><br><span class="line"></span><br><span class="line">EXPORTS</span><br><span class="line"></span><br><span class="line">Plus @12</span><br><span class="line"></span><br><span class="line">Sub @15 NONAME</span><br><span class="line"></span><br><span class="line">Mul @13</span><br><span class="line"></span><br><span class="line">Div @16</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/PE/888113fa01233ab3a92cc61e80632d6d.png"></p>
+<p>将生成的dll拖进dependency walker，发现NONAME的那一行的函数名是看不见的</p>
+<p><img src="/images/PE/d0c5b0affebb1a720d51be5041240e2e.png"></p>
+<h1 id="导出表"><a href="#导出表" class="headerlink" title="导出表"></a>导出表</h1><p>位于数据目录项的第一个结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_DATA_DIRECTORY &#123;</span><br><span class="line"></span><br><span class="line">DWORD VirtualAddress;</span><br><span class="line"></span><br><span class="line">DWORD Size;</span><br><span class="line"></span><br><span class="line">&#125; IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;</span><br></pre></td></tr></table></figure>
+<p>VirtualAddress为导出表的RVA，Size为导出表的大小</p>
+<p>上面的结构只是说明导出表在哪里、有多大，并不是真正的导出表</p>
+<p>VirtualAddress中存储的是RVA，如果要在FileBuffer中定位，需要将RVA转换成FOA，即内存偏移-&gt;文件偏移</p>
+<p>真正的导出表的结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_EXPORT_DIRECTORY &#123;</span><br><span class="line"></span><br><span class="line">DWORD Characteristics; // 未使用</span><br><span class="line"></span><br><span class="line">DWORD TimeDateStamp; // 时间戳</span><br><span class="line"></span><br><span class="line">WORD MajorVersion; // 未使用</span><br><span class="line"></span><br><span class="line">WORD MinorVersion; // 未使用</span><br><span class="line"></span><br><span class="line">DWORD Name; // 指向该导出表文件名字符串</span><br><span class="line"></span><br><span class="line">DWORD Base; // 导出函数起始序号</span><br><span class="line"></span><br><span class="line">DWORD NumberOfFunctions; // 所有导出函数的个数</span><br><span class="line"></span><br><span class="line">DWORD NumberOfNames; // 以函数名字导出的函数个数</span><br><span class="line"></span><br><span class="line">DWORD AddressOfFunctions; // 导出函数地址表RVA</span><br><span class="line"></span><br><span class="line">DWORD AddressOfNames; // 导出函数名称表RVA</span><br><span class="line"></span><br><span class="line">DWORD AddressOfNameOrdinals; // 导出函数序号表RVA</span><br><span class="line"></span><br><span class="line">&#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/PE/42da71691cd411c70db24824540bf6d6.png"></p>
+<p><strong>AddressOfFunctions：</strong></p>
+<p>该表中元素宽度为4个字节</p>
+<p>该表中存储所有导出函数的地址</p>
+<p>该表中个数由NumberOfFunctions决定</p>
+<p>该表项中的值是RVA, 加上ImageBase才是函数真正的地址</p>
+<p>定位：</p>
+<p>IMAGE_EXPORT_DIRECTORY-&gt;AddressOfFunctions 中存储的是该表的RVA 需要先转换成FOA</p>
+<p><strong>AddressOfNames:</strong></p>
+<p>该表中元素宽度为4个字节</p>
+<p>该表中存储所有以名字导出函数的名字的RVA</p>
+<p>该表项中的值是RVA, 指向函数真正的名称</p>
+<p><img src="/images/PE/a7bd4fdd044f4bd664c7a9c243df1399.png"></p>
+<p><strong>AddressOfNameOrdinals:</strong></p>
+<p>该表中元素宽度为2个字节</p>
+<p>该表中存储的内容 + Base = 函数的导出序号</p>
+<h1 id="导出表寻址"><a href="#导出表寻址" class="headerlink" title="导出表寻址"></a>导出表寻址</h1><h2 id="名字寻址"><a href="#名字寻址" class="headerlink" title="名字寻址"></a>名字寻址</h2><p>AddressOfNames-&gt;AddressOfNameOrdinals-&gt;AddressOfFuctions</p>
+<p><img src="/images/PE/69e5c4bee0ea7fd67d06678826ccc2ef.png"></p>
+<p>这里就引出了几个问题需要总结：</p>
+<p>0x01<br>AddressOfFuctions和AddressOfNames大小不一定相等，而AddressOfFuctions也不一定比AddressOfNames大，因为可能存在AddressOfNames里的两个名字指向同一个地址的情况</p>
+<p>0x02<br>AddressOfNameOrdinals与Base关联紧密，Base取的是函数序列表里面的最小值，而寻找AddressOfFuctions则是用AddressOfNameOrdinals里面的数字减去Base得到</p>
+<p>0x03<br>NumberOfNames不准确，它的计算方法是用AddressOfNameOrdinals里面的最大值减去最小值后加1，但是这就出现了一个问题，可能表里面的值不是按序号排列的（即2.3.5.6），就会导致不准确的情况发生</p>
+<p>0x04<br>接0x03的原理，因为NumberOfNames不准确，导致用名字寻址的方法取找AddressOfFuctions时就可能出现找不到的情况，所以AddressOfFuctions里面的值可以为0</p>
+<h2 id="序号寻址"><a href="#序号寻址" class="headerlink" title="序号寻址"></a>序号寻址</h2><p><img src="/images/PE/b3ce192d1640546754c5a2abf2b0e904.png"></p>
+<p>如果用序号寻址，就不需要用到AddressOfNames和AddressOfNameOrdinals这两张表</p>
+<h1 id="重定位表"><a href="#重定位表" class="headerlink" title="重定位表"></a>重定位表</h1><p>位于数据目录项的第6个结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DATA_DIRECTORY</span> &#123;</span></span><br><span class="line">    DWORD   VirtualAddress;</span><br><span class="line">    DWORD   Size;</span><br><span class="line">&#125; IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;</span><br></pre></td></tr></table></figure>
+
+<p>VirtualAddress为重定位表的RVA，Size为重定位表的大小</p>
+<p>上面的结构只是说明重定位表在哪里、有多大，并不是真正的重定位表</p>
+<p>VirtualAddress中存储的是RVA，如果要在FileBuffer中定位，需要将RVA转换成FOA，即内存偏移-&gt;文件偏移</p>
+<p>真正的重定位表的结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BASE_RELOCATION</span> &#123;</span></span><br><span class="line">    DWORD   VirtualAddress;</span><br><span class="line">    DWORD   SizeOfBlock;</span><br><span class="line">&#125; IMAGE_BASE_RELOCATION;</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_BASE_RELOCATION ，* PIMAGE_BASE_RELOCATION;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>一般情况下，EXE都是可以按照ImageBase的地址进行加载的.因为Exe拥有自己独立的4GB 的虚拟内存空间。但DLL 不是，DLL是有EXE使用它，才加载到相关EXE的进程空间的。为了提高搜索的速度，模块间地址也是要对齐的 模块地址对齐为10000H 也就是64K。</p>
+<p>程序加载的过程如下：</p>
+<p><img src="/images/PE/image-20210603153037335.png" alt="image-20210603153037335"></p>
+<p>为什么要使用重定位表？</p>
+<p>打开一个程序，观察一下全局变量的反汇编。</p>
+<p><img src="/images/PE/image-20210603153233911.png" alt="image-20210603153233911"></p>
+<p>1、也就是说，如果程序能够按照预定的ImageBase来加载的话，那么就不需要重定位表。这也是为什么exe很少有重定位表，而DLL大多都有重定位表的原因。</p>
+<p>2、一旦某个模块没有按照ImageBase进行加载，那么所有类似上面中的地址就都需要修正，否则，引用的地址就是无效的。</p>
+<p>3、一个EXE中，需要修正的地方会很多，用重定位表来记录哪些地方需要修正。</p>
+<p><img src="/images/PE/image-20210603153402317.png" alt="image-20210603153402317"></p>
+<h1 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h1><p>位于数据目录项的第二个结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DATA_DIRECTORY</span> &#123;</span></span><br><span class="line">    DWORD   VirtualAddress;</span><br><span class="line">    DWORD   Size;</span><br><span class="line">&#125; IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;</span><br></pre></td></tr></table></figure>
+
+<p>VirtualAddress为导入表的RVA，Size为导入表的大小</p>
+<p>上面的结构只是说明导入表哪里、有多大，并不是真正的导入表</p>
+<p>VirtualAddress中存储的是RVA，如果要在FileBuffer中定位，需要将RVA转换成FOA，即内存偏移-&gt;文件偏移</p>
+<p>真正的导入表的结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_DESCRIPTOR</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        DWORD   Characteristics; 		</span><br><span class="line">        DWORD   OriginalFirstThunk;		<span class="comment">//RVA 指向IMAGE_THUNK_DATA结构数组（即INT表）</span></span><br><span class="line">        &#125;;</span><br><span class="line">    DWORD   TimeDateStamp;              <span class="comment">//时间戳	</span></span><br><span class="line">    DWORD   ForwarderChain;              		</span><br><span class="line">    DWORD   Name;						<span class="comment">//RVA,指向dll名字，该名字已0结尾					</span></span><br><span class="line">    DWORD   FirstThunk;                 <span class="comment">//RVA,指向IMAGE_THUNK_DATA结构数组（即IAT表）  		</span></span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;							</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;							</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/PE/image-20210603154147994.png" alt="image-20210603154147994"></p>
+<p><img src="/images/PE/image-20210603154156784.png" alt="image-20210603154156784"></p>
+<p>打印导入表的步骤：</p>
+<p>1.定位导入表</p>
+<p><img src="/images/PE/image-20210603154326755.png" alt="image-20210603154326755"></p>
+<p>2.输出DLL名字</p>
+<p><img src="/images/PE/image-20210603154337676.png" alt="image-20210603154337676"></p>
+<p>3.遍历OriginalFirstThunk(即IAT表)</p>
+<p>IAT的结构为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_BY_NAME</span> &#123;</span>					</span><br><span class="line">    WORD    Hint;					</span><br><span class="line">    BYTE    Name[<span class="number">1</span>];					</span><br><span class="line">&#125; IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;					</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/PE/image-20210603154409185.png" alt="image-20210603154409185"></p>
+<p>4.遍历FirstThunk(即IAT表)</p>
+<p><img src="/images/PE/image-20210603154459737.png" alt="image-20210603154459737"></p>
+<h1 id="绑定导入表"><a href="#绑定导入表" class="headerlink" title="绑定导入表"></a>绑定导入表</h1><p>PE加载EXE相关的DLL时，首先会根据<code>IMAGE_IMPORT_DESCRIPTOR</code>结构中的<code>TimeDateStamp</code>来判断是否要重新计算IAT表中的地址</p>
+<p>若<code>TimeDataStamp == 0</code> 则未绑定</p>
+<p><code>TimeDataStamp == -1</code> 则已绑定</p>
+<p><img src="/images/PE/image-20210531160209856.png" alt="image-20210531160209856"></p>
+<p>一般的PE文件在加载前INT和IAT表中都是指向<code>IMAGE_IMPORT_BY_NAME</code>这张表的，也就是说INT表和IAT表在PE加载前表中所存的内容都是一样的，PE在加载后，IAT表里存的才是函数的地址，这种情况就属于没有绑定导入表的情况，即<code>TimeDataStamp</code>为0的情况。</p>
+<p>我们知道，IAT表的本质是在PE文件加载后存放是函数地址，因为dll存在可能被其他系统dll占用空间的情况出现，所以一般都不会将函数地址直接写在IAT表里面。如果将要使用绑定导入表，最大的优点就是程序的启动速度会变快，因为省去了一个IAT重组的过程，一般windows系统自带的一些exe会选择将导入表绑定，即<code>TimeDataStamp = fffffff</code>，转换为十进制便是0</p>
+<p><img src="/images/PE/image-20210531160316079.png" alt="image-20210531160316079"></p>
+<p><img src="/images/PE/image-20210531162321161.png" alt="image-20210531162321161"></p>
+<p>真正的绑定导入表位于目录的第13项，其中<code>TimeDataStamp</code>为真正的时间戳，<code>OffsetModuleName</code>为剩余dll的名字，<code>NumberOfModuleForwarderRefs</code>为依赖dll的数量。</p>
+<p>其中要注意的是<code>OffsetModuleName</code>这个值有点特殊，它既不是foa，也不是rva，它的计算公式为第一个<code>DESCRIPTOR</code>的值加上所在结构体的<code>OffsetMoudeleName</code>得到。</p>
+<p>如果<code>NumberOfModuleForwarderRefs</code>的值为2，则绑定导入表一共就有3个dll</p>
+<p><img src="/images/PE/image-20210531162529777.png" alt="image-20210531162529777"></p>
+<p>如果<code>NumberOfModuleForwarderRefs</code>的值不为0，绑定导入表下面还会跟一张依赖dll的绑定导入表结构，含义的话跟绑定导入表相同，<code>Reserved</code>值可以不用管。</p>
+<p><img src="/images/PE/image-20210531163613777.png" alt="image-20210531163613777"></p>
+<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1><p>动态链接库入口方法：</p>
+<p><img src="/images/PE/image-20210601114348673.png" alt="image-20210601114348673"></p>
+<p>注入的种类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.注册表注入					2.导入表注入</span><br><span class="line"></span><br><span class="line">3.特洛伊注入					4.远程线程注入</span><br><span class="line"></span><br><span class="line">5.无dll注入		 			6.apc注入</span><br><span class="line"></span><br><span class="line">7.windows挂钩注入dll				8.输入法注入</span><br></pre></td></tr></table></figure>
+
+
+
+<p>导入表注入的原理：</p>
+<p>当Exe被加载时，系统会根据Exe导入表信息来加载需要用到的DLL,导入表注入的原理就是修改exe导入表，将自己的DLL添加到exe的导入表中，这样exe运行时可以将自己的DLL加载到exe的进程空间。</p>
+<p>导入表注入的实现步骤：</p>
+<p>第一步：</p>
+<p>根据目录项的第二个得到导入表信息，<code>VirtualAddress</code>指向导入表结构，<code>Size</code>为导入表的总大小</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DATA_DIRECTORY</span> &#123;</span></span><br><span class="line">    DWORD   VirtualAddress;</span><br><span class="line">    DWORD   Size;</span><br><span class="line">&#125; IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>第二步：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_DESCRIPTOR</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        DWORD   Characteristics;</span><br><span class="line">        DWORD   OriginalFirstThunk; </span><br><span class="line">    &#125;;</span><br><span class="line">    DWORD   TimeDateStamp; </span><br><span class="line">    DWORD   Name;</span><br><span class="line">    DWORD   FirstThunk;</span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>新增一个导入表所需的空间：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A：20字节，B：16字节，C：取决于dll名称的长度+1，D：取决于函数名的长度+1+2。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">判断哪一个节的空白区 &gt; Size(原导入表的大小) + 20 + A + B + C + D。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如果空间不够则可以将C/D存储在其他的空白区，即空白区 &gt; Size + 0x20即可，如果仍然不够则需要扩大最后一个节或者新增一个节。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/PE/image-20210601115147473.png" alt="image-20210601115147473"></p>
+<p>第三步：将原导入表全部Copy到空白区</p>
+<p>第四步：在新的导入表后面，追加一个导入表</p>
+<p>第五步：追加8个字节的INT表  8个字节的IAT表</p>
+<p>第六步：追加一个<code>IMAGE_IMPORT_BY_NAME</code> 结构，前2个字节是0 后面是函数名称字符串</p>
+<p>第七步：将<code>IMAGE_IMPORT_BY_NAME</code>结构的<code>RVA</code>赋值给INT和IAT表中的第一项</p>
+<p>第八步：分配空间存储DLL名称字符串 并将该字符串的<code>RVA</code>赋值给Name属性</p>
+<p>第九步：修正<code>IMAGE_DATA_DIRECTORY</code>结构的<code>VirtualAddress</code>和<code>Size</code></p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://example.com">Drunkmars</a>
+            <p>原文链接：<a href="http://example.com/2021/04/03/PE/">http://example.com/2021/04/03/PE/</a>
+            <p>发表日期：<a href="http://example.com/2021/04/03/PE/">April 3rd 2021, 12:00:00 am</a>
+            <p>更新日期：<a href="http://example.com/2021/04/03/PE/">June 5th 2021, 7:53:25 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/04/04/Stega/" title="Stega">
+                    <div class="nextTitle">Stega</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/" title="内网渗透命令">
+                    <div class="prevTitle">内网渗透命令</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:drunkmars@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Drunkmars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://twitter.com/Drunkmars404" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">1.</span> <span class="toc-text">位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">算术移位指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text">逻辑移位指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">循环移位指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%A6%E8%BF%9B%E4%BD%8D%E7%9A%84%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">带进位的循环移位指令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%8D%E7%A7%BB%E8%BF%90%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">位移运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%EF%BC%8C%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99"><span class="toc-number">3.</span> <span class="toc-text">内存分配，文件读写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%B1%87%E6%80%BB"><span class="toc-number">4.</span> <span class="toc-text">函数汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#malloc"><span class="toc-number">4.1.</span> <span class="toc-text">malloc()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memset"><span class="toc-number">4.2.</span> <span class="toc-text">memset()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memcpy"><span class="toc-number">4.3.</span> <span class="toc-text">memcpy()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fopen"><span class="toc-number">4.4.</span> <span class="toc-text">fopen()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fseek"><span class="toc-number">4.5.</span> <span class="toc-text">fseek()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftell"><span class="toc-number">4.6.</span> <span class="toc-text">ftell()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fclose"><span class="toc-number">4.7.</span> <span class="toc-text">fclose()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fread"><span class="toc-number">4.8.</span> <span class="toc-text">fread()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftell-1"><span class="toc-number">4.9.</span> <span class="toc-text">ftell()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LRSTR"><span class="toc-number">4.10.</span> <span class="toc-text">LRSTR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LPVOID"><span class="toc-number">4.11.</span> <span class="toc-text">LPVOID</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PE%E5%88%86%E8%8A%82"><span class="toc-number">5.</span> <span class="toc-text">PE分节</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#word%E5%A4%B4"><span class="toc-number">6.</span> <span class="toc-text">word头</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E5%87%86PE%E5%A4%B4"><span class="toc-number">7.</span> <span class="toc-text">标准PE头</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AF%E9%80%89PE%E5%A4%B4"><span class="toc-number">8.</span> <span class="toc-text">可选PE头</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%94%E5%90%88%E4%BD%93"><span class="toc-number">9.</span> <span class="toc-text">联合体</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8A%82%E8%A1%A8"><span class="toc-number">10.</span> <span class="toc-text">节表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RVA%E5%92%8CFOA"><span class="toc-number">11.</span> <span class="toc-text">RVA和FOA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A9%BA%E7%99%BD%E5%8C%BA%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81%EF%BC%88%E6%89%8B%E5%8A%A8%EF%BC%89"><span class="toc-number">12.</span> <span class="toc-text">代码空白区添加代码（手动）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%8A%82"><span class="toc-number">13.</span> <span class="toc-text">添加节</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="toc-number">14.</span> <span class="toc-text">静态链接库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="toc-number">15.</span> <span class="toc-text">动态链接库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-number">15.1.</span> <span class="toc-text">隐式调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="toc-number">15.2.</span> <span class="toc-text">显式链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E5%87%BD%E6%95%B0"><span class="toc-number">15.3.</span> <span class="toc-text">隐藏函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="toc-number">16.</span> <span class="toc-text">导出表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8%E5%AF%BB%E5%9D%80"><span class="toc-number">17.</span> <span class="toc-text">导出表寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8D%E5%AD%97%E5%AF%BB%E5%9D%80"><span class="toc-number">17.1.</span> <span class="toc-text">名字寻址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%8F%B7%E5%AF%BB%E5%9D%80"><span class="toc-number">17.2.</span> <span class="toc-text">序号寻址</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="toc-number">18.</span> <span class="toc-text">重定位表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="toc-number">19.</span> <span class="toc-text">导入表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="toc-number">20.</span> <span class="toc-text">绑定导入表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">21.</span> <span class="toc-text">导入表注入</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 75
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2088 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span>
+            <a class="archive-post-title" href="/2088/08/08/readme/">README</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/nullptr/">NULL、0、nullptr 区别分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span>
+            <a class="archive-post-title" href="/2021/07/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5/">线程同步与线程互斥</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/17</span>
+            <a class="archive-post-title" href="/2021/06/17/win32/">win32</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span>
+            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2021/06/11/certutil%E6%8E%A2%E7%A9%B6/">certutil探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span>
+            <a class="archive-post-title" href="/2021/06/10/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%80%BB%E7%BB%93/">横向移动总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/09</span>
+            <a class="archive-post-title" href="/2021/06/09/mimikatz/">从mimikatz抓取密码学习攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span>
+            <a class="archive-post-title" href="/2021/06/03/C++/">C++</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/%E7%BC%96%E5%86%99exp/">如何编写属于自己的第一个exp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2021/05/28/moonsec/">vulnhub靶场实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span>
+            <a class="archive-post-title" href="/2021/05/27/5%E6%9C%88%E7%A2%8E%E7%A2%8E%E5%BF%B5/">5月碎碎念</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span>
+            <a class="archive-post-title" href="/2021/05/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%BC%B9shell%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%8Abypass/">渗透测试中弹shell的多种方式及bypass</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/CVE-2020-1472%E8%AF%A6%E8%A7%A3/">CVE-2020-1472详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2021/05/23/%E4%BB%8E%E5%A4%96%E5%9B%B4%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%8B%BF%E4%B8%8B%E5%9F%9F%E6%8E%A7/">从外围打点到内网渗透拿下域控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/2021/05/19/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%90%91%E6%97%A5%E8%91%B5%E5%A6%99%E7%94%A8/">内网渗透之向日葵妙用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/CVE-2020-0796%E5%88%86%E6%9E%90%E5%8F%8A%E5%88%A9%E7%94%A8/">CVE-2020-0796分析及利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">MS17_010检测及打法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E7%AC%AC%E4%B8%80%E6%AC%A1hvv%E6%80%BB%E7%BB%93/">第一次hvv总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/jboss%E4%B9%8BJMXInvokerServlet%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8/">jboss之JMXInvokerServlet反序列化漏洞分析利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/">内网穿透的n种姿势</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0bypass%E5%AE%89%E5%85%A8%E7%8B%97/">文件上传bypass安全狗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/cs%E5%8A%A0%E8%BD%BD%E5%AE%8F%E4%B8%8A%E7%BA%BF%E5%88%9D%E6%8E%A2/">cs加载宏上线初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/2021/04/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BDPAPI%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0/">内网渗透之DPAPI机制学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">隐藏用户的创建和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span>
+            <a class="archive-post-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">利用卷影拷贝服务提取ntds.dit</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span>
+            <a class="archive-post-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">中间人攻击之arp欺骗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">浅谈域渗透中组策略及gpp运用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span>
+            <a class="archive-post-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">thinkphp漏洞分析与总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">msf使用详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%B6%85%E8%AF%A6%E7%BB%86sqlmap%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">sql注入之超详细sqlmap使用攻略</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/">windows认证解读</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/">phpmyadmin页面getshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">kerberos协议&漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2021/04/04/Stega/">Stega</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/03</span>
+            <a class="archive-post-title" href="/2021/04/03/PE/">PE</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span>
+            <a class="archive-post-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck2/">attck3</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck3/">attck2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck4/">attck4</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/attck5/">attck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2021/04/01/tomcat/">tomcat漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span>
+            <a class="archive-post-title" href="/2021/03/31/struts2/">struts2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">IPC命令&计划任务上线</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span>
+            <a class="archive-post-title" href="/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">常用端口总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/">mysql离线解析密码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E7%BB%95%E8%BF%87CDN%E6%89%BE%E6%BA%90%E7%AB%99ip/">绕过CDN找源站ip</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E8%AE%B0%E4%B8%80%E6%AC%A1php%E3%80%81sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E4%B8%80%E9%81%93ctf%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A2%98%E5%A4%8D%E7%9B%98/">记一次php、sql注入学习后的一道ctf代码审计题复盘</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span>
+            <a class="archive-post-title" href="/2021/03/26/%E5%B0%8F%E7%99%BD%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1sql%E5%AE%9E%E6%88%98/">小白的第一次sql实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/crackme001/">crackme001</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/redis/">crackme004</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/spring/">crackme002</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/weblogic/">crackme003</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/%E7%AA%83%E5%8F%96hash/">crackme005</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span>
+            <a class="archive-post-title" href="/2021/03/21/certutil&wmic%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87/">certutil&wmic绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/php/">php漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/vps-java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">vps-java环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/Joomla/">Joomla框架搭建&远程代码执行(RCE)漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/2021/03/14/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80JCC%E6%8C%87%E4%BB%A4%E8%A1%A8/">汇编JCC指令表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D/">写在最前</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="private">
+                <span class="iconfont-archer">&#xe606;</span>
+                private
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内网渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                内网渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cve">
+                <span class="iconfont-archer">&#xe606;</span>
+                cve
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cms">
+                <span class="iconfont-archer">&#xe606;</span>
+                cms
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                web渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="kerberos">
+                <span class="iconfont-archer">&#xe606;</span>
+                kerberos
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="域渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                域渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="提权">
+                <span class="iconfont-archer">&#xe606;</span>
+                提权
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cobalt strike">
+                <span class="iconfont-archer">&#xe606;</span>
+                cobalt strike
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apt">
+                <span class="iconfont-archer">&#xe606;</span>
+                apt
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="oa">
+                <span class="iconfont-archer">&#xe606;</span>
+                oa
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="msf命令">
+                <span class="iconfont-archer">&#xe606;</span>
+                msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sql">
+                <span class="iconfont-archer">&#xe606;</span>
+                sql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="thinkphp">
+                <span class="iconfont-archer">&#xe606;</span>
+                thinkphp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows api">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows api
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bypass">
+                <span class="iconfont-archer">&#xe606;</span>
+                bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hvv">
+                <span class="iconfont-archer">&#xe606;</span>
+                hvv
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="权限维持">
+                <span class="iconfont-archer">&#xe606;</span>
+                权限维持
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Drunkmars"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
