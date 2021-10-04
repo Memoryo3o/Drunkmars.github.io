@@ -19,24 +19,18 @@
         <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="今天在C++里遇到了一个nullptr不能找到成员变量的情况，这里先mark一下这篇文章。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="NULL、0、nullptr 区别分析">
-<meta property="og:url" content="http://example.com/2021/10/03/nullptr/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Drunkmars">
+<meta property="og:url" content="http://example.com/page/9/index.html">
 <meta property="og:site_name" content="Drunkmars">
-<meta property="og:description" content="今天在C++里遇到了一个nullptr不能找到成员变量的情况，这里先mark一下这篇文章。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-10-03T08:46:11.425Z">
-<meta property="article:modified_time" content="2021-06-04T07:24:42.914Z">
 <meta property="article:author" content="Drunkmars">
-<meta property="article:tag" content="二进制">
-<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/Drunkmars.ico">
     
-    <title>NULL、0、nullptr 区别分析 · Drunkmars&#39;s Blog</title>
+    <title>Drunkmars&#39;s Blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -223,10 +217,10 @@
         }
     </script>
     
-        <body class="post-body">
+        <body class="home-body">
     
         <!-- header -->
-        <header class="header header-mobile">
+        <header class="header header-mobile index-header">
     <!-- top read progress line -->
     <div class="header-element">
         <div class="read-progress"></div>
@@ -254,21 +248,10 @@
     </div>
     <!-- toggle banner for post layout -->
     
-        
-            <div class="banner">
-        
-            <div class="blog-title header-element">
-                <a href="/">Drunkmars&#39;s Blog</a>
-            </div>
-            <div class="post-title header-element">
-                <a href="#" class="post-name">NULL、0、nullptr 区别分析</a>
-            </div>
-        </div>
-    
 </header>
 
         <!-- fixed footer -->
-        <footer class="footer-fixed">
+        <footer class="footer-fixed index-footer-fixed">
     <!-- back to top button -->
     <div class="footer-fixed-element">
         
@@ -298,17 +281,17 @@
     <!-- 主页  -->
     
         
-    <!-- 404页  -->
+    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                NULL、0、nullptr 区别分析
-            <!-- 404 -->
+                Drunkmars's Blog
+            <!-- 文章页  -->
             
         </h1>
         <!-- 副标题 -->
@@ -316,56 +299,12 @@
             <!-- 主页副标题  -->
             
                 
-            <!-- 404 -->
+                    满怀希望就会所向披靡
+                
+            <!-- 文章页  -->
             
         </p>
         <!-- 文章页 meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class= post-intro-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="C++">C++</a>
-    
-</div>
-
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <!-- 撰写日期 -->
-                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
-                    <span class="post-intro-time">2021/10/03</span>
-                    <!-- busuanzi -->
-                    
-                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    
-                    <!-- 文章分享 -->
-                    <span class="share-wrapper">
-                        <span class="iconfont-archer share-icon">&#xe71d;</span>
-                        <span class="share-text">Share</span>
-                        <ul class="share-list">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -495,144 +434,218 @@
 
             <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
             <div class="container container-unloaded">
-                <main class="main post-page">
-    <article class="article-entry">
-        <p>今天在C++里遇到了一个nullptr不能找到成员变量的情况，这里先mark一下这篇文章。</p>
-<span id="more"></span>
-
-
-
-
-
-<h1 id="C的NULL"><a href="#C的NULL" class="headerlink" title="C的NULL"></a>C的NULL</h1><p>在C语言中，我们使用NULL表示空指针，也就是我们可以写如下代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *i = <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">foo_t</span> *f = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-
-<p>实际上在C语言中，NULL通常被定义为如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NULL ((void *)0)</span></span><br></pre></td></tr></table></figure>
-
-<p>也就是说NULL实际上是一个<code>void *</code>的指针，然后把<code>void *</code>指针赋值给<code>int *</code>和<code>foo_t *</code>的指针的时候，隐式转换成相应的类型。而如果换做一个C++编译器来编译的话是要出错的，因为C++是强类型的，<code>void *</code>是不能隐式转换成其他指针类型的，所以通常情况下，编译器提供的头文件会这样定义<code>NULL</code>：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus ---简称：cpp c++ 文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NULL 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NULL ((void *)0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<h1 id="C-的0"><a href="#C-的0" class="headerlink" title="C++的0"></a>C++的0</h1><p>因为C++中不能将<code>void *</code>类型的指针隐式转换成其他指针类型，而又为了解决空指针的问题，所以C++中引入0来表示空指针（注：0表示，还是有缺陷不完美），这样就有了类似上面的代码来定义NULL。实际上C++的书都会推荐说C++中更习惯使用0来表示空指针而不是NULL，尽管NULL在C++编译器下就是0。为什么C++的书都推荐使用0而不是NULL来表示空指针呢？我们看一个例子：</p>
-<p>在<code>foo.h</code>文件中声明了一个函数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(sometype1 a, sometype2 *b)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>这个函数在a.cpp、b.cpp中调用了，分别是：</p>
-<p>a.cpp:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, b);</span><br></pre></td></tr></table></figure>
-
-<p>b.cpp:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<p>好的，这些代码都是正常完美的编译运行。但是突然在某个时候我们功能扩展，需要对<code>bar</code>函数进行扩展，我们使用了重载，现在<code>foo.h</code>的声明如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void bar(sometype1 a, sometype2 *b);</span><br><span class="line">void bar(sometype1 a, int i);</span><br></pre></td></tr></table></figure>
-
-<p>这个时候危险了，<code>a.cpp</code>和<code>b.cpp</code>中的调用代码这个时候就不能按照期望的运行了。但是我们很快就会发现<code>b.cpp</code>中的0是整数，也就是在<code>overload resolution</code>的时候，我们知道它调用的是<code>void bar(sometype1 a, int i)</code>这个重载函数，于是我们可以做出如下修改让代码按照期望运行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bar(a, static_cast&lt;sometype2 *&gt;(0));  </span><br></pre></td></tr></table></figure>
-
-<p>我知道，如果我们一开始就有bar的这两个重载函数的话，我们会在一开始就想办法避免这个问题（不使用重载）或者我们写出正确的调用代码，然而后面的这个重载函数或许是我们几个月或者很长一段时间后加上的话，那我们出错的可能性就会加大了不少。貌似我们现在说道的这些跟C++通常使用0来表示空指针没什么关系，好吧，假设我们的调用代码是这样的：</p>
-<p>foo.h</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(sometype1 a, sometype2 *b)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>a.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, b);</span><br></pre></td></tr></table></figure>
-
-<p>b.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
-
-<p>当<code>bar</code>的重载函数在后面加上来了之后，我们会发现出错了，但是出错的时候，我们找到b.cpp中的调用代码也很快可能忽略过去了，因为我们用的是NULL空指针啊，应该是调用的<code>void bar(sometype1 a, sometype2 *b)</code>这个重载函数啊。实际上NULL在C++中就是0，写<code>NULL</code>这个反而会让你没那么警觉，因为NULL不够“明显”，而这里如果是使用0来表示空指针，那就会够“明显”，因为0是空指针，它更是一个整形常量。</p>
-<p>在C++中，使用0来做为空指针会比使用NULL来做空指针会让你更加警觉。</p>
-<h1 id="C-11的nullptr"><a href="#C-11的nullptr" class="headerlink" title="C++ 11的nullptr"></a>C++ 11的nullptr</h1><p>虽然上面我们说明了0比NULL可以让我们更加警觉，但是我们并没有避免这个问题。这个时候C++ 11的<code>nullptr</code>就很好的解决了这个问题，我们在C++ 11中使用<code>nullptr</code>来表示空指针，这样最早的代码是这样的。</p>
-<p>foo.h</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(sometype1 a, sometype2 *b)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>a.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, b);</span><br></pre></td></tr></table></figure>
-
-<p>b.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, <span class="literal">nullptr</span>);</span><br></pre></td></tr></table></figure>
-
-<p>在我们后来把<code>bar</code>的重载加上了之后，代码是这样：</p>
-<p>foo.h</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(sometype1 a, sometype2 *b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(sometype1 a, <span class="keyword">int</span> i)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>a.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, b);</span><br></pre></td></tr></table></figure>
-
-<p>b.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bar</span>(a, <span class="literal">nullptr</span>);</span><br></pre></td></tr></table></figure>
-
-<p>这时候，我们的代码还是能够如预期的一样正确运行。</p>
-<p>在没有C++ 11的<code>nullptr</code>的时候，我们怎么解决避免这个问题呢？我们可以自己实现一个（《Imperfect C++》上面有一个实现）：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">nullptr_t</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">operator</span> T*() <span class="keyword">const</span></span><br><span class="line">        &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">C</span>, <span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">operator</span> T C::*() <span class="keyword">const</span></span><br><span class="line">        &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">void</span> <span class="keyword">operator</span>&amp;() <span class="keyword">const</span>;</span><br><span class="line">&#125; <span class="literal">nullptr</span> = &#123;&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>虽然这个东西被大家讨论过很多次了，但是我觉得还是有必要再讨论一下，毕竟在C++ 11还没有普及之前，我们还是应该知道怎么去避免问题，怎么很快的找到问题。</p>
-<p>结论：  如果使用 <code>nullptr</code> 初始化对象，就能避免 0 指针的二义性的问题。</p>
-
-    </article>
-    <!-- license -->
+                <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>原文作者：<a href="http://example.com">Drunkmars</a>
-            <p>原文链接：<a href="http://example.com/2021/10/03/nullptr/">http://example.com/2021/10/03/nullptr/</a>
-            <p>发表日期：<a href="http://example.com/2021/10/03/nullptr/">October 3rd 2021, 4:46:11 pm</a>
-            <p>更新日期：<a href="http://example.com/2021/10/03/nullptr/">June 4th 2021, 3:24:42 pm</a>
-            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
-        </div>
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/03/13/%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D/">
+                
+                <span class="abstract-title-text">写在最前</span>
+            </a>
+            <div class="abstract-content">
+                <p>之前一直在博客园写文章，但是因为某些原因愈发觉得博客园不是我真正的归宿，机缘巧合之下看到几个比较好看的blog都是基于hexo搭建的。在2021.5.20作为一只单身狗踩了一下午+晚上+凌晨的坑之后终于能够生成一个完整的网站了。虽然在此时还不能够有效的显示图片，但我想那应该是迟早的事。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/05/21">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/03/13</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
     
-    <!-- paginator -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2021/10/03/RPC%E6%8F%90%E6%9D%83/" title="RPC提权">
-                    <div class="nextTitle">RPC提权</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2021/10/03/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/" title="msf生成木马小结">
-                    <div class="prevTitle">msf生成木马小结</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- comment -->
     
-        <div class="post-comment">
-            <!-- 来必力 City 版安装代码 -->
-
-
-            
-
-            
-
-            
-
-            <!-- utteranc评论 -->
-
-
-            <!-- partial('_partial/comment/changyan') -->
-            <!--PC版-->
-
-
-            
-            
-
-        </div>
+        <a class="post-tag" href="javascript:void(0);" data-tags="碎碎念">碎碎念</a>
     
-    <!-- timeliness note -->
-    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
     
-    <!-- Mathjax -->
+    <!-- paginator  -->
+    
+        <nav class="page-nav">
+            <a class="extend prev" rel="prev" href="/page/8/">&lt; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+        </nav>
     
 </main>
 
                 <!-- profile -->
+                
+                    <div class="profile">
+    <img class="profile-avatar" alt="avatar" src= /avatar/Drunkmars.jpg />
+    <div class="profile-name">Drunkmars</div>
+    
+        <div class="profile-signature">
+            一只网络安全菜狗
+        </div>
+    
+    
+        <div class="profile-social">
+            
+    
+        
+            
+                <a href="mailto:drunkmars@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Drunkmars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://twitter.com/Drunkmars404" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    
+        <div class="friends">
+            <div>
+                
+                FRIENDS
+            </div>
+            
+                
+                    <span>
+                        <a href="https://www.cnblogs.com/Drunkmars" target="_black">cnblogs</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="https://systemk1t.github.io/" target="_black">sYstemk1t</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="https://eviladan0s.github.io/" target="_black">白袍</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="https://kosakd.top/" target="_black">Kosakd</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="http://www.safe6.cn/" target="_black">Safe6Sec</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="http://www.51nd0re1.cn/" target="_black">51nd0re1</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="https://blog.zygd.site/" target="_black">xrsec</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="http://cnpanda.net/" target="_black">panda</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="http://sardinefish.com/" target="_black">SardineFish</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="http://whoamianony.top" target="_black">WHOAMI</a>
+                    </span>
+                
+            
+        </div>
+    
+    
+        <div class="profile-link-item">
+            <a href="/about" class="about-me">
+                
+                ABOUT ME
+            </a>
+        </div>
+    
+    
+        
+        
+                
+                
+        <div class="profile-link-item">
+            <a target="_blank" rel="noopener" href="https://www.google.com/search?q=site%3ADrunkmars" class="search-me">
+                
+                SEARCH
+            </a>
+        </div>
+    
+    
+</div>
+
                 
             </div>
             <footer class="footer footer-unloaded">
@@ -720,23 +733,6 @@
 
         </div>
         <!-- toc -->
-        
-            <div class="toc-wrapper toc-wrapper-loding" style=
-
-
-
-
-
-
-
-    top:50vh;
-
->
-                <div class="toc-catalog">
-                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-                </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C%E7%9A%84NULL"><span class="toc-number">1.</span> <span class="toc-text">C的NULL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%9A%840"><span class="toc-number">2.</span> <span class="toc-text">C++的0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-11%E7%9A%84nullptr"><span class="toc-number">3.</span> <span class="toc-text">C++ 11的nullptr</span></a></li></ol>
-            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -1124,7 +1120,99 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -1875,7 +1963,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 75
+        Total : 81
         </div>
         <!-- search  -->
         
@@ -1886,46 +1974,109 @@
         
             
             
-            <div class="archive-year"> 2088 </div>
-            <ul class="year-list">
-            
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/08</span>
-            <a class="archive-post-title" href="/2088/08/08/readme/">README</a>
-        </li>
-    
-        
-            
-            
-                
-                </ul>
-            
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
         
         <li class="archive-post-item">
-            <span class="archive-post-date">10/03</span>
-            <a class="archive-post-title" href="/2021/10/03/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/csv%E6%B3%A8%E5%85%A5/">CSV注入获取meterpreter</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/%E5%8F%8D%E6%B2%99%E7%AE%B1%E8%B0%83%E8%AF%95/">反沙箱调试</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/03</span>
-            <a class="archive-post-title" href="/2021/10/03/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+            <a class="archive-post-title" href="/2021/10/03/dll%E5%8A%AB%E6%8C%81/">初探dll劫持</a>
         </li>
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">10/03</span>
-            <a class="archive-post-title" href="/2021/10/03/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+            <span class="archive-post-date">10/01</span>
+            <a class="archive-post-title" href="/2021/10/01/dll%E6%B3%A8%E5%85%A5/">关于几种dll注入的学习</a>
         </li>
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">10/03</span>
-            <a class="archive-post-title" href="/2021/10/03/nullptr/">NULL、0、nullptr 区别分析</a>
+            <span class="archive-post-date">09/26</span>
+            <a class="archive-post-title" href="/2021/09/26/%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91/">浅谈内网转发与流量代理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/2021/09/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%96%E7%BD%91%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">记一次外网打点到内网渗透</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span>
+            <a class="archive-post-title" href="/2021/08/23/php/">php漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/20</span>
+            <a class="archive-post-title" href="/2021/08/20/struts2/">struts2漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span>
+            <a class="archive-post-title" href="/2021/08/16/tomcat/">tomcat漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span>
+            <a class="archive-post-title" href="/2021/08/09/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA4/">红日靶场4</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span>
+            <a class="archive-post-title" href="/2021/08/04/weblogic/">weblogic漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span>
+            <a class="archive-post-title" href="/2021/07/28/%E7%AA%83%E5%8F%96hash/">浅谈域环境下布置水坑实现hash窃取</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/21</span>
+            <a class="archive-post-title" href="/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/">红日靶场2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span>
+            <a class="archive-post-title" href="/2021/07/20/redis/">redis漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span>
+            <a class="archive-post-title" href="/2021/07/19/spring/">spring漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span>
+            <a class="archive-post-title" href="/2021/07/19/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA3/">红日靶场3</a>
         </li>
     
         
@@ -1938,6 +2089,12 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/16</span>
             <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/06</span>
+            <a class="archive-post-title" href="/2021/07/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA5/">红日靶场5</a>
         </li>
     
         
@@ -1966,6 +2123,12 @@
     
         
         <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span>
+            <a class="archive-post-title" href="/2021/06/13/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">06/11</span>
             <a class="archive-post-title" href="/2021/06/11/certutil%E6%8E%A2%E7%A9%B6/">certutil探究</a>
         </li>
@@ -1990,8 +2153,26 @@
     
         
         <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/nullptr/">NULL、0、nullptr 区别分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">06/03</span>
             <a class="archive-post-title" href="/2021/06/03/C++/">C++</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/02</span>
+            <a class="archive-post-title" href="/2021/06/02/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
         </li>
     
         
@@ -2010,12 +2191,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">05/28</span>
             <a class="archive-post-title" href="/2021/05/28/moonsec/">vulnhub靶场实战</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/27</span>
-            <a class="archive-post-title" href="/2021/05/27/5%E6%9C%88%E7%A2%8E%E7%A2%8E%E5%BF%B5/">5月碎碎念</a>
         </li>
     
         
@@ -2159,7 +2334,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">04/09</span>
-            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机</a>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机(红日靶场1)</a>
         </li>
     
         
@@ -2196,42 +2371,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">04/02</span>
             <a class="archive-post-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/01</span>
-            <a class="archive-post-title" href="/2021/04/01/attck2/">attck3</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/01</span>
-            <a class="archive-post-title" href="/2021/04/01/attck3/">attck2</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/01</span>
-            <a class="archive-post-title" href="/2021/04/01/attck4/">attck4</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/01</span>
-            <a class="archive-post-title" href="/2021/04/01/attck5/">attck</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/01</span>
-            <a class="archive-post-title" href="/2021/04/01/tomcat/">tomcat漏洞大杂烩</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/31</span>
-            <a class="archive-post-title" href="/2021/03/31/struts2/">struts2</a>
         </li>
     
         
@@ -2278,30 +2417,6 @@
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">03/23</span>
-            <a class="archive-post-title" href="/2021/03/23/redis/">crackme004</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/23</span>
-            <a class="archive-post-title" href="/2021/03/23/spring/">crackme002</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/23</span>
-            <a class="archive-post-title" href="/2021/03/23/weblogic/">crackme003</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/23</span>
-            <a class="archive-post-title" href="/2021/03/23/%E7%AA%83%E5%8F%96hash/">crackme005</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">03/21</span>
             <a class="archive-post-title" href="/2021/03/21/certutil&wmic%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87/">certutil&wmic绕过</a>
         </li>
@@ -2309,19 +2424,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/17</span>
-            <a class="archive-post-title" href="/2021/03/17/php/">php漏洞大杂烩</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/17</span>
             <a class="archive-post-title" href="/2021/03/17/vps-java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">vps-java环境配置</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/16</span>
-            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
         </li>
     
         
@@ -2338,8 +2441,20 @@
     
         
         <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">03/14</span>
             <a class="archive-post-title" href="/2021/03/14/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80JCC%E6%8C%87%E4%BB%A4%E8%A1%A8/">汇编JCC指令表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/readme/">README</a>
         </li>
     
         
@@ -2357,16 +2472,6 @@
             <span class="sidebar-tag-name" data-tags="二进制">
                 <span class="iconfont-archer">&#xe606;</span>
                 二进制
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="碎碎念">
-                <span class="iconfont-archer">&#xe606;</span>
-                碎碎念
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="private">
-                <span class="iconfont-archer">&#xe606;</span>
-                private
             </span>
         
             <span class="sidebar-tag-name" data-tags="C++">
@@ -2399,9 +2504,9 @@
                 web渗透
             </span>
         
-            <span class="sidebar-tag-name" data-tags="横向移动">
+            <span class="sidebar-tag-name" data-tags="private">
                 <span class="iconfont-archer">&#xe606;</span>
-                横向移动
+                private
             </span>
         
             <span class="sidebar-tag-name" data-tags="kerberos">
@@ -2412,6 +2517,11 @@
             <span class="sidebar-tag-name" data-tags="域渗透">
                 <span class="iconfont-archer">&#xe606;</span>
                 域渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
             </span>
         
             <span class="sidebar-tag-name" data-tags="提权">
@@ -2434,19 +2544,14 @@
                 apt
             </span>
         
-            <span class="sidebar-tag-name" data-tags="java中间件">
-                <span class="iconfont-archer">&#xe606;</span>
-                java中间件
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="oa">
-                <span class="iconfont-archer">&#xe606;</span>
-                oa
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="msf命令">
                 <span class="iconfont-archer">&#xe606;</span>
                 msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
             </span>
         
             <span class="sidebar-tag-name" data-tags="mysql">
@@ -2464,14 +2569,14 @@
                 sql
             </span>
         
-            <span class="sidebar-tag-name" data-tags="web">
-                <span class="iconfont-archer">&#xe606;</span>
-                web
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="thinkphp">
                 <span class="iconfont-archer">&#xe606;</span>
                 thinkphp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
             </span>
         
             <span class="sidebar-tag-name" data-tags="环境配置">
@@ -2479,14 +2584,24 @@
                 环境配置
             </span>
         
-            <span class="sidebar-tag-name" data-tags="windows api">
+            <span class="sidebar-tag-name" data-tags="oa">
                 <span class="iconfont-archer">&#xe606;</span>
-                windows api
+                oa
             </span>
         
             <span class="sidebar-tag-name" data-tags="bypass">
                 <span class="iconfont-archer">&#xe606;</span>
                 bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows api">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows api
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
             </span>
         
             <span class="sidebar-tag-name" data-tags="php">
@@ -2497,6 +2612,11 @@
             <span class="sidebar-tag-name" data-tags="hvv">
                 <span class="iconfont-archer">&#xe606;</span>
                 hvv
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="靶场实战">
+                <span class="iconfont-archer">&#xe606;</span>
+                靶场实战
             </span>
         
             <span class="sidebar-tag-name" data-tags="权限维持">
@@ -2550,8 +2670,6 @@
         <!-- CNZZ -->
         
         <!-- async load share.js -->
-        
-            <script src="/scripts/share.js?v=20210823" async></script>
         
         <!-- mermaid -->
         

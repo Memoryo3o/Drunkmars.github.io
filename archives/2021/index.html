@@ -426,6 +426,46 @@
         
         
             
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">
+                
+                <span class="abstract-title-text">[Untitled Post]</span>
+            </a>
+            <div class="abstract-content">
+                伪造父进程主要用以下几个关键点
+
+寻找explorer.exe的pid，打开文件管理器的进程获取句柄 （寻找你要伪造进程的PID） 
+初始化指定的属性列表以创建进程和线程
+设置进程属性
+
+那么根据这几个关键点需要用到的api有
+
+OpenProcess
+InitializeProcThreadAttributeList
+CreateProcess
+
+还有个重要的结构体:STARTUPINFOEXA
+1234typedef struct _STARTUPINFOEXA &#123;  STARTUPINFOA                 StartupInfo;  LPPROC_THR...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/04">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/04</span>
+                </div>
+                <!-- tags -->
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
             
         
         <article class="index-post">
@@ -754,47 +794,10 @@
         </article>
         <div class="index-post-divider"></div>
     
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/08/09/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA4/">
-                
-                <span class="abstract-title-text">红日靶场4</span>
-            </a>
-            <div class="abstract-content">
-                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9966">https://xz.aliyun.com/t/9966</a></strong></p>
-<p>记一次docker逃逸拿shell的靶场渗透。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/04">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/08/09</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
     <!-- paginator  -->
     
         <nav class="page-nav">
-            <span class="page-number current">1</span><a class="page-number" href="/archives/2021/page/2/">2</a><a class="page-number" href="/archives/2021/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2021/page/8/">8</a><a class="extend next" rel="next" href="/archives/2021/page/2/">NEXT &gt;</a>
+            <span class="page-number current">1</span><a class="page-number" href="/archives/2021/page/2/">2</a><a class="page-number" href="/archives/2021/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2021/page/9/">9</a><a class="extend next" rel="next" href="/archives/2021/page/2/">NEXT &gt;</a>
         </nav>
     
 </main>
@@ -1299,7 +1302,26 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2098,7 +2120,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 80
+        Total : 81
         </div>
         <!-- search  -->
         
@@ -2112,6 +2134,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">[Untitled Post]</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/04</span>
@@ -2565,13 +2593,13 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/16</span>
-            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/16</span>
-            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
         </li>
     
         
@@ -2598,24 +2626,14 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
         
-            <span class="sidebar-tag-name" data-tags="碎碎念">
+            <span class="sidebar-tag-name" data-tags="二进制">
                 <span class="iconfont-archer">&#xe606;</span>
-                碎碎念
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="private">
-                <span class="iconfont-archer">&#xe606;</span>
-                private
+                二进制
             </span>
         
             <span class="sidebar-tag-name" data-tags="C++">
                 <span class="iconfont-archer">&#xe606;</span>
                 C++
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="二进制">
-                <span class="iconfont-archer">&#xe606;</span>
-                二进制
             </span>
         
             <span class="sidebar-tag-name" data-tags="内网渗透">
@@ -2643,6 +2661,11 @@
                 web渗透
             </span>
         
+            <span class="sidebar-tag-name" data-tags="private">
+                <span class="iconfont-archer">&#xe606;</span>
+                private
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="kerberos">
                 <span class="iconfont-archer">&#xe606;</span>
                 kerberos
@@ -2653,14 +2676,14 @@
                 域渗透
             </span>
         
-            <span class="sidebar-tag-name" data-tags="提权">
-                <span class="iconfont-archer">&#xe606;</span>
-                提权
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="横向移动">
                 <span class="iconfont-archer">&#xe606;</span>
                 横向移动
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="提权">
+                <span class="iconfont-archer">&#xe606;</span>
+                提权
             </span>
         
             <span class="sidebar-tag-name" data-tags="ctf">
@@ -2678,19 +2701,14 @@
                 apt
             </span>
         
-            <span class="sidebar-tag-name" data-tags="java中间件">
-                <span class="iconfont-archer">&#xe606;</span>
-                java中间件
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="oa">
-                <span class="iconfont-archer">&#xe606;</span>
-                oa
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="msf命令">
                 <span class="iconfont-archer">&#xe606;</span>
                 msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
             </span>
         
             <span class="sidebar-tag-name" data-tags="mysql">
@@ -2703,14 +2721,14 @@
                 中间件
             </span>
         
-            <span class="sidebar-tag-name" data-tags="thinkphp">
-                <span class="iconfont-archer">&#xe606;</span>
-                thinkphp
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="sql">
                 <span class="iconfont-archer">&#xe606;</span>
                 sql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="thinkphp">
+                <span class="iconfont-archer">&#xe606;</span>
+                thinkphp
             </span>
         
             <span class="sidebar-tag-name" data-tags="web">
@@ -2723,14 +2741,24 @@
                 环境配置
             </span>
         
-            <span class="sidebar-tag-name" data-tags="windows api">
+            <span class="sidebar-tag-name" data-tags="oa">
                 <span class="iconfont-archer">&#xe606;</span>
-                windows api
+                oa
             </span>
         
             <span class="sidebar-tag-name" data-tags="bypass">
                 <span class="iconfont-archer">&#xe606;</span>
                 bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows api">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows api
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
             </span>
         
             <span class="sidebar-tag-name" data-tags="php">
