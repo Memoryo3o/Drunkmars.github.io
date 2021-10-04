@@ -471,46 +471,6 @@
         
         
             
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">
-                
-                <span class="abstract-title-text">[Untitled Post]</span>
-            </a>
-            <div class="abstract-content">
-                伪造父进程主要用以下几个关键点
-
-寻找explorer.exe的pid，打开文件管理器的进程获取句柄 （寻找你要伪造进程的PID） 
-初始化指定的属性列表以创建进程和线程
-设置进程属性
-
-那么根据这几个关键点需要用到的api有
-
-OpenProcess
-InitializeProcThreadAttributeList
-CreateProcess
-
-还有个重要的结构体:STARTUPINFOEXA
-1234typedef struct _STARTUPINFOEXA &#123;  STARTUPINFOA                 StartupInfo;  LPPROC_THR...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/04">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/04</span>
-                </div>
-                <!-- tags -->
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
             
         
         <article class="index-post">
@@ -556,6 +516,42 @@ CreateProcess
             </a>
             <div class="abstract-content">
                 <p>很多杀软都有自己的后端云沙箱，这些沙箱能够模拟出软件执行所需的运行环境，通过进程hook技术来对软件执行过程中的行为进行分析，判断其是否有敏感的操作行为，或者更高级的检测手法是，将获取到的程序的API调用序列以及其他的一些行为特征输入到智能分析引擎中进行检测。所以，如果我们的木马没有做好反调试，很容易就被沙箱检测出来。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/04">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/04</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">
+                
+                <span class="abstract-title-text">父进程伪造</span>
+            </a>
+            <div class="abstract-content">
+                <p>本文将实现父进程伪造的效果</p>
             </div>
             <!-- read more -->
             
@@ -2310,12 +2306,6 @@ CreateProcess
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/04</span>
-            <a class="archive-post-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">[Untitled Post]</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">10/04</span>
             <a class="archive-post-title" href="/2021/10/04/csv%E6%B3%A8%E5%85%A5/">CSV注入获取meterpreter</a>
         </li>
     
@@ -2323,6 +2313,12 @@ CreateProcess
         <li class="archive-post-item">
             <span class="archive-post-date">10/04</span>
             <a class="archive-post-title" href="/2021/10/04/%E5%8F%8D%E6%B2%99%E7%AE%B1%E8%B0%83%E8%AF%95/">反沙箱调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">父进程伪造</a>
         </li>
     
         
