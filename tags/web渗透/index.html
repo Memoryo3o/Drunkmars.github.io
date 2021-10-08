@@ -426,6 +426,42 @@
         
         
             
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/08/mysql%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">
+                
+                <span class="abstract-title-text">mysql提权总结</span>
+            </a>
+            <div class="abstract-content">
+                <p>前两天参加了省赛的内网渗透，在拿到webshell后发现是一个站库分离，通过信息搜集得到了数据库的账号密码，但是是一个www-data权限，执行不了代理的命令，这时候就需要提权到root权限才能够执行命令，最后还没有通过udf提权，而是通过<code>/tmp</code>这个目录能够修改权限，改为777权限后使用的代理。因为linux打得比较少，我们队在这个地方卡了很久，导致只打到了第一层网络，第二层内网就没有时间去打，所以补一下关于mysql的提权知识。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/08">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/08</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
         
         <article class="index-post">
             <a class="abstract-title" href="/2021/08/23/php/">
@@ -773,50 +809,10 @@
         </article>
         <div class="index-post-divider"></div>
     
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/05/08/jboss%E4%B9%8BJMXInvokerServlet%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8/">
-                
-                <span class="abstract-title-text">jboss之JMXInvokerServlet反序列化漏洞分析利用</span>
-            </a>
-            <div class="abstract-content">
-                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9468">https://xz.aliyun.com/t/9468</a></strong></p>
-<p>今天扫到了一个jboss的站十分奇怪，存在jmx-console和JMXInvokerServlet漏洞</p>
-<p>但是通过war远程部署的方法访问jsp小马的时候页面报错500，推测应该是禁止了web流量的原因，那么只能通过JMXInvokerServlet拿他的shell了。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/27">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/08</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="java中间件">java中间件</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
     <!-- paginator  -->
     
         <nav class="page-nav">
-            <span class="page-number current">1</span><a class="page-number" href="/tags/web%E6%B8%97%E9%80%8F/page/2/">2</a><a class="extend next" rel="next" href="/tags/web%E6%B8%97%E9%80%8F/page/2/">NEXT &gt;</a>
+            <span class="page-number current">1</span><a class="page-number" href="/tags/web%E6%B8%97%E9%80%8F/page/2/">2</a><a class="page-number" href="/tags/web%E6%B8%97%E9%80%8F/page/3/">3</a><a class="extend next" rel="next" href="/tags/web%E6%B8%97%E9%80%8F/page/2/">NEXT &gt;</a>
         </nav>
     
 </main>
@@ -1336,7 +1332,26 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2167,7 +2182,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 83
+        Total : 84
         </div>
         <!-- search  -->
         
@@ -2181,6 +2196,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span>
+            <a class="archive-post-title" href="/2021/10/08/mysql%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">mysql提权总结</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/07</span>
