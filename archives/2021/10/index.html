@@ -429,6 +429,223 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/10/27/%E8%87%AA%E5%90%AF%E5%8A%A8%E6%8A%80%E6%9C%AF/">
+                
+                <span class="abstract-title-text">自启动技术详解</span>
+            </a>
+            <div class="abstract-content">
+                <p>本文将对自启动技术进行分析总结。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/27</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/26/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B/">
+                
+                <span class="abstract-title-text">初探傀儡进程</span>
+            </a>
+            <div class="abstract-content">
+                <p>对于进程隐藏技术有很多种实现方式，本文就对傀儡进程进行分析及实现。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/26</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/25/socket/">
+                
+                <span class="abstract-title-text">socket的探究与实现</span>
+            </a>
+            <div class="abstract-content">
+                <p>数据传输是病毒木马的必备技术之一，而数据回传也成为了病毒木马的一个重要特征，我们就尝试自己写一个程序来实现数据的传输，本文尝试通过c++来进行套接字(socket)的实现</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/25</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/22/%E9%9A%90%E8%97%8F%E6%A8%A1%E5%9D%97/">
+                
+                <span class="abstract-title-text">通过内存写入隐藏模块</span>
+            </a>
+            <div class="abstract-content">
+                <p>我们使用一般的注入方式如全局钩子注入、远程线程注入等注入dll到一个程序里面，因为使用了<code>GetProcAddress</code>得到<code>LoadLibrary</code>的地址，用<code>LoadLibrary</code>的地址加载了我们自己的dll，所以在导入表里面能够看到dll。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/22</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">
+                
+                <span class="abstract-title-text">初探进程伪装</span>
+            </a>
+            <div class="abstract-content">
+                <p>当我们获取到一台主机的权限过后，拿到了自己想要搜集的信息，这时候我们就会留一个后门进行权限维持，权限维持的学问其实很深，今天就主要介绍其中一种比较简单的权限维持的方法 – 进程伪装。</p>
+<p>我们知道在windows里面有很多系统进程，如<code>winlogon.exe</code>、<code>explorer.exe</code>、<code>services.exe</code>等等，这些exe都是Windows必须具有的exe，当缺失某些exe的时候，windows就不能够正常运行，所以我们如果想到实现进程伪装，最好的选择就是伪装成系统必备的exe，当我们进行进程伪装之后，在系统中显示的就会是系统进程的信息，但这个程序还是能够执行它正常的功能，这样就达到了进程伪装、权限维持的作用。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/21</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">
+                
+                <span class="abstract-title-text">关于进程隐藏的探究</span>
+            </a>
+            <div class="abstract-content">
+                <p>本文将分析并实现进程隐藏。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/21</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/10/19/bypassuac/">
                 
                 <span class="abstract-title-text">关于bypassuac的探究</span>
@@ -565,151 +782,11 @@
         </article>
         <div class="index-post-divider"></div>
     
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">
-                
-                <span class="abstract-title-text">父进程伪造</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将介绍并实现父进程伪造。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/04">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/04/%E8%B0%83%E8%AF%95%E4%B8%8E%E5%8F%8D%E8%B0%83%E8%AF%95%E7%9A%84%E6%8E%A2%E7%A9%B6/">
-                
-                <span class="abstract-title-text">调试与反调试的探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>最近在研究免杀这一块的知识，说到免杀肯定就逃不过沙箱。对于沙箱的通俗理解就是一个安全的箱子，这个箱子能够模拟出软件执行苏需要的环境(如模拟虚拟机环境)，通过hook跳转到自己的函数进行行为分析。所以我们的后门文件想要更好的躲避杀软的查杀，首先肯定要做好反调试才能在对抗杀软时后顾无忧。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/04">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/03/dll%E5%8A%AB%E6%8C%81/">
-                
-                <span class="abstract-title-text">初探dll劫持</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将对dll劫持进行分析和利用。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/03</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/01/dll%E6%B3%A8%E5%85%A5/">
-                
-                <span class="abstract-title-text">关于几种dll注入的学习</span>
-            </a>
-            <div class="abstract-content">
-                <p>对于几种常见的dll注入方式进行分析和总结。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/01</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
     <!-- paginator  -->
+    
+        <nav class="page-nav">
+            <span class="page-number current">1</span><a class="page-number" href="/archives/2021/10/page/2/">2</a><a class="extend next" rel="next" href="/archives/2021/10/page/2/">NEXT &gt;</a>
+        </nav>
     
 </main>
 
@@ -1228,7 +1305,57 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2075,7 +2202,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 83
+        Total : 87
         </div>
         <!-- search  -->
         
@@ -2089,6 +2216,72 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span>
+            <a class="archive-post-title" href="/2021/12/05/%E6%B3%A8%E5%85%A5SSP/">关于抓取明文的探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/2021/11/08/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">使用api创建计划任务详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2021/11/07/%E8%87%AA%E5%88%A0%E9%99%A4/">自删除技术的实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/05</span>
+            <a class="archive-post-title" href="/2021/11/05/%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/">CS中上线不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span>
+            <a class="archive-post-title" href="/2021/11/04/%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">创建进程的几种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span>
+            <a class="archive-post-title" href="/2021/10/27/%E8%87%AA%E5%90%AF%E5%8A%A8%E6%8A%80%E6%9C%AF/">自启动技术详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span>
+            <a class="archive-post-title" href="/2021/10/26/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B/">初探傀儡进程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span>
+            <a class="archive-post-title" href="/2021/10/25/socket/">socket的探究与实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span>
+            <a class="archive-post-title" href="/2021/10/22/%E9%9A%90%E8%97%8F%E6%A8%A1%E5%9D%97/">通过内存写入隐藏模块</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">初探进程伪装</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">关于进程隐藏的探究</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/19</span>
@@ -2223,18 +2416,6 @@
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">07/17</span>
-            <a class="archive-post-title" href="/2021/07/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5/">线程同步与线程互斥</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span>
-            <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2021/07/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA5/">红日靶场5</a>
         </li>
@@ -2243,18 +2424,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/05</span>
             <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/16</span>
-            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/15</span>
-            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
         </li>
     
         
@@ -2285,12 +2454,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">06/08</span>
             <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/04</span>
-            <a class="archive-post-title" href="/2021/06/04/nullptr/">NULL、0、nullptr 区别分析</a>
         </li>
     
         
@@ -2375,12 +2538,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">05/11</span>
             <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/11</span>
-            <a class="archive-post-title" href="/2021/05/11/%E7%AC%AC%E4%B8%80%E6%AC%A1hvv%E6%80%BB%E7%BB%93/">第一次hvv总结</a>
         </li>
     
         
@@ -2477,12 +2634,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">04/08</span>
             <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/06</span>
-            <a class="archive-post-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">kerberos协议&漏洞</a>
         </li>
     
         
@@ -2598,11 +2749,6 @@
                 二进制
             </span>
         
-            <span class="sidebar-tag-name" data-tags="C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                C++
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="内网渗透">
                 <span class="iconfont-archer">&#xe606;</span>
                 内网渗透
@@ -2631,11 +2777,6 @@
             <span class="sidebar-tag-name" data-tags="private">
                 <span class="iconfont-archer">&#xe606;</span>
                 private
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="kerberos">
-                <span class="iconfont-archer">&#xe606;</span>
-                kerberos
             </span>
         
             <span class="sidebar-tag-name" data-tags="域渗透">
@@ -2726,11 +2867,6 @@
             <span class="sidebar-tag-name" data-tags="php">
                 <span class="iconfont-archer">&#xe606;</span>
                 php
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="hvv">
-                <span class="iconfont-archer">&#xe606;</span>
-                hvv
             </span>
         
             <span class="sidebar-tag-name" data-tags="靶场实战">

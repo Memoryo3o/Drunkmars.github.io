@@ -444,6 +444,195 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                
+                <span class="abstract-title-text">隐藏用户的创建和使用</span>
+            </a>
+            <div class="abstract-content">
+                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9673">https://xz.aliyun.com/t/9673</a></strong></p>
+<p>在渗透过程中拿下一台主机后很多时候会选择开3389进远程桌面查看一下对方主机内有无一些有价值的东西可以利用，但是这也引出了一个问题，只要是登录进程就一定会留下痕迹，虽然在渗透完成后可以通过痕迹清理的方法清除自己登录的”证据”，但是在多次渗透的过程中我不禁产生了思考，有没有一种方法能够最大化的隐藏自己登陆过对方主机呢，于是便有了下文。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/09">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/20</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="权限维持">权限维持</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">
+                
+                <span class="abstract-title-text">利用卷影拷贝服务提取ntds.dit</span>
+            </a>
+            <div class="abstract-content">
+                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9624">https://xz.aliyun.com/t/9624</a></strong></p>
+<p>通常情况下，即使拥有管理员权限，也无法读取域控制器中的C:\Windows\NTDS\ntds.dit文件。那么什么是ntds.dit呢？</p>
+<p>ntds.dit文件是一个数据库，用于存储Active Directory数据，包括有关用户对象，组和组成员身份的信息。它包括域中所有用户的密码哈希。通过提取这些哈希值，可以使用诸如Mimikatz之类的工具执行哈希传递攻击，或使用诸如Hashcat之类的工具来破解这些密码。这些密码的提取和破解可以脱机执行，因此将无法检测到。一旦攻击者提取了这些散列，它们便可以充当域上的任何用户，包括域管理员。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/07">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/19</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">
+                
+                <span class="abstract-title-text">中间人攻击之arp欺骗</span>
+            </a>
+            <div class="abstract-content">
+                <p>之前有一篇文章是关于arp欺骗盗取邻居wifi密码的，也只是学会了工具的使用，在经过这么久的学习之后，又对arp欺骗有了更深刻的理解，以及基于原理有了更深层次的运用</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/17</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">
+                
+                <span class="abstract-title-text">浅谈域渗透中组策略及gpp运用</span>
+            </a>
+            <div class="abstract-content">
+                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9511">https://xz.aliyun.com/t/9511</a></strong></p>
+<p>最近在实战过程中遇到了组策略，发现攻击面其实挺宽广的，这里记录下自己的分析和学习过程。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/17">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/15</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="域渗透">域渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">
+                
+                <span class="abstract-title-text">thinkphp漏洞分析与总结</span>
+            </a>
+            <div class="abstract-content">
+                <p>ThinkPHP是一个快速、兼容而且简单的轻量级国产PHP开发框架，遵循Apache2开源协议发布，使用面向对象的开发结构和MVC模式，融合了Struts的思想和TagLib（标签库）、RoR的ORM映射和ActiveRecord模式。</p>
+<p>ThinkPHP可以支持windows/Unix/Linux等服务器环境，正式版需要PHP 5.0以上版本，支持MySql、PgSQL、Sqlite多种数据库以及PDO扩展。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/17">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/14</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="thinkphp">thinkphp</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">
                 
                 <span class="abstract-title-text">msf使用详解</span>
@@ -624,192 +813,6 @@
         </article>
         <div class="index-post-divider"></div>
     
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">
-                
-                <span class="abstract-title-text">windows环境下抓密码总结</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将会介绍如何在windows环境下抓取用户hash。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/26">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/08</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">
-                
-                <span class="abstract-title-text">kerberos协议&amp;漏洞</span>
-            </a>
-            <div class="abstract-content">
-                Here's something encrypted, password is required to continue reading.
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/27">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/06</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="private">private</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="kerberos">kerberos</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="域渗透">域渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/04/Stega/">
-                
-                <span class="abstract-title-text">Stega</span>
-            </a>
-            <div class="abstract-content">
-                <p>很少打ctf，碰到一些自己没有见过的新题型stega记录一下。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/25">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="ctf">ctf</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">
-                
-                <span class="abstract-title-text">内网渗透命令</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文为内网渗透一些常用命令的总结。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/06/02">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/02</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">
-                
-                <span class="abstract-title-text">IPC命令&amp;计划任务上线</span>
-            </a>
-            <div class="abstract-content">
-                <p>很久一段时间没有用cs渗透了，有些命令比较生疏，在虚拟机里面搭建环境复习下ipc命令。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/22">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/03/30</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
     <!-- paginator  -->
     
         <nav class="page-nav">
@@ -902,6 +905,12 @@
                 
                     <span>
                         <a href="https://www.cnblogs.com/Drunkmars" target="_black">cnblogs</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="https://www.braveenough.cn" target="_black">SD</a>
                     </span>
                 
             
@@ -1498,7 +1507,57 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2345,7 +2404,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 83
+        Total : 87
         </div>
         <!-- search  -->
         
@@ -2359,6 +2418,72 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span>
+            <a class="archive-post-title" href="/2021/12/05/%E6%B3%A8%E5%85%A5SSP/">关于抓取明文的探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/2021/11/08/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">使用api创建计划任务详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2021/11/07/%E8%87%AA%E5%88%A0%E9%99%A4/">自删除技术的实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/05</span>
+            <a class="archive-post-title" href="/2021/11/05/%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/">CS中上线不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span>
+            <a class="archive-post-title" href="/2021/11/04/%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">创建进程的几种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span>
+            <a class="archive-post-title" href="/2021/10/27/%E8%87%AA%E5%90%AF%E5%8A%A8%E6%8A%80%E6%9C%AF/">自启动技术详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span>
+            <a class="archive-post-title" href="/2021/10/26/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B/">初探傀儡进程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span>
+            <a class="archive-post-title" href="/2021/10/25/socket/">socket的探究与实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span>
+            <a class="archive-post-title" href="/2021/10/22/%E9%9A%90%E8%97%8F%E6%A8%A1%E5%9D%97/">通过内存写入隐藏模块</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">初探进程伪装</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">关于进程隐藏的探究</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/19</span>
@@ -2493,18 +2618,6 @@
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">07/17</span>
-            <a class="archive-post-title" href="/2021/07/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%BA%BF%E7%A8%8B%E4%BA%92%E6%96%A5/">线程同步与线程互斥</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">07/16</span>
-            <a class="archive-post-title" href="/2021/07/16/win32%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E4%BD%93/">临界区与互斥体</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2021/07/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA5/">红日靶场5</a>
         </li>
@@ -2513,18 +2626,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/05</span>
             <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/16</span>
-            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/15</span>
-            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
         </li>
     
         
@@ -2555,12 +2656,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">06/08</span>
             <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/04</span>
-            <a class="archive-post-title" href="/2021/06/04/nullptr/">NULL、0、nullptr 区别分析</a>
         </li>
     
         
@@ -2645,12 +2740,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">05/11</span>
             <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/11</span>
-            <a class="archive-post-title" href="/2021/05/11/%E7%AC%AC%E4%B8%80%E6%AC%A1hvv%E6%80%BB%E7%BB%93/">第一次hvv总结</a>
         </li>
     
         
@@ -2747,12 +2836,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">04/08</span>
             <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/06</span>
-            <a class="archive-post-title" href="/2021/04/06/Kerberos%E5%8D%8F%E8%AE%AE&%E6%BC%8F%E6%B4%9E/">kerberos协议&漏洞</a>
         </li>
     
         
@@ -2868,11 +2951,6 @@
                 二进制
             </span>
         
-            <span class="sidebar-tag-name" data-tags="C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                C++
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="内网渗透">
                 <span class="iconfont-archer">&#xe606;</span>
                 内网渗透
@@ -2901,11 +2979,6 @@
             <span class="sidebar-tag-name" data-tags="private">
                 <span class="iconfont-archer">&#xe606;</span>
                 private
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="kerberos">
-                <span class="iconfont-archer">&#xe606;</span>
-                kerberos
             </span>
         
             <span class="sidebar-tag-name" data-tags="域渗透">
@@ -2996,11 +3069,6 @@
             <span class="sidebar-tag-name" data-tags="php">
                 <span class="iconfont-archer">&#xe606;</span>
                 php
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="hvv">
-                <span class="iconfont-archer">&#xe606;</span>
-                hvv
             </span>
         
             <span class="sidebar-tag-name" data-tags="靶场实战">
