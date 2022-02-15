@@ -26,11 +26,24 @@
 <meta property="og:site_name" content="Drunkmars">
 <meta property="og:description" content="SSDT 的全称是 System Services Descriptor Table，系统服务描述符表。这个表就是一个把 Ring3 的 Win32 API 和 Ring0 的内核 API 联系起来。SSDT 并不仅仅只包含一个庞大的地址索引表，它还包含着一些其它有用的信息，诸如地址索引的基地址、服务函数个数等。通过修改此表的函数地址可以对常用 Windows 函数及 API 进行 Hook，从而">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215114152634.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215114231762.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215114335917.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215114438649.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215154538580.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215154557683.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215154617719.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215155330682.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215160122039.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215160042717.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215160737509.png">
+<meta property="og:image" content="http://example.com/images/SSDT/image-20220215160834842.png">
 <meta property="article:published_time" content="2022-02-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-15T10:47:40.403Z">
+<meta property="article:modified_time" content="2022-02-15T10:51:59.809Z">
 <meta property="article:author" content="Drunkmars">
 <meta property="article:tag" content="二进制">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/SSDT/image-20220215114152634.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/Drunkmars.ico">
@@ -333,7 +346,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">2.1k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -506,25 +519,25 @@
 
 
 
-<p>![image-20220215114152634](/images/SSDT hook/image-20220215114152634.png)</p>
+<p><img src="/images/SSDT/image-20220215114152634.png" alt="image-20220215114152634"></p>
 <p>第一个参数指向的地址存储的是全部的内核函数</p>
-<p>![image-20220215114231762](/images/SSDT hook/image-20220215114231762.png)</p>
+<p><img src="/images/SSDT/image-20220215114231762.png" alt="image-20220215114231762"></p>
 <p>这个参数代表ssdt表里面有多少个内核函数</p>
-<p>![image-20220215114335917](/images/SSDT hook/image-20220215114335917.png)</p>
+<p><img src="/images/SSDT/image-20220215114335917.png" alt="image-20220215114335917"></p>
 <p>这个参数是一个指针指向一个地址，这里表示的是与上面的内核函数相对应的参数个数，例如第一个为18，参数个数就为18/4 = 6</p>
-<p>![image-20220215114438649](/images/SSDT hook/image-20220215114438649.png)</p>
+<p><img src="/images/SSDT/image-20220215114438649.png" alt="image-20220215114438649"></p>
 <p>这里找一下<code>OpenProcess</code>在SSDT表的索引，首先<code>bp OpenProcess</code></p>
-<p>![image-20220215154538580](/images/SSDT hook/image-20220215154538580.png)</p>
+<p><img src="/images/SSDT/image-20220215154538580.png" alt="image-20220215154538580"></p>
 <p>断在了<code>kerner32.OpenProcess</code>，这里<code>OpenProcess</code>会调用ntdll里面的<code>ZwOpenProcess</code>进入ring0，在ring0<code>ZwOpenProcess</code>又会调用<code>NtOpenProcess</code></p>
-<p>![image-20220215154557683](/images/SSDT hook/image-20220215154557683.png)</p>
+<p><img src="/images/SSDT/image-20220215154557683.png" alt="image-20220215154557683"></p>
 <p>赶紧去可以发现<code>mov eax,0x7A</code>，那么这里<code>ZwOpenProcess</code>的索引就为0x7A</p>
-<p>![image-20220215154617719](/images/SSDT hook/image-20220215154617719.png)</p>
+<p><img src="/images/SSDT/image-20220215154617719.png" alt="image-20220215154617719"></p>
 <p>然后通过<code>KeServiceDescriptorTable </code>找到所有的内核函数，通过内核函数+偏移找到<code>OpenProcess</code>函数</p>
-<p>![image-20220215155330682](/images/SSDT hook/image-20220215155330682.png)</p>
+<p><img src="/images/SSDT/image-20220215155330682.png" alt="image-20220215155330682"></p>
 <p>在 NT 4.0 以上的 Windows 操作系统中，默认就存在两个系统服务描述表，这两个调度表对应了两类不同的系统服务，这两个调度表为：KeServiceDescriptorTable 和 KeServiceDescriptorTableShadow，其中 KeServiceDescriptorTable 主要是处理来自 Ring3 层 Kernel32.dll 中的系统调用，而 KeServiceDescriptorTableShadow 则主要处理来自 User32.dll 和 GDI32.dll 中的系统调用，并且KeServiceDescriptorTable 在ntoskrnl.exe(Windows 操作系统内核文件，包括内核和执行体层)是导出的，而 KeServiceDescriptorTableShadow 则是没有被 Windows 操作系统所导出。</p>
-<p>![image-20220215160122039](/images/SSDT hook/image-20220215160122039.png)</p>
+<p><img src="/images/SSDT/image-20220215160122039.png" alt="image-20220215160122039"></p>
 <p>关于 SSDT 的全部内容则都是通过KeServiceDescriptorTable 来完成的。</p>
-<p>![image-20220215160042717](/images/SSDT hook/image-20220215160042717.png)</p>
+<p><img src="/images/SSDT/image-20220215160042717.png" alt="image-20220215160042717"></p>
 <p>SSDT表的结构通过结构体表示为如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">KSERVICE_TABLE_DESCRIPTOR</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  KSYSTEM_SERVICE_TABLE  ntoskrnl;  <span class="comment">// ntoskrnl.exe 的服务函数</span></span><br><span class="line">  KSYSTEM_SERVICE_TABLE  win32k;   <span class="comment">// win32k.sys 的服务函数</span></span><br><span class="line">(GDI32.dll/User32.dll 的内核支持)</span><br><span class="line">  KSYSTEM_SERVICE_TABLE  notUsed1;</span><br><span class="line">  KSYSTEM_SERVICE_TABLE  notUsed2;</span><br><span class="line">&#125; KSERVICE_TABLE_DESCRIPTOR, * PKSERVICE_TABLE_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
 
@@ -536,7 +549,7 @@
 
 
 <h1 id="调用号"><a href="#调用号" class="headerlink" title="调用号"></a>调用号</h1><p>进入0环时调用号是eax传递的，但这个调用号并不只是一个普通的数字作为索引序号，系统会把他用32位数据表示，拆分成19：1：12的格式，如下：</p>
-<p>![image-20220215160737509](/images/SSDT hook/image-20220215160737509.png)</p>
+<p><img src="/images/SSDT/image-20220215160737509.png" alt="image-20220215160737509"></p>
 <p>分析一下0-11这低12位组成一个真正的索引号，第12位表示服务表号，13-31位没有使用。而进入内核后调用哪一张表，就由调用号中的第12位决定，为0则调用SSDT表，为1则调用ShadowSSDT表。</p>
 <h1 id="CR4寄存器"><a href="#CR4寄存器" class="headerlink" title="CR4寄存器"></a>CR4寄存器</h1><p>这里函数准备好以后，就要将该函数的指针覆盖原来NtOpenProcess的指针。但是需要注意的是：我们自己改自己的代码是不用管权限的，改别人的代码很有可能这块内存是只读的，并不可写。</p>
 <p>那么本质上就是SSDT对应的物理页是只读的，这里有两种办法，我们都知道物理页的内存R/W位的属性是由PDE和PTE相与而来的，那么我们就可以改变SSDT对应的PDE和PTE的R/W属性，将物理页设置为可读可写的。通过CR4寄存器判断是2-9-9-12分页还是10-10-12分页。</p>
@@ -549,7 +562,7 @@
 <h1 id="CR0寄存器"><a href="#CR0寄存器" class="headerlink" title="CR0寄存器"></a>CR0寄存器</h1><p>使用<code>PsGetCurrentThread()</code>函数可获取当前KTHREAD的首地址。</p>
 <p>但是需要注意的是SSDT表所在的内存页属性是只读，没有写入的权限，所以需要把该地址设置为可写入，这样才能写入自己的函数，使用的是CR0寄存器关闭只读属性。</p>
 <p>简单介绍下CR0寄存器:</p>
-<p>![image-20220215160834842](/images/SSDT hook/image-20220215160834842.png)</p>
+<p><img src="/images/SSDT/image-20220215160834842.png" alt="image-20220215160834842"></p>
 <p>可以看到这里使用32位寄存器，而在CR0寄存器中，我们重点关注的是3个标志位：</p>
 <p>PE ­ 是否启用保护模式,置1则启用。<br>PG ­ 是否使用分页模式, 置1则开启分页模式, 此标志置1时, PE 标志也必须置1,否则CPU报异常。<br>WP  WP为1时, 不能修改只读的内存页 , WP为0时, 可以修改只读的内存页。</p>
 <p>所以在进行HOOK时，只要把CR0寄存器中的WP位置为0，就能对内存进行写入操作。</p>
@@ -563,7 +576,7 @@
 
 
 <p>实现效果如下</p>
-<p>![SSDT](/images/SSDT hook/SSDT (1).gif)</p>
+<p>![SSDT](/images/SSDT/SSDT (1).gif)</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>参考自hxd的<a target="_blank" rel="noopener" href="https://www.braveenough.cn/2021/12/01/r0%E4%B8%8B%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%BF%9D%E6%8A%A4/">r0下的进程保护</a></p>
 
     </article>
@@ -573,7 +586,7 @@
             <p>原文作者：<a href="http://example.com">Drunkmars</a>
             <p>原文链接：<a href="http://example.com/2022/02/15/ssdt%20hook/">http://example.com/2022/02/15/ssdt%20hook/</a>
             <p>发表日期：<a href="http://example.com/2022/02/15/ssdt%20hook/">February 15th 2022, 12:00:00 am</a>
-            <p>更新日期：<a href="http://example.com/2022/02/15/ssdt%20hook/">February 15th 2022, 6:47:40 pm</a>
+            <p>更新日期：<a href="http://example.com/2022/02/15/ssdt%20hook/">February 15th 2022, 6:51:59 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
