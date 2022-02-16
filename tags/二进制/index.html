@@ -429,6 +429,44 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/02/16/r0Inlinehook/">
+                
+                <span class="abstract-title-text">ring0下的Inline hook</span>
+            </a>
+            <div class="abstract-content">
+                <p>Inline hook是直接在以前的函数替里面修改指令，用一个跳转或者其他指令来达到挂钩的目的。 这是相对普通的hook来说，因为普通的hook只是修改函数的调用地址，而不是在原来的函数体里面做修改。一般来说，普通的hook比较稳定使用。 inline hook 更加高级一点，一般也跟难以被发现。ring3的Inline hook在之前已经实现过了，再看看ring0的Inline hook该如何实现。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/16">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/16</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/02/15/ssdt%20hook/">
                 
                 <span class="abstract-title-text">SSDT hook详解</span>
@@ -440,7 +478,7 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/15">
+                <div class="abstract-date" title="Last updated: 2022/02/16">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/15</span>
                 </div>
                 <!-- tags -->
@@ -449,6 +487,8 @@
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
     
 </div>
 
@@ -476,7 +516,7 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/15">
+                <div class="abstract-date" title="Last updated: 2022/02/16">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/14</span>
                 </div>
                 <!-- tags -->
@@ -485,6 +525,8 @@
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
     
 </div>
 
@@ -730,42 +772,6 @@
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2022/01/28">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/25</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/22/%E9%9A%90%E8%97%8F%E6%A8%A1%E5%9D%97/">
-                
-                <span class="abstract-title-text">通过内存写入隐藏模块</span>
-            </a>
-            <div class="abstract-content">
-                <p>我们使用一般的注入方式如全局钩子注入、远程线程注入等注入dll到一个程序里面，因为使用了<code>GetProcAddress</code>得到<code>LoadLibrary</code>的地址，用<code>LoadLibrary</code>的地址加载了我们自己的dll，所以在导入表里面能够看到dll。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/22</span>
                 </div>
                 <!-- tags -->
                 
@@ -1349,7 +1355,24 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2324,7 +2347,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 92
+        Total : 93
         </div>
         <!-- search  -->
         
@@ -2338,6 +2361,12 @@
             <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span>
+            <a class="archive-post-title" href="/2022/02/16/r0Inlinehook/">ring0下的Inline hook</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/15</span>
@@ -3048,6 +3077,11 @@
             <span class="sidebar-tag-name" data-tags="权限维持">
                 <span class="iconfont-archer">&#xe606;</span>
                 权限维持
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内核">
+                <span class="iconfont-archer">&#xe606;</span>
+                内核
             </span>
         
     </div>
