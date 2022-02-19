@@ -429,6 +429,42 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/10/26/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B/">
+                
+                <span class="abstract-title-text">初探傀儡进程</span>
+            </a>
+            <div class="abstract-content">
+                <p>对于进程隐藏技术有很多种实现方式，本文就对傀儡进程进行分析及实现。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/26</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/10/25/socket/">
                 
                 <span class="abstract-title-text">socket的探究与实现</span>
@@ -501,13 +537,12 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">
+            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">
                 
-                <span class="abstract-title-text">初探进程伪装</span>
+                <span class="abstract-title-text">关于进程隐藏的探究</span>
             </a>
             <div class="abstract-content">
-                <p>当我们获取到一台主机的权限过后，拿到了自己想要搜集的信息，这时候我们就会留一个后门进行权限维持，权限维持的学问其实很深，今天就主要介绍其中一种比较简单的权限维持的方法 – 进程伪装。</p>
-<p>我们知道在windows里面有很多系统进程，如<code>winlogon.exe</code>、<code>explorer.exe</code>、<code>services.exe</code>等等，这些exe都是Windows必须具有的exe，当缺失某些exe的时候，windows就不能够正常运行，所以我们如果想到实现进程伪装，最好的选择就是伪装成系统必备的exe，当我们进行进程伪装之后，在系统中显示的就会是系统进程的信息，但这个程序还是能够执行它正常的功能，这样就达到了进程伪装、权限维持的作用。</p>
+                <p>本文将分析并实现进程隐藏。</p>
             </div>
             <!-- read more -->
             
@@ -538,12 +573,13 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">
+            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">
                 
-                <span class="abstract-title-text">关于进程隐藏的探究</span>
+                <span class="abstract-title-text">初探进程伪装</span>
             </a>
             <div class="abstract-content">
-                <p>本文将分析并实现进程隐藏。</p>
+                <p>当我们获取到一台主机的权限过后，拿到了自己想要搜集的信息，这时候我们就会留一个后门进行权限维持，权限维持的学问其实很深，今天就主要介绍其中一种比较简单的权限维持的方法 – 进程伪装。</p>
+<p>我们知道在windows里面有很多系统进程，如<code>winlogon.exe</code>、<code>explorer.exe</code>、<code>services.exe</code>等等，这些exe都是Windows必须具有的exe，当缺失某些exe的时候，windows就不能够正常运行，所以我们如果想到实现进程伪装，最好的选择就是伪装成系统必备的exe，当我们进行进程伪装之后，在系统中显示的就会是系统进程的信息，但这个程序还是能够执行它正常的功能，这样就达到了进程伪装、权限维持的作用。</p>
             </div>
             <!-- read more -->
             
@@ -730,42 +766,6 @@
             <div class="abstract-post-meta">
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2021/10/04">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/04/%E8%B0%83%E8%AF%95%E4%B8%8E%E5%8F%8D%E8%B0%83%E8%AF%95%E7%9A%84%E6%8E%A2%E7%A9%B6/">
-                
-                <span class="abstract-title-text">调试与反调试的探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>最近在研究免杀这一块的知识，说到免杀肯定就逃不过沙箱。对于沙箱的通俗理解就是一个安全的箱子，这个箱子能够模拟出软件执行苏需要的环境(如模拟虚拟机环境)，通过hook跳转到自己的函数进行行为分析。所以我们的后门文件想要更好的躲避杀软的查杀，首先肯定要做好反调试才能在对抗杀软时后顾无忧。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/09">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/04</span>
                 </div>
                 <!-- tags -->
@@ -1360,7 +1360,28 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2359,7 +2380,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 94
+        Total : 95
         </div>
         <!-- search  -->
         
@@ -2373,6 +2394,12 @@
             <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span>
+            <a class="archive-post-title" href="/2022/02/20/r3TOr0API/">ring3下API的逆向分析及重构</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/17</span>
@@ -2475,13 +2502,13 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/21</span>
-            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">初探进程伪装</a>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">关于进程隐藏的探究</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">10/21</span>
-            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">关于进程隐藏的探究</a>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">初探进程伪装</a>
         </li>
     
         
@@ -3032,6 +3059,11 @@
                 msf命令
             </span>
         
+            <span class="sidebar-tag-name" data-tags="内核">
+                <span class="iconfont-archer">&#xe606;</span>
+                内核
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="C++">
                 <span class="iconfont-archer">&#xe606;</span>
                 C++
@@ -3095,11 +3127,6 @@
             <span class="sidebar-tag-name" data-tags="权限维持">
                 <span class="iconfont-archer">&#xe606;</span>
                 权限维持
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="内核">
-                <span class="iconfont-archer">&#xe606;</span>
-                内核
             </span>
         
     </div>
