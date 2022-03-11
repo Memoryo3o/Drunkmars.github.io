@@ -467,6 +467,116 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/03/01/%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E8%A1%A5%E4%B8%81ETW%E7%9A%84%E7%BB%95%E8%BF%87/">
+                
+                <span class="abstract-title-text">ETW绕过</span>
+            </a>
+            <div class="abstract-content">
+                <p>通常在红队行动中，面临的最大挑战并不是诸如杀毒、EDR之类的防护软件，红队行动中工具&amp;代码的杀毒绕过只是事前工作(基本功)，所以攻击者使用的工具&amp;代码往往在本地就比较完备的完成了免杀工作，在这样的背景下，如何让工具尽可能少的留下痕迹就成为了红队成员首要解决的问题。</p>
+<p>在cobaltstrike中实现了在非托管进程中加载托管代码的功能模块execute-assembly，而这个功能因为操作系统提供的API（ ICLRMetaHost<a target="_blank" rel="noopener" href="https://www.21ct.cc/">、</a>ICLRRuntimeInfo、ICLRRuntimeHost）在实现上并不复杂，但是这并不影响它的实用性。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/03/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/03/01</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/02/27/SAMR%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">
+                
+                <span class="abstract-title-text">NetUserAdd的逆向分析重构</span>
+            </a>
+            <div class="abstract-content">
+                <p>对于MS-SAMR协议的进阶。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/27">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/02/27/MS-SAMR/">
+                
+                <span class="abstract-title-text">利用MS-SAMR协议修改用户密码</span>
+            </a>
+            <div class="abstract-content">
+                <p>在渗透测试过程中，经常遇到拿到用户的NTLM哈希但无法解密出明文密码的情况。本文介绍并分析一种在仅知道域用户密码哈希时修改用户密码，并在使用完后恢复用户原密码的方法。完成相应工具实现，提出检测方法和缓解措施。</p>
+<p>PS：本文提出的场景在实战中也有很多其他的解决办法，但本文仅讨论与changentlm、setntlm相关的内容</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/27">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/02/20/r3TOr0API/">
                 
                 <span class="abstract-title-text">ring3下API的逆向分析及重构</span>
@@ -668,114 +778,6 @@
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2021/12/16">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/12/05</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/11/08/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">
-                
-                <span class="abstract-title-text">使用api创建计划任务详解</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将使用windows api创建计划任务绕过杀软。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/20">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/08</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/11/07/%E8%87%AA%E5%88%A0%E9%99%A4/">
-                
-                <span class="abstract-title-text">自删除技术的实现</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将实现自删除技术。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/20">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/07</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/11/04/%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">
-                
-                <span class="abstract-title-text">创建进程的几种方式</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将探究创建进程的几种方式。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/20">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/04</span>
                 </div>
                 <!-- tags -->
                 
@@ -1399,7 +1401,69 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2484,7 +2548,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 100
+        Total : 104
         </div>
         <!-- search  -->
         
@@ -2502,6 +2566,30 @@
         <li class="archive-post-item">
             <span class="archive-post-date">03/03</span>
             <a class="archive-post-title" href="/2022/03/03/PEB%E6%96%AD%E9%93%BE/">基于PEB断链实现进程与模块隐藏</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/01</span>
+            <a class="archive-post-title" href="/2022/03/01/%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E8%A1%A5%E4%B8%81ETW%E7%9A%84%E7%BB%95%E8%BF%87/">ETW绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/2022/02/27/CVE-2021-36934/">SeriousSAM本地权限提升</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/2022/02/27/SAMR%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">NetUserAdd的逆向分析重构</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/2022/02/27/MS-SAMR/">利用MS-SAMR协议修改用户密码</a>
         </li>
     
         
