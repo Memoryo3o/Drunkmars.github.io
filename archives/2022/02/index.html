@@ -429,119 +429,6 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2022/02/27/CVE-2021-36934/">
-                
-                <span class="abstract-title-text">SeriousSAM本地权限提升</span>
-            </a>
-            <div class="abstract-content">
-                <p>7 月 20 日，微软确认了一个新的本地提权漏洞，该漏洞会影响 Windows 自 2018 年 10 月以来发布的版本，即 Windows 10 Version 1809 以后的版本。</p>
-<p>不过值得注意的是该漏洞不影响 Windows Server 版本。</p>
-<p>对于这个漏洞安全研究成员将其称为 HiveNightmare 或者 SeriousSAM ，该漏洞允许低权限的用户访问 Windows 系统文件，成功利用此漏洞的攻击者可以使用 SYSTEM 特权运行任意代码。</p>
-<p>根据微软的介绍，出现本地提权漏洞是由于多个系统文件（包括安全账户管理器数据库SAM）过度许可访问控制列表所导致。</p>
-<p>目前 POC 和 EXP 已经被公开，利用公开的 POC 可以低权限账号读取 SAM 等文件。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/27">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="提权">提权</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/02/27/MS-SAMR/">
-                
-                <span class="abstract-title-text">利用MS-SAMR协议修改用户密码</span>
-            </a>
-            <div class="abstract-content">
-                <p>在渗透测试过程中，经常遇到拿到用户的NTLM哈希但无法解密出明文密码的情况。本文介绍并分析一种在仅知道域用户密码哈希时修改用户密码，并在使用完后恢复用户原密码的方法。完成相应工具实现，提出检测方法和缓解措施。</p>
-<p>PS：本文提出的场景在实战中也有很多其他的解决办法，但本文仅讨论与changentlm、setntlm相关的内容</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/27">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/02/27/SAMR%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">
-                
-                <span class="abstract-title-text">NetUserAdd的逆向分析重构</span>
-            </a>
-            <div class="abstract-content">
-                <p>对于MS-SAMR协议的进阶。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/27">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
             <a class="abstract-title" href="/2022/02/20/r3TOr0API/">
                 
                 <span class="abstract-title-text">ring3下API的逆向分析及重构</span>
@@ -1326,61 +1213,7 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2465,7 +2298,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 104
+        Total : 100
         </div>
         <!-- search  -->
         
@@ -2483,30 +2316,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">03/03</span>
             <a class="archive-post-title" href="/2022/03/03/PEB%E6%96%AD%E9%93%BE/">基于PEB断链实现进程与模块隐藏</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span>
-            <a class="archive-post-title" href="/2022/03/01/%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E8%A1%A5%E4%B8%81ETW%E7%9A%84%E7%BB%95%E8%BF%87/">ETW绕过</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/CVE-2021-36934/">SeriousSAM本地权限提升</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/MS-SAMR/">利用MS-SAMR协议修改用户密码</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/SAMR%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">NetUserAdd的逆向分析重构</a>
         </li>
     
         
