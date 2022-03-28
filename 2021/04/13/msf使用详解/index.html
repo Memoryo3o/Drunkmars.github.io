@@ -22,36 +22,36 @@
     <meta name="description" content="安装msf在一般的linux中，默认是不安装MSF的。以下是在非kali的Linux下安装MSF框架。 一键安装 12345678910111213curl https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;rapid7&#x2F;metasploit-omnibus&#x2F;master&#x2F;config&#x2F;templates&#x2F;metasploit-framework-wrappers&#x2F;msfupda">
 <meta property="og:type" content="article">
 <meta property="og:title" content="msf使用详解">
-<meta property="og:url" content="http://example.com/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:url" content="http://drunkmars.top/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Drunkmars">
 <meta property="og:description" content="安装msf在一般的linux中，默认是不安装MSF的。以下是在非kali的Linux下安装MSF框架。 一键安装 12345678910111213curl https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;rapid7&#x2F;metasploit-omnibus&#x2F;master&#x2F;config&#x2F;templates&#x2F;metasploit-framework-wrappers&#x2F;msfupda">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/22672aa09e4d167c710a6be3f6874d6c.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/c7507aa0fc884f2c52fd3fe8c1d02591.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2f4684dfcb6050881e71f613930124bc.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/f44c95c5bef38cbdf8a8370db319efa5.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/0d7e8383522b5cdce088bba8766ad41e.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/8c77e51910291443202e82b3b140152a.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/f76dd34bd0f2056796ef8947f28c0ab1.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1255405efdc6f5338e11e73e1286beba.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2a8e34f05e26c3bde70c01f6102411cd.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/882f341d27366a35dc53933ca296a6c4.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2090f06493716039b06323ac590e5d8a.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2338f3f836b17fecb4dd3084f8df1ed8.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/7c024af9db0dd783b82e694b55e41117.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/cd009ea61fa2b9b1006bcceaa8a81ac9.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/d514a5edd35e471d4fbf75f3212131bf.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/78d3cba693d5e7abd2252be28cae5a3a.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/244819da4b44c186aabf6862d8270498.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/5082288a9d3138e520d80e9b252723c5.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/342768e0a15687cd9b10a78300d1412c.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/a8294c13ed3e1081e3b65cc5ea1dfd9f.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/308710aafbcab10cebcdfbd488974883.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/81f9a0fba4f8d2079ebf604e881b26ac.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/d16152f2abcdff983e9be7305e229637.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/fa279fb992c63fd49cc80d266a692917.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/90d3c83375448e9856fcf8ae6da93135.png">
-<meta property="og:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/9f2e1ecc40a35c0ca67a1b846ff395b0.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/22672aa09e4d167c710a6be3f6874d6c.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/c7507aa0fc884f2c52fd3fe8c1d02591.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2f4684dfcb6050881e71f613930124bc.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/f44c95c5bef38cbdf8a8370db319efa5.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/0d7e8383522b5cdce088bba8766ad41e.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/8c77e51910291443202e82b3b140152a.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/f76dd34bd0f2056796ef8947f28c0ab1.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1255405efdc6f5338e11e73e1286beba.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2a8e34f05e26c3bde70c01f6102411cd.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/882f341d27366a35dc53933ca296a6c4.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2090f06493716039b06323ac590e5d8a.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/2338f3f836b17fecb4dd3084f8df1ed8.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/7c024af9db0dd783b82e694b55e41117.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/cd009ea61fa2b9b1006bcceaa8a81ac9.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/d514a5edd35e471d4fbf75f3212131bf.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/78d3cba693d5e7abd2252be28cae5a3a.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/244819da4b44c186aabf6862d8270498.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/5082288a9d3138e520d80e9b252723c5.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/342768e0a15687cd9b10a78300d1412c.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/a8294c13ed3e1081e3b65cc5ea1dfd9f.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/308710aafbcab10cebcdfbd488974883.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/81f9a0fba4f8d2079ebf604e881b26ac.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/d16152f2abcdff983e9be7305e229637.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/fa279fb992c63fd49cc80d266a692917.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/90d3c83375448e9856fcf8ae6da93135.png">
+<meta property="og:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/9f2e1ecc40a35c0ca67a1b846ff395b0.png">
 <meta property="article:published_time" content="2021-04-12T16:00:00.000Z">
 <meta property="article:modified_time" content="2021-05-27T12:36:33.926Z">
 <meta property="article:author" content="Drunkmars">
@@ -59,7 +59,7 @@
 <meta property="article:tag" content="private">
 <meta property="article:tag" content="msf命令">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/22672aa09e4d167c710a6be3f6874d6c.png">
+<meta name="twitter:image" content="http://drunkmars.top/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/22672aa09e4d167c710a6be3f6874d6c.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/Drunkmars.ico">
@@ -565,7 +565,7 @@
 <p>默认情况下， Meterpreter的通信是加密的，所以很安全</p>
 <p>扩展性，许多新的特征模块可以被加载。</p>
 <p>我们在设置 payloads 时，可以将 payloads 设置为：windows/meterpreter/reverse_tcp ，然后获得了meterpreter&gt; 之后我们就可以干很多事了</p>
-<h1 id="永恒之蓝模块"><a href="#永恒之蓝模块" class="headerlink" title="永恒之蓝模块"></a>永恒之蓝模块</h1><p>移步 <a target="_blank" rel="noopener" href="https://drunkmars.top/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">https://drunkmars.top/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/</a></p>
+<h1 id="永恒之蓝模块"><a href="#永恒之蓝模块" class="headerlink" title="永恒之蓝模块"></a>永恒之蓝模块</h1><p>移步 <a href="https://drunkmars.top/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">https://drunkmars.top/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/</a></p>
 <h1 id="后渗透阶段"><a href="#后渗透阶段" class="headerlink" title="后渗透阶段"></a>后渗透阶段</h1><p>运行了exploit命令之后，我们开启了一个reverse TCP监听器来监听本地的 4444 端口，即我（攻击者）的本地主机地址（LHOST）和端口号（LPORT）。运行成功之后，我们将会看到命令提示符meterpreter &gt; 出现，我们输入： shell 即可切换到目标主机的windows shell，要想从目标主机shell退出到 meterpreter ，我们只需输入：exit</p>
 <p><img src="/images/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/22672aa09e4d167c710a6be3f6874d6c.png"></p>
 <p>我们要想从 meterpreter 退出到MSF框架，输入：background</p>
@@ -644,7 +644,7 @@
 <h1 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h1><p>用msf生成一个后门放到windows的启动目录中</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\$username$\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</span><br></pre></td></tr></table></figure>
 <p>socks代理&amp;portfwd端口转发</p>
-<p>传送门：<a target="_blank" rel="noopener" href="https://drunkmars.top/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/#msf">https://drunkmars.top/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/#msf</a></p>
+<p>传送门：<a href="https://drunkmars.top/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/#msf">https://drunkmars.top/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/#msf</a></p>
 <h1 id="导入并执行PowerShell脚本"><a href="#导入并执行PowerShell脚本" class="headerlink" title="导入并执行PowerShell脚本"></a>导入并执行PowerShell脚本</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">load powershell       #加载powershell功能</span><br><span class="line"></span><br><span class="line">powershell_import /root/PowerView.ps1    #导入powershell脚本，提前将该powershell脚本放到指定目录</span><br><span class="line"></span><br><span class="line">powershell_execute Get-NetDomain   #执行该脚本下的功能模块Get-domain，该模块用于获取域信息，一个脚本下通常有多个功能模块</span><br><span class="line"></span><br><span class="line">powershell_execute Invoke-UserHunter  #该功能模块用于定位域管理员登录的主机</span><br><span class="line"></span><br><span class="line">powershell_execute Get-NetForest    #该模块用于定位域信息</span><br></pre></td></tr></table></figure>
 <h1 id="加载stdapi"><a href="#加载stdapi" class="headerlink" title="加载stdapi"></a>加载stdapi</h1><p>有时候虽然我们获取到了meterpreter，但是执行一些命令会显示没有该命令，这时我们可以执行：load stdapi来加载，这样我们就可以执行命令了。</p>
 <h1 id="升级session"><a href="#升级session" class="headerlink" title="升级session"></a>升级session</h1><p>有时候，当我们收到的不是 meterpreter 类型的 session 的话，可能不好操作。</p>
@@ -655,10 +655,10 @@
     <!-- license -->
     
         <div class="license-wrapper">
-            <p>原文作者：<a href="http://example.com">Drunkmars</a>
-            <p>原文链接：<a href="http://example.com/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">http://example.com/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</a>
-            <p>发表日期：<a href="http://example.com/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">April 13th 2021, 12:00:00 am</a>
-            <p>更新日期：<a href="http://example.com/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">May 27th 2021, 8:36:33 pm</a>
+            <p>原文作者：<a href="http://Drunkmars.top">Drunkmars</a>
+            <p>原文链接：<a href="http://drunkmars.top/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">http://drunkmars.top/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</a>
+            <p>发表日期：<a href="http://drunkmars.top/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">四月 13日 2021, 12:00:00 凌晨</a>
+            <p>更新日期：<a href="http://drunkmars.top/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">May 27th 2021, 8:36:33 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1334,7 +1334,34 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2417,7 +2444,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 101
+        Total : 102
         </div>
         <!-- search  -->
         
@@ -2431,6 +2458,12 @@
             <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span>
+            <a class="archive-post-title" href="/2022/03/22/%E5%86%85%E6%A0%B8%E9%87%8D%E8%BD%BD/">ring0下使用内核重载绕过杀软hook</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/16</span>

@@ -21,7 +21,7 @@
     <meta name="description" content="">
     <meta property="og:type" content="website">
 <meta property="og:title" content="Drunkmars">
-<meta property="og:url" content="http://example.com/tags/%E5%86%85%E6%A0%B8/index.html">
+<meta property="og:url" content="http://drunkmars.top/tags/%E5%86%85%E6%A0%B8/index.html">
 <meta property="og:site_name" content="Drunkmars">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Drunkmars">
@@ -420,6 +420,45 @@
             <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
             <div class="container container-unloaded">
                 <main class="main index-page">
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/03/22/%E5%86%85%E6%A0%B8%E9%87%8D%E8%BD%BD/">
+                
+                <span class="abstract-title-text">ring0下使用内核重载绕过杀软hook</span>
+            </a>
+            <div class="abstract-content">
+                <p>内核重载听起来是一个很高大上的概念，但其实跟PE的知识息息相关，那么为什么会有内核重载的出现呢？</p>
+<p>我们知道从ring3进入ring0需要通过<code>int2e/sysenter(syscall)</code>进入ring0，而进入ring0之后又会通过<code>KiFastCallEntry/KiSystemService</code>去找SSDT表对应响应的内核函数，那么杀软会在这两个地方进行重点盯防。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/03/22">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/03/22</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
     
         
         
@@ -1258,7 +1297,34 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2341,7 +2407,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 101
+        Total : 102
         </div>
         <!-- search  -->
         
@@ -2355,6 +2421,12 @@
             <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span>
+            <a class="archive-post-title" href="/2022/03/22/%E5%86%85%E6%A0%B8%E9%87%8D%E8%BD%BD/">ring0下使用内核重载绕过杀软hook</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/16</span>
