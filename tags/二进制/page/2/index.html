@@ -429,6 +429,116 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/02/14/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">
+                
+                <span class="abstract-title-text">进程强杀初探</span>
+            </a>
+            <div class="abstract-content">
+                <p>我们知道在windows操作系统里面有ring0跟ring3的概念(ring1、ring2在windows中并未使用)，因为ring0的特权级别是比ring3高的，那么我们肯定不能在ring3调用windows提供的api杀死ring0特权级别的进程，那么这时候我们就需要使用的ring0的函数来强行结束一些处于ring0级别的进程。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/16">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/14</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/12/05/%E6%B3%A8%E5%85%A5SSP/">
+                
+                <span class="abstract-title-text">关于抓取明文的探究</span>
+            </a>
+            <div class="abstract-content">
+                <p>我们知道在win2012之后微软更改了策略，在默认情况下是不能够抓取明文密码的，那么有两种方式来绕过，分别是SSP和Hook PasswordChangeNotify。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/12/16">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/12/05</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/11/08/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">
+                
+                <span class="abstract-title-text">使用api创建计划任务详解</span>
+            </a>
+            <div class="abstract-content">
+                <p>本文将使用windows api创建计划任务绕过杀软。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/20">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/08</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/11/07/%E8%87%AA%E5%88%A0%E9%99%A4/">
                 
                 <span class="abstract-title-text">自删除技术的实现</span>
@@ -659,114 +769,6 @@
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2021/11/03">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/21</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">
-                
-                <span class="abstract-title-text">关于进程隐藏的探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将分析并实现进程隐藏。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/21</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/19/bypassuac/">
-                
-                <span class="abstract-title-text">关于bypassuac的探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文基于白名单bypassuac进行实现。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/25">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/19</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/07/com%E5%8A%AB%E6%8C%81/">
-                
-                <span class="abstract-title-text">初探com劫持</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将分析并实现com劫持。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/07">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/07</span>
                 </div>
                 <!-- tags -->
                 
@@ -1400,7 +1402,70 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2505,7 +2570,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 102
+        Total : 105
         </div>
         <!-- search  -->
         
@@ -2519,6 +2584,24 @@
             <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2022/04/04/%E7%A1%AC%E4%BB%B6hook/">通过硬件断点绕过hook检测</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2022/04/01/%E5%BC%82%E5%B8%B8%E8%A7%A6%E5%8F%91/">windows环境下的调试器探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/28</span>
+            <a class="archive-post-title" href="/2022/03/28/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">windows异常处理探究</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/22</span>
