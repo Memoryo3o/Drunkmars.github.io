@@ -429,192 +429,6 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2022/02/27/SAMR%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">
-                
-                <span class="abstract-title-text">NetUserAdd的逆向分析重构</span>
-            </a>
-            <div class="abstract-content">
-                <p>对于MS-SAMR协议的进阶。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/27">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/02/20/r3TOr0API/">
-                
-                <span class="abstract-title-text">ring3下API的逆向分析及重构</span>
-            </a>
-            <div class="abstract-content">
-                <p>Windows所提供给R3环的API，实质就是对操作系统接口的封装，其实现部分都是在R0实现的。很多恶意程序会利用钩子来钩取这些API，从而达到截取内容，修改数据的意图。现在我们使用ollydbg对ReadProcessMemory进行跟踪分析，查看其在R3的实现。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/19">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/20</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/02/17/shellcode/">
-                
-                <span class="abstract-title-text">shellcode编写探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>shellcode是不依赖环境，放到任何地方都可以执行的机器码。shellcode的应用场景很多，本文不研究shellcode的具体应用，而只是研究编写一个shellcode需要掌握哪些知识。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/17">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/17</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/02/16/r0Inlinehook/">
-                
-                <span class="abstract-title-text">ring0下的Inline hook</span>
-            </a>
-            <div class="abstract-content">
-                <p>Inline hook是直接在以前的函数替里面修改指令，用一个跳转或者其他指令来达到挂钩的目的。 这是相对普通的hook来说，因为普通的hook只是修改函数的调用地址，而不是在原来的函数体里面做修改。一般来说，普通的hook比较稳定使用。 inline hook 更加高级一点，一般也跟难以被发现。ring3的Inline hook在之前已经实现过了，再看看ring0的Inline hook该如何实现。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/16">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/16</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/02/15/ssdt%20hook/">
-                
-                <span class="abstract-title-text">ring0下的进程保护</span>
-            </a>
-            <div class="abstract-content">
-                <p>SSDT 的全称是 System Services Descriptor Table，系统服务描述符表。这个表就是一个把 Ring3 的 Win32 API 和 Ring0 的内核 API 联系起来。SSDT 并不仅仅只包含一个庞大的地址索引表，它还包含着一些其它有用的信息，诸如地址索引的基地址、服务函数个数等。通过修改此表的函数地址可以对常用 Windows 函数及 API 进行 Hook，从而实现对一些关心的系统动作进行过滤、监控的目的。一些 HIPS、防毒软件、系统监控、注册表监控软件往往会采用此接口来实现自己的监控模块。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/22">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/15</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
             <a class="abstract-title" href="/2022/02/14/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">
                 
                 <span class="abstract-title-text">进程强杀初探</span>
@@ -789,10 +603,191 @@
         </article>
         <div class="index-post-divider"></div>
     
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/27/%E8%87%AA%E5%90%AF%E5%8A%A8%E6%8A%80%E6%9C%AF/">
+                
+                <span class="abstract-title-text">自启动技术详解</span>
+            </a>
+            <div class="abstract-content">
+                <p>本文将对自启动技术进行分析总结。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/27</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/26/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B/">
+                
+                <span class="abstract-title-text">初探傀儡进程</span>
+            </a>
+            <div class="abstract-content">
+                <p>对于进程隐藏技术有很多种实现方式，本文就对傀儡进程进行分析及实现。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/26</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/25/socket/">
+                
+                <span class="abstract-title-text">socket的探究与实现</span>
+            </a>
+            <div class="abstract-content">
+                <p>数据传输是病毒木马的必备技术之一，而数据回传也成为了病毒木马的一个重要特征，我们就尝试自己写一个程序来实现数据的传输，本文尝试通过c++来进行套接字(socket)的实现</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/01/28">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/25</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/22/%E9%9A%90%E8%97%8F%E6%A8%A1%E5%9D%97/">
+                
+                <span class="abstract-title-text">通过内存写入隐藏模块</span>
+            </a>
+            <div class="abstract-content">
+                <p>我们使用一般的注入方式如全局钩子注入、远程线程注入等注入dll到一个程序里面，因为使用了<code>GetProcAddress</code>得到<code>LoadLibrary</code>的地址，用<code>LoadLibrary</code>的地址加载了我们自己的dll，所以在导入表里面能够看到dll。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/22</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">
+                
+                <span class="abstract-title-text">初探进程伪装</span>
+            </a>
+            <div class="abstract-content">
+                <p>当我们获取到一台主机的权限过后，拿到了自己想要搜集的信息，这时候我们就会留一个后门进行权限维持，权限维持的学问其实很深，今天就主要介绍其中一种比较简单的权限维持的方法 – 进程伪装。</p>
+<p>我们知道在windows里面有很多系统进程，如<code>winlogon.exe</code>、<code>explorer.exe</code>、<code>services.exe</code>等等，这些exe都是Windows必须具有的exe，当缺失某些exe的时候，windows就不能够正常运行，所以我们如果想到实现进程伪装，最好的选择就是伪装成系统必备的exe，当我们进行进程伪装之后，在系统中显示的就会是系统进程的信息，但这个程序还是能够执行它正常的功能，这样就达到了进程伪装、权限维持的作用。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/21</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
     <!-- paginator  -->
     
         <nav class="page-nav">
-            <a class="extend prev" rel="prev" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/">&lt; PREV</a><a class="page-number" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/page/3/">3</a><a class="page-number" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/page/4/">4</a><a class="page-number" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/page/5/">5</a><a class="extend next" rel="next" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/page/3/">NEXT &gt;</a>
+            <a class="extend prev" rel="prev" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/">&lt; PREV</a><a class="page-number" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/page/3/">3</a><a class="page-number" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/page/4/">4</a><a class="extend next" rel="next" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/page/3/">NEXT &gt;</a>
         </nav>
     
 </main>
@@ -1422,107 +1417,7 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2665,7 +2560,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 111
+        Total : 105
         </div>
         <!-- search  -->
         
@@ -2699,18 +2594,6 @@
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">04/01</span>
-            <a class="archive-post-title" href="/2022/04/01/%E5%BC%82%E5%B8%B8%E8%A7%A6%E5%8F%91/">windows环境下的调试器探究</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/28</span>
-            <a class="archive-post-title" href="/2022/03/28/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">windows异常处理探究</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
             <span class="archive-post-date">03/22</span>
             <a class="archive-post-title" href="/2022/03/22/%E5%86%85%E6%A0%B8%E9%87%8D%E8%BD%BD/">ring0下使用内核重载绕过杀软hook</a>
         </li>
@@ -2725,30 +2608,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">03/03</span>
             <a class="archive-post-title" href="/2022/03/03/PEB%E6%96%AD%E9%93%BE/">基于PEB断链实现进程与模块隐藏</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/01</span>
-            <a class="archive-post-title" href="/2022/03/01/%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E8%A1%A5%E4%B8%81ETW%E7%9A%84%E7%BB%95%E8%BF%87/">ETW绕过</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/CVE-2021-36934/">SeriousSAM本地权限提升</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/MS-SAMR/">利用MS-SAMR协议修改用户密码</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/SAMR%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">NetUserAdd的逆向分析重构</a>
         </li>
     
         
