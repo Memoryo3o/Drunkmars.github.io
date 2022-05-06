@@ -429,6 +429,154 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/09/12/hook%E6%8A%80%E6%9C%AF/">
+                
+                <span class="abstract-title-text">hook技术详解</span>
+            </a>
+            <div class="abstract-content">
+                <p>本文对两种常见的hook技术进行分析及实现。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/08">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/09/12</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/09/10/mysql%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">
+                
+                <span class="abstract-title-text">mysql提权总结</span>
+            </a>
+            <div class="abstract-content">
+                <p>前两天参加了省赛的内网渗透，在拿到webshell后发现是一个站库分离，通过信息搜集得到了数据库的账号密码，但是是一个www-data权限，执行不了代理的命令，这时候就需要提权到root权限才能够执行命令，最后还没有通过udf提权，而是通过<code>/tmp</code>这个目录能够修改权限，改为777权限后使用的代理。因为linux打得比较少，我们队在这个地方卡了很久，导致只打到了第一层网络，第二层内网就没有时间去打，所以补一下关于mysql的提权知识。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/08">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/09/10</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/08/23/php/">
+                
+                <span class="abstract-title-text">php漏洞大杂烩</span>
+            </a>
+            <div class="abstract-content">
+                简介PHP（PHP: Hypertext Preprocessor）即“超文本预处理器”，是在服务器端执行的脚本语言，尤其适用于Web开发并可嵌入HTML中。PHP语法学习了C语言，吸纳Java和Perl多个语言的特色发展出自己的特色语法，并根据它们的长项持续改进提升自己，例如java的面向对象编程，该语言当初创建的主要目标是让开发人员快速编写出优质的web网站。 [1-2] PHP同时支持面向对象和面向过程的开发，使用上非常灵活。
+经过二十多年的发展，随着php-cli相关组件的快速发展和完善，PHP已经可以应用在[ TCP](https://baike.baidu.com/item/...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/08/23</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="中间件">中间件</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/08/20/struts2/">
+                
+                <span class="abstract-title-text">struts2漏洞总结</span>
+            </a>
+            <div class="abstract-content">
+                <p>Struts2是一个基于<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/8160955">MVC设计模式</a>的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Web%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6/4262233">Web应用框架</a>，它本质上相当于一个servlet，在MVC设计模式中，Struts2作为控制器(Controller)来建立模型与视图的数据交互。Struts 2是Struts的下一代产品，是在 struts 1和WebWork的技术基础上进行了合并的全新的Struts 2框架。其全新的Struts 2的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/8174145">体系结构</a>与Struts 1的体系结构差别巨大。Struts 2以WebWork为核心，采用拦截器的机制来处理用户的请求，这样的设计也使得业务逻辑控制器能够与<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Servlet">Servlet</a>API完全脱离开，所以Struts 2可以理解为WebWork的更新产品。虽然从Struts 1到Struts 2有着非常大的变化，但是相对于WebWork，Struts 2的变化很小。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/08/20</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="中间件">中间件</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/08/16/tomcat/">
                 
                 <span class="abstract-title-text">tomcat漏洞大杂烩</span>
@@ -637,154 +785,6 @@
         <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags="中间件">中间件</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/07/19/spring/">
-                
-                <span class="abstract-title-text">spring漏洞总结</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将对spring常见的漏洞进行总结。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/19</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="中间件">中间件</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/07/19/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA3/">
-                
-                <span class="abstract-title-text">红日靶场3</span>
-            </a>
-            <div class="abstract-content">
-                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9840">https://xz.aliyun.com/t/9840</a></strong></p>
-<p>本环境为黑盒测试，在不提供虚拟机帐号密码的情况下进行黑盒测试拿到域控里面的flag。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/04">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/19</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/07/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA5/">
-                
-                <span class="abstract-title-text">红日靶场5</span>
-            </a>
-            <div class="abstract-content">
-                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9807">https://xz.aliyun.com/t/9807</a></strong></p>
-<p>在内网渗透的过程中思路才是最重要的，本次内网渗透的主机虽然不多，主要还是锻炼自己内网渗透的一个思想。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/10/04">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/06</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/07/05/vmtest/">
-                
-                <span class="abstract-title-text">一种简单的反虚拟机调试方法</span>
-            </a>
-            <div class="abstract-content">
-                <p>今天在写LoadPE模块遍历的时候偶然看到了一个函数判断路径是否存在，正好也在用CreateToolhelp32Snapshot这个api进行进程遍历，初步的尝试一下反虚拟机调试的实现。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/07/11">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/05</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
     
 </div>
 
@@ -1426,7 +1426,65 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2569,7 +2627,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 105
+        Total : 109
         </div>
         <!-- search  -->
         
@@ -2585,6 +2643,12 @@
             
         
         <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">通过嵌入x64汇编隐藏数据&反调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">04/13</span>
             <a class="archive-post-title" href="/2022/04/13/APIFramework/">构建API调用框架绕过杀软hook</a>
         </li>
@@ -2597,8 +2661,26 @@
     
         
         <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span>
+            <a class="archive-post-title" href="/2022/04/07/hook%E6%94%BB%E9%98%B2/">浅谈hook攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">04/04</span>
             <a class="archive-post-title" href="/2022/04/04/%E7%A1%AC%E4%BB%B6hook/">通过硬件断点绕过hook检测</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2022/04/01/%E5%BC%82%E5%B8%B8%E8%A7%A6%E5%8F%91/">windows环境下的调试器探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/28</span>
+            <a class="archive-post-title" href="/2022/03/28/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">windows异常处理探究</a>
         </li>
     
         

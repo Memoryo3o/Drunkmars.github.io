@@ -429,6 +429,154 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/04/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BDPAPI%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0/">
+                
+                <span class="abstract-title-text">内网渗透之DPAPI机制学习</span>
+            </a>
+            <div class="abstract-content">
+                <p>绝大多数应用程序都有数据加密保护的需求，存储和保护私密信息最安全的方式就是每次需要加密或解密时都从用户那里得到密码，使用后再丢弃。这种方式每次处理信息时都需要用户输入口令，对于绝大多数用户来说，这种方式是不可取的。因为这要求用户记住很多信息，而用户一般会反复使用同一个密码，从而降低系统的安全性和可用性。因此需要一种加密机制，再不需要用户输入任何信息的情况下也能存储秘密数据，而微软数据保护接口（Data Protection Application Programming Interface，DPAPI）便是满足这种要求的程序接口。</p>
+<p>从 Windows 2000 开始，用户程序或操作系统程序就可以直接调用 DPAPI 来加密数据。由于 DPAPI 简单易用且加密强大，大量应用程序都采用 DPAPI 加密用户的私密数据，如 Chrome 浏览器的自动登陆密码、远程桌面的自动登陆密码、Outlook邮箱的账号密码、加密文件系统的私钥等。DPAPI内部加密流程异常复杂而且微软官方也未公布过其内部细节，这给理解该接口内部实现机制带来了极大困难。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/11">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/27</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                
+                <span class="abstract-title-text">隐藏用户的创建和使用</span>
+            </a>
+            <div class="abstract-content">
+                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9673">https://xz.aliyun.com/t/9673</a></strong></p>
+<p>在渗透过程中拿下一台主机后很多时候会选择开3389进远程桌面查看一下对方主机内有无一些有价值的东西可以利用，但是这也引出了一个问题，只要是登录进程就一定会留下痕迹，虽然在渗透完成后可以通过痕迹清理的方法清除自己登录的”证据”，但是在多次渗透的过程中我不禁产生了思考，有没有一种方法能够最大化的隐藏自己登陆过对方主机呢，于是便有了下文。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/09">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/20</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="权限维持">权限维持</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">
+                
+                <span class="abstract-title-text">利用卷影拷贝服务提取ntds.dit</span>
+            </a>
+            <div class="abstract-content">
+                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9624">https://xz.aliyun.com/t/9624</a></strong></p>
+<p>通常情况下，即使拥有管理员权限，也无法读取域控制器中的C:\Windows\NTDS\ntds.dit文件。那么什么是ntds.dit呢？</p>
+<p>ntds.dit文件是一个数据库，用于存储Active Directory数据，包括有关用户对象，组和组成员身份的信息。它包括域中所有用户的密码哈希。通过提取这些哈希值，可以使用诸如Mimikatz之类的工具执行哈希传递攻击，或使用诸如Hashcat之类的工具来破解这些密码。这些密码的提取和破解可以脱机执行，因此将无法检测到。一旦攻击者提取了这些散列，它们便可以充当域上的任何用户，包括域管理员。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/07">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/19</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">
+                
+                <span class="abstract-title-text">中间人攻击之arp欺骗</span>
+            </a>
+            <div class="abstract-content">
+                <p>之前有一篇文章是关于arp欺骗盗取邻居wifi密码的，也只是学会了工具的使用，在经过这么久的学习之后，又对arp欺骗有了更深刻的理解，以及基于原理有了更深层次的运用</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/17</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">
                 
                 <span class="abstract-title-text">浅谈域渗透中组策略及gpp运用</span>
@@ -635,152 +783,6 @@
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2021/10/04">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/09</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/">
-                
-                <span class="abstract-title-text">phpmyadmin页面getshell</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将介绍如何在phpmyadmin页面getshell。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/08</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="mysql">mysql</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">
-                
-                <span class="abstract-title-text">windows环境下抓密码总结</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将会介绍如何在windows环境下抓取用户hash。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/26">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/08</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/04/Stega/">
-                
-                <span class="abstract-title-text">Stega</span>
-            </a>
-            <div class="abstract-content">
-                <p>很少打ctf，碰到一些自己没有见过的新题型stega记录一下。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/25">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="ctf">ctf</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">
-                
-                <span class="abstract-title-text">内网渗透命令</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文为内网渗透一些常用命令的总结。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/06/02">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/02</span>
                 </div>
                 <!-- tags -->
                 
@@ -1429,7 +1431,65 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2572,7 +2632,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 105
+        Total : 109
         </div>
         <!-- search  -->
         
@@ -2588,6 +2648,12 @@
             
         
         <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">通过嵌入x64汇编隐藏数据&反调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">04/13</span>
             <a class="archive-post-title" href="/2022/04/13/APIFramework/">构建API调用框架绕过杀软hook</a>
         </li>
@@ -2600,8 +2666,26 @@
     
         
         <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span>
+            <a class="archive-post-title" href="/2022/04/07/hook%E6%94%BB%E9%98%B2/">浅谈hook攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">04/04</span>
             <a class="archive-post-title" href="/2022/04/04/%E7%A1%AC%E4%BB%B6hook/">通过硬件断点绕过hook检测</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2022/04/01/%E5%BC%82%E5%B8%B8%E8%A7%A6%E5%8F%91/">windows环境下的调试器探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/28</span>
+            <a class="archive-post-title" href="/2022/03/28/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">windows异常处理探究</a>
         </li>
     
         
