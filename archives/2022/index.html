@@ -429,6 +429,81 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/05/14/NtCreateUserProcess/">
+                
+                <span class="abstract-title-text">调用NtCreateUserProcess创建进程绕过杀软hook</span>
+            </a>
+            <div class="abstract-content">
+                <p>对于<code>CreateProcess</code>的底层探究实现。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/05/18">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/14</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="windows">windows</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">
+                
+                <span class="abstract-title-text">对抗无落地的shellcode注入</span>
+            </a>
+            <div class="abstract-content">
+                <p>一般的shellcode加载到内存都是通过<code>LoadLibrary</code>和<code>GetProcAddress</code>来获取函数进行shellcode加载，亦或是通过<code>VirtualAllocEx</code>远程申请一块空间来放入shellcode的地址进行加载。为了隐蔽，攻击者通常会通过PEB找到<code>InLoadOrderModuleList</code>链表，自己去定位<code>LoadLibrary</code>函数从而规避杀软对导入表的监控。攻击者先把shellcode加密，在写入时解密存放到内存空间，使用基于文件检测的方法，是无能为力的，那么这种无落地的方式，最终都会在内存中一览无余</p>
+<p>视频演示请移步：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1o54y1f7J3">https://www.bilibili.com/video/BV1o54y1f7J3</a></p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/05/11">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/07</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">
                 
                 <span class="abstract-title-text">通过嵌入x64汇编隐藏数据&amp;反调试</span>
@@ -726,86 +801,10 @@
         </article>
         <div class="index-post-divider"></div>
     
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/03/16/%E5%85%A8%E5%B1%80%E5%8F%A5%E6%9F%84%E8%A1%A8/">
-                
-                <span class="abstract-title-text">基于全局句柄表发现隐藏进程</span>
-            </a>
-            <div class="abstract-content">
-                <p>我们知道在0环进行PEB断链可以达到隐藏进程的效果，但是这只是作为权限维持的一种方法，如果要想完美的隐藏进程几乎是不可能的，本文就基于全局句柄表<code>PsdCidTable</code>，来找到隐藏进程的效果。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/03/16">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/03/16</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/03/03/PEB%E6%96%AD%E9%93%BE/">
-                
-                <span class="abstract-title-text">基于PEB断链实现进程与模块隐藏</span>
-            </a>
-            <div class="abstract-content">
-                <p>断链这种技术非常古老，同时应用于非常多的场景，在内核层如果我们需要隐藏一个进程的内核结构体，也会使用这种技术。本文基于PEB断链在用户层和内核层分别进行实现，在用户层达到的效果主要是dll模块的隐藏，在内核层达到的效果主要是进程的隐藏。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/03/10">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/03/03</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
     <!-- paginator  -->
     
         <nav class="page-nav">
-            <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="extend next" rel="next" href="/archives/2022/page/2/">NEXT &gt;</a>
+            <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="extend next" rel="next" href="/archives/2022/page/2/">NEXT &gt;</a>
         </nav>
     
 </main>
@@ -1455,7 +1454,47 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2646,7 +2685,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 109
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2660,6 +2699,18 @@
             <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2022/05/14/NtCreateUserProcess/">调用NtCreateUserProcess创建进程绕过杀软hook</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span>
+            <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">04/16</span>
@@ -3477,6 +3528,11 @@
             <span class="sidebar-tag-name" data-tags="权限维持">
                 <span class="iconfont-archer">&#xe606;</span>
                 权限维持
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows
             </span>
         
     </div>
