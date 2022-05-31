@@ -512,20 +512,19 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">
+            <a class="abstract-title" href="/2022/05/12/ETW/">
                 
-                <span class="abstract-title-text">对抗无落地的shellcode注入</span>
+                <span class="abstract-title-text">ETW的攻与防</span>
             </a>
             <div class="abstract-content">
-                <p>一般的shellcode加载到内存都是通过<code>LoadLibrary</code>和<code>GetProcAddress</code>来获取函数进行shellcode加载，亦或是通过<code>VirtualAllocEx</code>远程申请一块空间来放入shellcode的地址进行加载。为了隐蔽，攻击者通常会通过PEB找到<code>InLoadOrderModuleList</code>链表，自己去定位<code>LoadLibrary</code>函数从而规避杀软对导入表的监控。攻击者先把shellcode加密，在写入时解密存放到内存空间，使用基于文件检测的方法，是无能为力的，那么这种无落地的方式，最终都会在内存中一览无余</p>
-<p>视频演示请移步：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1o54y1f7J3">https://www.bilibili.com/video/BV1o54y1f7J3</a></p>
+                <p><code>ETW</code>全称为<code>Event Tracing for Windows</code>，即windows事件跟踪，它是Windows提供的原生的事件跟踪日志系统。由于采用内核层面的缓冲和日志记录机制，所以<code>ETW</code>提供了一种非常高效的事件跟踪日志解决方案，本文基于<code>ETW</code>探究其攻与防的实现</p>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/05/11">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/07</span>
+                <div class="abstract-date" title="Last updated: 2022/05/13">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/12</span>
                 </div>
                 <!-- tags -->
                 
@@ -549,19 +548,20 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">
+            <a class="abstract-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">
                 
-                <span class="abstract-title-text">通过嵌入x64汇编隐藏数据&amp;反调试</span>
+                <span class="abstract-title-text">对抗无落地的shellcode注入</span>
             </a>
             <div class="abstract-content">
-                <p>我们知道在x64里面，从3环进入0环会调用<code>syscall</code>，那么如果是32位的程序就需要首先转换为x64模式再通过<code>syscall</code>进入0环，这里就会涉及到一系列64位寄存器的操作，我们通过探究其实现原理来达到隐藏数据和反调试的效果。</p>
+                <p>一般的shellcode加载到内存都是通过<code>LoadLibrary</code>和<code>GetProcAddress</code>来获取函数进行shellcode加载，亦或是通过<code>VirtualAllocEx</code>远程申请一块空间来放入shellcode的地址进行加载。为了隐蔽，攻击者通常会通过PEB找到<code>InLoadOrderModuleList</code>链表，自己去定位<code>LoadLibrary</code>函数从而规避杀软对导入表的监控。攻击者先把shellcode加密，在写入时解密存放到内存空间，使用基于文件检测的方法，是无能为力的，那么这种无落地的方式，最终都会在内存中一览无余</p>
+<p>视频演示请移步：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1o54y1f7J3">https://www.bilibili.com/video/BV1o54y1f7J3</a></p>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/04/20">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/16</span>
+                <div class="abstract-date" title="Last updated: 2022/05/11">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/07</span>
                 </div>
                 <!-- tags -->
                 
@@ -569,8 +569,6 @@
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
     
 </div>
 
@@ -2858,6 +2856,8 @@
         
         
         
+        
+        
     
     
     
@@ -2886,14 +2886,14 @@
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">05/07</span>
-            <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2022/05/12/ETW/">ETW的攻与防</a>
         </li>
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">04/16</span>
-            <a class="archive-post-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">通过嵌入x64汇编隐藏数据&反调试</a>
+            <span class="archive-post-date">05/07</span>
+            <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
         </li>
     
         
