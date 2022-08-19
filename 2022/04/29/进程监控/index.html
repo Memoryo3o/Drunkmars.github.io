@@ -1,0 +1,3801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Drunkmars">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Drunkmars">
+    
+        <meta name="keywords" content="Drunkmars,Drunkmars-theme,Drunkmars-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="在32位的系统下，我们想要实现某些监控十分简单，只需要找到对应的API实现挂钩操作即可检测进程。但在64位系统下随着Patch Guard的引入，导致我们如果继续使用挂钩API的方式进行监控会出现不可控的情况发生。微软也考虑到了用户程序的开发，所以开放了方便用户调用的系统回调API函数，在64位系统下的监控，使用系统回调相对于直接hook的方式往往是更值得青睐的一方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="64位下使用回调函数实现监控">
+<meta property="og:url" content="http://drunkmars.top/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/index.html">
+<meta property="og:site_name" content="Drunkmars">
+<meta property="og:description" content="在32位的系统下，我们想要实现某些监控十分简单，只需要找到对应的API实现挂钩操作即可检测进程。但在64位系统下随着Patch Guard的引入，导致我们如果继续使用挂钩API的方式进行监控会出现不可控的情况发生。微软也考虑到了用户程序的开发，所以开放了方便用户调用的系统回调API函数，在64位系统下的监控，使用系统回调相对于直接hook的方式往往是更值得青睐的一方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429152901611.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429154355018.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429160658091.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429160758206.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429161209373.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429204914968.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429153441738.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429153522913.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429205611615.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429224629521.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429224711652.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214350741.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214415641.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214524382.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214549454.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214919018.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429215206415.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429215220347.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429220131292.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430095707467.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430101555138.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430150950600.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151042590.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151057848.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151343201.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151753570.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430153535149.png">
+<meta property="og:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430153848221.png">
+<meta property="article:published_time" content="2022-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-30T16:17:48.563Z">
+<meta property="article:author" content="Drunkmars">
+<meta property="article:tag" content="二进制">
+<meta property="article:tag" content="内核">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://drunkmars.top/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429152901611.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/Drunkmars.ico">
+    
+    <title>64位下使用回调函数实现监控 · Drunkmars&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Drunkmars's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Drunkmars&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">64位下使用回调函数实现监控</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                64位下使用回调函数实现监控
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3.7k</span>阅读时长: <span class="post-count reading-time">14 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/04/29</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>在32位的系统下，我们想要实现某些监控十分简单，只需要找到对应的API实现挂钩操作即可检测进程。但在64位系统下随着<code>Patch Guard</code>的引入，导致我们如果继续使用挂钩API的方式进行监控会出现不可控的情况发生。微软也考虑到了用户程序的开发，所以开放了方便用户调用的系统回调API函数，在64位系统下的监控，使用系统回调相对于直接hook的方式往往是更值得青睐的一方</p>
+<span id="more"></span>
+
+
+
+<h1 id="进程监控-amp-保护"><a href="#进程监控-amp-保护" class="headerlink" title="进程监控&amp;保护"></a>进程监控&amp;保护</h1><h2 id="PsSetCreateProcessNotifyRoutineEx"><a href="#PsSetCreateProcessNotifyRoutineEx" class="headerlink" title="PsSetCreateProcessNotifyRoutineEx"></a>PsSetCreateProcessNotifyRoutineEx</h2><p>这个函数主要是设置进程回调监控进程创建与退出</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">PsSetCreateProcessNotifyRoutineEx</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] PCREATE_PROCESS_NOTIFY_ROUTINE_EX NotifyRoutine,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] BOOLEAN                           Remove</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429152901611.png" alt="image-20220429152901611"></p>
+<p><code>PsSetCreateProcessNotifyRoutineEx</code>这个函数并不是随便就能够使用的，微软为了确保安全性要求拥有数字签名的驱动才能够使用此函数。这里微软如何检测是否有数字签名呢？这里就使用到了强制完整性检查</p>
+<p>强制完整性检查是一种确保正在加载的二进制文件在加载前需要使用签名的策略，<code>IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY</code>标志在链接时通过使用<code>/integritycheck</code>链接器标志在PE头中进行设置，让正在加载的二进制文件必须签名，这个标志使windows内存管理器在加载时对二进制文件进行签名检查</p>
+<p>那么微软就是通过加载二进制文件时是否存在标志来确认驱动的发布者身份是否为已知状态，这就是强制完整性检查</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429154355018.png" alt="image-20220429154355018"></p>
+<p>这里在内核里面，windows使用到<code>MmVerifyCallbackFunction </code>这个内核函数来判断</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429160658091.png" alt="image-20220429160658091"></p>
+<p>到IDA里面继续跟<code>MmVerifyCallbackFunction</code>这个函数，发现其逻辑就是通过比较<code>[rax+68h]</code>是否包含了0x20来判断是否拥有正确的数字签名</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429160758206.png" alt="image-20220429160758206"></p>
+<p>这里的<code>rax</code>表示<code>DriverSection</code>，而<code>DriverSection</code>指向的是<code>_LDR_DATA_TABLE_ENTRY</code>结构，那么<code>[rax + 0x68]</code>指向的就是<code>ProcessStaticImport</code></p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429161209373.png" alt="image-20220429161209373"></p>
+<p>那么如果我们要使用<code>PsSetCreateProcessNotifyRoutineEx</code>这个函数就需要拥有数字签名，这里我们就可以将<code>DriverObject-&gt;DriverSection-&gt;Flags</code>的值与<code>0x20</code>按位或即可</p>
+<p>这里我们就可以编写一个绕过强制完整性检查的函数，注意一下在32位和64位结构体的定义不同，需要分开定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOLEAN <span class="title">bypass_signcheck</span><span class="params">(PDRIVER_OBJECT pDriverObject)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _WIN64</span></span><br><span class="line">	<span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">KLDR_DATA_TABLE_ENTRY</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		LIST_ENTRY listEntry;</span><br><span class="line">		ULONG64 __Undefined1;</span><br><span class="line">		ULONG64 __Undefined2;</span><br><span class="line">		ULONG64 __Undefined3;</span><br><span class="line">		ULONG64 NonPagedDebugInfo;</span><br><span class="line">		ULONG64 DllBase;</span><br><span class="line">		ULONG64 EntryPoint;</span><br><span class="line">		ULONG SizeOfImage;</span><br><span class="line">		UNICODE_STRING path;</span><br><span class="line">		UNICODE_STRING name;</span><br><span class="line">		ULONG   Flags;</span><br><span class="line">		USHORT  LoadCount;</span><br><span class="line">		USHORT  __Undefined5;</span><br><span class="line">		ULONG64 __Undefined6;</span><br><span class="line">		ULONG   CheckSum;</span><br><span class="line">		ULONG   __padding1;</span><br><span class="line">		ULONG   TimeDateStamp;</span><br><span class="line">		ULONG   __padding2;</span><br><span class="line">	&#125; KLDR_DATA_TABLE_ENTRY, *PKLDR_DATA_TABLE_ENTRY;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">	<span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">KLDR_DATA_TABLE_ENTRY</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		LIST_ENTRY listEntry;</span><br><span class="line">		ULONG unknown1;</span><br><span class="line">		ULONG unknown2;</span><br><span class="line">		ULONG unknown3;</span><br><span class="line">		ULONG unknown4;</span><br><span class="line">		ULONG unknown5;</span><br><span class="line">		ULONG unknown6;</span><br><span class="line">		ULONG unknown7;</span><br><span class="line">		UNICODE_STRING path;</span><br><span class="line">		UNICODE_STRING name;</span><br><span class="line">		ULONG   Flags;</span><br><span class="line">	&#125; KLDR_DATA_TABLE_ENTRY, *PKLDR_DATA_TABLE_ENTRY;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	PKLDR_DATA_TABLE_ENTRY pLdrData = (PKLDR_DATA_TABLE_ENTRY)pDriverObject-&gt;DriverSection;</span><br><span class="line">	pLdrData-&gt;Flags = pLdrData-&gt;Flags | <span class="number">0x20</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>到这里我们就已经绕过了微软的强制完整性检查，能够调用<code>PsSetCreateProcessNotifyRoutineEx</code>函数，可以看到<code>PsSetCreateProcessNotifyRoutineEx</code>的第一个参数指向<code>CREATE_PROCESS_NOTIFY_ROUTINE_EX</code>，来执行我们需要执行的回调函数，这里我们继续看<code>PCREATE_PROCESS_NOTIFY_ROUTINE_EX</code>这个结构</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429204914968.png" alt="image-20220429204914968"></p>
+<h2 id="PCREATE-PROCESS-NOTIFY-ROUTINE-EX"><a href="#PCREATE-PROCESS-NOTIFY-ROUTINE-EX" class="headerlink" title="PCREATE_PROCESS_NOTIFY_ROUTINE_EX"></a>PCREATE_PROCESS_NOTIFY_ROUTINE_EX</h2><p>第一个参数是<code>Process</code>，指向<code>EPROCESS</code>结构，第二个参数<code>ProcessId</code>就是PID，第三个参数<code>CreateInfo</code>是一个指向<code>PS_CREATE_NOTIFY_INFO</code>的指针，当它为<code>NULL</code>时表明进程退出，不为<code>NULL</code>时表明进程创建，里面存储着要创建的进程信息</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PCREATE_PROCESS_NOTIFY_ROUTINE_EX PcreateProcessNotifyRoutineEx;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PcreateProcessNotifyRoutineEx</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [_Inout_]           PEPROCESS Process,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]                HANDLE ProcessId,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, out, optional] PPS_CREATE_NOTIFY_INFO CreateInfo</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br><span class="line"><span class="function"></span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>msdn的定义如下</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429153441738.png" alt="image-20220429153441738"></p>
+<p>然后我们再去看一下<code>PS_CREATE_NOTIFY_INFO </code></p>
+<h2 id="PS-CREATE-NOTIFY-INFO"><a href="#PS-CREATE-NOTIFY-INFO" class="headerlink" title="PS_CREATE_NOTIFY_INFO"></a>PS_CREATE_NOTIFY_INFO</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">PS_CREATE_NOTIFY_INFO</span> &#123;</span></span><br><span class="line">  SIZE_T              Size;</span><br><span class="line">  <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">    ULONG Flags;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">      ULONG FileOpenNameAvailable : <span class="number">1</span>;</span><br><span class="line">      ULONG IsSubsystemProcess : <span class="number">1</span>;</span><br><span class="line">      ULONG Reserved : <span class="number">30</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">  HANDLE              ParentProcessId;</span><br><span class="line">  CLIENT_ID           CreatingThreadId;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">FILE_OBJECT</span> *<span class="title">FileObject</span>;</span></span><br><span class="line">  PCUNICODE_STRING    ImageFileName;</span><br><span class="line">  PCUNICODE_STRING    CommandLine;</span><br><span class="line">  NTSTATUS            CreationStatus;</span><br><span class="line">&#125; PS_CREATE_NOTIFY_INFO, *PPS_CREATE_NOTIFY_INFO;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>msdn定义如下</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429153522913.png" alt="image-20220429153522913"></p>
+<p>这里的话我们要注意两个值，一个是<code>ImageFileName</code>即要创建的进程名，一个是<code>CreationStatus</code>，我们可以看到msdn里面说驱动程序可以将此值修改为错误代码以防止创建进程，这里我们如果想阻止进程创建就可以把这个值设置为<code>STATUS_UNSUCCESSFUL </code></p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429205611615.png" alt="image-20220429205611615"></p>
+<p>我们去WRK里面看一下实现，这个API是64位才有的，所以在WRK里面是没有<code>PsSetCreateProcessNotifyRoutineEx</code>这个函数的，但是在32位下有一个<code>PsSetCreateProcessNotifyRoutine</code>，我们看一下</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429224629521.png" alt="image-20220429224629521"></p>
+<p>通过源码可以发现是操作数组，这个数组里面存放的是我们填写的回调，而操作系统会依次调用回调，那我们跟随数组查看发现是个定长数组，里面只有8项，在64位系统下，这个数组的长度变为了64项</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429224711652.png" alt="image-20220429224711652"></p>
+<p>根据<code>PCREATE_PROCESS_NOTIFY_ROUTINE_EX</code>的结构定义回调函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">VOID <span class="title">CreateProcessNotifyEx</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    __inout PEPROCESS  Process,</span></span></span><br><span class="line"><span class="params"><span class="function">    __in HANDLE  ProcessId,</span></span></span><br><span class="line"><span class="params"><span class="function">    __in_opt PPS_CREATE_NOTIFY_INFO  CreateInfo</span></span></span><br><span class="line"><span class="params"><span class="function">    )</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么我们这里通过<code>PsSetCreateProcessNotifyRoutineEx</code>设置回调函数，通过判断<code>status</code>的返回值判断回调函数是否设置成功</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">SetReFunction</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	NTSTATUS status = <span class="built_in">PsSetCreateProcessNotifyRoutineEx</span>((PCREATE_PROCESS_NOTIFY_ROUTINE_EX)CreateProcessNotifyEx, FALSE);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">NT_SUCCESS</span>(status))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;回调函数设置失败, status=%X&quot;</span>, status);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;进程监控已开启\r\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后进行回调函数的实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">VOID <span class="title">CreateProcessNotifyEx</span><span class="params">(PEPROCESS Process, HANDLE ProcessId, PPS_CREATE_NOTIFY_INFO CreateInfo)</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>首先判断<code>CreateInfo</code>的值，如果为<code>NULL</code>则表示进程退出，如果不为<code>NULL</code>才为进程的创建</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (CreateInfo == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">DbgPrint</span>(<span class="string">&quot;进程退出\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么这里通过<code>PsGetProcessImageFileName</code>获取进程名之后进行判断，如果是我们想要拦截的进程就通过设置<code>CreationStatus</code>的值为<code>STATUS_UNSUCCESSFUL</code>来阻止进程的创建</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    pszImageFileName = <span class="built_in">PsGetProcessImageFileName</span>(Process);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pszImageFileName) </span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;新创建的进程是:%s\r\n&quot;</span>, pszImageFileName);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(pszImageFileName, <span class="string">&quot;test.exe&quot;</span>) == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        CreateInfo-&gt;CreationStatus = STATUS_UNSUCCESSFUL;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;拦截进程:%s成功\r\n&quot;</span>, pszImageFileName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里我们的回调函数就已经完成，这里需要注意，在卸载驱动的时候就需要将回调函数摘除，否则新创建或者退出的进程会因为找不到回调函数而导致蓝屏</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">VOID <span class="title">DriverUnload</span><span class="params">(IN PDEVICE_OBJECT driverObject)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    NTSTATUS status = <span class="built_in">PsSetCreateProcessNotifyRoutineEx</span>((PCREATE_PROCESS_NOTIFY_ROUTINE_EX)CreateProcessNotifyEx, TRUE);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">NT_SUCCESS</span>(status))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;回调函数删除失败\r\n status=%X&quot;</span>, status);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;回调函数成功删除\r\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">DbgPrint</span>(<span class="string">&quot;驱动卸载完成\r\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p>首先注册一下驱动</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214350741.png" alt="image-20220429214350741"></p>
+<p>然后这里首先执行一下我们的exe</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214415641.png" alt="image-20220429214415641"></p>
+<p>然后加载我们的驱动可以看到这里<code>test.exe</code>已经不能够运行</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214524382.png" alt="image-20220429214524382"></p>
+<p>那么这里我们再卸载一下驱动可以发现又可以运行成功</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214549454.png" alt="image-20220429214549454"></p>
+<p>这里可能有点不太明显，我们将拦截的exe改成<code>notepad.exe</code>看下效果</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429214919018.png" alt="image-20220429214919018"></p>
+<p>启动驱动可以看到这里启动失败</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429215206415.png" alt="image-20220429215206415"></p>
+<p>卸载驱动即可启动成功</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429215220347.png" alt="image-20220429215220347"></p>
+<h1 id="线程监控-amp-保护"><a href="#线程监控-amp-保护" class="headerlink" title="线程监控&amp;保护"></a>线程监控&amp;保护</h1><h2 id="PsSetCreateThreadNotifyRoutine"><a href="#PsSetCreateThreadNotifyRoutine" class="headerlink" title="PsSetCreateThreadNotifyRoutine"></a>PsSetCreateThreadNotifyRoutine</h2><p>线程监控使用到的API相对于进程监控简单，使用到<code>PsSetCreateThreadNotifyRoutine</code>，而这个值并不能像进程操作的API一样进行操作，这里我们首先先使用这个API来进行线程的监控</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">PsSetCreateThreadNotifyRoutine</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] PCREATE_THREAD_NOTIFY_ROUTINE NotifyRoutine</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>NotifyRoutine</code>指向<code>PCREATE_THREAD_NOTIFY_ROUTINE</code></p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220429220131292.png" alt="image-20220429220131292"></p>
+<p><code>PcreateThreadNotifyRoutine</code>的结构如下，第一个参数为PID，第二个参数为TID，第三个参数表示是创建线程还是删除线程，创建线程则为<code>TRUE</code>，删除线程则为<code>FALSE</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PCREATE_THREAD_NOTIFY_ROUTINE PcreateThreadNotifyRoutine;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PcreateThreadNotifyRoutine</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] HANDLE ProcessId,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] HANDLE ThreadId,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] BOOLEAN Create</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br><span class="line"><span class="function"></span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么我们这里就可以写出<code>CREATE_THREAD_NOTIFY_ROUTINE</code>函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">VOID <span class="title">CreateThreadNotifyRoutine</span><span class="params">(HANDLE ProcessId, HANDLE ThreadId, BOOLEAN Create)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (Create)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;新创建的线程ID为:%d,所属进程ID为:%d\r\n&quot;</span>, ThreadId, ProcessId);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;新销毁的线程ID为:%d,所属进程ID为:%d\r\n&quot;</span>, ThreadId, ProcessId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里如果要将函数摘除，就需要用到<code>PsRemoveCreateThreadNotifyRoutine</code>函数，定义如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">PsRemoveCreateThreadNotifyRoutine</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] PCREATE_THREAD_NOTIFY_ROUTINE NotifyRoutine</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS status = <span class="built_in">PsRemoveCreateThreadNotifyRoutine</span>(CreateThreadNotifyRoutine);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">NT_SUCCESS</span>(status))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">DbgPrint</span>(<span class="string">&quot;回调函数删除失败\r\n status=%X&quot;</span>, status);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">DbgPrint</span>(<span class="string">&quot;回调函数成功删除\r\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们如果想让进行线程的保护该如何操作呢？我们想要阻止线程的创建，就首先要找到对应的进程，再去进行拦截，因为在64位下都是通过回调的方式实现，那么我们就可以通过找到线程回调的地址，然后直接改为<code>ret</code>即可起到拦截线程创建的效果</p>
+<blockquote>
+<p>1.通过PID找到EPROCESS</p>
+<p>2.通过TID找到ETHREAD</p>
+<p>3.通过EPROCESS得到进程路径</p>
+<p>4.通过进程路径对应进程名</p>
+<p>5.判断进程名是否相同</p>
+<p>​    &lt;1&gt;若相同则找到线程回调函数的地址修改内容为ret</p>
+<p>​    &lt;2&gt;若不相同则退出</p>
+</blockquote>
+<p>那么我们该如何找到线程回调函数的地址呢？这里查阅资料后发现，3环将回调函数的地址放在了<code>ETHREAD + 0x410</code>偏移的<code>Win32StartAddress</code>里面</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430095707467.png" alt="image-20220430095707467"></p>
+<p>那么这里我们就能进行函数的编写，首先我们通过<code>PsSetCreateThreadNotifyRoutine</code>注册一个线程回调函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS status = <span class="built_in">PsSetCreateThreadNotifyRoutine</span>(CreateThreadNotify);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">NT_SUCCESS</span>(status))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;回调函数设置失败, status=%X&quot;</span>, status);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;线程监控已开启\r\n&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后我们再去写<code>CreateThreadNotify</code>这个回调函数，首先获取<code>EPROCESS</code>、<code>ETHREAD</code>，然后通过<code>EPROCESS</code>获取进程名</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">status = <span class="built_in">PsLookupProcessByProcessId</span>(ProcessId, &amp;Process);　　</span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">NT_SUCCESS</span>(status))</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">status = <span class="built_in">PsLookupThreadByThreadId</span>(ThreadId, &amp;Thread);　　　　</span><br><span class="line"></span><br><span class="line">pszImageName = <span class="built_in">PsGetProcessImageFileName</span>(Process);　　　　　</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后再判断进程名是否为我们要保护的线程</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">strstr</span>(pszImageName, <span class="string">&quot;notepad&quot;</span>) != <span class="literal">NULL</span>)　</span><br></pre></td></tr></table></figure>
+
+
+
+<p>定位到回调函数的地址判断内存空间是否可用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pWin32Address = *(UCHAR**)((UCHAR*)Thread + <span class="number">0x410</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">MmIsAddressValid</span>(pWin32Address))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里的话定位到了回调函数的地址，如果我们要修改回调函数的值就要修改页保护属性，但是在64位下是不允许使用内联汇编的，这里的话就需要使用到汇编生成<code>.obj</code>文件来使用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ClosePageProtect</span>();</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">MmIsAddressValid</span>(pWin32Address))</span><br><span class="line">&#123;</span><br><span class="line">  *pWin32Address = <span class="number">0xC3</span>;　　　　　　　　　　　　　　　　　</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">OpenPageProtect</span>();</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改完成之后这里我们使用<code>ObDereferenceObject </code>，减少引用计数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( Process )</span><br><span class="line">  <span class="built_in">ObDereferenceObject</span>(Process);　　</span><br><span class="line"><span class="keyword">if</span>( Thread )</span><br><span class="line">  <span class="built_in">ObDereferenceObject</span>(Thread);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里因为我在win10 x64上做的实验，这里在关闭保护属性的时候一直报错导致<code>0xC3</code>一直修改不成功，这里就不放图了</p>
+<h1 id="模块监控-amp-保护"><a href="#模块监控-amp-保护" class="headerlink" title="模块监控&amp;保护"></a>模块监控&amp;保护</h1><h2 id="PsSetLoadImageNotifyRoutine"><a href="#PsSetLoadImageNotifyRoutine" class="headerlink" title="PsSetLoadImageNotifyRoutine"></a>PsSetLoadImageNotifyRoutine</h2><p>和之前的函数一样都是指向一个结构，这里是<code>LOAD_IMAGE_NOTIFY_ROUTINE </code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">PsSetLoadImageNotifyRoutine</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] PLOAD_IMAGE_NOTIFY_ROUTINE NotifyRoutine</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430101555138.png" alt="image-20220430101555138"></p>
+<h2 id="PLOAD-IMAGE-NOTIFY-ROUTINE"><a href="#PLOAD-IMAGE-NOTIFY-ROUTINE" class="headerlink" title="PLOAD_IMAGE_NOTIFY_ROUTINE"></a>PLOAD_IMAGE_NOTIFY_ROUTINE</h2><p>这里第一个参数是指向缓冲的Unicode字符串的指针，用于标识可执行映像文件，第二个参数表示PID，第三个参数指向<code>IMAGE_INFO </code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PLOAD_IMAGE_NOTIFY_ROUTINE SetLoadImageNotifyRoutine;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetLoadImageNotifyRoutine</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">_In_opt_ PUNICODE_STRING FullImageName,</span></span></span><br><span class="line"><span class="params"><span class="function">_In_ HANDLE ProcessId,</span></span></span><br><span class="line"><span class="params"><span class="function">_In_ PIMAGE_INFO ImageInfo</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br><span class="line"><span class="function"></span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="IMAGE-INFO"><a href="#IMAGE-INFO" class="headerlink" title="IMAGE_INFO"></a>IMAGE_INFO</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_INFO</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">    ULONG Properties;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">      ULONG ImageAddressingMode : <span class="number">8</span>;</span><br><span class="line">      ULONG SystemModeImage : <span class="number">1</span>;</span><br><span class="line">      ULONG ImageMappedToAllPids : <span class="number">1</span>;</span><br><span class="line">      ULONG ExtendedInfoPresent : <span class="number">1</span>;</span><br><span class="line">      ULONG MachineTypeMismatch : <span class="number">1</span>;</span><br><span class="line">      ULONG ImageSignatureLevel : <span class="number">4</span>;</span><br><span class="line">      ULONG ImageSignatureType : <span class="number">3</span>;</span><br><span class="line">      ULONG ImagePartialMap : <span class="number">1</span>;</span><br><span class="line">      ULONG Reserved : <span class="number">12</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">  PVOID  ImageBase;</span><br><span class="line">  ULONG  ImageSelector;</span><br><span class="line">  SIZE_T ImageSize;</span><br><span class="line">  ULONG  ImageSectionNumber;</span><br><span class="line">&#125; IMAGE_INFO, *PIMAGE_INFO;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>具体成员的作用如下</p>
+<blockquote>
+<ul>
+<li>Properties<br>ImageAddressingMode<br>始终设置为IMAGE_ADDRESSING_MODE_32BIT。</li>
+<li>SystemModeImage<br>设置为一个用于新加载的内核模式组件（如驱动程序），或者对于映射到用户空间的映像设置为 0。</li>
+<li>ImageMappedToAllPids<br>始终设置为0。</li>
+<li>ExtendedInfoPresent<br>如果设置了ExtendedInfoPresent标志，则IMAGE_INFO结构是图像信息结构的较大扩展版本的一部分（请参阅IMAGE_INFO_EX）。在Windows Vista中添加。有关详细信息，请参阅本备注部分的“扩展版本的图像信息结构”。</li>
+<li>MachineTypeMismatch<br>始终设置为 0。在Windows 8 / Windows Server 2012中添加。</li>
+<li>ImageSignatureLevel<br>代码完整性标记为映像的签名级别。该值是ntddk.h中的#define SE<em>SIGNING_LEVEL</em> *常量之一。在Windows 8.1 / Windows Server 2012 R2中添加。</li>
+<li>ImageSignatureType<br>代码完整性标记为映像的签名类型。该值是在ntddk.h中定义的SE_IMAGE_SIGNATURE_TYPE枚举值。在Windows 8.1 / Windows Server 2012 R2中添加。</li>
+<li>ImagePartialMap<br>如果调用的映像视图是不映射整个映像的部分视图，则该值不为零; 0如果视图映射整个图像。在Windows 10 / Windows Server 2016中添加。</li>
+<li>Reserved<br>始终设置为 0。</li>
+<li>ImageBase<br>设置为映像的虚拟基地址。</li>
+<li>ImageSelector<br>始终设置为 0。</li>
+<li>ImageSize<br>映像的虚拟大小（以字节为单位）。</li>
+<li>ImageSectionNumber<br>始终设置为 0。 </li>
+</ul>
+</blockquote>
+<p>那么我们首先还是定义一下回调函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetLoadImageNotifyRoutine</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">_In_opt_ PUNICODE_STRING FullImageName,</span></span></span><br><span class="line"><span class="params"><span class="function">_In_ HANDLE ProcessId,</span></span></span><br><span class="line"><span class="params"><span class="function">_In_ PIMAGE_INFO ImageInfo</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们的回调函数在接收到消息的时候模块已经加载完成了，那么这里我们就只能够进行模块的卸载操作，在模块的<code>ImageInfo </code>结构里面提供了加载的<code>ImageBase</code>，那么我们只需要找到OEP，即可计算得到<code>DriverEntry</code>的地址。那么我们找到入口点函数的地址之后，就可以修改错误码为<code>STATUS_ACCESS_DENIED </code>即<code>0xC0000022</code>，就能够达到卸载驱动模块的效果</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov eax, <span class="number">0xC0000022</span></span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+
+
+
+<p>对应的硬编码为<code>B8 22 00 00 C0 C3</code></p>
+<p>那么这里我们就可以进行卸载驱动模块函数的编写，首先定义指针指向OEP</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PIMAGE_DOS_HEADER pDosHeader = pLoadImageBase;</span><br><span class="line">PIMAGE_NT_HEADERS pNtHeaders = (PIMAGE_NT_HEADERS)((PCHAR)pDosHeader + pDosHeader-&gt;e_lfanew);</span><br><span class="line">PVOID pAddressOfEntryPoint = (PVOID)((PCHAR)pDosHeader + pNtHeaders-&gt;OptionalHeader.AddressOfEntryPoint);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后写入shellcode，通过<code>MmCreateMdl</code>写入，我们知道在内核里面是不能够随便进行读写操作的，这里就可以通过MDL写入的方式映射到虚拟内存实现shellcode的写入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ULONG CodeSize = <span class="number">6</span>;</span><br><span class="line">UCHAR pShellCode[<span class="number">6</span>] = &#123; <span class="number">0xB8</span>, <span class="number">0x22</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xC0</span>, <span class="number">0xC3</span> &#125;;</span><br><span class="line">PMDL pMdl = <span class="built_in">MmCreateMdl</span>(<span class="literal">NULL</span>, pAddressOfEntryPoint, CodeSize);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用<code>MmBuildMdlForNonPagedPool</code>更新MDL对物理内存的描述并映射到虚拟内存，然后写入数据，释放MDL</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MmBuildMdlForNonPagedPool</span>(pMdl);</span><br><span class="line">PVOID pVoid = <span class="built_in">MmMapLockedPages</span>(pMdl, KernelMode);</span><br><span class="line"><span class="built_in">RtlCopyMemory</span>(pVoid, pShellCode, ulShellCodeSize);</span><br><span class="line"><span class="built_in">MmUnmapLockedPages</span>(pVoid, pMdl);</span><br><span class="line"><span class="built_in">IoFreeMdl</span>(pMdl);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后我们再尝试对DLL模块进行卸载，这里的话就不能像卸载驱动模块直接在入口点返回，因为DLL的入口点函数的返回值并不能够确定DLL能否加载成功。这里windows提供了一个未文档化的函数<code>MmUnmapViewOfSection</code>用来卸载进程中已经加载的模块</p>
+<p>那么我们要想卸载模块，首先就肯定要获取所有的模块，使用到<code>PsSetLoadImageNotifyRoutine</code>设置回调函数来获取模块的加载信息</p>
+<p>windows为了避免死锁，在进行模块加载回调函数的时候不能够进行其他操作，也就是说我们想要卸载DLL模块则需要等所有模块加载完毕之后才能进行卸载操作</p>
+<p>这里来进行函数的编写</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">NoLoadDll</span><span class="params">(HANDLE ProcessId, PVOID pImageBase)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    NTSTATUS status = STATUS_SUCCESS;</span><br><span class="line">    PROCESS pEProcess = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    status = <span class="built_in">PsLookupProcessByProcessId</span>(ProcessId, &amp;pEProcess);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">NT_SUCCESS</span>(status))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;PsLookupProcessByProcessId error : %d\n&quot;</span>, status);</span><br><span class="line">        <span class="keyword">return</span> status;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    status = <span class="built_in">MmUnmapViewOfSection</span>(pEProcess, pImageBase);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">NT_SUCCESS</span>(status))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">DbgPrint</span>(<span class="string">&quot;MmUnmapViewOfSection error : %d\n&quot;</span>, status);</span><br><span class="line">        <span class="keyword">return</span> status;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="实现效果-1"><a href="#实现效果-1" class="headerlink" title="实现效果"></a>实现效果</h2><p>这里要实现的效果就是阻止<code>DriverTest.sys</code>的加载</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430150950600.png" alt="image-20220430150950600"></p>
+<p>首先启动我们的监控驱动，然后加载<code>DriverTest.sys</code>可以看到拒绝访问</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151042590.png" alt="image-20220430151042590"></p>
+<p>然后再卸载我们的监控驱动之后<code>DriverTest.sys</code>加载成功</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151057848.png" alt="image-20220430151057848"></p>
+<p>然后我们再尝试注入<code>Test.dll</code>，可以看到注入失败</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151343201.png" alt="image-20220430151343201"></p>
+<p>我们再去xp上尝试一下，首先加载驱动</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430151753570.png" alt="image-20220430151753570"></p>
+<p>当我们打开一个程序的时候都会打印出当前进程加载的dll模块</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430153535149.png" alt="image-20220430153535149"></p>
+<p>然后注入DLL，也是被拦截</p>
+<p><img src="/images/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/image-20220430153848221.png" alt="image-20220430153848221"></p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://Drunkmars.top">Drunkmars</a>
+            <p>原文链接：<a href="http://drunkmars.top/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">http://drunkmars.top/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/</a>
+            <p>发表日期：<a href="http://drunkmars.top/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">四月 29日 2022, 12:00:00 凌晨</a>
+            <p>更新日期：<a href="http://drunkmars.top/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">May 1st 2022, 12:17:48 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2022/04/30/%E8%87%AA%E4%BF%9D%E6%8A%A4/" title="windows环境下的自保护探究">
+                    <div class="nextTitle">windows环境下的自保护探究</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/" title="通过嵌入x64汇编隐藏数据&反调试">
+                    <div class="prevTitle">通过嵌入x64汇编隐藏数据&反调试</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:drunkmars@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Drunkmars" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/wechat.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://twitter.com/Drunkmars404" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://space.bilibili.com/480379897" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7-amp-%E4%BF%9D%E6%8A%A4"><span class="toc-number">1.</span> <span class="toc-text">进程监控&amp;保护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PsSetCreateProcessNotifyRoutineEx"><span class="toc-number">1.1.</span> <span class="toc-text">PsSetCreateProcessNotifyRoutineEx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCREATE-PROCESS-NOTIFY-ROUTINE-EX"><span class="toc-number">1.2.</span> <span class="toc-text">PCREATE_PROCESS_NOTIFY_ROUTINE_EX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PS-CREATE-NOTIFY-INFO"><span class="toc-number">1.3.</span> <span class="toc-text">PS_CREATE_NOTIFY_INFO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="toc-number">1.4.</span> <span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9B%91%E6%8E%A7-amp-%E4%BF%9D%E6%8A%A4"><span class="toc-number">2.</span> <span class="toc-text">线程监控&amp;保护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PsSetCreateThreadNotifyRoutine"><span class="toc-number">2.1.</span> <span class="toc-text">PsSetCreateThreadNotifyRoutine</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9B%91%E6%8E%A7-amp-%E4%BF%9D%E6%8A%A4"><span class="toc-number">3.</span> <span class="toc-text">模块监控&amp;保护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PsSetLoadImageNotifyRoutine"><span class="toc-number">3.1.</span> <span class="toc-text">PsSetLoadImageNotifyRoutine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PLOAD-IMAGE-NOTIFY-ROUTINE"><span class="toc-number">3.2.</span> <span class="toc-text">PLOAD_IMAGE_NOTIFY_ROUTINE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IMAGE-INFO"><span class="toc-number">3.3.</span> <span class="toc-text">IMAGE_INFO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-1"><span class="toc-number">3.4.</span> <span class="toc-text">实现效果</span></a></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 117
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2022/05/14/blockdlls/">浅谈EDR绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2022/05/14/NtCreateUserProcess/">调用NtCreateUserProcess创建进程绕过杀软hook</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2022/05/12/ETW/">ETW的攻与防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span>
+            <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/04</span>
+            <a class="archive-post-title" href="/2022/05/04/x64HideMemory/">x64环境下隐藏可执行内存</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2022/05/01/%E6%B3%A8%E5%86%8C%E8%A1%A8/">深入理解注册表监控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/30</span>
+            <a class="archive-post-title" href="/2022/04/30/%E8%87%AA%E4%BF%9D%E6%8A%A4/">windows环境下的自保护探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/29</span>
+            <a class="archive-post-title" href="/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">64位下使用回调函数实现监控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">通过嵌入x64汇编隐藏数据&反调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2022/04/13/APIFramework/">构建API调用框架绕过杀软hook</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2022/04/10/%E5%8F%8D%E8%B0%83%E8%AF%95%E6%80%BB%E7%BB%93/">windows环境下的反调试探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span>
+            <a class="archive-post-title" href="/2022/04/07/hook%E6%94%BB%E9%98%B2/">浅谈hook攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2022/04/04/%E7%A1%AC%E4%BB%B6hook/">通过硬件断点绕过hook检测</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/01</span>
+            <a class="archive-post-title" href="/2022/04/01/%E5%BC%82%E5%B8%B8%E8%A7%A6%E5%8F%91/">windows环境下的调试器探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/28</span>
+            <a class="archive-post-title" href="/2022/03/28/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">windows异常处理探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span>
+            <a class="archive-post-title" href="/2022/03/22/%E5%86%85%E6%A0%B8%E9%87%8D%E8%BD%BD/">ring0下使用内核重载绕过杀软hook</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2022/03/16/%E5%85%A8%E5%B1%80%E5%8F%A5%E6%9F%84%E8%A1%A8/">基于全局句柄表发现隐藏进程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span>
+            <a class="archive-post-title" href="/2022/03/03/PEB%E6%96%AD%E9%93%BE/">基于PEB断链实现进程与模块隐藏</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span>
+            <a class="archive-post-title" href="/2022/02/20/r3TOr0API/">ring3下API的逆向分析及重构</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2022/02/17/shellcode/">shellcode编写探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span>
+            <a class="archive-post-title" href="/2022/02/16/r0Inlinehook/">ring0下的Inline hook</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2022/02/15/ssdt%20hook/">ring0下的进程保护</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/2022/02/14/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">进程强杀初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span>
+            <a class="archive-post-title" href="/2022/01/17/dnsurl/">URLDNS链探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span>
+            <a class="archive-post-title" href="/2022/01/15/RMI/">RMI探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span>
+            <a class="archive-post-title" href="/2022/01/14/java/">java反射探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span>
+            <a class="archive-post-title" href="/2022/01/10/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">java反序列化探究</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span>
+            <a class="archive-post-title" href="/2021/12/05/%E6%B3%A8%E5%85%A5SSP/">关于抓取明文的探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/2021/11/08/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">使用api创建计划任务详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/07</span>
+            <a class="archive-post-title" href="/2021/11/07/%E8%87%AA%E5%88%A0%E9%99%A4/">自删除技术的实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/05</span>
+            <a class="archive-post-title" href="/2021/11/05/%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/">CS中上线不出网主机</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span>
+            <a class="archive-post-title" href="/2021/11/04/%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">创建进程的几种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span>
+            <a class="archive-post-title" href="/2021/10/27/%E8%87%AA%E5%90%AF%E5%8A%A8%E6%8A%80%E6%9C%AF/">自启动技术详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span>
+            <a class="archive-post-title" href="/2021/10/26/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B/">初探傀儡进程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span>
+            <a class="archive-post-title" href="/2021/10/25/socket/">socket的探究与实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span>
+            <a class="archive-post-title" href="/2021/10/22/%E9%9A%90%E8%97%8F%E6%A8%A1%E5%9D%97/">通过内存写入隐藏模块</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E4%BC%AA%E8%A3%85/">初探进程伪装</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2021/10/21/%E8%BF%9B%E7%A8%8B%E9%9A%90%E8%97%8F/">关于进程隐藏的探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span>
+            <a class="archive-post-title" href="/2021/10/19/bypassuac/">关于bypassuac的探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/07</span>
+            <a class="archive-post-title" href="/2021/10/07/com%E5%8A%AB%E6%8C%81/">初探com劫持</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/csv%E6%B3%A8%E5%85%A5/">CSV注入获取meterpreter</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/%E5%8F%8D%E6%B2%99%E7%AE%B1%E8%B0%83%E8%AF%95/">反沙箱调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%BC%AA%E9%80%A0/">父进程伪造</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span>
+            <a class="archive-post-title" href="/2021/10/04/%E8%B0%83%E8%AF%95%E4%B8%8E%E5%8F%8D%E8%B0%83%E8%AF%95%E7%9A%84%E6%8E%A2%E7%A9%B6/">调试与反调试的探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span>
+            <a class="archive-post-title" href="/2021/10/03/dll%E5%8A%AB%E6%8C%81/">初探dll劫持</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span>
+            <a class="archive-post-title" href="/2021/10/01/dll%E6%B3%A8%E5%85%A5/">关于几种dll注入的学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/26</span>
+            <a class="archive-post-title" href="/2021/09/26/%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91/">浅谈内网转发与流量代理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/2021/09/13/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%96%E7%BD%91%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">记一次外网打点到内网渗透</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/12</span>
+            <a class="archive-post-title" href="/2021/09/12/hook%E6%8A%80%E6%9C%AF/">hook技术详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span>
+            <a class="archive-post-title" href="/2021/09/10/mysql%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">mysql提权总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span>
+            <a class="archive-post-title" href="/2021/08/23/php/">php漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/20</span>
+            <a class="archive-post-title" href="/2021/08/20/struts2/">struts2漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span>
+            <a class="archive-post-title" href="/2021/08/16/tomcat/">tomcat漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span>
+            <a class="archive-post-title" href="/2021/08/09/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA4/">红日靶场4</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span>
+            <a class="archive-post-title" href="/2021/08/04/weblogic/">weblogic漏洞大杂烩</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span>
+            <a class="archive-post-title" href="/2021/07/28/%E7%AA%83%E5%8F%96hash/">浅谈域环境下布置水坑实现hash窃取</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/21</span>
+            <a class="archive-post-title" href="/2021/07/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/">红日靶场2</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span>
+            <a class="archive-post-title" href="/2021/07/20/redis/">redis漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span>
+            <a class="archive-post-title" href="/2021/07/19/spring/">spring漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span>
+            <a class="archive-post-title" href="/2021/07/19/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA3/">红日靶场3</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/06</span>
+            <a class="archive-post-title" href="/2021/07/06/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA5/">红日靶场5</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2021/07/05/vmtest/">一种简单的反虚拟机调试方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2021/06/16/C++%E4%BA%8C%E5%8F%89%E6%A0%91/">C++二叉树实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span>
+            <a class="archive-post-title" href="/2021/06/15/C++%E9%93%BE%E8%A1%A8/">C++链表实现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span>
+            <a class="archive-post-title" href="/2021/06/13/msf%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC/">msf生成木马小结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span>
+            <a class="archive-post-title" href="/2021/06/11/certutil%E6%8E%A2%E7%A9%B6/">certutil探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span>
+            <a class="archive-post-title" href="/2021/06/10/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%80%BB%E7%BB%93/">横向移动总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/09</span>
+            <a class="archive-post-title" href="/2021/06/09/mimikatz/">从mimikatz抓取密码学习攻防</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span>
+            <a class="archive-post-title" href="/2021/06/08/LLMNR%E5%92%8CNetBIOS%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90%E5%8F%8A%E9%98%B2%E8%8C%83/">LLMNR和NetBIOS欺骗攻击分析及防范</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span>
+            <a class="archive-post-title" href="/2021/06/04/nullptr/">NULL、0、nullptr 区别分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/02</span>
+            <a class="archive-post-title" href="/2021/06/02/RPC%E6%8F%90%E6%9D%83/">RPC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/UAC%E6%8F%90%E6%9D%83/">CVE-2019-1388 UAC提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2021/06/01/exp%E7%BC%96%E5%86%99/">如何编写属于自己的第一个exp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/2021/05/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2021/05/28/moonsec/">vulnhub靶场实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span>
+            <a class="archive-post-title" href="/2021/05/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%BC%B9shell%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%8F%8Abypass/">渗透测试中弹shell的多种方式及bypass</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/25</span>
+            <a class="archive-post-title" href="/2021/05/25/CVE-2020-1472%E8%AF%A6%E8%A7%A3/">CVE-2020-1472详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span>
+            <a class="archive-post-title" href="/2021/05/23/%E4%BB%8E%E5%A4%96%E5%9B%B4%E6%89%93%E7%82%B9%E5%88%B0%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%8B%BF%E4%B8%8B%E5%9F%9F%E6%8E%A7/">从外围打点到内网渗透拿下域控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/2021/05/19/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%90%91%E6%97%A5%E8%91%B5%E5%A6%99%E7%94%A8/">内网渗透之向日葵妙用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/Dedecms%EF%BC%88%E7%BB%87%E6%A2%A6cms%EF%BC%89/">Dedecms(织梦cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2021/05/12/EmpireCMS%EF%BC%88%E5%B8%9D%E5%9B%BDcms%EF%BC%89/">Empirecms(帝国cms)漏洞分析及复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/CVE-2020-0796%E5%88%86%E6%9E%90%E5%8F%8A%E5%88%A9%E7%94%A8/">CVE-2020-0796分析及利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/MS17_010%E6%A3%80%E6%B5%8B%E5%8F%8A%E6%89%93%E6%B3%95/">MS17_010检测及打法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span>
+            <a class="archive-post-title" href="/2021/05/11/%E6%9C%A8%E9%A9%AC%E8%A7%A3%E6%9E%90&disable_fuctions/">木马解析&disable_fuctions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/jboss%E4%B9%8BJMXInvokerServlet%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8/">jboss之JMXInvokerServlet反序列化漏洞分析利用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span>
+            <a class="archive-post-title" href="/2021/05/08/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9A%84n%E7%A7%8D%E5%A7%BF%E5%8A%BF/">内网穿透的n种姿势</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2021/05/06/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0bypass%E5%AE%89%E5%85%A8%E7%8B%97/">文件上传bypass安全狗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span>
+            <a class="archive-post-title" href="/2021/04/28/cs%E5%8A%A0%E8%BD%BD%E5%AE%8F%E4%B8%8A%E7%BA%BF%E5%88%9D%E6%8E%A2/">cs加载宏上线初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/2021/04/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BDPAPI%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0/">内网渗透之DPAPI机制学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2021/04/20/%E9%9A%90%E8%97%8F%E7%94%A8%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">隐藏用户的创建和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/19</span>
+            <a class="archive-post-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">利用卷影拷贝服务提取ntds.dit</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/17</span>
+            <a class="archive-post-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">中间人攻击之arp欺骗</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">浅谈域渗透中组策略及gpp运用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span>
+            <a class="archive-post-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">thinkphp漏洞分析与总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">msf使用详解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2021/04/13/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%B6%85%E8%AF%A6%E7%BB%86sqlmap%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">sql注入之超详细sqlmap使用攻略</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/10</span>
+            <a class="archive-post-title" href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/">windows认证解读</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span>
+            <a class="archive-post-title" href="/2021/04/09/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8B%E5%B7%A7%E7%94%A8smb%20beacon%E6%8B%BF%E4%B8%8B%E4%B8%8D%E5%87%BA%E7%BD%91%E4%B8%BB%E6%9C%BA/">巧用smb beacon拿下不出网主机(红日靶场1)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/phpmyadmin%E9%A1%B5%E9%9D%A2getshell/">phpmyadmin页面getshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span>
+            <a class="archive-post-title" href="/2021/04/08/windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%8A%93%E5%AF%86%E7%A0%81%E6%80%BB%E7%BB%93/">windows环境下抓密码总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span>
+            <a class="archive-post-title" href="/2021/04/04/Stega/">Stega</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span>
+            <a class="archive-post-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">IPC命令&计划任务上线</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span>
+            <a class="archive-post-title" href="/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">常用端口总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/">mysql离线解析密码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E7%BB%95%E8%BF%87CDN%E6%89%BE%E6%BA%90%E7%AB%99ip/">绕过CDN找源站ip</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/2021/03/27/%E8%AE%B0%E4%B8%80%E6%AC%A1php%E3%80%81sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E4%B8%80%E9%81%93ctf%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A2%98%E5%A4%8D%E7%9B%98/">记一次php、sql注入学习后的一道ctf代码审计题复盘</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span>
+            <a class="archive-post-title" href="/2021/03/26/%E5%B0%8F%E7%99%BD%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1sql%E5%AE%9E%E6%88%98/">小白的第一次sql实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2021/03/23/crackme001/">crackme001</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span>
+            <a class="archive-post-title" href="/2021/03/21/certutil&wmic%E4%B8%8B%E8%BD%BD%E7%BB%95%E8%BF%87/">certutil&wmic绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span>
+            <a class="archive-post-title" href="/2021/03/17/vps-java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">vps-java环境配置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/Joomla/">Joomla框架搭建&远程代码执行(RCE)漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/jboss%E6%89%93%E5%85%A5%E5%86%85%E7%BD%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/">jboss打入内网的四种方式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/16</span>
+            <a class="archive-post-title" href="/2021/03/16/sqlmap%E5%9C%A8https%E4%B8%8B%E6%8A%A5%E9%94%99%20-%20ssl%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5/">sqlmap在https下的一种错误 - ssl连接失败</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/2021/03/14/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80JCC%E6%8C%87%E4%BB%A4%E8%A1%A8/">汇编JCC指令表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/readme/">README</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/2021/03/13/%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D/">写在最前</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="内网渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                内网渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cve">
+                <span class="iconfont-archer">&#xe606;</span>
+                cve
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内核">
+                <span class="iconfont-archer">&#xe606;</span>
+                内核
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cms">
+                <span class="iconfont-archer">&#xe606;</span>
+                cms
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                web渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="private">
+                <span class="iconfont-archer">&#xe606;</span>
+                private
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="横向移动">
+                <span class="iconfont-archer">&#xe606;</span>
+                横向移动
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="提权">
+                <span class="iconfont-archer">&#xe606;</span>
+                提权
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="windows">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java">
+                <span class="iconfont-archer">&#xe606;</span>
+                java
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cobalt strike">
+                <span class="iconfont-archer">&#xe606;</span>
+                cobalt strike
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="apt">
+                <span class="iconfont-archer">&#xe606;</span>
+                apt
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                java中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="msf命令">
+                <span class="iconfont-archer">&#xe606;</span>
+                msf命令
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="oa">
+                <span class="iconfont-archer">&#xe606;</span>
+                oa
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="中间件">
+                <span class="iconfont-archer">&#xe606;</span>
+                中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sql">
+                <span class="iconfont-archer">&#xe606;</span>
+                sql
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="thinkphp">
+                <span class="iconfont-archer">&#xe606;</span>
+                thinkphp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="x64">
+                <span class="iconfont-archer">&#xe606;</span>
+                x64
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="域渗透">
+                <span class="iconfont-archer">&#xe606;</span>
+                域渗透
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="碎碎念">
+                <span class="iconfont-archer">&#xe606;</span>
+                碎碎念
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bypass">
+                <span class="iconfont-archer">&#xe606;</span>
+                bypass
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="靶场实战">
+                <span class="iconfont-archer">&#xe606;</span>
+                靶场实战
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="权限维持">
+                <span class="iconfont-archer">&#xe606;</span>
+                权限维持
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Drunkmars"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

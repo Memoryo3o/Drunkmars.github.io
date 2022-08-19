@@ -429,6 +429,235 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2021/04/19/%E5%88%A9%E7%94%A8%E5%8D%B7%E5%BD%B1%E6%8B%B7%E8%B4%9D%E6%9C%8D%E5%8A%A1%E6%8F%90%E5%8F%96ntds.dit/">
+                
+                <span class="abstract-title-text">利用卷影拷贝服务提取ntds.dit</span>
+            </a>
+            <div class="abstract-content">
+                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9624">https://xz.aliyun.com/t/9624</a></strong></p>
+<p>通常情况下，即使拥有管理员权限，也无法读取域控制器中的C:\Windows\NTDS\ntds.dit文件。那么什么是ntds.dit呢？</p>
+<p>ntds.dit文件是一个数据库，用于存储Active Directory数据，包括有关用户对象，组和组成员身份的信息。它包括域中所有用户的密码哈希。通过提取这些哈希值，可以使用诸如Mimikatz之类的工具执行哈希传递攻击，或使用诸如Hashcat之类的工具来破解这些密码。这些密码的提取和破解可以脱机执行，因此将无法检测到。一旦攻击者提取了这些散列，它们便可以充当域上的任何用户，包括域管理员。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/07">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/19</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/17/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%AC%BA%E9%AA%97/">
+                
+                <span class="abstract-title-text">中间人攻击之arp欺骗</span>
+            </a>
+            <div class="abstract-content">
+                <p>之前有一篇文章是关于arp欺骗盗取邻居wifi密码的，也只是学会了工具的使用，在经过这么久的学习之后，又对arp欺骗有了更深刻的理解，以及基于原理有了更深层次的运用</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/06/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/17</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/15/%E6%B5%85%E8%B0%88%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B8%AD%E7%9A%84%E7%BB%84%E7%AD%96%E7%95%A5%E5%8F%8Agpp%E8%BF%90%E7%94%A8/">
+                
+                <span class="abstract-title-text">浅谈域渗透中组策略及gpp运用</span>
+            </a>
+            <div class="abstract-content">
+                <p><strong>本文首发于先知社区：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9511">https://xz.aliyun.com/t/9511</a></strong></p>
+<p>最近在实战过程中遇到了组策略，发现攻击面其实挺宽广的，这里记录下自己的分析和学习过程。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/11/17">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/15</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="域渗透">域渗透</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/14/thinkphp%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E6%80%BB%E7%BB%93/">
+                
+                <span class="abstract-title-text">thinkphp漏洞分析与总结</span>
+            </a>
+            <div class="abstract-content">
+                <p>ThinkPHP是一个快速、兼容而且简单的轻量级国产PHP开发框架，遵循Apache2开源协议发布，使用面向对象的开发结构和MVC模式，融合了Struts的思想和TagLib（标签库）、RoR的ORM映射和ActiveRecord模式。</p>
+<p>ThinkPHP可以支持windows/Unix/Linux等服务器环境，正式版需要PHP 5.0以上版本，支持MySql、PgSQL、Sqlite多种数据库以及PDO扩展。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/10/17">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/14</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="thinkphp">thinkphp</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/13/msf%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">
+                
+                <span class="abstract-title-text">msf使用详解</span>
+            </a>
+            <div class="abstract-content">
+                安装msf在一般的linux中，默认是不安装MSF的。以下是在非kali的Linux下安装MSF框架。
+一键安装
+12345678910111213curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall adduser msf      #...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/05/27">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/13</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="private">private</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="msf命令">msf命令</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2021/04/13/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E8%B6%85%E8%AF%A6%E7%BB%86sqlmap%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">
+                
+                <span class="abstract-title-text">sql注入之超详细sqlmap使用攻略</span>
+            </a>
+            <div class="abstract-content">
+                <p>干过sql注入的小伙伴们一定听说过sqlmap的大名，但是面对一些特殊情况，sqlmap也不一定”好使”，这里的”好使”并不是真正不好使的意思，而是用法不对，在这里就总结一下sqlmap的用法大全</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/05/22">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/13</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="sql">sql</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2021/04/10/windows%E8%AE%A4%E8%AF%81%E8%A7%A3%E8%AF%BB/">
                 
                 <span class="abstract-title-text">windows认证解读</span>
@@ -561,222 +790,6 @@
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/04/Stega/">
-                
-                <span class="abstract-title-text">Stega</span>
-            </a>
-            <div class="abstract-content">
-                <p>很少打ctf，碰到一些自己没有见过的新题型stega记录一下。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/25">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="ctf">ctf</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">
-                
-                <span class="abstract-title-text">内网渗透命令</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文为内网渗透一些常用命令的总结。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/06/02">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/04/02</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/03/30/IPC%E5%91%BD%E4%BB%A4&%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E4%B8%8A%E7%BA%BF/">
-                
-                <span class="abstract-title-text">IPC命令&amp;计划任务上线</span>
-            </a>
-            <div class="abstract-content">
-                <p>很久一段时间没有用cs渗透了，有些命令比较生疏，在虚拟机里面搭建环境复习下ipc命令。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/22">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/03/30</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/03/29/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%80%BB%E7%BB%93/">
-                
-                <span class="abstract-title-text">常用端口总结</span>
-            </a>
-            <div class="abstract-content">
-                <p>这里会介绍n种渗透过程中会用到的端口，对每种端口可能利用的漏洞进行了详细的分析。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/03/29</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/03/27/mysql%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90%E5%AF%86%E7%A0%81/">
-                
-                <span class="abstract-title-text">mysql离线解析密码</span>
-            </a>
-            <div class="abstract-content">
-                <p>有些时候我们做渗透并不是一定要进到内网，拿到域控，进而拿下一整个域内的机器，一是不可能每次运气都那么好，能够通过一些exp批量扫得一些机子，二是在打内网的过程中会有许多不同的情况，导致会花费大量的时间。有些时候渗透的目标可能就是某个网站的数据库内的用户信息，所以拿到用户信息就相当于工作完成了一大半，没有必要所有都继续往内网渗透，这时候就相当于只要拿到数据库内的数据，这次渗透就十分成功。而这篇文章就是介绍如何在已经拿到一台有数据库的机器，但是不知道他数据库密码的情况下，通过离线本地解析，获取机器的数据库密码。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/03/27</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/03/27/%E7%BB%95%E8%BF%87CDN%E6%89%BE%E6%BA%90%E7%AB%99ip/">
-                
-                <span class="abstract-title-text">绕过CDN找源站ip</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文介绍几种判断是否为真实ip和如何绕过CDN找真实ip的方法。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/05/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/03/27</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web渗透">web渗透</a>
     
 </div>
 
@@ -1455,7 +1468,129 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2678,7 +2813,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 111
+        Total : 117
         </div>
         <!-- search  -->
         
@@ -2695,6 +2830,12 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2022/05/14/blockdlls/">浅谈EDR绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
             <a class="archive-post-title" href="/2022/05/14/NtCreateUserProcess/">调用NtCreateUserProcess创建进程绕过杀软hook</a>
         </li>
     
@@ -2708,6 +2849,30 @@
         <li class="archive-post-item">
             <span class="archive-post-date">05/07</span>
             <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/04</span>
+            <a class="archive-post-title" href="/2022/05/04/x64HideMemory/">x64环境下隐藏可执行内存</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2022/05/01/%E6%B3%A8%E5%86%8C%E8%A1%A8/">深入理解注册表监控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/30</span>
+            <a class="archive-post-title" href="/2022/04/30/%E8%87%AA%E4%BF%9D%E6%8A%A4/">windows环境下的自保护探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/29</span>
+            <a class="archive-post-title" href="/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">64位下使用回调函数实现监控</a>
         </li>
     
         
@@ -2774,6 +2939,12 @@
         <li class="archive-post-item">
             <span class="archive-post-date">02/20</span>
             <a class="archive-post-title" href="/2022/02/20/r3TOr0API/">ring3下API的逆向分析及重构</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2022/02/17/shellcode/">shellcode编写探究</a>
         </li>
     
         
@@ -3373,21 +3544,6 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
         
-            <span class="sidebar-tag-name" data-tags="二进制">
-                <span class="iconfont-archer">&#xe606;</span>
-                二进制
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="内核">
-                <span class="iconfont-archer">&#xe606;</span>
-                内核
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                C++
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="内网渗透">
                 <span class="iconfont-archer">&#xe606;</span>
                 内网渗透
@@ -3401,6 +3557,21 @@
             <span class="sidebar-tag-name" data-tags="漏洞复现">
                 <span class="iconfont-archer">&#xe606;</span>
                 漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内核">
+                <span class="iconfont-archer">&#xe606;</span>
+                内核
             </span>
         
             <span class="sidebar-tag-name" data-tags="cms">
@@ -3423,19 +3594,24 @@
                 横向移动
             </span>
         
-            <span class="sidebar-tag-name" data-tags="java">
-                <span class="iconfont-archer">&#xe606;</span>
-                java
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="提权">
                 <span class="iconfont-archer">&#xe606;</span>
                 提权
             </span>
         
+            <span class="sidebar-tag-name" data-tags="windows">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="ctf">
                 <span class="iconfont-archer">&#xe606;</span>
                 ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java">
+                <span class="iconfont-archer">&#xe606;</span>
+                java
             </span>
         
             <span class="sidebar-tag-name" data-tags="cobalt strike">
@@ -3463,14 +3639,14 @@
                 oa
             </span>
         
-            <span class="sidebar-tag-name" data-tags="mysql">
-                <span class="iconfont-archer">&#xe606;</span>
-                mysql
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="中间件">
                 <span class="iconfont-archer">&#xe606;</span>
                 中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
             </span>
         
             <span class="sidebar-tag-name" data-tags="sql">
@@ -3483,14 +3659,19 @@
                 thinkphp
             </span>
         
-            <span class="sidebar-tag-name" data-tags="环境配置">
-                <span class="iconfont-archer">&#xe606;</span>
-                环境配置
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="web">
                 <span class="iconfont-archer">&#xe606;</span>
                 web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="x64">
+                <span class="iconfont-archer">&#xe606;</span>
+                x64
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
             </span>
         
             <span class="sidebar-tag-name" data-tags="域渗透">
@@ -3521,11 +3702,6 @@
             <span class="sidebar-tag-name" data-tags="权限维持">
                 <span class="iconfont-archer">&#xe606;</span>
                 权限维持
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="windows">
-                <span class="iconfont-archer">&#xe606;</span>
-                windows
             </span>
         
     </div>

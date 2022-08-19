@@ -429,6 +429,228 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/02/16/r0Inlinehook/">
+                
+                <span class="abstract-title-text">ring0下的Inline hook</span>
+            </a>
+            <div class="abstract-content">
+                <p>Inline hook是直接在以前的函数替里面修改指令，用一个跳转或者其他指令来达到挂钩的目的。 这是相对普通的hook来说，因为普通的hook只是修改函数的调用地址，而不是在原来的函数体里面做修改。一般来说，普通的hook比较稳定使用。 inline hook 更加高级一点，一般也跟难以被发现。ring3的Inline hook在之前已经实现过了，再看看ring0的Inline hook该如何实现。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/16">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/16</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/02/15/ssdt%20hook/">
+                
+                <span class="abstract-title-text">ring0下的进程保护</span>
+            </a>
+            <div class="abstract-content">
+                <p>SSDT 的全称是 System Services Descriptor Table，系统服务描述符表。这个表就是一个把 Ring3 的 Win32 API 和 Ring0 的内核 API 联系起来。SSDT 并不仅仅只包含一个庞大的地址索引表，它还包含着一些其它有用的信息，诸如地址索引的基地址、服务函数个数等。通过修改此表的函数地址可以对常用 Windows 函数及 API 进行 Hook，从而实现对一些关心的系统动作进行过滤、监控的目的。一些 HIPS、防毒软件、系统监控、注册表监控软件往往会采用此接口来实现自己的监控模块。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/22">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/15</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/02/14/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">
+                
+                <span class="abstract-title-text">进程强杀初探</span>
+            </a>
+            <div class="abstract-content">
+                <p>我们知道在windows操作系统里面有ring0跟ring3的概念(ring1、ring2在windows中并未使用)，因为ring0的特权级别是比ring3高的，那么我们肯定不能在ring3调用windows提供的api杀死ring0特权级别的进程，那么这时候我们就需要使用的ring0的函数来强行结束一些处于ring0级别的进程。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/16">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/14</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/01/17/dnsurl/">
+                
+                <span class="abstract-title-text">URLDNS链探究</span>
+            </a>
+            <div class="abstract-content">
+                <p>关于URLDNS链的学习。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/01/17">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/17</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="java">java</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/01/15/RMI/">
+                
+                <span class="abstract-title-text">RMI探究</span>
+            </a>
+            <div class="abstract-content">
+                <p>RMI，是Remote Method Invocation（远程方法调用）的缩写，即在一个JVM中java程序调用在另一个远程JVM中运行的java程序，这个远程JVM既可以在同一台实体机上，也可以在不同的实体机上，两者之间通过网络进行通信。java RMI封装了远程调用的实现细节，进行简单的配置之后，就可以如同调用本地方法一样，比较透明地调用远端方法。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/24">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/15</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="java">java</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/01/14/java/">
+                
+                <span class="abstract-title-text">java反射探究</span>
+            </a>
+            <div class="abstract-content">
+                <p>反射是大多数语言里里都必不可少的组成部分，对象可以通过反射获取他的类，类可以通过反射拿到所有方法（包括私有），拿到的方法可以调用，总之通过“反射”，我们可以将Java这种静态语⾔言附加上动态特性。</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/01/15">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/14</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="java">java</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/01/10/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
                 
                 <span class="abstract-title-text">java反序列化探究</span>
@@ -550,224 +772,6 @@
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2021/11/20">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/07</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/11/05/%E4%B8%8A%E7%BA%BF%E6%96%B9%E5%BC%8F/">
-                
-                <span class="abstract-title-text">CS中上线不出网主机</span>
-            </a>
-            <div class="abstract-content">
-                <p>总结一下cs中上线不出网主机的几种方式。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/19">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/05</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内网渗透">内网渗透</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="private">private</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/11/04/%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">
-                
-                <span class="abstract-title-text">创建进程的几种方式</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将探究创建进程的几种方式。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/20">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/27/%E8%87%AA%E5%90%AF%E5%8A%A8%E6%8A%80%E6%9C%AF/">
-                
-                <span class="abstract-title-text">自启动技术详解</span>
-            </a>
-            <div class="abstract-content">
-                <p>本文将对自启动技术进行分析总结。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/27</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/26/%E5%82%80%E5%84%A1%E8%BF%9B%E7%A8%8B/">
-                
-                <span class="abstract-title-text">初探傀儡进程</span>
-            </a>
-            <div class="abstract-content">
-                <p>对于进程隐藏技术有很多种实现方式，本文就对傀儡进程进行分析及实现。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/26</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/25/socket/">
-                
-                <span class="abstract-title-text">socket的探究与实现</span>
-            </a>
-            <div class="abstract-content">
-                <p>数据传输是病毒木马的必备技术之一，而数据回传也成为了病毒木马的一个重要特征，我们就尝试自己写一个程序来实现数据的传输，本文尝试通过c++来进行套接字(socket)的实现</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/01/28">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/25</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/10/22/%E9%9A%90%E8%97%8F%E6%A8%A1%E5%9D%97/">
-                
-                <span class="abstract-title-text">通过内存写入隐藏模块</span>
-            </a>
-            <div class="abstract-content">
-                <p>我们使用一般的注入方式如全局钩子注入、远程线程注入等注入dll到一个程序里面，因为使用了<code>GetProcAddress</code>得到<code>LoadLibrary</code>的地址，用<code>LoadLibrary</code>的地址加载了我们自己的dll，所以在导入表里面能够看到dll。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/11/03">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/10/22</span>
                 </div>
                 <!-- tags -->
                 
@@ -1453,7 +1457,129 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2676,7 +2802,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 111
+        Total : 117
         </div>
         <!-- search  -->
         
@@ -2693,6 +2819,12 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2022/05/14/blockdlls/">浅谈EDR绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
             <a class="archive-post-title" href="/2022/05/14/NtCreateUserProcess/">调用NtCreateUserProcess创建进程绕过杀软hook</a>
         </li>
     
@@ -2706,6 +2838,30 @@
         <li class="archive-post-item">
             <span class="archive-post-date">05/07</span>
             <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/04</span>
+            <a class="archive-post-title" href="/2022/05/04/x64HideMemory/">x64环境下隐藏可执行内存</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2022/05/01/%E6%B3%A8%E5%86%8C%E8%A1%A8/">深入理解注册表监控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/30</span>
+            <a class="archive-post-title" href="/2022/04/30/%E8%87%AA%E4%BF%9D%E6%8A%A4/">windows环境下的自保护探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/29</span>
+            <a class="archive-post-title" href="/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">64位下使用回调函数实现监控</a>
         </li>
     
         
@@ -2772,6 +2928,12 @@
         <li class="archive-post-item">
             <span class="archive-post-date">02/20</span>
             <a class="archive-post-title" href="/2022/02/20/r3TOr0API/">ring3下API的逆向分析及重构</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2022/02/17/shellcode/">shellcode编写探究</a>
         </li>
     
         
@@ -3371,21 +3533,6 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
         
-            <span class="sidebar-tag-name" data-tags="二进制">
-                <span class="iconfont-archer">&#xe606;</span>
-                二进制
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="内核">
-                <span class="iconfont-archer">&#xe606;</span>
-                内核
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                C++
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="内网渗透">
                 <span class="iconfont-archer">&#xe606;</span>
                 内网渗透
@@ -3399,6 +3546,21 @@
             <span class="sidebar-tag-name" data-tags="漏洞复现">
                 <span class="iconfont-archer">&#xe606;</span>
                 漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内核">
+                <span class="iconfont-archer">&#xe606;</span>
+                内核
             </span>
         
             <span class="sidebar-tag-name" data-tags="cms">
@@ -3421,19 +3583,24 @@
                 横向移动
             </span>
         
-            <span class="sidebar-tag-name" data-tags="java">
-                <span class="iconfont-archer">&#xe606;</span>
-                java
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="提权">
                 <span class="iconfont-archer">&#xe606;</span>
                 提权
             </span>
         
+            <span class="sidebar-tag-name" data-tags="windows">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="ctf">
                 <span class="iconfont-archer">&#xe606;</span>
                 ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java">
+                <span class="iconfont-archer">&#xe606;</span>
+                java
             </span>
         
             <span class="sidebar-tag-name" data-tags="cobalt strike">
@@ -3461,14 +3628,14 @@
                 oa
             </span>
         
-            <span class="sidebar-tag-name" data-tags="mysql">
-                <span class="iconfont-archer">&#xe606;</span>
-                mysql
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="中间件">
                 <span class="iconfont-archer">&#xe606;</span>
                 中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
             </span>
         
             <span class="sidebar-tag-name" data-tags="sql">
@@ -3481,14 +3648,19 @@
                 thinkphp
             </span>
         
-            <span class="sidebar-tag-name" data-tags="环境配置">
-                <span class="iconfont-archer">&#xe606;</span>
-                环境配置
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="web">
                 <span class="iconfont-archer">&#xe606;</span>
                 web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="x64">
+                <span class="iconfont-archer">&#xe606;</span>
+                x64
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
             </span>
         
             <span class="sidebar-tag-name" data-tags="域渗透">
@@ -3519,11 +3691,6 @@
             <span class="sidebar-tag-name" data-tags="权限维持">
                 <span class="iconfont-archer">&#xe606;</span>
                 权限维持
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="windows">
-                <span class="iconfont-archer">&#xe606;</span>
-                windows
             </span>
         
     </div>

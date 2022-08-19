@@ -429,6 +429,42 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/05/14/blockdlls/">
+                
+                <span class="abstract-title-text">浅谈EDR绕过</span>
+            </a>
+            <div class="abstract-content">
+                <p>我们知道一般EDR对可疑程序进行监控一般都会采用往程序里注入到检测的进程中，通过hook一些敏感的3环API来判断程序是否进行一些恶意操作，那么我们可以通过添加流程缓解措施和漏洞利用保护参考来实现保护，从而防止EDR的dll注入对进程进行检测</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/05/15">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/14</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/05/14/NtCreateUserProcess/">
                 
                 <span class="abstract-title-text">调用NtCreateUserProcess创建进程绕过杀软hook</span>
@@ -540,6 +576,158 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/05/04/x64HideMemory/">
+                
+                <span class="abstract-title-text">x64环境下隐藏可执行内存</span>
+            </a>
+            <div class="abstract-content">
+                <p>通过不落地实现反射注入shellcode到内存似乎是规避杀软hook api的一种好方式，但是无论如何某块内存的详细信息最终都会在vad里一览无余，那么vad作为内存管理的制高点，杀软自然也不会轻易放过。那么当我们反射注入执行的时候，如果杀软监控了vad树，就会捕捉到可疑内存从而查杀，那么我们要做的就是通过了解vad的机制来绕过杀软检测</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/05/06">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/04</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="x64">x64</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/05/01/%E6%B3%A8%E5%86%8C%E8%A1%A8/">
+                
+                <span class="abstract-title-text">深入理解注册表监控</span>
+            </a>
+            <div class="abstract-content">
+                <p>注册表是windows的重要数据库，存放了很多重要的信息以及一些应用的设置，对注册表进行监控并防止篡改是十分有必要的。在64位系统下微软提供了<code>CmRegisterCallback</code>这个回调函数来实时监控注册表的操作，那么既然这里微软提供了这么一个方便的接口，病毒木马自然也会利用，这里我们就来探究其实现的原理和如何利用这个回调函数进行对抗</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/05/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/01</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="windows">windows</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/04/30/%E8%87%AA%E4%BF%9D%E6%8A%A4/">
+                
+                <span class="abstract-title-text">windows环境下的自保护探究</span>
+            </a>
+            <div class="abstract-content">
+                <p>我们要想在32位下实现进程保护很简单，通过SSDT hook重写函数即可实现，但是在64位系统下因为引入了<code>PG</code>和<code>DSE</code>的原因，导致<code>SSDT hook</code>实现起来处处受限。但微软同样为了系统安全，增加了一个对象回调函数的接口，利用该回调可以实现对对象请求的过滤保护自身的进程，目前大部分64位下的安全软件保护机制都是基于该方法，我们深入进行探究</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/05/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/30</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">
+                
+                <span class="abstract-title-text">64位下使用回调函数实现监控</span>
+            </a>
+            <div class="abstract-content">
+                <p>在32位的系统下，我们想要实现某些监控十分简单，只需要找到对应的API实现挂钩操作即可检测进程。但在64位系统下随着<code>Patch Guard</code>的引入，导致我们如果继续使用挂钩API的方式进行监控会出现不可控的情况发生。微软也考虑到了用户程序的开发，所以开放了方便用户调用的系统回调API函数，在64位系统下的监控，使用系统回调相对于直接hook的方式往往是更值得青睐的一方</p>
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/05/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/29</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/04/16/%E9%9A%90%E8%97%8F%E5%86%85%E5%AD%98/">
                 
                 <span class="abstract-title-text">通过嵌入x64汇编隐藏数据&amp;反调试</span>
@@ -591,196 +779,6 @@
                 <!-- date -->
                 <div class="abstract-date" title="Last updated: 2022/04/13">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/13</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/04/10/%E5%8F%8D%E8%B0%83%E8%AF%95%E6%80%BB%E7%BB%93/">
-                
-                <span class="abstract-title-text">windows环境下的反调试探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>我们知道一些游戏为了防止被分析会加入反调试的代码，那么我们的木马样本同样也需要用到反调试技术。攻和防其实是相对的，只有了解了调试的原理，才能更深入的进行对抗，本文就对一些常见的反调试手段进行总结并对深层原理进行探究。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/04/11">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/10</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/04/07/hook%E6%94%BB%E9%98%B2/">
-                
-                <span class="abstract-title-text">浅谈hook攻防</span>
-            </a>
-            <div class="abstract-content">
-                <p>攻与防都是相对的，只有掌握细节才能更好的对抗。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/04/20">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/07</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/04/04/%E7%A1%AC%E4%BB%B6hook/">
-                
-                <span class="abstract-title-text">通过硬件断点绕过hook检测</span>
-            </a>
-            <div class="abstract-content">
-                <p>我们知道常见的注入方式有IAT hook、SSDT hook、Inline hook等，但其实大体上可以分为两类，一类是基于修改函数地址的hook，一类则是基于修改函数代码的hook。而基于修改函数地址的hook最大的局限性就是只能hook已导出的函数，对于一些未导出函数是无能为力的，所以在真实的hook中，Inline hook反而是更受到青睐的一方。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/04/06">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/04</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/04/01/%E5%BC%82%E5%B8%B8%E8%A7%A6%E5%8F%91/">
-                
-                <span class="abstract-title-text">windows环境下的调试器探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>在windows里面触发异常主要通过三种方式：软件断点、内存断点、硬件断点来实现，本文对这三种方式进行原理分析，通过自己构造代码来实现调试器的效果。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/04/06">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/04/01</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="二进制">二进制</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="内核">内核</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/03/28/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
-                
-                <span class="abstract-title-text">windows异常处理探究</span>
-            </a>
-            <div class="abstract-content">
-                <p>关于windows异常处理的探究。</p>
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/04/06">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/03/28</span>
                 </div>
                 <!-- tags -->
                 
@@ -1468,7 +1466,129 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2691,7 +2811,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 111
+        Total : 117
         </div>
         <!-- search  -->
         
@@ -2708,6 +2828,12 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2022/05/14/blockdlls/">浅谈EDR绕过</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
             <a class="archive-post-title" href="/2022/05/14/NtCreateUserProcess/">调用NtCreateUserProcess创建进程绕过杀软hook</a>
         </li>
     
@@ -2721,6 +2847,30 @@
         <li class="archive-post-item">
             <span class="archive-post-date">05/07</span>
             <a class="archive-post-title" href="/2022/05/07/%E6%A3%80%E6%B5%8Bshellcode/">对抗无落地的shellcode注入</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/04</span>
+            <a class="archive-post-title" href="/2022/05/04/x64HideMemory/">x64环境下隐藏可执行内存</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2022/05/01/%E6%B3%A8%E5%86%8C%E8%A1%A8/">深入理解注册表监控</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/30</span>
+            <a class="archive-post-title" href="/2022/04/30/%E8%87%AA%E4%BF%9D%E6%8A%A4/">windows环境下的自保护探究</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/29</span>
+            <a class="archive-post-title" href="/2022/04/29/%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7/">64位下使用回调函数实现监控</a>
         </li>
     
         
@@ -2787,6 +2937,12 @@
         <li class="archive-post-item">
             <span class="archive-post-date">02/20</span>
             <a class="archive-post-title" href="/2022/02/20/r3TOr0API/">ring3下API的逆向分析及重构</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2022/02/17/shellcode/">shellcode编写探究</a>
         </li>
     
         
@@ -3386,21 +3542,6 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
         
-            <span class="sidebar-tag-name" data-tags="二进制">
-                <span class="iconfont-archer">&#xe606;</span>
-                二进制
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="内核">
-                <span class="iconfont-archer">&#xe606;</span>
-                内核
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="C++">
-                <span class="iconfont-archer">&#xe606;</span>
-                C++
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="内网渗透">
                 <span class="iconfont-archer">&#xe606;</span>
                 内网渗透
@@ -3414,6 +3555,21 @@
             <span class="sidebar-tag-name" data-tags="漏洞复现">
                 <span class="iconfont-archer">&#xe606;</span>
                 漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="C++">
+                <span class="iconfont-archer">&#xe606;</span>
+                C++
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="二进制">
+                <span class="iconfont-archer">&#xe606;</span>
+                二进制
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="内核">
+                <span class="iconfont-archer">&#xe606;</span>
+                内核
             </span>
         
             <span class="sidebar-tag-name" data-tags="cms">
@@ -3436,19 +3592,24 @@
                 横向移动
             </span>
         
-            <span class="sidebar-tag-name" data-tags="java">
-                <span class="iconfont-archer">&#xe606;</span>
-                java
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="提权">
                 <span class="iconfont-archer">&#xe606;</span>
                 提权
             </span>
         
+            <span class="sidebar-tag-name" data-tags="windows">
+                <span class="iconfont-archer">&#xe606;</span>
+                windows
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="ctf">
                 <span class="iconfont-archer">&#xe606;</span>
                 ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="java">
+                <span class="iconfont-archer">&#xe606;</span>
+                java
             </span>
         
             <span class="sidebar-tag-name" data-tags="cobalt strike">
@@ -3476,14 +3637,14 @@
                 oa
             </span>
         
-            <span class="sidebar-tag-name" data-tags="mysql">
-                <span class="iconfont-archer">&#xe606;</span>
-                mysql
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="中间件">
                 <span class="iconfont-archer">&#xe606;</span>
                 中间件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mysql">
+                <span class="iconfont-archer">&#xe606;</span>
+                mysql
             </span>
         
             <span class="sidebar-tag-name" data-tags="sql">
@@ -3496,14 +3657,19 @@
                 thinkphp
             </span>
         
-            <span class="sidebar-tag-name" data-tags="环境配置">
-                <span class="iconfont-archer">&#xe606;</span>
-                环境配置
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="web">
                 <span class="iconfont-archer">&#xe606;</span>
                 web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="x64">
+                <span class="iconfont-archer">&#xe606;</span>
+                x64
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="环境配置">
+                <span class="iconfont-archer">&#xe606;</span>
+                环境配置
             </span>
         
             <span class="sidebar-tag-name" data-tags="域渗透">
@@ -3534,11 +3700,6 @@
             <span class="sidebar-tag-name" data-tags="权限维持">
                 <span class="iconfont-archer">&#xe606;</span>
                 权限维持
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="windows">
-                <span class="iconfont-archer">&#xe606;</span>
-                windows
             </span>
         
     </div>
